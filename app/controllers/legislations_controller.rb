@@ -4,8 +4,7 @@ class LegislationsController < ApplicationController
   # GET /legislations
   # GET /legislations.json
   def index
-    @legislations = Legislation.order('created_at DESC').
-        page(params[:page]).per_page(5)
+    @legislations = Legislation.order('created_at DESC').page params[:page]
   end
 
   # GET /legislations/1

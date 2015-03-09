@@ -14,8 +14,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # Use Foundation to make the site pretty
 gem 'foundation-rails'
-# Use will_paginate in order to paginate listed results
-gem 'will_paginate', '~> 3.0.5'
+# Use Kaminari in order to paginate listed results
+gem 'kaminari'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
