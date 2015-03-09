@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Troy City Council | <%= content_for?(:title) ? yield(:title) : "Legislative Twitter" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <!--Top Navigation Bar-->
+    <div class="row">
+      <%= render 'navbar' %>
+    </div>
+
+
+    <div class="row">
+      <!-- Right Content -->
+      <div class="large-9 push-3 columns">
+          <% if flash[:notice] %>
+            <div data-alert class="notice alert-box">
+              <%= flash[:notice] %>
+            </div>
+          <% end %>
+        <%= yield %>
+      </div>
+
+      <!-- Left Sidenav -->
+      <div class="large-3 pull-9 columns">
+
+        <ul class="side-nav">
+          <li><a href="#">Section 1</a></li>
+          <li><a href="#">Section 2</a></li>
+          <li><a href="#">Section 3</a></li>
+          <li><a href="#">Section 4</a></li>
+          <li><a href="#">Section 5</a></li>
+          <li><a href="#">Section 6</a></li>
+        </ul>
+
+
+      </div>
+
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer class="row">
+      <div class="large-12 columns">
+        <hr/>
+        <div class="row">
+          <div class="large-6 columns">
+            <p>© Copyright no one at all. Go to town.</p>
+          </div>
+          <div class="large-6 columns">
+            <ul class="inline-list right">
+              <li><a href="#">Section 1</a></li>
+              <li><a href="#">Section 2</a></li>
+              <li><a href="#">Section 3</a></li>
+              <li><a href="#">Section 4</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+  </body>
+</html>

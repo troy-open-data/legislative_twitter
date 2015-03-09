@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="large-9 columns"><h2>Listing Legislation</h2></div>
+  <div class="large-3 columns"><%= link_to '+ new', new_legislation_path, class:'right button' %></div>
+</div>
+
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= render @legislations %>
+  </div>
+</div>
+
+<br>
+
+<div class="row">
+  <div class="small-12 columns">
+    <%= will_paginate @legislations, :class => '' %>
+  </div>
+</div>
+
+
+

@@ -1,0 +1,29 @@
+<%= form_for(@legislation) do |f| %>
+    <fieldset>
+      <legend>Please enter legislation details below</legend>
+
+  <% if @legislation.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@legislation.errors.count, "error") %> prohibited this legislation from being saved:</h2>
+
+      <ul>
+      <% @legislation.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :body %>
+    <%= f.text_area :body %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Submit', class:'expand button' %>
+  </div>
+    </fieldset>
+<% end %>
