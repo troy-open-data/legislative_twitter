@@ -15,6 +15,7 @@
   <body>
     <!--Top Navigation Bar-->
     <div class="row">
+      <img src="http://placekitten.com/g/1000/120"/>
       <%= render 'navbar' %>
     </div>
 
@@ -56,14 +57,12 @@
         <hr/>
         <div class="row">
           <div class="large-6 columns">
-            <p>© Copyright no one at all. v0.0.1: deployed to 3/9/15 8:52pm</p>
+            <p>© Copyright no one at all. v0.0.2</p>
           </div>
           <div class="large-6 columns">
             <ul class="inline-list right">
-              <li><a href="#">Section 1</a></li>
-              <li><a href="#">Section 2</a></li>
-              <li><a href="#">Section 3</a></li>
-              <li><a href="#">Section 4</a></li>
+              <li><%= link_to 'Changelog', 'https://github.com/leesharma/legislative_twitter/commits/master' %></li>
+              <li><%= link_to 'GitHub Home', 'https://github.com/leesharma/legislative_twitter/' %></li>
             </ul>
           </div>
         </div>
