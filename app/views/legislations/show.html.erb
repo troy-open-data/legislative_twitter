@@ -19,9 +19,12 @@
     <p>
       <ul>
         <% @versions.each do |version| %>
-            <li><span class='label'><%= version.event %></span>
-              <%= version.created_at.to_s %>
-            (<%= link_to 'Revert', revert_version_path(id: version.id), method: :post %>)</li>
+            <li>
+              <span class='label'><%= version.event %></span>
+              <%= diff_summary version %>
+              (<%= link_to 'Revert', revert_version_path(id: version.id),
+                           method: :post %>)
+            </li>
         <% end %>
       </ul>
     </p>

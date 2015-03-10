@@ -10,7 +10,7 @@ class LegislationsController < ApplicationController
   # GET /legislations/1
   # GET /legislations/1.json
   def show
-    @versions = @legislation.versions.order('created_at ASC')
+    @versions = @legislation.versions.reorder("created_at DESC")
   end
 
   # GET /legislations/new

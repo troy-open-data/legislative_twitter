@@ -25,4 +25,11 @@ class LegislationTest < ActiveSupport::TestCase
     assert_match /#{created_datetime.day}/, created_string,
                  "should contain the day of creation"
   end
+
+  test "legislations should have paper trails" do
+    @legislation.update(title: 'New Title')
+    refute @legislation.versions.empty?
+
+    assert @legislation.versions.last.changeset.keys.include? 'title'
+  end
 end
