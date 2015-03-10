@@ -1444,4 +1444,66 @@ $include-html-global-classes: $include-html-classes;
 // $include-legacy-visibility-classes: true;
 // $include-accessibility-classes: true;
 
-@import 'foundation';
+//@import 'foundation';
+
+/* Each individual part that can be added in */
+@import "foundation/components/global";
+
+// STRUCTURE
+//media queries - javascript
+@import "foundation/components/visibility";
+@import "foundation/components/grid";
+//@import "foundation/components/block-grid";
+//interchange - javascript
+//@import "foundation/components/section";
+
+// NAVIGATION
+//@import "foundation/components/offcanvas";
+@import "foundation/components/top-bar";
+//@import "foundation/components/icon-bar";
+@import "foundation/components/side-nav";
+//@import "foundation/components/magellan";
+//@import "foundation/components/sub-nav";
+//@import "foundation/components/breadcrumbs";
+//@import "foundation/components/pagination";
+
+// MEDIA
+//@import "foundation/components/orbit";
+//@import "foundation/components/thumbs";
+//@import "foundation/components/clearing";
+//@import "foundation/components/flex-video";
+
+// FORMS
+@import "foundation/components/forms";
+//@import "foundation/components/switch";
+//@import "foundation/components/range-slider";
+//abide validation - javascript
+//@import "foundation/components/custom-forms";
+
+// BUTTONS
+@import "foundation/components/buttons";
+//@import "foundation/components/button-groups";
+//@import "foundation/components/split-buttons";
+//@import "foundation/components/dropdown-buttons";
+
+// TYPOGRAPHY
+@import "foundation/components/type";
+@import "foundation/components/inline-lists";
+//@import "foundation/components/labels";
+//@import "foundation/components/keystrokes";
+
+// CALLOUTS & PROMPTS
+//@import "foundation/components/reveal";
+@import "foundation/components/alert-boxes";
+//@import "foundation/components/panels";
+//@import "foundation/components/tooltips";
+//@import "foundation/components/joyride";
+
+// CONTENT
+@import "foundation/components/dropdown";
+//@import "foundation/components/pricing-tables";
+//@import "foundation/components/progress-bars";
+//@import "foundation/components/tables";
+//@import "foundation/components/accordion";
+//@import "foundation/components/tabs";
+//equalizer - javascript
