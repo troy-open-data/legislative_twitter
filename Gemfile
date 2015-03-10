@@ -46,6 +46,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 #   Use Rails Footnotes to see variables, database queries, etc. from the application
 #   Use Reek to find inconsistancies and ugly programming
 #   Use Quiet Assets to turn off the Rails Asset Pipeline log
+#   Use Travis Lint to check .travis.yml syntax
 group :development do
   gem 'annotate', '~> 2.6.5'
   gem 'better_errors'
@@ -55,6 +56,7 @@ group :development do
   gem 'rails-footnotes', '~> 4.0'
   # gem 'reek'
   gem 'quiet_assets'
+  gem 'travis-lint'
 end
 
 # Include Minitest and Minitest Reporters for RubyMine

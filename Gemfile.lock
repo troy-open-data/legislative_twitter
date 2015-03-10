@@ -171,6 +171,8 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.4)
     tilt (1.4.1)
+    travis-lint (2.0.0)
+      json
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -210,6 +212,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
+  travis-lint
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 2.0)
