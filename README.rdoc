@@ -1,8 +1,8 @@
 == Legislative Twitter
-
 {<img src="https://travis-ci.org/leesharma/legislative_twitter.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/leesharma/legislative_twitter]
 {<img src="https://codeclimate.com/github/leesharma/legislative_twitter/badges/gpa.svg" />}[https://codeclimate.com/github/leesharma/legislative_twitter]
 {<img src="https://codeclimate.com/github/leesharma/legislative_twitter/badges/coverage.svg" />}[https://codeclimate.com/github/leesharma/legislative_twitter]
+{<img src="https://gemnasium.com/leesharma/legislative_twitter.svg" alt="Dependency Status" />}[https://gemnasium.com/leesharma/legislative_twitter]
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
