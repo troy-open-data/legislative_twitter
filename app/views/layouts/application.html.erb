@@ -15,7 +15,7 @@
   <body>
     <!--Top Navigation Bar-->
     <div class="row">
-      <img src="http://placekitten.com/g/1000/120"/>
+      <%= render 'banner' %>
       <%= render 'navbar' %>
     </div>
 
@@ -23,51 +23,19 @@
     <div class="row">
       <!-- Right Content -->
       <div class="large-9 push-3 columns">
-          <% if flash[:notice] %>
-            <div id="mainAlert1" data-alert class="notice alert-box" tabindex="0" aria-live="assertive" role="dialogalert">
-                <%= flash[:notice] %>
-                <button href="#" tabindex="0" class="close" aria-label="Close Alert">&times;</button>
-            </div>
-          <% end %>
+        <%= render 'notice' %>
         <%= yield %>
       </div>
 
       <!-- Left Sidenav -->
-      <div class="large-3 pull-9 columns">
-
-        <ul class="side-nav">
-          <li><a href="#">Section 1</a></li>
-          <li><a href="#">Section 2</a></li>
-          <li><a href="#">Section 3</a></li>
-          <li><a href="#">Section 4</a></li>
-          <li><a href="#">Section 5</a></li>
-          <li><a href="#">Section 6</a></li>
-        </ul>
-
-
-      </div>
+      <%= render 'sidenav' %>
 
     </div>
 
 
 
     <!-- Footer -->
-    <footer class="row">
-      <div class="large-12 columns">
-        <hr/>
-        <div class="row">
-          <div class="large-6 columns">
-            <p>© Copyright no one at all. v0.0.2</p>
-          </div>
-          <div class="large-6 columns">
-            <ul class="inline-list right">
-              <li><%= link_to 'Changelog', 'https://github.com/leesharma/legislative_twitter/commits/master' %></li>
-              <li><%= link_to 'GitHub Home', 'https://github.com/leesharma/legislative_twitter/' %></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
+    <%= render 'footer' %>
 
 
   </body>
