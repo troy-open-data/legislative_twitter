@@ -20,13 +20,13 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
-  username: legislative_twitter
-  password: <%= ENV['DB_PASSWORD'] %>
-  # fixme: read configuration from database.env
 
 development:
   <<: *default
   database: legislative_twitter_development
+    username: legislative_twitter
+    password: <%= ENV['DB_PASSWORD'] %>
+    # fixme: read configuration from database.env
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -60,6 +60,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  username: legislative_twitter
   database: legislative_twitter_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
@@ -83,7 +84,4 @@ test:
 #
 production:
   <<: *default
-#  database: legislative_twitter_production
-#  username: <%= ENV['LEGISLATIVE_TWITTER_DATABASE_PASSWORD'] %>
-#  password: <%= ENV['LEGISLATIVE_TWITTER_DATABASE_PASSWORD'] %>
   url: <%= ENV['DATABASE_URL'] %>
