@@ -11,5 +11,20 @@
 
     <%= link_to 'Edit', edit_legislation_path(@legislation), class:'small button' %>
     <%= link_to 'Back', legislations_path, class:'small button' %>
+    <%= link_to('Archive', legislation_path,
+                  method: "delete", remote: true, class: 'small alert button',
+                  data: { confirm: 'Are you sure you want to archive this?'}) %>
+
+    <h4>Changelog</h4>
+    <p>
+      <ul>
+        <% @versions.each do |version| %>
+            <li><span class='label'><%= version.event %></span>
+              <%= version.created_at.to_s %>
+            (<%= link_to 'Revert', revert_version_path(id: version.id), method: :post %>)</li>
+        <% end %>
+      </ul>
+    </p>
+
   </div>
 </div>

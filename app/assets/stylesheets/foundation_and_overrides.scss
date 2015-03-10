@@ -1489,7 +1489,7 @@ $include-html-global-classes: $include-html-classes;
 // TYPOGRAPHY
 @import "foundation/components/type";
 @import "foundation/components/inline-lists";
-//@import "foundation/components/labels";
+@import "foundation/components/labels";
 //@import "foundation/components/keystrokes";
 
 // CALLOUTS & PROMPTS

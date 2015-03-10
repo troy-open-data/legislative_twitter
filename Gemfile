@@ -16,6 +16,12 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'foundation-rails'
 # Use Kaminari in order to paginate listed results
 gem 'kaminari'
+# Use ckeditor for wysiwyg input for legislation -> do this later
+# gem 'ckeditor'
+# rails generate ckeditor:install --orm=active_record --backend=carrierwave
+
+# gem 'carrierwave'
+# gem 'mini_magick'
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -28,6 +34,9 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+# Paper Trail keeps versions of chosen models
+gem 'paper_trail', '~> 4.0.0.beta'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

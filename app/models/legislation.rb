@@ -10,7 +10,9 @@
 #
 
 class Legislation < ActiveRecord::Base
+  has_paper_trail
   paginates_per 5
+  # todo: how to test paper trail and pagination?
 
   def created_at_time
     created_at.strftime('Added %B %d, %Y')

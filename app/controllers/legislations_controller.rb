@@ -10,6 +10,7 @@ class LegislationsController < ApplicationController
   # GET /legislations/1
   # GET /legislations/1.json
   def show
+    @versions = @legislation.versions.order('created_at ASC')
   end
 
   # GET /legislations/new
@@ -56,7 +57,7 @@ class LegislationsController < ApplicationController
   def destroy
     @legislation.destroy
     respond_to do |format|
-      format.html { redirect_to legislations_url, notice: 'Legislation was successfully destroyed.' }
+      format.html { redirect_to legislations_url, notice: 'Legislation was successfully archived.' }
       format.json { head :no_content }
     end
   end
