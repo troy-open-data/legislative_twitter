@@ -14,5 +14,4 @@ addons:
   postgresql: "9.3"
 
 before_script:
-  - psql -c 'create role legislative_twitter login'
-  - psql -c 'create database legislative_twitter_test;' -U legislative_twitter
+  - psql -c 'create database legislative_twitter_test;' -U postgres
