@@ -13,8 +13,12 @@ require 'test_helper'
 
 class LegislationTest < ActiveSupport::TestCase
   def setup
-    @legislation = legislations(:one)
+    @legislation = Legislation.new(title: legislations(:one).title,
+                                   body:  legislations(:one).body)
+    @legislation.save!
   end
+
+  # Legislation methods
   test "created_at_time should contain the year, month, and day of creation" do
     created_datetime = @legislation.created_at
     created_string = @legislation.created_at_time
@@ -26,10 +30,31 @@ class LegislationTest < ActiveSupport::TestCase
                  "should contain the day of creation"
   end
 
+  # Paper Trail Tests
   test "legislations should have paper trails" do
-    @legislation.update(title: 'New Title')
-    refute @legislation.versions.empty?
+    assert @legislation.respond_to? :versions
+  end
 
-    assert @legislation.versions.last.changeset.keys.include? 'title'
+  test "new legislations should have one version marking creation" do
+    assert_equal 1, @legislation.versions.count
+    assert_equal "create", @legislation.versions.last.event
+  end
+
+  test "updating legislation should add version marking update" do
+    assert_difference('@legislation.versions.count') do
+      @legislation.update(title: 'New Title')
+    end
+    assert_equal "update", @legislation.versions.last.event
+  end
+
+  test "deleting legislation should add version marking destroy" do
+    assert_difference('@legislation.versions.count') do
+      @legislation.destroy
+    end
+    assert_equal "destroy", @legislation.versions.last.event
+  end
+
+  test "legislations should have paper trail changesets" do
+    assert @legislation.versions.last.respond_to? :changeset
   end
 end

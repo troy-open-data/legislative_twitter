@@ -2,17 +2,25 @@ require 'test_helper'
 
 class VersionsControllerTest < ActionController::TestCase
   def setup
-    @legislation = legislations(:one)
+    @legislation = Legislation.new(title: legislations(:one).title,
+                                   body:  legislations(:one).body)
+    @legislation.save!
+
+    @legislation.update(body: 'New Body')
+    @legislation.save!
+    @most_recent = @legislation.versions.last
+
     request.env["HTTP_REFERER"] = legislations_path
   end
 
-  test "revert should change the object back to a version" do
-    @legislation.update(title: 'New Title')
-    @legislation.update(body: 'New Body')
-    @legislation.save!
-    most_recent = @legislation.versions.last
-    #flunk most_recent.changeset.inspect
+  test "revert should add a new version" do
+    assert_difference('@legislation.versions.count') do
+      post :revert, id: @most_recent
+    end
+  end
 
-    post :revert, id: most_recent
+  test "should revert a legislation to a version" do
+    post :revert, id: @most_recent
+    assert_redirected_to legislation_path(@legislation)
   end
 end
