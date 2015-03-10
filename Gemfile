@@ -57,7 +57,7 @@ gem 'paper_trail', '~> 4.0.0.beta'
 #   Use Quiet Assets to turn off the Rails Asset Pipeline log
 #   Use Travis Lint to check .travis.yml syntax
 group :development do
-  gem 'annotate', '~> 2.6.5'
+  gem 'annotate', '~> 2.6.6'
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'bullet'
