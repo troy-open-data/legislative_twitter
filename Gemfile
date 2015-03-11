@@ -91,3 +91,6 @@ group :development, :test do
   gem 'dotenv-rails'
 end
 
+# Use 12 factor to enable serving assets in production and set logger to stdout
+gem 'rails_12factor', group: :production
+
