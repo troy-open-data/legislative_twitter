@@ -40,6 +40,38 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Configure for mailcatcher on port 1025
+  # More details: https://mailcatcher.me
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+
+  # Configuration for bullet
+  # More details: https://github.com/flyerhzm/bullet
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.alert = true
+    Bullet.bullet_logger = true
+    Bullet.console = true
+    # Bullet.growl = true
+    # Bullet.xmpp = { :account  => 'bullets_account@jabber.org',
+    #                 :password => 'bullets_password_for_jabber',
+    #                 :receiver => 'your_account@jabber.org',
+    #                 :show_online_status => true }
+    Bullet.rails_logger = true
+    # Bullet.bugsnag = true
+    # Bullet.airbrake = true
+    Bullet.add_footer = true
+    Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
+  end
+
+  # Store uploaded files to Amazon S3 storage
+  # More information at https://devcenter.heroku.com/articles/paperclip-s3
+  # Note: to store files locally in development, comment this code out.
+  # config.paperclip_defaults = {
+  #     :storage => :s3,
+  #     :s3_credentials => {
+  #         # :bucket => ENV['S3_BUCKET_NAME'],
+  #         # :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
+  #         # :secret_access_key => ENV['AWS_SECRET_ACCESS_KEY']
+  #     }
+  # }
 end

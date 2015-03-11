@@ -18,7 +18,7 @@
 
 
 // run js either when page loads or document is ready
-// fix for turbolinks
+// allows script to run with turbolinks
 var ready;
 ready = function() {
     $(document).foundation();

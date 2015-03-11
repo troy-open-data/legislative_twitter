@@ -18,9 +18,9 @@ gem 'foundation-rails'
 gem 'kaminari'
 # Use HTMLDiff to generate html diff output for two strings
 gem 'diffy'
-# Use ckeditor for wysiwyg input for legislation -> do this later
-# gem 'ckeditor'
-# rails generate ckeditor:install --orm=active_record --backend=carrierwave
+# Use paperclip and aws-skd for file upload to S3 storage
+gem "paperclip", "~> 4.2"
+gem 'aws-sdk', '~> 1.5.7'
 
 # gem 'carrierwave'
 # gem 'mini_magick'
@@ -90,7 +90,4 @@ group :development, :test do
   # Shim to load environment variables from .env into ENV in development.
   gem 'dotenv-rails'
 end
-
-# Use 12 factor to enable serving assets in production and set logger to stdout
-gem 'rails_12factor', group: :production
 

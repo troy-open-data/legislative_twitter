@@ -41,6 +41,11 @@ GEM
       rake (~> 10.4.2, >= 10.4.2)
     ansi (1.5.0)
     arel (6.0.0)
+    aws-sdk (1.5.8)
+      httparty (~> 0.7)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4)
+      uuidtools (~> 2.1)
     better_errors (2.1.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
@@ -55,6 +60,10 @@ GEM
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
       slop (~> 3.6)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.7)
+      climate_control (>= 0.0.3, < 1.0)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
     coderay (1.1.0)
@@ -81,6 +90,9 @@ GEM
     globalid (0.3.3)
       activesupport (>= 4.1.0)
     hike (1.2.3)
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.7.0)
     jbuilder (2.2.11)
       activesupport (>= 3.0.0, < 5)
@@ -106,11 +118,17 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     multi_json (1.11.0)
+    multi_xml (0.5.5)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     paper_trail (4.0.0.beta2)
       activerecord (>= 3.0, < 6.0)
       activesupport (>= 3.0, < 6.0)
+    paperclip (4.2.1)
+      activemodel (>= 3.0.0)
+      activesupport (>= 3.0.0)
+      cocaine (~> 0.5.3)
+      mime-types
     pg (0.18.1)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
@@ -138,11 +156,6 @@ GEM
       rails (>= 3.2)
     rails-html-sanitizer (1.0.1)
       loofah (~> 2.0)
-    rails_12factor (0.0.3)
-      rails_serve_static_assets
-      rails_stdout_logging
-    rails_serve_static_assets (0.0.4)
-    rails_stdout_logging (0.0.3)
     railties (4.2.0)
       actionpack (= 4.2.0)
       activesupport (= 4.2.0)
@@ -190,6 +203,7 @@ GEM
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     uniform_notifier (1.7.0)
+    uuidtools (2.1.5)
     web-console (2.1.1)
       activemodel (>= 4.0)
       binding_of_caller (>= 0.7.2)
@@ -201,6 +215,7 @@ PLATFORMS
 
 DEPENDENCIES
   annotate (~> 2.6.6)
+  aws-sdk (~> 1.5.7)
   better_errors
   binding_of_caller
   bullet
@@ -216,11 +231,11 @@ DEPENDENCIES
   minitest
   minitest-reporters
   paper_trail (~> 4.0.0.beta)
+  paperclip (~> 4.2)
   pg
   quiet_assets
   rails (= 4.2.0)
   rails-footnotes (~> 4.0)
-  rails_12factor
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring
