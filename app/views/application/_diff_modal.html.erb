@@ -1,0 +1,10 @@
+<div id="diffModal<%=version.id%>" class="reveal-modal" data-reveal>
+  <h2><%= version.event.capitalize %> Details</h2>
+  <p class="lead">For version <%= "#{version.index+1}/#{legislation.versions.count}" || "?" %> of <i><%= legislation.title %></i></p>
+  <% legislation.diff_attributes(version).each do |attribute| %>
+      <h4><%= attribute.capitalize %></h4>
+      <% old,new = version.changeset[attribute] %>
+      <%= diff(old,new) %>
+  <% end %>
+  <a class="close-reveal-modal">&#215;</a>
+</div>

@@ -16,6 +16,8 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'foundation-rails'
 # Use Kaminari in order to paginate listed results
 gem 'kaminari'
+# Use HTMLDiff to generate html diff output for two strings
+gem 'diffy'
 # Use ckeditor for wysiwyg input for legislation -> do this later
 # gem 'ckeditor'
 # rails generate ckeditor:install --orm=active_record --backend=carrierwave

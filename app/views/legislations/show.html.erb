@@ -16,18 +16,31 @@
                   data: { confirm: 'Are you sure you want to archive this?'}) %>
 
     <h4>Changelog</h4>
-    <p>
-      <ul>
-        <% @versions.each do |version| %>
-            <li>
-              <span class='label'><%= version.event %></span>
-              <%= diff_summary version %>
-              (<%= link_to 'Revert', revert_version_path(id: version.id),
-                           method: :post %>)
-            </li>
-        <% end %>
-      </ul>
-    </p>
+    <table>
+
+      <thead>
+        <tr>
+          <th>Action</th>
+          <th>Changed Attributes</th>
+          <th>Time</th>
+          <th>&Delta;</th>
+          <th>Rollback</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @versions.each do |version| %>
+        <tr>
+          <td><%= version.event %></td>
+          <td><%= @legislation.list_changed_attributes version %></td>
+          <td><%= version.created_at.strftime("%-l:%M%P on %m/%d/%y") %></td>
+          <td><a href="#" data-reveal-id="diffModal<%=version.id%>">View Diff</a></td>
+          <td><%= link_to 'Rollback', revert_version_path(id: version.id),
+                          method: :post %></td>
+          <%= render 'application/diff_modal', version: version, legislation: @legislation %>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
 
   </div>
 </div>

@@ -1493,7 +1493,7 @@ $include-html-global-classes: $include-html-classes;
 //@import "foundation/components/keystrokes";
 
 // CALLOUTS & PROMPTS
-//@import "foundation/components/reveal";
+@import "foundation/components/reveal";
 @import "foundation/components/alert-boxes";
 //@import "foundation/components/panels";
 //@import "foundation/components/tooltips";
@@ -1503,7 +1503,7 @@ $include-html-global-classes: $include-html-classes;
 @import "foundation/components/dropdown";
 //@import "foundation/components/pricing-tables";
 //@import "foundation/components/progress-bars";
-//@import "foundation/components/tables";
+@import "foundation/components/tables";
 //@import "foundation/components/accordion";
 //@import "foundation/components/tabs";
 //equalizer - javascript

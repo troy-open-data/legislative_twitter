@@ -19,6 +19,7 @@ class LegislationTest < ActiveSupport::TestCase
   end
 
   # Legislation methods
+  #   General
   test "created_at_time should contain the year, month, and day of creation" do
     created_datetime = @legislation.created_at
     created_string = @legislation.created_at_time
@@ -28,6 +29,26 @@ class LegislationTest < ActiveSupport::TestCase
                  "should contain the fulltext month of creation"
     assert_match /#{created_datetime.day}/, created_string,
                  "should contain the day of creation"
+  end
+  #   Diff Methods
+  test "should return changed attributes of the last version" do
+    @legislation.update(title: 'New Title')
+    @legislation.save!
+
+    diff_attributes = @legislation.diff_attributes
+    assert_equal ['title'], diff_attributes
+  end
+
+  test "should return changed attributes in a given version" do
+    @legislation.update(title: 'New Title')
+    @legislation.save!
+    @legislation.update(body: 'New Body')
+    @legislation.save!
+
+    version = @legislation.versions[-2]
+
+    diff_attributes = @legislation.diff_attributes version
+    assert_equal ['title'], diff_attributes
   end
 
   # Paper Trail Tests
