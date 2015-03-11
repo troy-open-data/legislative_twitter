@@ -18,10 +18,12 @@
     <%= f.label :title %>
     <%= f.text_field :title %>
   </div>
+
   <div class="field">
     <%= f.label :body %>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, class:'jqte-test' %>
   </div>
+
   <div class="actions">
     <%= f.submit 'Submit', class:'expand button' %>
   </div>

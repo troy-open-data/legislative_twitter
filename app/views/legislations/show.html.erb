@@ -4,10 +4,10 @@
       <small><%= @legislation.created_at_time %></small>
     </h2>
 
-    <p>
-      <%= @legislation.body %>
-      <!--todo: rich text-->
-    </p>
+    <div class="panel">
+      <%= @legislation.body.html_safe %>
+      <!--todo: how does this impact security?-->
+    </div>
 
     <%= link_to 'Edit', edit_legislation_path(@legislation), class:'small button' %>
     <%= link_to 'Back', legislations_path, class:'small button' %>

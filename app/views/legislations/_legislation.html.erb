@@ -3,9 +3,9 @@
   <%= link_to legislation.title, legislation %>
   <small><%= legislation.created_at_time %></small>
 </h4>
-<p><%= truncate legislation.body,
+<p><%= truncate(strip_tags(legislation.body),
                 length: 200,
-                omission: "... (length: #{legislation.body.length} characters)" %>
+                omission: "... (length: #{legislation.body.length} characters)") %>
 </p>
 <%= link_to 'Show', legislation, class:'tiny button' %>
 <%= link_to 'Edit', edit_legislation_path(legislation),
