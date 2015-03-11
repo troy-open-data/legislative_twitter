@@ -16,13 +16,12 @@
 //= require turbolinks
 //= require_tree .
 
-$(function(){
-    $(document).foundation();
-});
 
-// jTE Javascript - runs when page changes.
+// run js either when page loads or document is ready
+// fix for turbolinks
 var ready;
 ready = function() {
+    $(document).foundation();
     $('.jqte-test').jqte();  //todo: only put this on pages that need it
 };
 
