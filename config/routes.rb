@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+
+  get 'search' => "search#search", :as => :search
+
   resources :legislations
 
   post "versions/:id/revert" => "versions#revert", :as => "revert_version"
