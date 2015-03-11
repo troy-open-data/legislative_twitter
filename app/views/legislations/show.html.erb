@@ -15,9 +15,11 @@
                   method: "delete", remote: true, class: 'small alert button',
                   data: { confirm: 'Are you sure you want to archive this?'}) %>
 
-    <h4>Changelog</h4>
-    <table>
-
+    <br /><hr />
+    <!-- todo: ugly solution -->
+    <p>
+    <table width="100%" role="grid" summary="All changes (creates, updates, and destroys) to the legislation in question, including the attributes changed, the time changed, and links to a detailed diff and rollback button.">
+      <caption>Legislation Changelog</caption>
       <thead>
         <tr>
           <th>Action</th>
@@ -41,6 +43,6 @@
       <% end %>
       </tbody>
     </table>
-
+    </p>
   </div>
 </div>
