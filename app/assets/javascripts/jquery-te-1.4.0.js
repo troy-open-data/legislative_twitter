@@ -103,7 +103,7 @@
 		// methods
 		$.fn.jqteVal = function(value){
 			$(this).closest("."+vars.css).find("."+vars.css+"_editor").html(value);
-		}
+		};
 		
 		// browser information is received
 		var thisBrowser = navigator.userAgent.toLowerCase();
@@ -119,7 +119,7 @@
 		{
 			var thisCssNo  = buttons.length+1;
 			return buttons.push({name:name, cls:thisCssNo, command:command, key:key, tag:tag, emphasis:emphasis});
-		};
+		}
 		
 		// add parameters for toolbar buttons
 		addParams('format','formats','','',false); // text format button  --> no hotkey
@@ -528,7 +528,7 @@
 				{
 					var styleKey = style.split(";"); // split the styles
 					
-					styleKey = styleKey[0].split(":") // get the key of first style feature
+					styleKey = styleKey[0].split(":"); // get the key of first style feature
 					
 					// apply to child tags with parent tag's styles
 					if(element.is("[style*="+styleKey[0]+"]"))
@@ -617,7 +617,7 @@
 					{
 						var thisLinkType = $(this).attr(vars.css+"-linktype");
 						
-						linktypes.data("linktype",thisLinkType)
+						linktypes.data("linktype",thisLinkType);
 						
 						linktypeview.find("."+vars.css+"_linktypetext").html(linktypes.find('a:eq('+linktypes.data("linktype")+')').text());
 						
@@ -1025,7 +1025,7 @@
 				}
 				else 
 					return false;
-			};
+			}
 
 			// the function of highlighting the toolbar buttons according to the cursor position in jqte editor
 			function buttonEmphasize(e)

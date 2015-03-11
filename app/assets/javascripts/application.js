@@ -24,7 +24,6 @@ $(function(){
 var ready;
 ready = function() {
     $('.jqte-test').jqte();  //todo: only put this on pages that need it
-    var jqteStatus = true;
 };
 
 $(document).ready(ready);
