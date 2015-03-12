@@ -129,7 +129,14 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    pdf-core (0.5.1)
     pg (0.18.1)
+    prawn (2.0.0)
+      pdf-core (~> 0.5.0)
+      ttfunk (~> 1.4.0)
+    prawn_rails (0.0.11)
+      prawn (>= 0.11.1)
+      railties (>= 3.0.0)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
     rack (1.6.0)
@@ -195,6 +202,7 @@ GEM
     tilt (1.4.1)
     travis-lint (2.0.0)
       json
+    ttfunk (1.4.0)
     turbolinks (2.5.3)
       coffee-rails
     tzinfo (1.2.2)
@@ -233,6 +241,7 @@ DEPENDENCIES
   paper_trail (~> 4.0.0.beta)
   paperclip (~> 4.2)
   pg
+  prawn_rails
   quiet_assets
   rails (= 4.2.0)
   rails-footnotes (~> 4.0)

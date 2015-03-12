@@ -1,5 +1,10 @@
 <div class="row">
   <div class="small-12 columns">
+
+    <%= link_to "Download PDF",
+                legislation_path(id: @legislation.id, format: 'pdf'),
+                class: 'right button' %>
+
     <h2><%= @legislation.title %><br />
       <small><%= @legislation.created_at_time %></small>
     </h2>

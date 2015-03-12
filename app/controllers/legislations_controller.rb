@@ -13,6 +13,11 @@ class LegislationsController < ApplicationController
   def show
     @versions = @legislation.versions.reorder("created_at DESC")
     @version_count = @legislation.versions.count
+    respond_to do |format|
+      format.html
+      format.json
+      format.pdf
+    end
   end
 
   # GET /legislations/new
