@@ -5,7 +5,9 @@ prawn_document do |pdf|
   pdf.move_down(18)
 
   # sanitizes and splits the body based on paragraph markers
-  body = sanitize @legislation.body, tags: %w(b strong i u strikethrough sub sup)
+  body = sanitize(@legislation.body,
+                  tags: %w(b strong i u strikethrough sub sup p),
+                  attributes: [])
   body_paragraphs = body.split(/\<\/?p\>/).delete_if{|p| p.empty?}
   # outputs each paragraph
   body_paragraphs.each do |paragraph|
