@@ -5,7 +5,9 @@
 </h4>
 <p><%= truncate(strip_tags(legislation.body),
                 length: 200,
-                omission: "... (length: #{legislation.body.length} characters)") %>
+                omission: "...") %>
+  <%= "(with #{pluralize legislation.attachments.count, 'attachment'})" unless
+              legislation.attachments.empty? %>
 </p>
 <%= link_to 'Show', legislation, class:'tiny button' %>
 <%= link_to 'Edit', edit_legislation_path(legislation),

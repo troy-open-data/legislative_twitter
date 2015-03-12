@@ -27,3 +27,6 @@ config/database.yml
 
 # Code Climate code coverage results
 coverage
+
+# Don't commit local attachments
+public/system/attachments
