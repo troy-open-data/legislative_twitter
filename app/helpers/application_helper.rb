@@ -15,4 +15,15 @@ module ApplicationHelper
       "#{attachment.title} (#{attachment.file.content_type})"
     end
   end
+
+  # Takes input in the form of an html-rich string and returns an array of
+  # prawn-sanitized paragraphs
+  def prawnify_paragraphs(body, size=16)
+    # Replace all headers with large text
+    body = body.gsub(/\<h\d\>/,"<font size='#{size}'>").gsub(/\<\/h\d\>/,'</font>')
+    # Remove all unexpected tags
+    body = body.split(/\<\/?p\>/).delete_if{|p| p.empty?}
+
+    body.map!{|paragraph| sanitize(paragraph, tags: %w{b i u strikethrough sub sup color font}, attributes: %w{size})}
+  end
 end
