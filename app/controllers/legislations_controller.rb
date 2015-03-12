@@ -11,15 +11,18 @@ class LegislationsController < ApplicationController
   # GET /legislations/1.json
   def show
     @versions = @legislation.versions.reorder("created_at DESC")
+    @version_count = @legislation.versions.count
   end
 
   # GET /legislations/new
   def new
     @legislation = Legislation.new
+    2.times { @legislation.attachments.build }
   end
 
   # GET /legislations/1/edit
   def edit
+    1.times { @legislation.attachments.build }
   end
 
   # POST /legislations
@@ -57,19 +60,24 @@ class LegislationsController < ApplicationController
   def destroy
     @legislation.destroy
     respond_to do |format|
-      format.html { redirect_to legislations_url, notice: 'Legislation was successfully archived.' }
+      format.html { redirect_to legislations_url, notice: 'Legislation was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_legislation
-      @legislation = Legislation.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_legislation
+    @legislation = Legislation.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def legislation_params
-      params.require(:legislation).permit(:title, :body)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def legislation_params
+    params.require(:legislation).permit(:title, :body,
+                                        attachments_attributes: [:title,
+                                                                 :description,
+                                                                 :file,
+                                                                 :id,
+                                                                 :_destroy])
+  end
 end

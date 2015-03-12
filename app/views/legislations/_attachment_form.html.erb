@@ -1,0 +1,16 @@
+<div class="field">
+  <%= f.label :file, 'Add Attachment' %>
+  <%= f.file_field :file %>
+</div>
+<div class="field">
+  <%= f.label :title, 'Title (optional)' %>
+  <%= f.text_field :title %>
+</div>
+<div class="field">
+  <%= f.label :description, 'Description (optional)' %>
+  <%= f.text_field :description %>
+</div>
+<div class="field">
+  <%= f.check_box :_destroy %>
+  <%= f.label :_destroy, 'remove attachment' %>
+</div>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :attachments
+
   get 'search' => "search#search", :as => :search
 
   resources :legislations

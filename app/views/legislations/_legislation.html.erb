@@ -10,3 +10,6 @@
 <%= link_to 'Show', legislation, class:'tiny button' %>
 <%= link_to 'Edit', edit_legislation_path(legislation),
                class:'tiny button' %>
+<%= link_to('Delete', legislation,
+            method: "delete", class: 'tiny alert button',
+            data: { confirm: 'Are you sure you want to delete this?'}) %>

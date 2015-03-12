@@ -13,6 +13,11 @@ class Legislation < ActiveRecord::Base
   has_paper_trail
   paginates_per 5
 
+  has_many :attachments, dependent: :destroy
+  accepts_nested_attributes_for :attachments,
+                                reject_if: lambda {|attribute| attribute[:file].blank?},
+                                allow_destroy: true
+
   def created_at_time
     created_at.strftime('Added %B %d, %Y')
   end
