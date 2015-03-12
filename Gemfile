@@ -51,6 +51,9 @@ gem 'paper_trail', '~> 4.0.0.beta'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
+# Use Rails 12 factor for Heroku
+gem 'rails_12factor'
+
 # During development,
 #   Use Annotate to generate a schema on top of models, fixtures, and tests
 #   Use BetterErrors for more detailed exceptions pages

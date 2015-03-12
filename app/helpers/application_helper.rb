@@ -20,7 +20,7 @@ module ApplicationHelper
   # prawn-sanitized paragraphs
   def prawnify_paragraphs(body, size=16)
     # Replace all headers with large text
-    body = body.gsub(/\<h\d\>/,"<font size='#{size}'>").gsub(/\<\/h\d\>/,'</font>')
+    body = body.gsub(/\<h\d\>/,"<font size='#{size}'>").gsub(/\<\/h\d\>/,'</font><p>')
     # Remove all unexpected tags
     body = body.split(/\<\/?p\>/).delete_if{|p| p.empty?}
 
