@@ -5,7 +5,7 @@
                 legislation_path(id: @legislation.id, format: 'pdf'),
                 class: 'right button' %>
 
-    <h2><%= @legislation.title %><br />
+    <h2><%= @legislation.title.titleize %><br />
       <small><%= @legislation.created_at_time %></small>
     </h2>
 
