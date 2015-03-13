@@ -25,10 +25,10 @@
       </div>
 
       <div class="field panel">
-        <%= f.link_to_add '+ add an attachment', :attachments, class: 'small button expand' %>
         <%= f.fields_for :attachments do |builder| %>
             <%= render 'attachment_form', f: builder %>
         <% end %>
+        <%= f.link_to_add '+ add an attachment', :attachments, class: 'small button expand' %>
       </div>
 
       <div class="actions">
