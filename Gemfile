@@ -54,6 +54,8 @@ gem 'paper_trail', '~> 4.0.0.beta'
 gem 'rails_12factor'
 # Use Rollbar to monitor exceptions
 gem 'rollbar', '~> 1.4.4'
+# Use NewRelic for application performance monitoring
+gem 'newrelic_rpm'
 
 # During development,
 #   Use Annotate to generate a schema on top of models, fixtures, and tests
