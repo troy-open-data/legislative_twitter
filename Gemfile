@@ -6,6 +6,7 @@ gem 'rails', '4.2.0'
 # Use PostgreSQL as the database for Active Record
 gem 'pg'
 
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -14,10 +15,14 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # Use Foundation to make the site pretty
 gem 'foundation-rails'
+
+
 # Use Kaminari in order to paginate listed results
 gem 'kaminari'
 # Use HTMLDiff to generate html diff output for two strings
 gem 'diffy'
+# Use Sanitize to sanitize rich text for selected tags and attributes
+gem 'sanitize'
 # Use paperclip and aws-skd for file upload to S3 storage
 gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '~> 1.5.7'
@@ -25,6 +30,7 @@ gem 'aws-sdk', '~> 1.5.7'
 gem 'prawn_rails'
 # Easy dynamic fields (adding and removing) in nested forms
 gem 'nested_form'
+
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -57,26 +63,6 @@ gem 'rollbar', '~> 1.4.4'
 # Use NewRelic for application performance monitoring
 gem 'newrelic_rpm'
 
-# During development,
-#   Use Annotate to generate a schema on top of models, fixtures, and tests
-#   Use BetterErrors for more detailed exceptions pages
-#   Use Bullet to increase application performance by reducing the number of queries it makes
-#   Use MailCatcher to test mailers
-#   Use Rails Footnotes to see variables, database queries, etc. from the application
-#   Use Reek to find inconsistancies and ugly programming
-#   Use Quiet Assets to turn off the Rails Asset Pipeline log
-#   Use Travis Lint to check .travis.yml syntax
-group :development do
-  gem 'annotate', '~> 2.6.6'
-  gem 'better_errors'
-  gem 'binding_of_caller'
-  gem 'bullet'
-  # gem 'mailcatcher'
-  gem 'rails-footnotes', '~> 4.0'
-  # gem 'reek'
-  gem 'quiet_assets'
-  gem 'travis-lint'
-end
 
 # Include Minitest and Minitest Reporters for RubyMine
 group :test do
@@ -85,16 +71,34 @@ group :test do
   gem 'codeclimate-test-reporter', require: nil
 end
 
+
 group :development, :test do
+  # Use BetterErrors for more detailed exceptions pages
+  gem 'better_errors'
+  gem 'binding_of_caller'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+  # Use Bullet to increase application performance by reducing the number of queries it makes
+  gem 'bullet'
+  # Use MailCatcher to test mailers
+  gem 'mailcatcher'
+  # Use Reek to find inconsistancies and ugly programming
+  # gem 'reek'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+  # Use Quiet Assets to turn off the Rails Asset Pipeline log
+  gem 'quiet_assets'
 
   # Shim to load environment variables from .env into ENV in development.
   gem 'dotenv-rails'
+  # Use Travis Lint to check .travis.yml syntax
+  gem 'travis-lint'
+
+  # Use Annotate to generate a schema on top of models, fixtures, and tests
+  gem 'annotate', '~> 2.6.6'
+  # Use Rails Footnotes to see variables, database queries, etc. from the application
+  gem 'rails-footnotes', '~> 4.0'
 end

@@ -4,7 +4,9 @@ class LegislationsController < ApplicationController
   # GET /legislations
   # GET /legislations.json
   def index
-    @legislations = Legislation.order('created_at DESC').page params[:page]
+    @legislations = Legislation.includes(:attachments)
+                        .order('created_at DESC')
+                        .page(params[:page])
     @recent_legislation_cache_name = "recent_legislation_pg_#{(params[:page] || '1').to_s}"
   end
 

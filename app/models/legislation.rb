@@ -10,6 +10,7 @@
 #
 
 class Legislation < ActiveRecord::Base
+  before_save :clean_html
   has_paper_trail
   paginates_per 5
 
@@ -34,5 +35,11 @@ class Legislation < ActiveRecord::Base
 
   def self.latest
     Legislation.all.order('updated_at').last
+  end
+
+  private
+  # Allows only whitelisted tags in body richtext
+  def clean_html
+    self.body = Sanitize.fragment(body, Sanitize::Config::BASIC)
   end
 end
