@@ -20,7 +20,7 @@ gem 'kaminari'
 gem 'diffy'
 # Use paperclip and aws-skd for file upload to S3 storage
 gem 'paperclip', '~> 4.2'
-gem 'aws-sdk', '~> 2'
+gem 'aws-sdk', '~> 1.5.7'
 # PDF generation with prawn
 gem 'prawn_rails'
 # Easy dynamic fields (adding and removing) in nested forms
