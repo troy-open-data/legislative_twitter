@@ -12,19 +12,22 @@ prawn_document(
         Producer: 'Troy City Council',
         CreationDate: Time.now}) do |pdf|
 
+  font_size = 12
 
+  pdf.font_size = font_size
   pdf.font("Times-Roman")
+  pdf.default_leading font_size*0.5
 
-  pdf.move_down(48)
-  pdf.text "#{@legislation.title}", align: :center, size:18
-  pdf.move_down(36)
+  pdf.move_down(font_size*6)
+  pdf.text "#{@legislation.title}", align: :center, size: font_size*1.5
+  pdf.move_down(font_size*4)
 
 # sanitizes and splits the body based on paragraph markers
-  body_paragraphs = prawnify_paragraphs @legislation.body
+  body_paragraphs = prawnify_paragraphs(@legislation.body, font_size*1.25)
 # outputs each paragraph
   body_paragraphs.each do |paragraph|
     pdf.text paragraph, inline_format: true
-    pdf.move_down 12
+    pdf.move_down font_size
   end
 
   pdf.repeat(:even, :dynamic => true) do
