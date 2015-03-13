@@ -3,7 +3,7 @@
   <div class="large-3 columns"><%= link_to '+ new', new_legislation_path, class:'right button' %></div>
 </div>
 
-<% cache ['recent_legislation', Legislation.latest] do %>
+<% cache [@recent_legislation_cache_name, Legislation.latest] do %>
     <div class="row">
       <div class="small-12 columns">
         <%= render @legislations %>
