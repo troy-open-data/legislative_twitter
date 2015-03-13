@@ -1,19 +1,20 @@
-
-<h4>
-  <%= link_to truncate(legislation.title.titleize, length: 150), legislation %>
-  <small><%= legislation.created_at_time %></small>
-</h4>
-<p><%= truncate(strip_tags(legislation.body),
-                length: 200,
-                omission: "...") %>
-  <%= "(with #{pluralize legislation.attachments.count, 'attachment'})" unless
-              legislation.attachments.empty? %>
-</p>
-<%= link_to 'Show', legislation, class:'tiny button' %>
-<%= link_to 'Edit', edit_legislation_path(legislation),
-               class:'tiny button' %>
-<%= link_to 'PDF', legislation_path(id: legislation.id, format: 'pdf'),
-            class:'tiny button' %>
-<%= link_to('Delete', legislation,
-            method: "delete", class: 'tiny alert button',
-            data: { confirm: 'Are you sure you want to delete this?'}) %>
+<% cache ['legislation', legislation] do %>
+    <h4>
+      <%= link_to truncate(legislation.title.titleize, length: 150), legislation %>
+      <small><%= legislation.created_at_time %></small>
+    </h4>
+    <p><%= truncate(strip_tags(legislation.body),
+                    length: 200,
+                    omission: "...") %>
+      <%= "(with #{pluralize legislation.attachments.count, 'attachment'})" unless
+                  legislation.attachments.empty? %>
+    </p>
+    <%= link_to 'Show', legislation, class:'tiny button' %>
+    <%= link_to 'Edit', edit_legislation_path(legislation),
+                class:'tiny button' %>
+    <%= link_to 'PDF', legislation_path(id: legislation.id, format: 'pdf'),
+                class:'tiny button' %>
+    <%= link_to('Delete', legislation,
+                method: "delete", class: 'tiny alert button',
+                data: { confirm: 'Are you sure you want to delete this?'}) %>
+<% end %>

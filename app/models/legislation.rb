@@ -31,4 +31,8 @@ class Legislation < ActiveRecord::Base
     ignored_changes = %w{ created_at updated_at id }
     version.changeset.keys - ignored_changes
   end
+
+  def self.latest
+    Legislation.all.order('updated_at').last
+  end
 end

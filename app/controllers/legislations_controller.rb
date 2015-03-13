@@ -4,15 +4,16 @@ class LegislationsController < ApplicationController
   # GET /legislations
   # GET /legislations.json
   def index
-    @legislations = Legislation.includes(:attachments).
-        order('created_at DESC').page params[:page]
+    @legislations = Legislation.order('created_at DESC').page params[:page]
   end
 
   # GET /legislations/1
   # GET /legislations/1.json
   def show
-    @versions = @legislation.versions.reorder("created_at DESC")
+    @versions = @legislation.versions.reorder('created_at DESC')
     @version_count = @legislation.versions.count
+    @latest_version = @legislation.versions.order('created_at').last
+    @changelog_cache_name = "legislation-#{@legislation.id}-changelog"
     respond_to do |format|
       format.html
       format.json

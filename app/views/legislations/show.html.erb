@@ -52,18 +52,20 @@
       </tr>
       </thead>
       <tbody>
-      <% @versions.each do |version| %>
-          <tr>
-            <td><%= version.event %></td>
-            <td><%= @legislation.list_changed_attributes version %></td>
-            <td><%= version.created_at.strftime("%-l:%M%P on %m/%d/%y") %></td>
-            <td><a href="#" data-no-turbolink data-reveal-id="diffModal<%=version.id%>">View Diff</a></td>
-            <td><%= link_to 'Rollback', revert_version_path(id: version.id),
-                            method: :post %></td>
-            <%= render 'application/diff_modal', version: version,
-                       legislation: @legislation,
-                       version_count: @version_count %>
-          </tr>
+      <% cache [@changelog_cache_name, @latest_version] do %>
+          <% @versions.each do |version| %>
+              <tr>
+                <td><%= version.event %></td>
+                <td><%= @legislation.list_changed_attributes version %></td>
+                <td><%= version.created_at.strftime("%-l:%M%P on %m/%d/%y") %></td>
+                <td><a href="#" data-no-turbolink data-reveal-id="diffModal<%=version.id%>">View Diff</a></td>
+                <td><%= link_to 'Rollback', revert_version_path(id: version.id),
+                                method: :post %></td>
+                <%= render 'application/diff_modal', version: version,
+                           legislation: @legislation,
+                           version_count: @version_count %>
+              </tr>
+          <% end %>
       <% end %>
       </tbody>
     </table>
