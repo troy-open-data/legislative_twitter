@@ -35,12 +35,6 @@ ActiveRecord::Schema.define(version: 20150311101741) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "refile_attachments", force: :cascade do |t|
-    t.string "namespace", null: false
-  end
-
-  add_index "refile_attachments", ["namespace"], name: "index_refile_attachments_on_namespace", using: :btree
-
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
     t.integer  "item_id",        null: false

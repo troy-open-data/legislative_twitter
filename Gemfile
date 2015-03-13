@@ -19,10 +19,10 @@ gem 'kaminari'
 # Use HTMLDiff to generate html diff output for two strings
 gem 'diffy'
 # Use paperclip and aws-skd for file upload to S3 storage
-gem "paperclip", "~> 4.2"
-gem 'aws-sdk', '~> 1.5.7'
+gem 'paperclip', '~> 4.2'
+gem 'aws-sdk', '~> 2'
 # PDF generation with prawn
-gem "prawn_rails"
+gem 'prawn_rails'
 # Easy dynamic fields (adding and removing) in nested forms
 gem 'nested_form'
 
@@ -51,7 +51,7 @@ gem 'paper_trail', '~> 4.0.0.beta'
 # gem 'capistrano-rails', group: :development
 
 # Use Rails 12 factor for Heroku
-gem 'rails_12factor'
+gem 'rails_12factor', group: :production
 # Use Rollbar to monitor exceptions
 gem 'rollbar', '~> 1.4.4'
 # Use NewRelic for application performance monitoring
@@ -82,7 +82,7 @@ end
 group :test do
   gem 'minitest'
   gem 'minitest-reporters'
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 group :development, :test do
@@ -98,4 +98,3 @@ group :development, :test do
   # Shim to load environment variables from .env into ENV in development.
   gem 'dotenv-rails'
 end
-
