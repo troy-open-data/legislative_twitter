@@ -26,9 +26,6 @@ gem "prawn_rails"
 # Easy dynamic fields (adding and removing) in nested forms
 gem 'nested_form'
 
-# gem 'carrierwave'
-# gem 'mini_magick'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -55,6 +52,8 @@ gem 'paper_trail', '~> 4.0.0.beta'
 
 # Use Rails 12 factor for Heroku
 gem 'rails_12factor'
+# Use Rollbar to monitor exceptions
+gem 'rollbar', '~> 1.4.4'
 
 # During development,
 #   Use Annotate to generate a schema on top of models, fixtures, and tests
