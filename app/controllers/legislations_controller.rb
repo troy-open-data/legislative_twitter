@@ -23,12 +23,10 @@ class LegislationsController < ApplicationController
   # GET /legislations/new
   def new
     @legislation = Legislation.new
-    2.times { @legislation.attachments.build }
   end
 
   # GET /legislations/1/edit
   def edit
-    1.times { @legislation.attachments.build }
   end
 
   # POST /legislations

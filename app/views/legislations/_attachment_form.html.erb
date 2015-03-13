@@ -1,16 +1,35 @@
-<div class="field">
-  <%= f.label :file, 'Add Attachment' %>
-  <%= f.file_field :file %>
+<!--<div class="field">-->
+  <!--<%#= f.label :file, 'Add Attachment' %>-->
+  <!--<%#= f.file_field :file %>-->
+<!--</div>-->
+
+
+<div class="row field">
+  <div class="small-3 columns">
+    <%= f.label :file, 'Add Attachment' %>
+  </div>
+  <div class="small-5 columns">
+    <%= f.file_field :file %>
+  </div>
+  <div class="small-4 columns">
+    <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
+  </div>
 </div>
-<div class="field">
-  <%= f.label :title, 'Title (optional)' %>
-  <%= f.text_field :title %>
+
+<div class="row field">
+  <div class="small-3 columns">
+    <%= f.label :title, 'Title (optional)' %>
+  </div>
+  <div class="small-9 columns">
+    <%= f.text_field :title %>
+  </div>
 </div>
-<div class="field">
-  <%= f.label :description, 'Description (optional)' %>
-  <%= f.text_field :description %>
-</div>
-<div class="field">
-  <%= f.check_box :_destroy %>
-  <%= f.label :_destroy, 'remove attachment' %>
+
+<div class="row field">
+  <div class="small-3 columns">
+    <%= f.label :description, 'Description (optional)' %>
+  </div>
+  <div class="small-9 columns">
+    <%= f.text_field :description %>
+  </div>
 </div>

@@ -1,4 +1,4 @@
-<%= form_for(@legislation) do |f| %>
+<%= nested_form_for(@legislation) do |f| %>
     <fieldset>
       <legend>Please enter legislation details below</legend>
 
@@ -25,9 +25,10 @@
       </div>
 
       <div class="field panel">
-      <%= f.fields_for :attachments do |builder| %>
-          <%= render 'attachment_form', f: builder %>
-      <% end %>
+        <%= f.link_to_add '+ add an attachment', :attachments, class: 'small button expand' %>
+        <%= f.fields_for :attachments do |builder| %>
+            <%= render 'attachment_form', f: builder %>
+        <% end %>
       </div>
 
       <div class="actions">
