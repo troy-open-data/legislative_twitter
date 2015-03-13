@@ -24,12 +24,13 @@
         <%= f.text_area :body, class:'jqte-test' %>
       </div>
 
-      <div class="field panel">
+      <fieldset>
+        <legend>Attachments</legend>
         <%= f.fields_for :attachments do |builder| %>
             <%= render 'attachment_form', f: builder %>
         <% end %>
         <%= f.link_to_add '+ add an attachment', :attachments, class: 'small button expand' %>
-      </div>
+      </fieldset>
 
       <div class="actions">
         <%= f.submit 'Submit', class:'expand button' %>

@@ -15,6 +15,9 @@ class LegislationsController < ApplicationController
     @version_count = @legislation.versions.count
     @latest_version = @legislation.versions.order('created_at').last
     @changelog_cache_name = "legislation-#{@legislation.id}-changelog"
+
+    @attachments = @legislation.attachments
+
     respond_to do |format|
       format.html
       format.json
