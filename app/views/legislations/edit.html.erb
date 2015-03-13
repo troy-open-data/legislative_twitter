@@ -1,10 +1,20 @@
 <div class="row">
   <div class="small-12 columns">
+
+    <!-- Legislation Options -->
+    <div class="right button-bar">
+      <!-- Action Buttons -->
+      <ul class="button-group">
+        <li><%= link_to 'Show', legislation_path(@legislation), class:'tiny button' %></li>
+        <li><%= link_to 'All', legislations_path, class:'tiny button' %></li>
+        <li><%= link_to('Delete', legislation_path,
+                        method: "delete", class: 'tiny alert button',
+                        data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+      </ul>
+    </div>
+
     <h2>Editing Legislation</h2>
 
     <%= render 'form' %>
-
-    <%= link_to 'Show', @legislation, class:'small button' %>
-    <%= link_to 'Back', legislations_path, class: 'small button' %>
   </div>
 </div>
