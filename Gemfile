@@ -98,7 +98,7 @@ group :development, :test do
   gem 'travis-lint'
 
   # Use Annotate to generate a schema on top of models, fixtures, and tests
-  gem 'annotate', '~> 2.6.6'
+  gem 'annotate', '~> 2.6.8'
   # Use Rails Footnotes to see variables, database queries, etc. from the application
   gem 'rails-footnotes', '~> 4.0'
 end
