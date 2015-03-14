@@ -40,6 +40,19 @@ prawn_document(
     pdf.move_down font_size
   end
 
+  # Signature Block
+  pdf.move_down font_size*2
+  pdf.bounding_box([0, pdf.cursor], :width => 3.5.in) do
+    pdf.text "Approved as to form, #{Date.today.strftime("%B %-d, %Y")}"
+    pdf.move_down font_size*3
+    pdf.stroke_horizontal_rule
+    pdf.move_down font_size*0.2
+    legal_name = "Ian H. Silverman, Esq."
+    legal_title = ", Corporation Counsel"
+    pdf.formatted_text [ { text: legal_name, styles: [:bold, :italic] },
+                         { text: legal_title } ]
+  end
+
   # page numbers at top
   header_widths = 2.5.in
   options_page_number = { at: [pdf.bounds.left , pdf.bounds.top+font_size*2],
