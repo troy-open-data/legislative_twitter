@@ -21,8 +21,12 @@ class Legislation < ActiveRecord::Base
   has_paper_trail
   paginates_per 5
 
+  # Model Variables
+  LEGISLATION_TYPES = %w{ Resolution Ordinance }
+
   # Validations
-  validates_presence_of :title, :body
+  validates_presence_of :title, :body, :legislation_type
+  validates :legislation_type, inclusion: LEGISLATION_TYPES
 
 
 
@@ -33,6 +37,20 @@ class Legislation < ActiveRecord::Base
 
   def list_changed_attributes(version)
     diff_attributes(version).join(", ")
+  end
+
+  # Returns the legislative numbering of a legislation, formatted in several ways
+  def legislative_numbering(output_type=:string)
+    index = Legislation.where(legislation_type: legislation_type)
+                .order('created_at ASC').index(self) + 1
+
+    case output_type
+      when :string then legislation_type + ' ' + index.to_s
+      when :array then [legislation_type,index]
+      when :integer then index
+      else
+        raise StandardError, "#{output_type.to_s} is not supported"
+    end
   end
 
   # Returns all changed attributes between given and current version except for

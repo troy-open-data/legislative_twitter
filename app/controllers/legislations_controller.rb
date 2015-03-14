@@ -84,7 +84,7 @@ class LegislationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def legislation_params
-    params.require(:legislation).permit(:title, :body,
+    params.require(:legislation).permit(:title, :body, :legislation_type,
                                         attachments_attributes: [:title,
                                                                  :description,
                                                                  :file,

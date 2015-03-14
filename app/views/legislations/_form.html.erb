@@ -20,6 +20,11 @@
       </div>
 
       <div class="field">
+        <%= f.label :legislation_type %>
+        <%= f.select :legislation_type, options_for_select(Legislation::LEGISLATION_TYPES) %>
+      </div>
+
+      <div class="field">
         <%= f.label :body %>
         <%= f.text_area :body, class:'jqte-test' %>
       </div>

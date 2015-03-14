@@ -1,7 +1,7 @@
 <% cache ['legislation', legislation] do %>
     <h4>
       <%= link_to truncate(legislation.title.titleize, length: 150), legislation %>
-      <small><%= legislation.created_at_time %></small>
+      <small><%= legislation.legislative_numbering %></small>
     </h4>
     <p><%= truncate(strip_tags(legislation.body),
                     length: 200,
