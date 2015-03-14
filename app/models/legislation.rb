@@ -48,6 +48,7 @@ class Legislation < ActiveRecord::Base
       when :string then legislation_type + ' ' + index.to_s
       when :array then [legislation_type,index]
       when :integer then index
+      when :abbreviation then legislation_type[0..2].upcase + '. #' + index.to_s
       else
         raise StandardError, "#{output_type.to_s} is not supported"
     end

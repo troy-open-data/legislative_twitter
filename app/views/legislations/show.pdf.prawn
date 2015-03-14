@@ -8,8 +8,9 @@ Prawn::Font::AFM.hide_m17n_warning = true
 require "prawn/measurement_extensions"
 
 prawn_document(
-    margin: 1.in,
-    bottom_margin:1.5.in,
+    margin: 0.5.in,
+    top_margin: 1.in,
+    bottom_margin: 1.in,
     info: {
         Title: @legislation.title,
         Author: 'Unknown',
@@ -23,12 +24,13 @@ prawn_document(
   font_size = 12
   pdf.font_size = font_size
   pdf.font("Times-Roman")
-  pdf.default_leading font_size*0.5
+  pdf.default_leading font_size*0.2
 
   # page title
-  pdf.move_down(font_size*6)
-  pdf.text "#{@legislation.title}", align: :center, size: font_size*1.5
-  pdf.move_down(font_size*4)
+  # pdf.move_down font_size*2
+  pdf.text "#{@legislation.title.upcase}", align: :center, style: :bold
+  pdf.stroke_horizontal_rule
+  pdf.move_down font_size*2
 
   # sanitizes and splits the body based on paragraph markers
   body_paragraphs = prawnify_paragraphs(@legislation.body, font_size*1.25)
@@ -38,16 +40,19 @@ prawn_document(
     pdf.move_down font_size
   end
 
-  # page numbers on alternating sides
-  pdf.repeat(:even, :dynamic => true) do
-    pdf.draw_text (pdf.page_number.to_s), at: [0.in, -0.5.in]
-  end
-  pdf.repeat(:odd, :dynamic => true) do
-    pdf.draw_text (pdf.page_number.to_s), at: [6.5.in, -0.5.in]
-  end
+  # page numbers at top
+  header_widths = 2.5.in
+  options_page_number = { at: [pdf.bounds.left , pdf.bounds.top+font_size*2],
+                          width: header_widths,
+                          align: :left,
+                          start_count_at: 1 }
+  options_legislative_number = { at: [pdf.bounds.right-header_widths, pdf.bounds.top+font_size*2],
+                                 width: header_widths,
+                                 align: :right,
+                                 style: :bold }
 
-  # @legislation.attachments.each do |attachment|
-  #   pdf.start_new_page
-  #   pdf.text "#{attachment.file.original_filename}"
-  # end
+  pdf.number_pages "Page <page> of <total>", options_page_number
+  pdf.repeat(:all) do
+    pdf.text_box @legislation.legislative_numbering(:abbreviation), options_legislative_number
+  end
 end
