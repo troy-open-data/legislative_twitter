@@ -1,7 +1,6 @@
 module ApplicationHelper
-  # Returns a string of version information for the footer
-  ENV['HEROKU_APP_NAME']='legislative-twitter-dev'
-  ENV['HEROKU_API_KEY']='88255870-6eeb-4a96-a014-be45352cb5e0'
+
+  # Returns a string of build information for the footer
   def heroku_version
     begin
       # Read in values from environment variables
@@ -17,4 +16,5 @@ module ApplicationHelper
       'Previous build information unavailable'
     end
   end
+
 end

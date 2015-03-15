@@ -32,23 +32,7 @@ module LegislationsHelper
 
 
 
-  # ====== CACHE NAMING ======
-  # Returns an appropriate cache name for the legislation index page including
-  # pagination params, in the format "recent_legislation_pg_3"
-  def recent_legislation_cache_name
-    "recent_legislation_pg_#{(params[:page] || '1').to_s}"
-  end
-
-  # Returns an appropriate cache name for changelog cache, including legislation
-  # id, in the format "legislation-52-changelog"
-  def changelog_cache_name(legislation)
-    "legislation-#{legislation.id}-changelog"
-  end
-
-
-
-
-
+  # ====== LEGISLATION SHOW PAGE HELPERS ======
   # Returns a diff string containing changes or, if no changes, 'No Changes'
   def diff(content1, content2)
     changes = Diffy::Diff.new(content1, content2,
@@ -66,23 +50,20 @@ module LegislationsHelper
     end
   end
 
-  # Takes input in the form of an html-rich string and returns an array of
-  # prawn-sanitized paragraphs
-  def prawnify_paragraphs(body, size=16)
-    # Replace all headers with large text
-    body = body.gsub(/\<h\d\>/,"<font size='#{size}'>").gsub(/\<\/h\d\>/,'</font><p>')
 
-    # Remove all unexpected tags
-    body = body.split(/\<\/?p\>/).delete_if{|p| p.empty?}
 
-    body.map! do |paragraph|
-      Sanitize.fragment(paragraph,
-                        elements: %w{b i u strikethrough sub sup color font},
-                        attributes: {
-                            'font' => %w{size},
-                            'color' => %w{}
-                        })
-    end
 
+  # ====== CACHE NAMING ======
+  # Returns an appropriate cache name for the legislation index page including
+  # pagination params, in the format "recent_legislation_pg_3"
+  def recent_legislation_cache_name
+    "recent_legislation_pg_#{(params[:page] || '1').to_s}"
   end
+
+  # Returns an appropriate cache name for changelog cache, including legislation
+  # id, in the format "legislation-52-changelog"
+  def changelog_cache_name(legislation)
+    "legislation-#{legislation.id}-changelog"
+  end
+
 end

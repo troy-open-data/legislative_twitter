@@ -14,26 +14,31 @@
           </div>
       <% end %>
 
+      <!--Legislation Type Select (Resolution or Ordinance?)-->
       <div class="field">
         <%= f.label :legislation_type %>
         <%= f.select :legislation_type, Legislation::LEGISLATION_TYPES %>
       </div>
 
+      <!--Full Title Field-->
       <div class="field">
         <%= f.label :title, 'Full Title' %>
         <%= f.text_field :title, placeholder: 'Full legislation title' %>
       </div>
 
+      <!--Short Title Field-->
       <div class="field">
           <%= f.label :short_title, 'Short Title (optional)' %>
           <%= f.text_field :short_title, placeholder: 'Shorter title for searches and listings' %>
       </div>
 
+      <!--Body Field-->
       <div class="field">
         <%= f.label :body %>
         <%= f.text_area :body, class:'jqte-test' %>
       </div>
 
+      <!--Legislation Attachments-->
       <fieldset>
         <legend>Attachments</legend>
         <%= f.fields_for :attachments do |builder| %>
@@ -42,8 +47,9 @@
         <%= f.link_to_add '+ add an attachment', :attachments, class: 'small button expand' %>
       </fieldset>
 
+      <!--Submit Form-->
       <div class="actions">
-        <%= f.submit 'Submit', class:'expand button' %>
+        <%= f.submit class:'expand button' %>
       </div>
     </fieldset>
 <% end %>

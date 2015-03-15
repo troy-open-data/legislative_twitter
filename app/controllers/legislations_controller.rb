@@ -11,10 +11,10 @@ class LegislationsController < ApplicationController
 
   # GET /legislations/1
   # GET /legislations/1.json
+  # GET /legislations/1.pdf
   def show
     @versions = @legislation.versions.reorder('created_at DESC')
     @attachments = @legislation.attachments
-    # todo: move this to model and includes(:versions, :attachments)?
 
     respond_to do |format|
       format.html
