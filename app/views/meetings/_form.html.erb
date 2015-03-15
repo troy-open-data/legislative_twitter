@@ -13,13 +13,13 @@
 
   <div class="field">
     <%= f.label :organization_id %><br>
-    <%= f.text_field :organization_id %>
+    <%= f.collection_select :organization_id, Organization.all, :id, :name %>
   </div>
   <div class="field">
     <%= f.label :date %><br>
     <%= f.date_select :date %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:'button expand' %>
   </div>
 <% end %>
