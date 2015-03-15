@@ -62,6 +62,8 @@ gem 'rails_12factor', group: :production
 gem 'rollbar', '~> 1.4.4'
 # Use NewRelic for application performance monitoring
 gem 'newrelic_rpm'
+# Use Heroku API to show update status
+gem 'platform-api'
 
 
 # Include Minitest and Minitest Reporters for RubyMine

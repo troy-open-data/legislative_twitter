@@ -86,12 +86,19 @@ GEM
       dotenv (= 2.0.0)
     erubis (2.7.0)
     eventmachine (1.0.5)
+    excon (0.44.4)
     execjs (2.4.0)
     foundation-rails (5.5.1.0)
       railties (>= 3.1.0)
       sass (>= 3.3.0, < 3.5)
     globalid (0.3.3)
       activesupport (>= 4.1.0)
+    heroics (0.0.13)
+      erubis (~> 2.7.0)
+      excon
+      moneta
+      multi_json (>= 1.9.2)
+      netrc
     hike (1.2.3)
     httparty (0.13.3)
       json (~> 1.8)
@@ -128,9 +135,11 @@ GEM
       builder
       minitest (>= 5.0)
       ruby-progressbar
+    moneta (0.8.0)
     multi_json (1.11.0)
     multi_xml (0.5.5)
     nested_form (0.3.2)
+    netrc (0.10.3)
     newrelic_rpm (3.10.0.279)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
@@ -146,6 +155,8 @@ GEM
       mime-types
     pdf-core (0.5.1)
     pg (0.18.1)
+    platform-api (0.2.0)
+      heroics (~> 0.0.10)
     prawn (2.0.0)
       pdf-core (~> 0.5.0)
       ttfunk (~> 1.4.0)
@@ -284,6 +295,7 @@ DEPENDENCIES
   paper_trail (~> 4.0.0.beta)
   paperclip (~> 4.2)
   pg
+  platform-api
   prawn_rails
   quiet_assets
   rails (= 4.2.0)
