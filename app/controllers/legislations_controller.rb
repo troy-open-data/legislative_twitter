@@ -14,6 +14,7 @@ class LegislationsController < ApplicationController
   def show
     @versions = @legislation.versions.reorder('created_at DESC')
     @attachments = @legislation.attachments
+    # todo: move this to model and includes(:versions, :attachments)?
 
     respond_to do |format|
       format.html
@@ -79,8 +80,11 @@ class LegislationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def legislation_params
-    params.require(:legislation).permit(:title, :short_title,
-                                        :body, :legislation_type,
+    params.require(:legislation).permit(:title,
+                                        :short_title,
+                                        :body,
+                                        :legislation_type,
+
                                         attachments_attributes: [:title,
                                                                  :description,
                                                                  :file,
