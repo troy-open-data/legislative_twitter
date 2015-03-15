@@ -9,6 +9,11 @@ module LegislationsHelper
     short_title.titleize
   end
 
+  def body(legislation)
+    truncate(strip_tags(legislation.body), length: 200) +
+        with_attachments(legislation)
+  end
+
   # Returns nil or string containing attachment count for a piece of legislation
   # in the format "(with 3 attachments)"
   def with_attachments(legislation)
@@ -19,5 +24,9 @@ module LegislationsHelper
 
   def meta_header(legislation)
     legislation.legislation_type + ' | ' + legislation.created_at.strftime("%-l:%M%P on %m/%d/%y")
+  end
+
+  def recent_legislation_cache_name
+    "recent_legislation_pg_#{(params[:page] || '1').to_s}"
   end
 end

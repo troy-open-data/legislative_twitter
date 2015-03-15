@@ -1,9 +1,12 @@
+<!--Header and New Button-->
 <div class="row">
   <div class="large-9 columns"><h2>Listing Legislation</h2></div>
   <div class="large-3 columns"><%= link_to '+ new', new_legislation_path, class:'right button' %></div>
 </div>
 
-<% cache [@recent_legislation_cache_name, Legislation.latest] do %>
+<!--Legislation Listing
+        Updates cache when any legislation updates -->
+<% cache [recent_legislation_cache_name, Legislation.latest] do %>
     <div class="row">
       <div class="small-12 columns">
         <%= render @legislations %>
@@ -13,6 +16,7 @@
 
 <br>
 
+<!--Pagination-->
 <div class="row">
   <div class="small-12 columns">
     <%= paginate @legislations %>
