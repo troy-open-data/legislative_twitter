@@ -46,7 +46,7 @@ prawn_document(
     pdf.text "Approved as to form, #{Date.today.strftime("%B %-d, %Y")}"
     pdf.move_down font_size*3
     pdf.stroke_horizontal_rule
-    pdf.move_down font_size*0.2
+    pdf.move_down font_size*0.3
     legal_name = "Ian H. Silverman, Esq."
     legal_title = ", Corporation Counsel"
     pdf.formatted_text [ { text: legal_name, styles: [:bold, :italic] },

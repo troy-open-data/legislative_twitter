@@ -71,7 +71,10 @@ class Legislation < ActiveRecord::Base
 
   # Allows only whitelisted tags in body richtext
   def clean_html
-    self.body = Sanitize.fragment(body, Sanitize::Config::BASIC)
+    # self.body = Sanitize.fragment(body, Sanitize::Config::BASIC)
+    self.body = Sanitize.fragment(body,
+                                  elements: %w{b i u strikethrough strike sub sup h1 h2 h3 h4 h5 h6},
+                                  attributes: {})
   end
 
 end

@@ -36,8 +36,9 @@
 			];
 		
 		// default text formats
-		var formats = [["p","Normal"],["h1","Header 1"],["h2","Header 2"],["h3","Header 3"],["h4","Header 4"],["h5","Header 5"],["h6","Header 6"],["pre","Preformatted"]];
-		
+		//var formats = [["p","Normal"],["h1","Header 1"],["h2","Header 2"],["h3","Header 3"],["h4","Header 4"],["h5","Header 5"],["h6","Header 6"],["pre","Preformatted"]];
+        var formats = [["p","Normal"],["h1","Page Header"],["h2","Section Header"],["h3","Subsection Header"],["h4","Inline Header"]];
+
 		// default font sizes
 		var fsizes = ["10","12","16","18","20","24","28"];
 		
@@ -65,30 +66,30 @@
 			'title'			: true,
 			'titletext'		: varsTitle,
 			'button'		: "OK",
-			'format'		: true,
-			'formats'		: formats,
-			'fsize' 		: true,
-			'fsizes'		: fsizes,
-			'funit'			: "px",
-			'color'			: true,
+			'format'		: false,
+			'formats'		: false, //formats,
+			'fsize' 		: false, //true,
+			'fsizes'		: false, //fsizes,
+			'funit'			: false, //"px",
+			'color'			: false, //true,
 			'linktypes'		: linktypes,
 			'b' 			: true,
 			'i' 			: true,
 			'u' 			: true,
-			'ol' 			: true,
-			'ul' 			: true,
+			'ol' 			: false,
+			'ul' 			: false,
 			'sub'			: true,
 			'sup'			: true,
-			'outdent'		: true,
-			'indent'		: true,
-			'left'			: true,
-			'center'		: true,
-			'right'			: true,
+			'outdent'		: false,
+			'indent'		: false,
+			'left'			: false,
+			'center'		: false,
+			'right'			: false,
 			'strike'		: true,
-			'link'			: true,
-			'unlink'		: true,
+			'link'			: false,
+			'unlink'		: false,
 			'remove'		: true,
-			'rule'			: true,
+			'rule'			: false,
 			'source'		: true,
 			'placeholder'	: false,
 			'br'			: true,
