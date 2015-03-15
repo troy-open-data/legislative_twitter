@@ -15,13 +15,18 @@
       <% end %>
 
       <div class="field">
-        <%= f.label :title %>
-        <%= f.text_field :title %>
+        <%= f.label :legislation_type %>
+        <%= f.select :legislation_type, options_for_select(Legislation::LEGISLATION_TYPES) %>
       </div>
 
       <div class="field">
-        <%= f.label :legislation_type %>
-        <%= f.select :legislation_type, options_for_select(Legislation::LEGISLATION_TYPES) %>
+        <%= f.label :title, 'Full Title' %>
+        <%= f.text_field :title, placeholder: 'Full legislation title' %>
+      </div>
+
+      <div class="field">
+          <%= f.label :short_title, 'Short Title (optional)' %>
+          <%= f.text_field :short_title, placeholder: 'Shorter title for searches and listings' %>
       </div>
 
       <div class="field">

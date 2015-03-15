@@ -6,7 +6,7 @@
 
 <div class="row field">
   <div class="small-3 columns">
-    <%= f.label :file, 'Add Attachment' %>
+    <%= f.label :file, 'Add Attachment', class: 'right' %>
   </div>
   <div class="small-5 columns">
     <%= f.file_field :file %>
@@ -18,18 +18,18 @@
 
 <div class="row field">
   <div class="small-3 columns">
-    <%= f.label :title, 'Title (optional)' %>
+    <%= f.label :title, 'Title (optional)', class: 'right inline' %>
   </div>
   <div class="small-9 columns">
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class: 'inline', placeholder: 'file title' %>
   </div>
 </div>
 
 <div class="row field">
   <div class="small-3 columns">
-    <%= f.label :description, 'Description (optional)' %>
+    <%= f.label :description, 'Description (optional)', class: 'right inline' %>
   </div>
   <div class="small-9 columns">
-    <%= f.text_field :description %>
+    <%= f.text_field :description, class: 'inline', placeholder: 'brief file description' %>
   </div>
 </div>

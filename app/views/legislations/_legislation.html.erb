@@ -1,13 +1,17 @@
+<!--Legislation Blurb: cache updates whenever an update to legislation (or
+    dependents) is detected-->
 <% cache ['legislation', legislation] do %>
+
+    <!--Title and Subtitle-->
     <h4>
-      <%= link_to truncate(legislation.title.titleize, length: 150), legislation %>
-      <small><%= legislation.legislation_type + ' | ' + legislation.created_at.strftime("%-l:%M%P on %m/%d/%y") %></small>
+      <%= link_to short_title(legislation), legislation %>
+      <small><%= meta_header legislation %></small>
     </h4>
+
+    <!--Body-->
     <p><%= truncate(strip_tags(legislation.body),
-                    length: 200,
-                    omission: "...") %>
-      <%= "(with #{pluralize legislation.attachments.count, 'attachment'})" unless
-                  legislation.attachments.empty? %>
+                    length: 200) %>
+      <%= with_attachments legislation %>
     </p>
 
     <!-- Legislation Options -->
