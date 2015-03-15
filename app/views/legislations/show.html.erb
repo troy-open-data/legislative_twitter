@@ -75,7 +75,7 @@
           </thead>
           <tbody>
           <!--Diff Modal Cache-->
-          <% cache [@changelog_cache_name, @latest_version] do %>
+          <% cache [changelog_cache_name(@legislation), @versions.last] do %>
               <% @versions.each do |version| %>
                   <tr>
                     <td><%= version.event %></td>
@@ -86,7 +86,7 @@
                                     method: :post %></td>
                     <%= render 'application/diff_modal', version: version,
                                legislation: @legislation,
-                               version_count: @version_count %>
+                               version_count: @versions.count %>
                   </tr>
               <% end %>
           <% end %>

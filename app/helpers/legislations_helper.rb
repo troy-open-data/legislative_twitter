@@ -29,4 +29,8 @@ module LegislationsHelper
   def recent_legislation_cache_name
     "recent_legislation_pg_#{(params[:page] || '1').to_s}"
   end
+
+  def changelog_cache_name(legislation)
+    "legislation-#{legislation.id}-changelog"
+  end
 end
