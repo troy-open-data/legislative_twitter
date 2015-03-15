@@ -17,7 +17,7 @@
 /tmp
 
 # .env should NOT be checked into source control
-*.env
+.env
 
 # database.yml temporarily contains secret things.
 config/database.yml

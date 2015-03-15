@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315060246) do
+ActiveRecord::Schema.define(version: 20150315194454) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,23 @@ ActiveRecord::Schema.define(version: 20150315060246) do
     t.string   "short_title"
   end
 
+  create_table "status_updates", force: :cascade do |t|
+    t.integer  "legislation_id"
+    t.integer  "status_id"
+    t.text     "notes"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "status_updates", ["legislation_id"], name: "index_status_updates_on_legislation_id", using: :btree
+  add_index "status_updates", ["status_id"], name: "index_status_updates_on_status_id", using: :btree
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false
     t.integer  "item_id",        null: false
@@ -49,4 +66,6 @@ ActiveRecord::Schema.define(version: 20150315060246) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "status_updates", "legislations"
+  add_foreign_key "status_updates", "statuses"
 end
