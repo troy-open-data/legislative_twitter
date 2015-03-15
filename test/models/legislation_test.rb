@@ -20,20 +20,21 @@ class LegislationTest < ActiveSupport::TestCase
     @legislation.save!
   end
 
+
   # Legislation methods
   #   General
-  test "created_at_time should contain the year, month, and day of creation" do
+  test 'created_at_time should contain the year, month, and day of creation' do
     created_datetime = @legislation.created_at
     created_string = @legislation.created_at_time
     assert_match /#{created_datetime.year}/, created_string,
-                 "should contain the year of creation"
+                 'should contain the year of creation'
     assert_match /#{Date::MONTHNAMES[created_datetime.month]}/, created_string,
-                 "should contain the fulltext month of creation"
+                 'should contain the fulltext month of creation'
     assert_match /#{created_datetime.day}/, created_string,
-                 "should contain the day of creation"
+                 'should contain the day of creation'
   end
   #   Diff Methods
-  test "should return changed attributes of the last version" do
+  test 'should return changed attributes of the last version' do
     @legislation.update(title: 'New Title')
     @legislation.save!
 
@@ -41,7 +42,7 @@ class LegislationTest < ActiveSupport::TestCase
     assert_equal ['title'], diff_attributes
   end
 
-  test "should return changed attributes in a given version" do
+  test 'should return changed attributes in a given version' do
     @legislation.update(title: 'New Title')
     @legislation.save!
     @legislation.update(body: 'New Body')
@@ -54,30 +55,30 @@ class LegislationTest < ActiveSupport::TestCase
   end
 
   # Paper Trail Tests
-  test "legislations should have paper trails" do
+  test 'legislations should have paper trails' do
     assert @legislation.respond_to? :versions
   end
 
-  test "new legislations should have one version marking creation" do
+  test 'new legislations should have one version marking creation' do
     assert_equal 1, @legislation.versions.count
-    assert_equal "create", @legislation.versions.last.event
+    assert_equal 'create', @legislation.versions.last.event
   end
 
-  test "updating legislation should add version marking update" do
+  test 'updating legislation should add version marking update' do
     assert_difference('@legislation.versions.count') do
       @legislation.update(title: 'New Title')
     end
-    assert_equal "update", @legislation.versions.last.event
+    assert_equal 'update', @legislation.versions.last.event
   end
 
-  test "deleting legislation should add version marking destroy" do
+  test 'deleting legislation should add version marking destroy' do
     assert_difference('@legislation.versions.count') do
       @legislation.destroy
     end
-    assert_equal "destroy", @legislation.versions.last.event
+    assert_equal 'destroy', @legislation.versions.last.event
   end
 
-  test "legislations should have paper trail changesets" do
+  test 'legislations should have paper trail changesets' do
     assert @legislation.versions.last.respond_to? :changeset
   end
 end
