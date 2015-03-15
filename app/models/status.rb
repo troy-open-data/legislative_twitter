@@ -11,5 +11,5 @@
 class Status < ActiveRecord::Base
   # Model Relationships
   has_many :status_updates, dependent: :destroy
-  has_many :legislations, through: :status_updates
+  # has_one :legislation, through: :status_updates
 end

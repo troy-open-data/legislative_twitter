@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Dockets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Meeting</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dockets.each do |docket| %>
+      <tr>
+        <td><%= docket.meeting %></td>
+        <td><%= link_to 'Show', docket %></td>
+        <td><%= link_to 'Edit', edit_docket_path(docket) %></td>
+        <td><%= link_to 'Destroy', docket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Docket', new_docket_path %>

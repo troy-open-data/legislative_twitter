@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :dockets
+
+  resources :meetings
+
+  resources :organizations
+
   resources :statuses
 
   get 'search' => "search#search", :as => :search

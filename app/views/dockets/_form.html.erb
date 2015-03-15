@@ -1,0 +1,21 @@
+<%= form_for(@docket) do |f| %>
+  <% if @docket.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@docket.errors.count, "error") %> prohibited this docket from being saved:</h2>
+
+      <ul>
+      <% @docket.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :meeting_id %><br>
+    <%= f.text_field :meeting_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

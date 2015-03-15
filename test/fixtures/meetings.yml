@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization_id: 
+  date: 2015-03-15
+
+two:
+  organization_id: 
+  date: 2015-03-15
