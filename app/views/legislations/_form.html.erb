@@ -21,7 +21,7 @@
 
       <div class="field">
         <%= f.label :legislation_type %>
-        <%= f.select :legislation_type, options_for_select(Legislation::LEGISLATION_TYPES) %>
+        <%= f.select :legislation_type, Legislation::LEGISLATION_TYPES %>
       </div>
 
       <div class="field">
