@@ -1,6 +1,6 @@
-<p id="notice"><%= notice %></p>
+<%= link_to '+ New Status', new_status_path, class: 'right button' %>
 
-<h1>Listing Statuses</h1>
+<h2>Listing Statuses</h2>
 
 <table>
   <thead>
@@ -21,7 +21,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Status', new_status_path %>

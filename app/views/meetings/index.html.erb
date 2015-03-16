@@ -1,6 +1,6 @@
-<p id="notice"><%= notice %></p>
+<%= link_to '+ New Meeting', new_meeting_path, class: 'right button' %>
 
-<h1>Listing Meetings</h1>
+<h2>Listing Meetings</h2>
 
 <table>
   <thead>
@@ -23,7 +23,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Meeting', new_meeting_path %>

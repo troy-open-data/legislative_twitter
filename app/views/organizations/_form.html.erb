@@ -13,13 +13,14 @@
 
   <div class="field">
     <%= f.label :level %><br>
-    <%= f.text_field :level %>
+    <%#= f.text_field :level %>
+    <%= f.select :level, Organization::LEVELS.map.with_index{|name,index| [name, index] } %>
   </div>
   <div class="field">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:'button expand' %>
   </div>
 <% end %>

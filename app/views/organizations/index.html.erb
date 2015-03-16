@@ -1,6 +1,5 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Organizations</h1>
+<%= link_to '+ New Organization', new_organization_path, class: 'right button' %>
+<h2>Listing Organizations</h2>
 
 <table>
   <thead>
@@ -14,7 +13,7 @@
   <tbody>
     <% @organizations.each do |organization| %>
       <tr>
-        <td><%= organization.level %></td>
+        <td><%= Organization::LEVELS[organization.level] + ", Lvl.#{organization.level}" %></td>
         <td><%= organization.name %></td>
         <td><%= link_to 'Show', organization %></td>
         <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
@@ -23,7 +22,3 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Organization', new_organization_path %>

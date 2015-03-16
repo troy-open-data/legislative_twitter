@@ -13,7 +13,15 @@
       </div>
   <% end %>
 
-  <h4>Links</h4>
+  <h4>Admin</h4>
+  <ul class="side-nav">
+    <li><%= link_to 'Add New Legislation', new_legislation_path %></li>
+    <li><%= link_to 'Add New Meeting', new_meeting_path %></li>
+    <!--<li><%#= link_to 'Dockets', dockets_path %></li>-->
+    <!--<li><a href="#">Section 6</a></li>-->
+  </ul>
+
+  <h4>Navigation</h4>
   <ul class="side-nav">
     <li><%= link_to 'Legislation', legislations_path %></li>
     <li><%= link_to 'Statuses', statuses_path %></li>
