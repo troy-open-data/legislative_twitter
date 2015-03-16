@@ -52,6 +52,8 @@ gem 'paper_trail', '~> 4.0.0.beta'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
+# Use Passenger as the app server
+gem 'passenger'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

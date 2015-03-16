@@ -153,6 +153,9 @@ GEM
       activesupport (>= 3.0.0)
       cocaine (~> 0.5.3)
       mime-types
+    passenger (5.0.4)
+      rack
+      rake (>= 0.8.1)
     pdf-core (0.5.1)
     pg (0.18.1)
     platform-api (0.2.0)
@@ -294,6 +297,7 @@ DEPENDENCIES
   newrelic_rpm
   paper_trail (~> 4.0.0.beta)
   paperclip (~> 4.2)
+  passenger
   pg
   platform-api
   prawn_rails
