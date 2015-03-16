@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: meetings
+#
+#  id              :integer          not null, primary key
+#  organization_id :integer
+#  date            :date
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  docket_id       :integer
+#
+
 require 'test_helper'
 
 class MeetingTest < ActiveSupport::TestCase
