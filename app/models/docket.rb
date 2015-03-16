@@ -9,6 +9,7 @@
 #
 
 class Docket < ActiveRecord::Base
-  belongs_to :meeting, dependent: :destroy
+  belongs_to :meeting #, dependent: :destroy
+  has_one :organization, through: :meeting
   has_many :snippets, dependent: :destroy
 end

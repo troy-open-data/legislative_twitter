@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :dockets
+  resources :dockets, only: [:new, :create, :show, :edit, :update, :destroy]
 
   resources :meetings
 

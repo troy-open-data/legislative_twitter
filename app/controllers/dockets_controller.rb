@@ -1,12 +1,6 @@
 class DocketsController < ApplicationController
   before_action :set_docket, only: [:show, :edit, :update, :destroy]
 
-  # GET /dockets
-  # GET /dockets.json
-  def index
-    @dockets = Docket.all
-  end
-
   # GET /dockets/1
   # GET /dockets/1.json
   def show
@@ -56,7 +50,7 @@ class DocketsController < ApplicationController
   def destroy
     @docket.destroy
     respond_to do |format|
-      format.html { redirect_to dockets_url, notice: 'Docket was successfully destroyed.' }
+      format.html { redirect_to meetings_url, notice: 'Docket was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

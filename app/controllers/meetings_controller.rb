@@ -4,7 +4,7 @@ class MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.json
   def index
-    @meetings = Meeting.all
+    @meetings = Meeting.all.includes(:organization, :docket).order('date DESC')
   end
 
   # GET /meetings/1
@@ -28,8 +28,9 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
-        format.html { redirect_to @meeting, notice: 'Meeting was successfully created.' }
-        format.json { render :show, status: :created, location: @meeting }
+        @docket = Docket.create(meeting_id: @meeting.id)
+        format.html { redirect_to edit_docket_path(@docket), notice: 'Meeting was successfully created.' }
+        format.json { render :edit, status: :created, location: @docket }
       else
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }

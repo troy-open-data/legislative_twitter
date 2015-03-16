@@ -11,11 +11,11 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :meeting_id %><br>
-    <%= f.text_field :meeting_id %>
-  </div>
+    <%= f.hidden_field :meeting_id %>
+
+    <p>At the moment, there is nothing to edit on the docket. Soon you will be able to add and remove snippets with legislation!</p>
+
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'button expand' %>
   </div>
 <% end %>

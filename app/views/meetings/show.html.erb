@@ -2,12 +2,17 @@
 
 <p>
   <strong>Organization:</strong>
-  <%= @meeting.organization %>
+  <%= @meeting.organization.name %>
 </p>
 
 <p>
   <strong>Date:</strong>
   <%= @meeting.date %>
+</p>
+
+<p>
+  <strong>Docket:</strong>
+  <%= link_to 'docket', @meeting.docket %>
 </p>
 
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
