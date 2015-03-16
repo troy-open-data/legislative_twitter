@@ -64,6 +64,8 @@ gem 'rollbar', '~> 1.4.4'
 gem 'newrelic_rpm'
 # Use Heroku API to show update status
 gem 'platform-api'
+# Shim to load environment variables from .env into ENV in development.
+gem 'dotenv-rails'
 
 
 # Include Minitest and Minitest Reporters for RubyMine
@@ -94,8 +96,6 @@ group :development, :test do
   # Use Quiet Assets to turn off the Rails Asset Pipeline log
   gem 'quiet_assets'
 
-  # Shim to load environment variables from .env into ENV in development.
-  gem 'dotenv-rails'
   # Use Travis Lint to check .travis.yml syntax
   gem 'travis-lint'
 
