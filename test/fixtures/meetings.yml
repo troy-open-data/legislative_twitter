@@ -13,9 +13,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  organization_id: 
+  organization: one
   date: 2015-03-15
 
 two:
-  organization_id: 
-  date: 2015-03-15
+  organization: two
+  date: 2014-03-15

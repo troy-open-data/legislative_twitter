@@ -1,7 +1,7 @@
 <h2>Docket</h2>
 <p>
   <strong>For Meeting:</strong>
-  <%= @docket.organization.name + " on " + @docket.meeting.date.to_s %>
+  <%= @docket.organization.name.to_s + ' on ' + @docket.meeting.date.to_s %>
 </p>
 
 <%= link_to 'Edit', edit_docket_path(@docket), class: 'small button' %>
