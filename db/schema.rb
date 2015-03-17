@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315215122) do
+ActiveRecord::Schema.define(version: 20150317070715) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,13 +28,18 @@ ActiveRecord::Schema.define(version: 20150315215122) do
     t.datetime "file_updated_at"
   end
 
-  create_table "dockets", force: :cascade do |t|
+  create_table "folios", force: :cascade do |t|
     t.integer  "meeting_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "legislation_id"
+    t.text     "notes"
+    t.string   "vote"
+    t.string   "sponsor"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
-  add_index "dockets", ["meeting_id"], name: "index_dockets_on_meeting_id", using: :btree
+  add_index "folios", ["legislation_id"], name: "index_folios_on_legislation_id", using: :btree
+  add_index "folios", ["meeting_id"], name: "index_folios_on_meeting_id", using: :btree
 
   create_table "legislations", force: :cascade do |t|
     t.string   "title"
@@ -50,10 +55,8 @@ ActiveRecord::Schema.define(version: 20150315215122) do
     t.date     "date"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "docket_id"
   end
 
-  add_index "meetings", ["docket_id"], name: "index_meetings_on_docket_id", using: :btree
   add_index "meetings", ["organization_id"], name: "index_meetings_on_organization_id", using: :btree
 
   create_table "organizations", force: :cascade do |t|
@@ -62,15 +65,6 @@ ActiveRecord::Schema.define(version: 20150315215122) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
-
-  create_table "snippets", force: :cascade do |t|
-    t.integer  "docket_id"
-    t.text     "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "snippets", ["docket_id"], name: "index_snippets_on_docket_id", using: :btree
 
   create_table "status_updates", force: :cascade do |t|
     t.integer  "legislation_id"
@@ -101,10 +95,9 @@ ActiveRecord::Schema.define(version: 20150315215122) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
-  add_foreign_key "dockets", "meetings"
-  add_foreign_key "meetings", "dockets"
+  add_foreign_key "folios", "legislations"
+  add_foreign_key "folios", "meetings"
   add_foreign_key "meetings", "organizations"
-  add_foreign_key "snippets", "dockets"
   add_foreign_key "status_updates", "legislations"
   add_foreign_key "status_updates", "statuses"
 end

@@ -7,11 +7,14 @@
 #  date            :date
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  docket_id       :integer
 #
 
 class Meeting < ActiveRecord::Base
   # Model Relationships
   belongs_to :organization
-  has_one :docket, dependent: :destroy
+
+  has_many :folios, dependent: :destroy
+  has_many :meetings, through: :folios
+  accepts_nested_attributes_for :folios,
+                                allow_destroy: true
 end

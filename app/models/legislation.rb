@@ -19,6 +19,9 @@ class Legislation < ActiveRecord::Base
   has_many :status_updates, dependent: :destroy
   has_many :statuses, through: :status_updates
 
+  has_many :folios, dependent: :destroy
+  has_many :meetings, through: :folios
+
   has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments,
                                 reject_if: lambda {|attribute| attribute[:file].blank?},

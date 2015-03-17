@@ -20,8 +20,8 @@ class MeetingsControllerTest < ActionController::TestCase
     assert_difference('Meeting.count') do
       post :create, meeting: { date: @meeting.date, organization_id: @meeting.organization_id }
     end
-    # Redirects to docket path.
-    # assert_redirected_to docket_path(assigns(:meeting))
+
+    assert_redirected_to meeting_path(assigns(:meeting))
   end
 
   test "should show meeting" do

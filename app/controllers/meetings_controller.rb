@@ -4,7 +4,7 @@ class MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.json
   def index
-    @meetings = Meeting.all.includes(:organization, :docket).order('date DESC')
+    @meetings = Meeting.all.includes(:organization).order('date DESC')
   end
 
   # GET /meetings/1
@@ -28,9 +28,8 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
-        @docket = Docket.create(meeting_id: @meeting.id)
-        format.html { redirect_to edit_docket_path(@docket), notice: 'Meeting was successfully created.' }
-        format.json { render :edit, status: :created, location: @docket }
+        format.html { redirect_to meeting_path(@meeting), notice: 'Meeting was successfully created.' }
+        format.json { render :show, status: :created, location: @meeting }
       else
         format.html { render :new }
         format.json { render json: @meeting.errors, status: :unprocessable_entity }
@@ -63,13 +62,20 @@ class MeetingsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_meeting
-      @meeting = Meeting.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_meeting
+    @meeting = Meeting.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def meeting_params
-      params.require(:meeting).permit(:organization_id, :date)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def meeting_params
+    params.require(:meeting).permit(:organization_id, :date,
+                                    folios_attributes: [:sponsor,
+                                                       :vote,
+                                                       :legislation_id,
+                                                       :meeting_id,
+                                                       :notes,
+                                                       :id,
+                                                       :_destroy])
+  end
 end

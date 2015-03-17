@@ -10,10 +10,14 @@
   <%= @meeting.date %>
 </p>
 
-<p>
-  <strong>Docket:</strong>
-  <%= link_to 'docket', @meeting.docket %>
-</p>
+<h3>Listing Associated Legislation</h3>
+
+<ul>
+  <% @meeting.folios.each do |folio| %>
+      <li><%= folio.legislation.title %></li>
+  <% end %>
+</ul>
+
 
 <%= link_to 'Edit', edit_meeting_path(@meeting) %> |
 <%= link_to 'Back', meetings_path %>

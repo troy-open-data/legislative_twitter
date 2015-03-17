@@ -1,4 +1,4 @@
-<%= form_for(@meeting) do |f| %>
+<%= nested_form_for(@meeting) do |f| %>
   <% if @meeting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
@@ -19,6 +19,16 @@
     <%= f.label :date %><br>
     <%= f.date_select :date %>
   </div>
+
+    <!--Folios-->
+    <fieldset>
+      <legend>Add Meeting Folios</legend>
+      <%= f.fields_for :folios do |builder| %>
+          <%= render 'folio_form', f: builder %>
+      <% end %>
+      <%= f.link_to_add '+ add a folio', :folios, class: 'small button expand' %>
+    </fieldset>
+
   <div class="actions">
     <%= f.submit class:'button expand' %>
   </div>
