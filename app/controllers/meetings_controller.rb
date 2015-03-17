@@ -10,12 +10,23 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.json
   def show
+    # @legislations = @meeting.legislations.uniq
+    # # @grouped_legislations = @meeting.legislations.
+    #     uniq.
+    #     sort_by{|l| l.created_at}.
+    #     group_by{|l| l.legislation_type}
   end
 
   # GET /meetings/1/agenda
   # GET /meetings/1/agenda.json
   # GET /meetings/1/agenda.pdf
   def agenda
+    # @legislations = @meeting.legislations.uniq
+    # @grouped_legislations = @meeting.legislations.
+    #     uniq.
+    #     sort_by{|l| l.created_at}.
+    #     group_by{|l| l.legislation_type}
+
     respond_to do |format|
       format.html
       format.json
@@ -82,11 +93,11 @@ class MeetingsController < ApplicationController
   def meeting_params
     params.require(:meeting).permit(:organization_id, :date,
                                     folios_attributes: [:sponsor,
-                                                       :vote,
-                                                       :legislation_id,
-                                                       :meeting_id,
-                                                       :notes,
-                                                       :id,
-                                                       :_destroy])
+                                                        :vote,
+                                                        :legislation_id,
+                                                        :meeting_id,
+                                                        :notes,
+                                                        :id,
+                                                        :_destroy])
   end
 end

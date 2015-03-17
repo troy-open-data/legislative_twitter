@@ -1,1 +1,28 @@
+<!--Agenda title-->
 <h2><%= "Agenda: #{@meeting.organization.name}, #{@meeting.date}" %></h2>
+
+<dl>
+  <dt>Pledge of Allegiance</dt>
+  <dt>Roll Call</dt>
+  <dt>Good News Agenda</dt>
+  <dt>Vacancy List</dt>
+</dl>
+
+<!--Legal paragraph thing-->
+<p>Pursuant to Section 2.72-2 entitled "Public Forum" of the Special Rules ofOrder of the Troy City Council a period of time shall be designated during each regular or special meeting of the City Council as a public forum during which citizens of the City shall be permitted to address the Council on legislation on that meeting's agenda and on any subject appropriate to the conduct ofTroy City government. Length of time allotted for citizen comment shall be no longer than five (5) minutes per speaker. At the completion of the agenda, citizen's comment shall be no longer than five (5) minutes per speaker appropriate to any subject to the conduct of Troy City government.</p>
+
+<h3>Local Law</h3>
+
+<!--List legislations by type-->
+<dl>
+  <% @meeting.grouped_legislations.each do |legislation_type, legislations| %>
+      <h4><%= legislation_type %></h4>
+      <% legislations.each do |legislation| %>
+      <dt><%= legislation.legislative_numbering :abbreviation %></dt>
+          <dd><%= short_title legislation %>
+        (<%= link_to 'page', legislation_path(legislation) %>)
+        (<%= link_to 'pdf', legislation_path(legislation, format: 'pdf') %>)
+      </dd>
+          <% end %>
+  <% end %>
+</dl>

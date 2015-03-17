@@ -28,6 +28,7 @@ gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '~> 1.5.7'
 # PDF generation with prawn
 gem 'prawn_rails'
+gem 'prawn-table'
 # Easy dynamic fields (adding and removing) in nested forms
 gem 'nested_form'
 

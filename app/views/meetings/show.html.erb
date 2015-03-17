@@ -6,8 +6,12 @@
 <h3>Listing Associated Legislation</h3>
 
 <ul>
-  <% @meeting.folios.each do |folio| %>
-      <li><%= short_title folio.legislation %> (<%= link_to 'page', legislation_path(folio.legislation) %>)(<%= link_to 'pdf', legislation_path(folio.legislation, format: 'pdf') %>)</li>
+  <% @meeting.legislations.each do |legislation| %>
+      <li>
+        <%= short_title legislation %>
+        (<%= link_to 'page', legislation_path(legislation) %>)
+        (<%= link_to 'pdf', legislation_path(legislation, format: 'pdf') %>)
+      </li>
   <% end %>
 </ul>
 

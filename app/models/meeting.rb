@@ -14,7 +14,12 @@ class Meeting < ActiveRecord::Base
   belongs_to :organization
 
   has_many :folios, dependent: :destroy
-  has_many :meetings, through: :folios
+  has_many :legislations, through: :folios
   accepts_nested_attributes_for :folios,
                                 allow_destroy: true
+
+
+  def grouped_legislations
+    legislations.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
+  end
 end
