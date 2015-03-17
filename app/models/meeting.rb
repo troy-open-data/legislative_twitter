@@ -22,4 +22,8 @@ class Meeting < ActiveRecord::Base
   def grouped_legislations
     legislations.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
   end
+
+  def has_happened?
+    Date.today > self.date
+  end
 end

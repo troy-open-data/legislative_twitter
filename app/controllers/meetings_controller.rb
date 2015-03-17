@@ -1,5 +1,6 @@
 class MeetingsController < ApplicationController
-  before_action :set_meeting, only: [:show, :edit, :update, :destroy, :agenda]
+  before_action :set_meeting, only: [:show, :edit, :update, :destroy,
+                                     :agenda, :minutes]
 
   # GET /meetings
   # GET /meetings.json
@@ -10,23 +11,23 @@ class MeetingsController < ApplicationController
   # GET /meetings/1
   # GET /meetings/1.json
   def show
-    # @legislations = @meeting.legislations.uniq
-    # # @grouped_legislations = @meeting.legislations.
-    #     uniq.
-    #     sort_by{|l| l.created_at}.
-    #     group_by{|l| l.legislation_type}
   end
 
   # GET /meetings/1/agenda
   # GET /meetings/1/agenda.json
   # GET /meetings/1/agenda.pdf
   def agenda
-    # @legislations = @meeting.legislations.uniq
-    # @grouped_legislations = @meeting.legislations.
-    #     uniq.
-    #     sort_by{|l| l.created_at}.
-    #     group_by{|l| l.legislation_type}
+    respond_to do |format|
+      format.html
+      format.json
+      format.pdf
+    end
+  end
 
+  # GET /meetings/1/minutes
+  # GET /meetings/1/minutes.json
+  # GET /meetings/1/minutes.pdf
+  def minutes
     respond_to do |format|
       format.html
       format.json

@@ -13,7 +13,7 @@ prawn_document(
     top_margin: 1.in,
     bottom_margin: 1.in,
     info: {
-        Title: "#{@meeting.date.to_s} #{@meeting.organization.name} Agenda",
+        Title: "#{@meeting.date.to_s} #{@meeting.organization.name} Minutes",
         Author: 'Unknown',
         Subject: 'Legislation',
         Keywords: 'Troy, Legislation, Code',
@@ -34,7 +34,7 @@ prawn_document(
   # pdf.move_down font_size*2
 
   title_width = 3.in
-  pdf.text_box "TROY CITY\n#{@meeting.organization.name.upcase} AGENDA\nREGULAR MEETING\n#{@meeting.date}",
+  pdf.text_box "TROY CITY\n#{@meeting.organization.name.upcase} MINUTES\nREGULAR MEETING\n#{@meeting.date}",
                align: :center,
                style: :bold,
                width: title_width,
@@ -51,8 +51,8 @@ prawn_document(
   # pdf.move_down font_size
 
   data = [["Pledge of Allegiance\nRoll Call\nGood News Agenda\nVacancy List"],
-  ["Pursuant to Section 2.72-2 entitled \"Public Forum\" of the Special Rules ofOrder of the Troy City Council a period of time shall be designated during each regular or special meeting of the City Council as a public forum during which citizens of the City shall be permitted to address the Council on legislation on that meeting's agenda and on any subject appropriate to the conduct ofTroy City government. Length of time allotted for citizen comment shall be no longer than five (5) minutes per speaker. At the completion of the agenda, citizen's comment shall be no longer than five (5) minutes per speaker appropriate to any subject to the conduct of Troy City government."],
-  ["\nLOCAL LAW"]]
+          ["Pursuant to Section 2.72-2 entitled \"Public Forum\" of the Special Rules ofOrder of the Troy City Council a period of time shall be designated during each regular or special meeting of the City Council as a public forum during which citizens of the City shall be permitted to address the Council on legislation on that meeting's agenda and on any subject appropriate to the conduct ofTroy City government. Length of time allotted for citizen comment shall be no longer than five (5) minutes per speaker. At the completion of the agenda, citizen's comment shall be no longer than five (5) minutes per speaker appropriate to any subject to the conduct of Troy City government."],
+          ["\nLOCAL LAW"]]
   pdf.table(data) do
     cells.borders = []
     # row(1).font_style = :italic
@@ -64,9 +64,9 @@ prawn_document(
   # Legislations Table
   @meeting.grouped_legislations.each do |legislation_type, legislations|
     data = [[ {content: legislation_type.pluralize(legislations.count).upcase, colspan: 2} ]]
-      legislations.each do |legislation|
-        data << [legislation.legislative_numbering(:integer).to_s+'.', legislation.title]
-      end
+    legislations.each do |legislation|
+      data << [legislation.legislative_numbering(:integer).to_s+'.', legislation.title]
+    end
     pdf.table(data, header:true) do
       cells.borders = []
       column(0).width = 0.5.in
@@ -94,20 +94,20 @@ prawn_document(
                           width: header_widths,
                           align: :left,
                           start_count_at: 1 }
-  options_agenda_header = { at: [pdf.bounds.width/2-header_widths/2 , pdf.bounds.top+font_size*2],
+  options_minutes_header = { at: [pdf.bounds.width/2-header_widths/2 , pdf.bounds.top+font_size*2],
                             width: header_widths,
                             align: :center,
                             style: :italic }
   options_date_header = { at: [pdf.bounds.right-header_widths, pdf.bounds.top+font_size*2],
-                                 width: header_widths,
-                                 align: :right, }
+                          width: header_widths,
+                          align: :right, }
 
   pdf.number_pages "Page <page> of <total>", options_page_number
   pdf.repeat(:all) do
     pdf.text_box "#{@meeting.date.to_s}", options_date_header
   end
   pdf.repeat lambda{|page| page != 1} do
-    pdf.text_box "#{@meeting.organization.name} Agenda", options_agenda_header
+    pdf.text_box "#{@meeting.organization.name} Minutes", options_minutes_header
   end
 end
 

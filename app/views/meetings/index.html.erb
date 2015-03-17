@@ -9,6 +9,7 @@
       <th>Date</th>
       <th>Meeting Details</th>
       <th>Agendas</th>
+      <th>Minutes</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -20,6 +21,13 @@
         <td><%= meeting.date %></td>
         <td><%= link_to 'Details', meeting %></td>
         <td><%= link_to 'html', agenda_path(meeting) %> | <%= link_to 'pdf', agenda_path(meeting, format: 'pdf') %></td>
+        <td>
+          <% if meeting.has_happened? %>
+          <%= link_to 'html', minutes_path(meeting) %> | <%= link_to 'pdf', minutes_path(meeting, format: 'pdf') %>
+              <% else %>
+          Upcoming...
+              <% end %>
+        </td>
         <td><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
         <td><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
