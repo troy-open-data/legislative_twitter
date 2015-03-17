@@ -1,20 +1,13 @@
-<p id="notice"><%= notice %></p>
+<h2><%= @meeting.organization.name %>: <%= @meeting.date %></h2>
 
-<p>
-  <strong>Organization:</strong>
-  <%= @meeting.organization.name %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @meeting.date %>
-</p>
+<%= link_to 'Agenda', agenda_path(@meeting) %>
+(<%= link_to 'pdf', agenda_path(@meeting, format: 'pdf') %>)
 
 <h3>Listing Associated Legislation</h3>
 
 <ul>
   <% @meeting.folios.each do |folio| %>
-      <li><%= folio.legislation.title %></li>
+      <li><%= short_title folio.legislation %> (<%= link_to 'page', legislation_path(folio.legislation) %>)(<%= link_to 'pdf', legislation_path(folio.legislation, format: 'pdf') %>)</li>
   <% end %>
 </ul>
 

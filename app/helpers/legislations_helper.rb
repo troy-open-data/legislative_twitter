@@ -1,12 +1,5 @@
 module LegislationsHelper
   # ====== LEGISLATION BLURB GENERATORS ======
-  # Returns in title case either the short title (if it exists) or a truncated
-  # version of the standard title for a piece of legislation
-  def short_title(legislation)
-    short_title = legislation.short_title || truncate(legislation.title, length: 128)
-    short_title.titleize
-  end
-
   # returns the truncated body of a legislation, stripped of tags, with a note
   # of how many attachments the legislation has.
   # this is in the format: "...lorem ipsum... (with 2 attachments)"

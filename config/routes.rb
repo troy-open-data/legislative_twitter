@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :dockets, only: [:new, :create, :show, :edit, :update, :destroy]
-
   resources :meetings
 
   resources :organizations
 
   resources :statuses
+
+  get 'meetings/:id/agenda' => 'meetings#agenda', :as => 'agenda'
 
   get 'search' => "search#search", :as => :search
 
