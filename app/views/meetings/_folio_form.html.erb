@@ -16,8 +16,11 @@
   <div class="small-3 columns">
     <%= f.label :legislation_id, 'Select Legislation', class: 'right inline' %>
   </div>
-  <div class="small-9 columns">
+  <div class="small-7 columns">
     <%= f.collection_select :legislation_id, Legislation.all, :id, :title %>
+  </div>
+  <div class="small-2 columns">
+    <%= f.link_to_remove 'remove', class: 'tiny right inline alert button' %>
   </div>
 </div>
 
