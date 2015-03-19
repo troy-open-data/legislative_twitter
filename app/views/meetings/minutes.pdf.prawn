@@ -84,6 +84,18 @@ prawn_document(
   #   pdf.stroke_horizontal_rule
   # end
 
+  pdf.create_stamp("Draft") do
+    pdf.rotate(30, :origin => [-5, -5]) do
+      pdf.fill_color "CCCCCC"
+      pdf.font_size(256) do
+        pdf.draw_text "Draft", :at => [1.in, 8.in]
+        pdf.draw_text "Draft", :at => [1.in, 4.in]
+        pdf.draw_text "Draft", :at => [1.in, 0.in]
+        pdf.draw_text "Draft", :at => [1.in, -4.in]
+      end
+    end
+  end
+
 
 
 
@@ -105,6 +117,7 @@ prawn_document(
   pdf.number_pages "Page <page> of <total>", options_page_number
   pdf.repeat(:all) do
     pdf.text_box "#{@meeting.date.to_s}", options_date_header
+    pdf.stamp "Draft"
   end
   pdf.repeat lambda{|page| page != 1} do
     pdf.text_box "#{@meeting.organization.name} Minutes", options_minutes_header
