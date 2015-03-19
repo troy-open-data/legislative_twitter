@@ -85,6 +85,12 @@ class Legislation < ActiveRecord::Base
     end
   end
 
+  def collection_text_method
+    index = Legislation.where(legislation_type: legislation_type)
+                .order('created_at ASC').index(self) + 1
+    legislation_type[0..2] + ' ' + index.to_s + ': ' + (short_title || title.truncate(72))
+  end
+
   # Returns the most recently updated legislation
   def self.latest
     Legislation.all.order('updated_at').last

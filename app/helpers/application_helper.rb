@@ -3,7 +3,7 @@ module ApplicationHelper
   # Returns in title case either the short title (if it exists) or a truncated
   # version of the standard title for a piece of legislation
   def short_title(legislation)
-    short_title = legislation.short_title || truncate(legislation.title, length: 128)
+    short_title = legislation.short_title || truncate(legislation.title, length: 72)
     short_title.titleize
   end
 

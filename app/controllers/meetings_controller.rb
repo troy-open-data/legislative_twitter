@@ -51,6 +51,7 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
+        @meeting.attributes = {'folios_attributes' => []}.merge(params[:meeting] || {})
         format.html { redirect_to meeting_path(@meeting), notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
       else
@@ -65,6 +66,8 @@ class MeetingsController < ApplicationController
   def update
     respond_to do |format|
       if @meeting.update(meeting_params)
+        # todo: better way?
+        @meeting.attributes = {'folios_attributes' => []}.merge(params[:meeting] || {})
         format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
