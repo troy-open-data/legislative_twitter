@@ -1,14 +1,33 @@
-<h2><%= @meeting.organization.name %>: <%= @meeting.date %></h2>
+<!-- Legislation Options -->
+<div class="right button-bar">
+  <!-- Action Buttons -->
+  <ul class="button-group">
+    <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
+    <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
+    <li><%= link_to('Delete', meeting_path,
+                    method: "delete", class: 'tiny alert button',
+                    data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+  </ul>
+</div>
 
-<%= link_to 'Agenda', agenda_path(@meeting), class: 'small button' %>
-(<%= link_to 'pdf', agenda_path(@meeting, format: 'pdf') %>)
+<!--Title-->
+<h2><%= @meeting.organization.name %> Meeting <small><%= @meeting.date %></small></h2>
+
+
+<!--Downloads-->
+<h4>Downloads</h4>
+<ul>
+<li><%= link_to 'Agenda', agenda_path(@meeting) %>
+(<%= link_to 'pdf', agenda_path(@meeting, format: 'pdf') %>)</li>
 
 <% if @meeting.has_happened? %>
-    <br />
-    <%= link_to 'Minutes', minutes_path(@meeting), class: 'small button' %>
-    (<%= link_to 'pdf', minutes_path(@meeting, format: 'pdf') %>)
+    <li><%= link_to 'Minutes', minutes_path(@meeting) %>
+    (<%= link_to 'pdf', minutes_path(@meeting, format: 'pdf') %>)</li>
 <% end %>
+</ul>
 
+
+<!--Legislation Listing-->
 <h3>Listing Associated Legislation</h3>
 
 <ul>
@@ -19,7 +38,3 @@
           <% end %>
   <% end %>
 </ul>
-
-
-<%= link_to 'Edit', edit_meeting_path(@meeting) %> |
-<%= link_to 'Back', meetings_path %>

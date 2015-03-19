@@ -1,5 +1,18 @@
+<!-- Legislation Options -->
+<div class="right button-bar">
+  <!-- Action Buttons -->
+  <ul class="button-group">
+    <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
+    <li><%= link_to 'Meeting', meeting_path(@meeting), class:'tiny button' %></li>
+    <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
+    <li><%= link_to('Delete', meeting_path,
+                    method: "delete", class: 'tiny alert button',
+                    data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+  </ul>
+</div>
+
 <!--Agenda title-->
-<h2><%= "Agenda: #{@meeting.organization.name}, #{@meeting.date}" %></h2>
+<h2><%= "#{@meeting.organization.name} Agenda" %> <small>for <%= @meeting.date %></small></h2>
 
 <dl>
   <dt>Pledge of Allegiance</dt>
@@ -20,7 +33,7 @@
       <% legislations.each do |legislation| %>
       <dt><%= legislation.legislative_numbering :abbreviation %></dt>
           <dd><%= short_title legislation %>
-        (<%= link_to 'page', legislation_path(legislation) %>)
+        (<%= link_to 'html', legislation_path(legislation) %>)
         (<%= link_to 'pdf', legislation_path(legislation, format: 'pdf') %>)
       </dd>
           <% end %>

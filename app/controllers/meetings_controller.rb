@@ -6,6 +6,8 @@ class MeetingsController < ApplicationController
   # GET /meetings.json
   def index
     @meetings = Meeting.all.includes(:organization).order('date DESC')
+
+    @grouped_meetings = @meetings.group_by{|meeting| meeting.organization}
   end
 
   # GET /meetings/1
