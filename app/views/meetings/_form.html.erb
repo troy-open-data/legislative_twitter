@@ -17,13 +17,18 @@
   </div>
   <div class="field">
     <%= f.label :date %><br>
-    <%= f.date_select :date %>
+    <%= f.text_field :date, class:'datepicker' %>
   </div>
 
     <!--Legislative Docket-->
     <fieldset>
       <legend>Set Meeting Docket</legend>
-      <%= f.collection_check_boxes(:legislation_ids, Legislation.order('created_at DESC').all, :id, :collection_text_method) do |b| b.label { b.check_box + '  ' + b.text + "\n"} end %>
+      <%= f.collection_check_boxes(:legislation_ids,
+                                   Legislation.order('created_at DESC').all,
+                                   :id,
+                                   :collection_text_method) do |b|
+        b.label { b.check_box + '  ' + b.text + "\n"}
+      end %>
     </fieldset>
 
   <div class="actions">

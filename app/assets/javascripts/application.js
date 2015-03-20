@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery_nested_form
+//= require jquery-ui
 //= require foundation
 //= require turbolinks
 //= require_tree .
@@ -24,6 +25,9 @@ var ready;
 ready = function() {
     $(document).foundation();
     $('.jqte-test').jqte();  //todo: only put this on pages that need it
+    $('.datepicker').datepicker({
+        dateFormat: "yy-mm-dd"  // to be read by the database
+    });
 };
 
 $(document).ready(ready);

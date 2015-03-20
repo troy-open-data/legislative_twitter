@@ -18,6 +18,11 @@ class Meeting < ActiveRecord::Base
   accepts_nested_attributes_for :folios,
                                 allow_destroy: true
 
+  validates_presence_of :organization, :date
+  validates :date, format: {
+                     with: /\d{4}\-[01]\d-[0123]\d/,
+                     message: 'date must be in the format of yyyy-mm-dd' }
+
 
   def grouped_legislations
     legislations.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}

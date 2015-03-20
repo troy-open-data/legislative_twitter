@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  *= require foundation_and_overrides
-
+ *= require jquery-ui
  */
 
 /* Hacky fix for modal background not filling entire screen */
