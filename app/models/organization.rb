@@ -15,4 +15,13 @@ class Organization < ActiveRecord::Base
 
   # Model Relationships
   has_many :meetings
+
+  # Validations
+  validates_presence_of :name, :level
+
+  # Returns array of organizations with a level greater than 0, ordered by
+  # lower-level (higher number) organizations first.
+  def self.meetable
+    Organization.where.not(level: 0).order('level DESC').all
+  end
 end
