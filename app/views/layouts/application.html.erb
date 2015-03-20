@@ -6,6 +6,8 @@
 
     <title>Troy City Council | <%= content_for?(:title) ? yield(:title) : "Legislative Twitter" %></title>
 
+    <%= render 'touch_icons' %>
+
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
