@@ -12,7 +12,7 @@
 </div>
 
 <!--Agenda title-->
-<h2><%= "Minutes: #{@meeting.organization.name}, #{@meeting.date}" %></h2>
+<h2><%= "Minutes: #{@meeting.organization.name}, #{@meeting.date.to_formatted_s :long}" %></h2>
 
 <dl>
   <dt>Pledge of Allegiance</dt>

@@ -13,7 +13,7 @@ prawn_document(
     top_margin: 1.in,
     bottom_margin: 1.in,
     info: {
-        Title: "#{@meeting.date.to_s} #{@meeting.organization.name} Minutes",
+        Title: "#{@meeting.date.to_formatted_s :long} #{@meeting.organization.name} Minutes",
         Author: 'Unknown',
         Subject: 'Legislation',
         Keywords: 'Troy, Legislation, Code',
@@ -34,7 +34,7 @@ prawn_document(
   # pdf.move_down font_size*2
 
   title_width = 3.in
-  pdf.text_box "TROY CITY\n#{@meeting.organization.name.upcase} MINUTES\nREGULAR MEETING\n#{@meeting.date}",
+  pdf.text_box "TROY CITY\n#{@meeting.organization.name.upcase} MINUTES\nREGULAR MEETING\n#{@meeting.date.to_formatted_s :long}",
                align: :center,
                style: :bold,
                width: title_width,
@@ -116,7 +116,7 @@ prawn_document(
 
   pdf.number_pages "Page <page> of <total>", options_page_number
   pdf.repeat(:all) do
-    pdf.text_box "#{@meeting.date.to_s}", options_date_header
+    pdf.text_box "#{@meeting.date.to_formatted_s :long}", options_date_header
     pdf.stamp "Draft"
   end
   pdf.repeat lambda{|page| page != 1} do
