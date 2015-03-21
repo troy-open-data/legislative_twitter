@@ -51,20 +51,23 @@
 
 <!--List legislations by type-->
 <hr />
-<% @meeting.folios.each do |folio| %>
-    <h4><%= folio.legislation.legislative_numbering %></h4>
-    <dl>
-      <dt>Title</dt>
-      <dd><%= folio.legislation.title.upcase %>
-        (<%= link_to 'page', legislation_path(folio.legislation) %>)
-        (<%= link_to 'pdf', legislation_path(folio.legislation, format: 'pdf') %>)
-      </dd>
-      <dt>Sponsor</dt>
-      <dd><%= folio.sponsor || 'No legislation sponsor' %></dd>
-      <dt>Notes</dt>
-      <dd><%= folio.notes || 'No notes recorded' %></dd>
-      <dt>Final Vote</dt>
-      <dd><%= folio.vote || 'No vote recorded' %></dd>
-    </dl>
+<% @meeting.folios.group_by{|f| f.legislation.legislation_type}.each do |legislation_type, folios| %>
+    <h4><%= legislation_type %></h4>
+    <% folios.sort_by{|f| f.legislation.created_at}.each do |folio| %>
+        <h5><%= folio.legislation.legislative_numbering %></h5>
+        <dl>
+          <dt>Title</dt>
+          <dd><%= folio.legislation.title.upcase %>
+            (<%= link_to 'page', legislation_path(folio.legislation) %>)
+            (<%= link_to 'pdf', legislation_path(folio.legislation, format: 'pdf') %>)
+          </dd>
+          <dt>Sponsor</dt>
+          <dd><%= folio.sponsor || 'No legislation sponsor' %></dd>
+          <dt>Notes</dt>
+          <dd><%= folio.notes || 'No notes recorded' %></dd>
+          <dt>Final Vote</dt>
+          <dd><%= folio.vote || 'No vote recorded' %></dd>
+        </dl>
+    <% end %>
     <hr />
 <% end %>
