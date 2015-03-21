@@ -26,7 +26,7 @@
 <!--List Meetings-->
 <h4>Meetings:</h4>
   <ul>
-  <% @organization.meetings.order('date DESC').each do |meeting| %>
+  <% @organization.meetings.order('date_and_time DESC').each do |meeting| %>
     <li>
       <%= link_to meeting.date.to_formatted_s(:long), meeting_path(meeting)%>
       <%= link_to '| agenda pdf', agenda_path(meeting, format: 'pdf') %>

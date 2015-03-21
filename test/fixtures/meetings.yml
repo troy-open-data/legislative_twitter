@@ -16,8 +16,10 @@
 
 one:
   organization: one
-  date: 2015-03-15
+  date_and_time: 2014-03-15 12:00
+  location: Troy, NY
 
 two:
   organization: two
-  date: 2014-03-15
+  date_and_time: 2014-03-15 12:00
+  location: Troy, NY

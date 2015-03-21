@@ -18,7 +18,9 @@ class MeetingsControllerTest < ActionController::TestCase
 
   test "should create meeting" do
     assert_difference('Meeting.count') do
-      post :create, meeting: { date: @meeting.date, organization_id: @meeting.organization_id }
+      post :create, meeting: { date_and_time: @meeting.date_and_time,
+                               location: @meeting.location,
+                               organization_id: @meeting.organization_id }
     end
 
     assert_redirected_to meeting_path(assigns(:meeting))
