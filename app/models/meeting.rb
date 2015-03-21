@@ -10,6 +10,8 @@
 #
 
 class Meeting < ActiveRecord::Base
+  DEFAULT_LOCATION='Suite 5, 433 River Street, Troy, NY 12180'
+
   # Model Relationships
   belongs_to :organization
 

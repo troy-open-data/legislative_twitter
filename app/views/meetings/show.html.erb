@@ -50,6 +50,7 @@
     <dd><%= @meeting.date.to_formatted_s(:long_ordinal) %></dd>
     <dt>Time:</dt>
     <dt>Location:</dt>
+    <dd><%= @meeting.location || 'No location specified' %></dd>
   </dl>
 
 
