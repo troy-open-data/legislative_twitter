@@ -6,7 +6,7 @@ class MeetingsController < ApplicationController
   # GET /meetings
   # GET /meetings.json
   def index
-    @meetings = Meeting.all.includes(:organization).order('date DESC')
+    @meetings = Meeting.all.includes(:organization).order('date_and_time DESC')
 
     @grouped_meetings = @meetings.group_by{|meeting| meeting.organization}
   end
@@ -115,7 +115,7 @@ class MeetingsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
-    params.require(:meeting).permit(:organization_id, :date, :location,
+    params.require(:meeting).permit(:organization_id, :date_and_time, :location,
                                     legislation_ids: [],
                                     folios_attributes: [:sponsor,
                                                         :vote,
