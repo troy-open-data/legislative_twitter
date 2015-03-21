@@ -34,7 +34,7 @@ class Meeting < ActiveRecord::Base
     Date.today > self.date
   end
 
-  def approved_agenda?
+  def v
     true
   end
 

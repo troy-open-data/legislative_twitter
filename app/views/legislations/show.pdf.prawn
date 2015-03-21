@@ -26,46 +26,19 @@ prawn_document(
   pdf.font("Times-Roman")
   pdf.default_leading font_size*0.2
 
-  # page title
-  # pdf.move_down font_size*2
-  pdf.text "#{@legislation.title.upcase}", align: :center, style: :bold
-  pdf.stroke_horizontal_rule
-  pdf.move_down font_size*2
+  # Render each legislation
+  render 'pdf_templates/legislation',
+         pdf: pdf,
+         font_size: font_size,
+         legislation: @legislation
 
-  # sanitizes and splits the body based on paragraph markers
-  body_paragraphs = prawnify_paragraphs(@legislation.body, font_size*1.25)
-  # outputs each paragraph
-  body_paragraphs.each do |paragraph|
-    pdf.text paragraph, inline_format: true
-    pdf.move_down font_size
-  end
+  # Render page headers
+  numbering = @legislation.legislative_numbering(:abbreviation)
+  render 'pdf_templates/header',
+         pdf: pdf,
+         font_size: font_size,
+         right: numbering,
+         center: '',
+         approved: true
 
-  # Signature Block
-  pdf.move_down font_size*2
-  pdf.bounding_box([0, pdf.cursor], :width => 3.5.in) do
-    pdf.text "Approved as to form, #{Date.today.strftime("%B %-d, %Y")}"
-    pdf.move_down font_size*3
-    pdf.stroke_horizontal_rule
-    pdf.move_down font_size*0.3
-    legal_name = "Ian H. Silverman, Esq."
-    legal_title = ", Corporation Counsel"
-    pdf.formatted_text [ { text: legal_name, styles: [:bold, :italic] },
-                         { text: legal_title } ]
-  end
-
-  # page numbers at top
-  header_widths = 2.5.in
-  options_page_number = { at: [pdf.bounds.left , pdf.bounds.top+font_size*2],
-                          width: header_widths,
-                          align: :left,
-                          start_count_at: 1 }
-  options_legislative_number = { at: [pdf.bounds.right-header_widths, pdf.bounds.top+font_size*2],
-                                 width: header_widths,
-                                 align: :right,
-                                 style: :bold }
-
-  pdf.number_pages "Page <page> of <total>", options_page_number
-  pdf.repeat(:all) do
-    pdf.text_box @legislation.legislative_numbering(:abbreviation), options_legislative_number
-  end
 end
