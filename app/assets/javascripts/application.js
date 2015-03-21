@@ -12,22 +12,28 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery-te-1.4.0
 //= require jquery_nested_form
 //= require jquery-ui/datepicker
+//= require geocomplete/jquery.geocomplete
 //= require foundation
 //= require turbolinks
 //= require_tree .
 
 
-// run js either when page loads or document is ready
-// allows script to run with turbolinks
+
 var ready;
 ready = function() {
+    // todo: only put this on pages that need it
     $(document).foundation();
-    $('.jqte-test').jqte();  //todo: only put this on pages that need it
+    // jQuery Text Editor
+    $('.jqte-test').jqte();
+    // jQuery Datepicker
     $('.datepicker').datepicker({
         dateFormat: "yy-mm-dd"  // to be read by the database
     });
+    // jQuery GeoComplete
+    $('.geocomplete').geocomplete();
     // Toggles admin-only buttons
     $('#admin-toggle').click(function() {
         $('.admin').toggle(600);

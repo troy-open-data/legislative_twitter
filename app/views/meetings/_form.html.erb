@@ -17,12 +17,14 @@
   </div>
   <div class="field">
     <%= f.label :date %>
-    <%= f.text_field :date, class:'datepicker', value: (@meeting.date || Date.today.next_week) %>
+    <%= f.text_field :date, class:'datepicker',
+                     value: (@meeting.date || Date.today.next_week) %>
   </div>
 
     <div class="field">
       <%= f.label :location %>
-      <%= f.text_field :location, value: (@meeting.location || Meeting::DEFAULT_LOCATION) %>
+      <%= f.text_field :location, class: 'geocomplete',
+                       value: (@meeting.location || Meeting::DEFAULT_LOCATION) %>
     </div>
 
     <!--Legislative Docket-->

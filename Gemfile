@@ -29,8 +29,6 @@ gem 'aws-sdk', '~> 1.5.7'
 # PDF generation with prawn
 gem 'prawn_rails'
 gem 'prawn-table'
-# Easy dynamic fields (adding and removing) in nested forms
-gem 'nested_form'
 
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -39,6 +37,8 @@ gem 'nested_form'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+# Easy dynamic fields (adding and removing) in nested forms
+gem 'nested_form'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
