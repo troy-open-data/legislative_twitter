@@ -18,23 +18,41 @@ pdf.table(data) do
   cells.borders = []
   # row(1).font_style = :italic
   row(2).font_style = :bold
+  row(2).style align: :center
 end
 
 pdf.move_down font_size
 
 
-
-
 # Legislations Table
-meeting.grouped_legislations.each do |legislation_type, legislations|
-  data = [[ {content: legislation_type.pluralize(legislations.count).upcase, colspan: 2} ]]
-  legislations.each do |legislation|
-    data << [legislation.legislative_numbering(:integer).to_s+'.', legislation.title]
+meeting.folios.group_by{|f| f.legislation.legislation_type}.each do |legislation_type, folios|
+  data = [[ {content: legislation_type.pluralize(folios.count).upcase, colspan: 3} ]]
+  folios.each do |folio|
+    data << [folio.legislation.legislative_numbering(:integer).to_s+'.', 'Title', folio.legislation.title]
+    data << ['','Sponsor', folio.sponsor]
+    data << ['','Notes', folio.notes]
+    data << ['','Final Vote', folio.vote]
+    2.times { data << ['','',''] }
   end
   pdf.table(data, header:true) do
     cells.borders = []
     column(0).width = 0.5.in
+    column(1).width = 1.in
     row(0).font_style = :bold
+    row(0).style align: :center
   end
   pdf.move_down font_size*2
 end
+
+# meeting.grouped_legislations.each do |legislation_type, legislations|
+#   data = [[ {content: legislation_type.pluralize(legislations.count).upcase, colspan: 2} ]]
+#   legislations.each do |legislation|
+#     data << [legislation.legislative_numbering(:integer).to_s+'.', legislation.title]
+#   end
+#   pdf.table(data, header:true) do
+#     cells.borders = []
+#     column(0).width = 0.5.in
+#     row(0).font_style = :bold
+#   end
+#   pdf.move_down font_size*2
+# end
