@@ -1,23 +1,28 @@
 <!--Header and New Button-->
-<%= link_to '+ New Legislation', new_legislation_path, class:'right button' %>
-<h2>Listing Legislation</h2>
+<div class="admin row">
+  <%= link_to '+ New Legislation', new_legislation_path, class:'right button' %>
+</div>
 
-<!--Legislation Listing
-        Updates cache when any legislation updates -->
-<% cache [recent_legislation_cache_name, Legislation.latest] do %>
-    <div class="row">
-      <div class="small-12 columns">
-        <%= render @legislations %>
-      </div>
-    </div>
-<% end %>
-
-<br>
-
-<!--Pagination-->
 <div class="row">
-  <div class="small-12 columns">
-    <%= paginate @legislations %>
+  <h2>Listing Legislation</h2>
+
+  <!--Legislation Listing
+          Updates cache when any legislation updates -->
+  <% cache [recent_legislation_cache_name, Legislation.latest] do %>
+      <div class="row">
+        <div class="small-12 columns">
+          <%= render @legislations %>
+        </div>
+      </div>
+  <% end %>
+
+  <br>
+
+  <!--Pagination-->
+  <div class="row">
+    <div class="small-12 columns">
+      <%= paginate @legislations %>
+    </div>
   </div>
 </div>
 

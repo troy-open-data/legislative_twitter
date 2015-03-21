@@ -28,6 +28,10 @@ ready = function() {
     $('.datepicker').datepicker({
         dateFormat: "yy-mm-dd"  // to be read by the database
     });
+    // Toggles admin-only buttons
+    $('#admin-toggle').click(function() {
+        $('.admin').toggle(600);
+    });
 };
 
 $(document).ready(ready);

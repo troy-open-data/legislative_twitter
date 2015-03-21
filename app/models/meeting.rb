@@ -30,6 +30,10 @@ class Meeting < ActiveRecord::Base
     legislations.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
   end
 
+  def name
+    self.organization.name + ' Meeting on ' + self.date.to_formatted_s(:long)
+  end
+
   def has_happened?
     Date.today > self.date
   end

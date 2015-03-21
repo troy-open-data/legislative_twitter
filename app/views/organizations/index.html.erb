@@ -1,4 +1,7 @@
-<%= link_to '+ New Organization', new_organization_path, class: 'right button' %>
+<div class="row">
+<%= link_to '+ New Organization', new_organization_path, class: 'right admin button' %>
+</div>
+
 <h2>Listing Organizations</h2>
 
 <table>
@@ -6,7 +9,8 @@
     <tr>
       <th>Level</th>
       <th>Name</th>
-      <th colspan="3"></th>
+      <th></th>
+      <th colspan="2" class="admin">Admin</th>
     </tr>
   </thead>
 
@@ -16,8 +20,8 @@
         <td><%= Organization::LEVELS[organization.level] + ", Lvl.#{organization.level}" %></td>
         <td><%= organization.name %></td>
         <td><%= link_to 'Show', organization %></td>
-        <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-        <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="admin"><%= link_to 'Edit', edit_organization_path(organization) %></td>
+        <td class="admin"><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
