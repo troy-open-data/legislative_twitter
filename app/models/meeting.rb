@@ -2,15 +2,20 @@
 #
 # Table name: meetings
 #
-#  id              :integer          not null, primary key
-#  organization_id :integer
-#  date            :date
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id               :integer          not null, primary key
+#  organization_id  :integer
+#  date_and_time    :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  agenda_approved  :boolean
+#  minutes_approved :boolean
+#  location         :string
 #
 
 class Meeting < ActiveRecord::Base
   DEFAULT_LOCATION='Suite 5, 433 River Street, Troy, NY 12180'
+
+  before_save :add_time_to_meeting_date
 
   # Model Relationships
   belongs_to :organization
@@ -21,10 +26,10 @@ class Meeting < ActiveRecord::Base
                                 allow_destroy: true
 
   # Validations
-  validates_presence_of :organization, :date
-  validates :date, format: {
-                     with: /\d{4}\-[01]\d-[0123]\d/,
-                     message: 'date must be in the format of yyyy-mm-dd' }
+  validates_presence_of :organization, :date_and_time
+  # validates :date, format: {
+  #                    with: /\d{4}\-[01]\d-[0123]\d/,
+  #                    message: 'date must be in the format of yyyy-mm-dd' }
 
 
   # Methods
@@ -32,8 +37,19 @@ class Meeting < ActiveRecord::Base
     legislations.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
   end
 
+  # Returns calculated name of meeting of the form <Organization> Meeting on <date>
   def name
-    self.organization.name + ' Meeting on ' + self.date.to_formatted_s(:long)
+    self.organization.name + ' Meeting on ' + self.date.to_formatted_s(:long_ordinal)
+  end
+
+  # Returns just date of meeting
+  def date
+    self.date_and_time.to_date
+  end
+
+  # Returns just time of meeting
+  def time
+    self.date_and_time.to_time
   end
 
   def is_started?
@@ -63,17 +79,10 @@ class Meeting < ActiveRecord::Base
     self.save!
   end
 
-  def approve(document)
-    case document
-      when :agenda then agenda_approved = true
-      when :minutes then minutes_approved = true
-    end
-  end
+  private
 
-  def revoke_approval(document)
-    case document
-      when :agenda then agenda_approved = false
-      when :minutes then minutes_approved = false
-    end
+  # Hooks
+  def add_time_to_meeting_date
+    self.date_and_time = self.date_and_time.at_noon
   end
 end

@@ -2,11 +2,14 @@
 #
 # Table name: meetings
 #
-#  id              :integer          not null, primary key
-#  organization_id :integer
-#  date            :date
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id               :integer          not null, primary key
+#  organization_id  :integer
+#  date_and_time    :datetime
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#  agenda_approved  :boolean
+#  minutes_approved :boolean
+#  location         :string
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
