@@ -28,7 +28,7 @@ pdf.move_down font_size
 meeting.folios.group_by{|f| f.legislation.legislation_type}.each do |legislation_type, folios|
   data = [[ {content: legislation_type.pluralize(folios.count).upcase, colspan: 3} ]]
   folios.each do |folio|
-    data << [folio.legislation.legislative_numbering(:integer).to_s+'.', 'Title', folio.legislation.title]
+    data << [folio.legislation.legislative_numbering(:integer).to_s+'.', {content:folio.legislation.title, colspan: 2}]
     data << ['','Sponsor', folio.sponsor]
     data << ['','Notes', folio.notes]
     data << ['','Final Vote', folio.vote]
