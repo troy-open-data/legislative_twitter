@@ -118,7 +118,7 @@ prawn_document(
   pdf.number_pages "Page <page> of <total>", options_page_number
   pdf.repeat(:all) do
     pdf.text_box "#{@meeting.date.to_formatted_s :long}", options_date_header
-    pdf.stamp "Draft"
+    pdf.stamp "Draft" unless @meeting.approved_agenda?
   end
   pdf.repeat lambda{|page| page != 1} do
     pdf.text_box "#{@meeting.organization.name} Agenda", options_agenda_header

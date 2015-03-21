@@ -33,4 +33,12 @@ class Meeting < ActiveRecord::Base
   def has_happened?
     Date.today > self.date
   end
+
+  def approved_agenda?
+    true
+  end
+
+  def approved_minutes?
+    false
+  end
 end

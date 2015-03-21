@@ -1,6 +1,6 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy,
-                                     :agenda, :minutes]
+                                     :agenda, :minutes, :start_meeting]
 
   # GET /meetings
   # GET /meetings.json
@@ -37,6 +37,10 @@ class MeetingsController < ApplicationController
     end
   end
 
+  # GET /meetings/1/start_meeting
+  def start_meeting
+  end
+
   # GET /meetings/new
   def new
     @meeting = Meeting.new
@@ -53,7 +57,6 @@ class MeetingsController < ApplicationController
 
     respond_to do |format|
       if @meeting.save
-        @meeting.attributes = {'folios_attributes' => []}.merge(params[:meeting] || {})
         format.html { redirect_to meeting_path(@meeting), notice: 'Meeting was successfully created.' }
         format.json { render :show, status: :created, location: @meeting }
       else
@@ -68,8 +71,6 @@ class MeetingsController < ApplicationController
   def update
     respond_to do |format|
       if @meeting.update(meeting_params)
-        # todo: better way?
-        @meeting.attributes = {'folios_attributes' => []}.merge(params[:meeting] || {})
         format.html { redirect_to @meeting, notice: 'Meeting was successfully updated.' }
         format.json { render :show, status: :ok, location: @meeting }
       else
@@ -98,11 +99,12 @@ class MeetingsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:organization_id, :date,
+                                    legislation_ids: [],
                                     folios_attributes: [:sponsor,
                                                         :vote,
+                                                        :notes,
                                                         :legislation_id,
                                                         :meeting_id,
-                                                        :notes,
                                                         :id,
                                                         :_destroy])
   end

@@ -14,6 +14,25 @@
 <h2><%= @meeting.organization.name %> Meeting <small><%= @meeting.date.to_formatted_s(:long) %></small></h2>
 
 
+<!--Admin-->
+<h4>Admin</h4>
+<ul>
+  <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
+  <% if @meeting.approved_agenda? %>
+      <li>Unapprove Agenda</li>
+  <% else %>
+      <li>Approve Agenda</li>
+  <% end %>
+
+
+  <% if @meeting.approved_minutes? %>
+      <li>Unapprove Minutes</li>
+  <% else %>
+      <li>Approve Minutes</li>
+  <% end %>
+</ul>
+
+
 <!--Downloads-->
 <h4>Downloads</h4>
 <ul>

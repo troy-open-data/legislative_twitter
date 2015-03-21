@@ -6,8 +6,10 @@ Rails.application.routes.draw do
 
   resources :statuses
 
-  get 'meetings/:id/agenda' => 'meetings#agenda', :as => 'agenda'
-  get 'meetings/:id/minutes' => 'meetings#minutes', :as => 'minutes'
+  get 'meetings/:id/agenda' => 'meetings#agenda', as: 'agenda'
+  get 'meetings/:id/minutes' => 'meetings#minutes', as: 'minutes'
+
+  get 'meetings/start_meeting/:id' => 'meetings#start_meeting', as: 'start_meeting'
 
   get 'search' => "search#search", :as => :search
 
