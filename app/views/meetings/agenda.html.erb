@@ -4,7 +4,9 @@
     <!-- Action Buttons -->
     <ul class="button-group">
       <li><%= link_to 'Meeting', meeting_path(@meeting), class:'tiny button' %></li>
-      <li><%= link_to 'Minutes', minutes_path(@meeting), class: 'tiny button'%></li>
+      <% if @meeting.has_happened? %>
+          <li><%= link_to 'Minutes', minutes_path(@meeting), class: 'tiny button'%></li>
+      <% end %>
       <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
     </ul>
     <ul class="admin button-group">
@@ -24,6 +26,16 @@
 
 <!--Agenda title-->
 <h2><%= "#{@meeting.organization.name} Agenda" %> <%= @meeting.approved_agenda? ? '(Approved)' : '(Draft)' %> <small>for <%= @meeting.date.to_formatted_s :long %></small></h2>
+
+<!--Admin-->
+<div class="admin panel">
+  <h3>Agenda Admin:</h3>
+  <ul>
+    <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
+    <% agenda_option = @meeting.approved_agenda? ? 'Unapprove Agenda' : 'Approve Agenda' %>
+    <li><%= link_to agenda_option, toggle_agenda_path, remote: true, id:'agenda-toggle' %></li>
+  </ul>
+</div>
 
 <dl>
   <dt>Pledge of Allegiance</dt>

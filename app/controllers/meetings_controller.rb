@@ -1,6 +1,7 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy,
-                                     :agenda, :minutes, :start_meeting]
+                                     :agenda, :minutes, :start_meeting,
+                                     :toggle_agenda, :toggle_minutes]
 
   # GET /meetings
   # GET /meetings.json
@@ -23,6 +24,22 @@ class MeetingsController < ApplicationController
       format.html
       format.json
       format.pdf
+    end
+  end
+
+  # GET /toggle_agenda/1.js
+  def toggle_agenda
+    @meeting.toggle_approval :agenda
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  # GET /toggle_minutes/1.js
+  def toggle_minutes
+    @meeting.toggle_approval :minutes
+    respond_to do |format|
+      format.js
     end
   end
 

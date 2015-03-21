@@ -34,15 +34,44 @@ class Meeting < ActiveRecord::Base
     self.organization.name + ' Meeting on ' + self.date.to_formatted_s(:long)
   end
 
+  def is_started?
+    Date.today >= self.date
+  end
+
   def has_happened?
     Date.today > self.date
   end
 
+  # Agenda and minutes approval methods
   def approved_agenda?
-    true
+    agenda_approved
   end
 
   def approved_minutes?
-    false
+    minutes_approved
+  end
+
+  def toggle_approval(document)
+    case document
+      when :agenda
+        self.agenda_approved = !self.agenda_approved
+      when :minutes
+        self.minutes_approved = !self.minutes_approved
+    end
+    self.save!
+  end
+
+  def approve(document)
+    case document
+      when :agenda then agenda_approved = true
+      when :minutes then minutes_approved = true
+    end
+  end
+
+  def revoke_approval(document)
+    case document
+      when :agenda then agenda_approved = false
+      when :minutes then minutes_approved = false
+    end
   end
 end

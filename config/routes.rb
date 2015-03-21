@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   get 'meetings/:id/agenda' => 'meetings#agenda', as: 'agenda'
   get 'meetings/:id/minutes' => 'meetings#minutes', as: 'minutes'
 
+  # Toggle Agenda and Minutes
+  get 'toggle_agenda/:id' => 'meetings#toggle_agenda', as: 'toggle_agenda'
+  get 'toggle_minutes/:id' => 'meetings#toggle_minutes', as: 'toggle_minutes'
+
   get 'meetings/start_meeting/:id' => 'meetings#start_meeting', as: 'start_meeting'
 
   get 'search' => "search#search", :as => :search
