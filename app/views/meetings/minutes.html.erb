@@ -22,8 +22,20 @@
   </div>
 </div>
 
-<!--Agenda title-->
-<h2><%= "#{@meeting.organization.name} Minutes" %> <%= @meeting.approved_minutes? ? '(Approved)' : '(Draft)' %> <small><% "#{@meeting.date.to_formatted_s :long}" %></small></h2>
+<!--Minutes title-->
+<h2><%= "#{@meeting.organization.name} Minutes" %>
+  <%= @meeting.approved_minutes? ? '(Approved)' : '(Draft)' %>
+  <small>for <%= @meeting.date.to_formatted_s(:long_ordinal) %></small></h2>
+
+<!--Admin-->
+<div class="admin panel">
+  <h3>Minutes Admin:</h3>
+  <ul>
+    <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
+    <% minutes_option = @meeting.approved_minutes? ? 'Unapprove Minutes' : 'Approve Minutes' %>
+    <li><%= link_to minutes_option, toggle_minutes_path, remote: true, id:'minutes-toggle' %></li>
+  </ul>
+</div>
 
 <dl>
   <dt>Pledge of Allegiance</dt>
@@ -31,16 +43,6 @@
   <dt>Good News Agenda</dt>
   <dt>Vacancy List</dt>
 </dl>
-
-<!--Admin-->
-<div class="admin panel">
-  <h3>Agenda Admin:</h3>
-  <ul>
-    <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
-    <% minutes_option = @meeting.approved_minutes? ? 'Unapprove Minutes' : 'Approve Minutes' %>
-    <li><%= link_to minutes_option, toggle_minutes_path, remote: true, id:'minutes-toggle' %></li>
-  </ul>
-</div>
 
 <!--Legal paragraph thing-->
 <p>Pursuant to Section 2.72-2 entitled "Public Forum" of the Special Rules ofOrder of the Troy City Council a period of time shall be designated during each regular or special meeting of the City Council as a public forum during which citizens of the City shall be permitted to address the Council on legislation on that meeting's agenda and on any subject appropriate to the conduct ofTroy City government. Length of time allotted for citizen comment shall be no longer than five (5) minutes per speaker. At the completion of the agenda, citizen's comment shall be no longer than five (5) minutes per speaker appropriate to any subject to the conduct of Troy City government.</p>

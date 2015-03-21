@@ -25,7 +25,11 @@
 </div>
 
 <!--Agenda title-->
-<h2><%= "#{@meeting.organization.name} Agenda" %> <%= @meeting.approved_agenda? ? '(Approved)' : '(Draft)' %> <small>for <%= @meeting.date.to_formatted_s :long %></small></h2>
+<h2>
+  <%= "#{@meeting.organization.name} Agenda" %>
+  <%= @meeting.approved_agenda? ? '(Approved)' : '(Draft)' %>
+  <small>for <%= @meeting.date.to_formatted_s(:long_ordinal) %></small>
+</h2>
 
 <!--Admin-->
 <div class="admin panel">
