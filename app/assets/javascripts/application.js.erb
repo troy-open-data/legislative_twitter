@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require jquery-te-1.4.0
 //= require jquery_nested_form
-//= require jquery-ui/datepicker
+//= require jquery.datetimepicker
 //= require geocomplete/jquery.geocomplete
 //= require foundation
 //= require turbolinks
@@ -28,9 +28,9 @@ ready = function() {
     $(document).foundation();
     // jQuery Text Editor
     $('.jqte-test').jqte();
-    // jQuery Datepicker
-    $('.datepicker').datepicker({
-        dateFormat: "yy-mm-dd"  // to be read by the database
+    // jQuery DateTimePicker
+    $('.datetimepicker').datetimepicker({
+        inline:true
     });
     // jQuery GeoComplete
     $('.geocomplete').geocomplete();

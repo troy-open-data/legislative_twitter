@@ -12,7 +12,9 @@
  *
  *= require_tree .
  *= require_self
- *= require jquery-ui/datepicker
+ *= require diffy.css.erb
+ *= require jquery-te-1.4.0
+ *= require jquery.datetimepicker
  *= require foundation_and_overrides
  */
 

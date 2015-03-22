@@ -15,8 +15,6 @@
 class Meeting < ActiveRecord::Base
   DEFAULT_LOCATION='Suite 5, 433 River Street, Troy, NY 12180'
 
-  before_save :add_time_to_meeting_date
-
   # Model Relationships
   belongs_to :organization
 
@@ -52,6 +50,11 @@ class Meeting < ActiveRecord::Base
     self.date_and_time.to_time
   end
 
+  def datetimepicker_value
+    (self.date_and_time ? self.date_and_time : DateTime.current.advance(weeks:2)).
+        strftime('%Y/%m/%d %R')
+  end
+
   def is_started?
     Date.today >= self.date
   end
@@ -81,8 +84,4 @@ class Meeting < ActiveRecord::Base
 
   private
 
-  # Hooks
-  def add_time_to_meeting_date
-    self.date_and_time = self.date_and_time.at_noon
-  end
 end

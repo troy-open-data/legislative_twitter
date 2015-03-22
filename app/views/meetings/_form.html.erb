@@ -17,8 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :date_and_time, 'Date and Time' %>
-    <%= f.text_field :date_and_time, class:'datepicker',
-                     value: (@meeting.date_and_time || Date.today.next_week) %>
+    <%= f.text_field :date_and_time, class:'datetimepicker', value: @meeting.datetimepicker_value %>
   </div>
 
     <div class="field">
