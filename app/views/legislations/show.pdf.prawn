@@ -30,7 +30,8 @@ prawn_document(
   render 'pdf_templates/legislation',
          pdf: pdf,
          font_size: font_size,
-         legislation: @legislation
+         legislation: @legislation,
+         attach: @attach
 
   # Render page headers
   numbering = @legislation.legislative_numbering(:abbreviation)

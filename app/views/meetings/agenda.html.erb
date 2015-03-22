@@ -17,9 +17,33 @@
     </ul>
     <!-- Download PDF Button -->
     <ul class="button-group">
-      <li><%= link_to "Download PDF",
-                      agenda_path(@meeting, format: 'pdf'),
-                      class: 'button' %></li>
+      <li>
+        <%= link_to "Download PDF", '#',
+                      class: 'dropdown button',
+                      :'data-dropdown' => 'agenda-pdf-options',
+                      :'aria-controls' => 'agenda-pdf-options',
+                      :'aria-expanded' => 'false' %><br />
+        <!--Agenda Download Dropdown-->
+        <ul id="agenda-pdf-options" data-dropdown-content class="f-dropdown" aria-hidden="true">
+          <!--Agenda with all attachments (legislations and legislative attachments)-->
+          <li>
+            <%= link_to 'with legislation+attachments',
+                        agenda_path(id: @meeting, format: 'pdf',
+                                    attach: { legislation: true,
+                                              attachments: true }) %>
+          </li>
+          <!--Agenda with legislations but no attachments-->
+          <li>
+            <%= link_to 'with legislation',
+                        agenda_path(@meeting, format: 'pdf',
+                                    attach: { legislation: true }) %>
+          </li>
+          <!--Agenda only-->
+          <li><%= link_to 'agenda only',
+                          agenda_path(@meeting, format: 'pdf',
+                                      attach: { false: false }) %></li>
+        </ul>
+      </li>
     </ul>
   </div>
 </div>

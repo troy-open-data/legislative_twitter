@@ -24,13 +24,11 @@ prawn_document(
         Producer: 'Troy City Council',
         CreationDate: Time.now}) do |pdf|
 
-
   # paper defaults
   font_size = 12
   pdf.font_size = font_size
   pdf.font("Times-Roman")
   pdf.default_leading font_size*0.2
-
 
   # Render agenda main text
   render 'pdf_templates/agenda',
@@ -39,12 +37,15 @@ prawn_document(
          meeting: @meeting
 
   # Render each legislation
-  @meeting.legislations.each do |legislation|
-    pdf.start_new_page
-    render 'pdf_templates/legislation',
-           pdf: pdf,
-           font_size: font_size,
-           legislation: legislation
+  if @attach[:legislation]
+    @meeting.legislations.each do |legislation|
+      pdf.start_new_page
+      render 'pdf_templates/legislation',
+             pdf: pdf,
+             font_size: font_size,
+             legislation: legislation,
+             attach: @attach
+    end
   end
 
   # Render page headers

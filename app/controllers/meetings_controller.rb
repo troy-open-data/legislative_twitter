@@ -20,6 +20,9 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/agenda.json
   # GET /meetings/1/agenda.pdf
   def agenda
+    default_attachments = { legislation: true, attachments: true }
+    @attach = params[:attach] || default_attachments
+
     respond_to do |format|
       format.html
       format.json

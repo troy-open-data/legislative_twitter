@@ -15,9 +15,27 @@
     </ul>
     <!-- Download PDF Button -->
     <ul class="button-group">
-      <li><%= link_to "Download PDF",
+      <li><%= link_to 'Download PDF',
                       legislation_path(id: @legislation.id, format: 'pdf'),
-                      class: 'button' %></li>
+                      class: 'dropdown button',
+                      :'data-dropdown' => 'legislation-pdf-options',
+                      :'aria-controls' => 'legislation-pdf-options',
+                      :'aria-expanded' => 'false' %><br />
+        <!--Agenda Download Dropdown-->
+        <ul id="legislation-pdf-options" data-dropdown-content class="f-dropdown" aria-hidden="true">
+          <!--Legislation with attachments-->
+          <li>
+            <%= link_to 'with attachments',
+                        legislation_path(id: @legislation.id, format: 'pdf',
+                                         attach: { attachments: true }) %>
+          </li>
+          <!--Legislation only-->
+          <li><%= link_to 'legislation only',
+                          legislation_path(id: @legislation.id, format: 'pdf',
+                                           attach: { false: false }) %></li>
+        </ul>
+      </li>
+
     </ul>
   </div>
 </div>

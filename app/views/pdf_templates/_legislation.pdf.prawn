@@ -27,3 +27,12 @@ pdf.bounding_box([0, pdf.cursor], :width => 3.5.in) do
   pdf.formatted_text [ { text: legal_name, styles: [:bold, :italic] },
                        { text: legal_title } ]
 end
+
+if attach[:attachments]
+  legislation.attachments.each do |attachment|
+    pdf.start_new_page
+    pdf.text 'ATTACHMENT FOR '+ legislation.legislative_numbering(:abbreviation),
+             align: :center,
+             style: :bold
+  end
+end

@@ -16,6 +16,9 @@ class LegislationsController < ApplicationController
     @versions = @legislation.versions.reorder('created_at DESC')
     @attachments = @legislation.attachments
 
+    default_attachments = { attachments: true }
+    @attach = params[:attach] || default_attachments
+
     respond_to do |format|
       format.html
       format.json
