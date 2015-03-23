@@ -28,6 +28,16 @@ pdf.bounding_box([0, pdf.cursor], :width => 3.5.in) do
                        { text: legal_title } ]
 end
 
+
+# Start Outline
+pdf.outline.define do
+  section(legislation.legislative_numbering, destination: 1) do
+    page title: 'Legislation Text', destination: 1
+  end
+end
+
+
+# Attach Attachments
 if attach[:attachments]
   legislation.attachments.each do |attachment|
     pdf.start_new_page

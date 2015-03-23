@@ -19,7 +19,7 @@ module LegislationsHelper
   # Returns a "metadata header" for legislation that includes type and creation
   # time in the format "Resolution | 3:24pm on 3/17/15"
   def meta_header(legislation)
-    legislation.legislation_type + ' | ' + legislation.created_at.strftime('%-l:%M%P on %m/%d/%y')
+    legislation.legislation_type + ' | ' + legislation.created_at.to_formatted_s(:long_ordinal)
   end
 
 

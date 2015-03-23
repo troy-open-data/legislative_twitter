@@ -49,7 +49,7 @@
     <dt>Date:</dt>
     <dd><%= @meeting.date.to_formatted_s(:long_ordinal) %></dd>
     <dt>Time:</dt>
-    <dd><%= @meeting.time.to_formatted_s(:time) %></dd>
+    <dd><%= @meeting.date_and_time.to_formatted_s(:time) %></dd>
     <dt>Location:</dt>
     <dd><%= @meeting.location || 'No location specified' %><br />
       <% if @meeting.location %>

@@ -25,12 +25,15 @@ class Meeting < ActiveRecord::Base
 
   # Validations
   validates_presence_of :organization, :date_and_time
-  # validates :date, format: {
-  #                    with: /\d{4}\-[01]\d-[0123]\d/,
-  #                    message: 'date must be in the format of yyyy-mm-dd' }
+
+  # Aliases
+  alias_attribute :'approved_agenda?', :agenda_approved
+  alias_attribute :'approved_minutes?', :minutes_approved
+  alias_attribute :date, :date_and_time
 
 
-  # Methods
+  # INSTANCE METHODS
+  # Returns array of grouped legislation
   def grouped_legislations
     legislations.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
   end
@@ -40,37 +43,16 @@ class Meeting < ActiveRecord::Base
     self.organization.name + ' Meeting on ' + self.date.to_formatted_s(:long_ordinal)
   end
 
-  # Returns just date of meeting
-  def date
-    self.date_and_time.to_date
-  end
-
-  # Returns just time of meeting
-  def time
-    self.date_and_time.to_time
-  end
-
   def datetimepicker_value
     (self.date_and_time ? self.date_and_time : DateTime.current.advance(weeks:2)).
         strftime('%Y/%m/%d %R')
   end
 
-  def is_started?
+  # Status Methods
+  def has_happened?
     Date.today >= self.date
   end
-
-  def has_happened?
-    Date.today > self.date
-  end
-
-  # Agenda and minutes approval methods
-  def approved_agenda?
-    agenda_approved
-  end
-
-  def approved_minutes?
-    minutes_approved
-  end
+  alias is_started? has_happened?
 
   def toggle_approval(document)
     case document
@@ -81,7 +63,5 @@ class Meeting < ActiveRecord::Base
     end
     self.save!
   end
-
-  private
 
 end

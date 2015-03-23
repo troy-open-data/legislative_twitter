@@ -18,6 +18,7 @@ class Organization < ActiveRecord::Base
 
   # Validations
   validates_presence_of :name, :level
+  validates :level, inclusion: { in: 0...(LEVELS.length) }
 
   # Returns array of organizations with a level greater than 0, ordered by
   # lower-level (higher number) organizations first.
