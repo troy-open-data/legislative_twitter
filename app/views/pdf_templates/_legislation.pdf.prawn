@@ -1,5 +1,3 @@
-require 'open-uri'
-
 # Title
 #   Numbering
 pdf.text legislation.legislative_numbering, align: :center, style: :bold
@@ -45,7 +43,8 @@ if attach[:attachments]
     pdf.bounding_box([0, attachment_height], width: attachment_width, height: attachment_height) do
       # How to display image attachments
       if /image/i =~ attachment.file.content_type
-        pdf.image open(attachment.file.url),
+        image_path = open(attachment.file.url) rescue open(attachment.file.path)
+        pdf.image image_path,
                   fit: [attachment_width, attachment_height],
                   position: :center
       #   todo: only if under page width
