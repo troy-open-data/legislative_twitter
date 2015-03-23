@@ -25,4 +25,14 @@ module ApplicationHelper
     end
   end
 
+  # Returns a string containing the attachment file's title and content type if
+  # a title is available. Otherwise, returns a string of the original filename.
+  def file_name(attachment)
+    if attachment.title.blank?
+      attachment.file.original_filename
+    else
+      "#{attachment.title} (#{attachment.file.content_type})"
+    end
+  end
+
 end

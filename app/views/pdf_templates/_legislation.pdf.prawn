@@ -31,8 +31,26 @@ end
 if attach[:attachments]
   legislation.attachments.each do |attachment|
     pdf.start_new_page
-    pdf.text 'ATTACHMENT FOR '+ legislation.legislative_numbering(:abbreviation),
+    pdf.text 'ATTACHMENT FOR ' + legislation.legislative_numbering.upcase,
              align: :center,
              style: :bold
+    pdf.text file_name(attachment),
+             align: :center
+
+    attachment_width = 7.5.in
+    attachment_height = 8.5.in
+
+    pdf.bounding_box([0, attachment_height], width: attachment_width, height: attachment_height) do
+      # How to display image attachments
+      if /image/i =~ attachment.file.content_type
+        pdf.image attachment.file.path,
+                  fit: [attachment_width, attachment_height],
+                  position: :center
+      #   todo: only if under page width
+      else
+        pdf.text attachment.file.content_type + " can't be displayed.", align: :center
+      end
+    end
+
   end
 end

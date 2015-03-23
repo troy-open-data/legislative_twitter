@@ -33,16 +33,6 @@ module LegislationsHelper
     changes.to_s.present? ? changes.to_s(:html).html_safe : 'No Changes'
   end
 
-  # Returns a string containing the attachment file's title and content type if
-  # a title is available. Otherwise, returns a string of the original filename.
-  def file_name(attachment)
-    if attachment.title.blank?
-      attachment.file.original_filename
-    else
-      "#{attachment.title} (#{attachment.file.content_type})"
-    end
-  end
-
   # Takes input in the form of an html-rich string and returns an array of
   # prawn-sanitized paragraphs
   def prawnify_paragraphs(body, size=16)
