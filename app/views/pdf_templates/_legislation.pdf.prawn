@@ -43,7 +43,7 @@ if attach[:attachments]
     pdf.bounding_box([0, attachment_height], width: attachment_width, height: attachment_height) do
       # How to display image attachments
       if /image/i =~ attachment.file.content_type
-        pdf.image attachment.file.path,
+        pdf.image attachment.file.url,
                   fit: [attachment_width, attachment_height],
                   position: :center
       #   todo: only if under page width
