@@ -6,10 +6,9 @@
  */
 
 .diff {
-    overflow: auto;
-}
+  overflow: auto;
 
-.diff ul {
+  ul {
     background: #fff;
     overflow: auto;
     font-size: 13px;
@@ -18,54 +17,55 @@
     padding: 0;
     display: table;
     width: 100%;
-}
+  }
 
-.diff del, .diff ins {
+  del, ins {
     display: block;
     text-decoration: none;
-}
+  }
 
-.diff li {
+  li {
     padding: 0;
     display: table-row;
     margin: 0;
     height: 1em;
-}
+  }
 
-.diff li.ins {
+  li.ins {
     background: #dfd;
     color: #080
-}
+  }
 
-.diff li.del {
+  li.del {
     background: #fee;
     color: #b00
-}
+  }
 
-.diff li:hover {
+  li:hover {
     background: #ffc
-}
+  }
 
-/* try 'whitespace:pre;' if you don't want lines to wrap */
-.diff del, .diff ins, .diff span {
+  /* try 'whitespace:pre;' if you don't want lines to wrap */
+  del, ins, span {
     white-space: pre-wrap;
     font-family: courier;
-}
+  }
 
-.diff del strong {
+  del strong {
     font-weight: normal;
     background: #fcc;
-}
+  }
 
-.diff ins strong {
+  ins strong {
     font-weight: normal;
     background: #9f9;
-}
+  }
 
-.diff li.diff-comment {
+  li.diff-comment {
     display: none;
-}
+  }
 
-.diff li.diff-block-info {
+  li.diff-block-info {
     background: none repeat scroll 0 0 gray;
+  }
 }

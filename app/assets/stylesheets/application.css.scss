@@ -15,10 +15,9 @@
 
 
 
+// Site-Wide Styles
+@import 'foundation_and_overrides';
 
-//  Model-Specific Styles
+// Model-Specific Style Scopes
 @import 'legislations';
 @import 'meetings';
-
-//  Site-Wide Styles
-@import 'foundation_and_overrides';
