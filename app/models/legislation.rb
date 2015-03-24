@@ -12,8 +12,15 @@
 #
 
 class Legislation < ActiveRecord::Base
+  # Model Variables
+  LEGISLATION_TYPES = %w{ Resolution Ordinance }
+
   # Hooks
   before_save :clean_html
+
+  # Scopes
+  scope :resolutions, -> { where(legislation_type: 'Resolution') }
+  scope :ordinances,  -> { where(legislation_type: 'Ordinance') }
 
   # Model Relationships
   has_many :status_updates, dependent: :destroy
@@ -28,9 +35,6 @@ class Legislation < ActiveRecord::Base
                                 allow_destroy: true
   has_paper_trail
   paginates_per 5
-
-  # Model Variables
-  LEGISLATION_TYPES = %w{ Resolution Ordinance }
 
   # Validations
   validates_presence_of :title, :body, :legislation_type

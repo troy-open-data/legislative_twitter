@@ -13,16 +13,13 @@ class Organization < ActiveRecord::Base
   # Model Variables
   LEVELS=['Mayor', 'General Assembly', 'Committee', 'Subcommittee']
 
+  # Scopes
+  scope :meetable, -> { where.not(level: 0).order('level DESC') }
+
   # Model Relationships
   has_many :meetings
 
   # Validations
   validates_presence_of :name, :level
   validates :level, inclusion: { in: 0...(LEVELS.length) }
-
-  # Returns array of organizations with a level greater than 0, ordered by
-  # lower-level (higher number) organizations first.
-  def self.meetable
-    Organization.where.not(level: 0).order('level DESC').all
-  end
 end

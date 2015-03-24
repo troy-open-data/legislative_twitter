@@ -13,6 +13,7 @@
 #
 
 class Meeting < ActiveRecord::Base
+  # Model Variables
   DEFAULT_LOCATION='Suite 5, 433 River Street, Troy, NY 12180'
 
   # Model Relationships
@@ -32,6 +33,8 @@ class Meeting < ActiveRecord::Base
   alias_attribute :date, :date_and_time
 
 
+
+
   # INSTANCE METHODS
   # Returns array of grouped legislation
   def grouped_legislations
@@ -43,6 +46,8 @@ class Meeting < ActiveRecord::Base
     self.organization.name + ' Meeting on ' + self.date.to_formatted_s(:long_ordinal)
   end
 
+  # Returns string for default value for datetimepicker, formatted correctly.
+  # Defaults to two weeks from now if no date is set.
   def datetimepicker_value
     (self.date_and_time ? self.date_and_time : DateTime.current.advance(weeks:2)).
         strftime('%Y/%m/%d %R')
