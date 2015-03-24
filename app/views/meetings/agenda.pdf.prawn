@@ -7,7 +7,7 @@ Prawn::Font::AFM.hide_m17n_warning = true
 # Allows for easy use of alternate measurements, such as inches, mm, cm, etc.
 require "prawn/measurement_extensions"
 require "prawn/table"
-
+require 'open-uri'
 
 
 
@@ -15,6 +15,7 @@ prawn_document(
     margin: 0.5.in,
     top_margin: 1.in,
     bottom_margin: 1.in,
+    background: @meeting.approved_agenda? ? nil : open('http://placehold.it/600.jpg/fff/ccc&text=Draft'),
     info: {
         Title: "#{@meeting.date.to_formatted_s :long} #{@meeting.organization.name} Agenda",
         Author: 'Unknown',
@@ -29,6 +30,13 @@ prawn_document(
   pdf.font_size = font_size
   pdf.font("Times-Roman")
   pdf.default_leading font_size*0.2
+
+  # Draft stamp
+  # render 'pdf_templates/stamp',
+  #        pdf: pdf,
+  #        font_size: font_size,
+  #        stamp_text: 'Draft',
+  #        approved: @meeting.approved_agenda?
 
   # Render agenda main text
   render 'pdf_templates/agenda',
