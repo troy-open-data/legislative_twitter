@@ -1,0 +1,6 @@
+//Import Vendor Styles
+@import 'diffy';
+@import 'jquery-te-1.4.0';
+
+/* Hacky fix for modal background not filling entire screen */
+.reveal-modal-bg { position: fixed }

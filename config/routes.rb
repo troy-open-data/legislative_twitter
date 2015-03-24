@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   resources :statuses
 
+  resources :legislations
+
   get 'meetings/:id/agenda' => 'meetings#agenda', as: 'agenda'
   get 'meetings/:id/minutes' => 'meetings#minutes', as: 'minutes'
 
@@ -17,9 +19,7 @@ Rails.application.routes.draw do
 
   get 'search' => "search#search", :as => :search
 
-  resources :legislations
-
-  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
+  post 'versions/:id/revert' => 'versions#revert', :as => 'revert_version'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -10,13 +10,15 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
- *= require diffy.css.erb
- *= require jquery-te-1.4.0
- *= require jquery.datetimepicker
- *= require foundation_and_overrides
  */
 
-/* Hacky fix for modal background not filling entire screen */
-.reveal-modal-bg { position: fixed }
+
+
+
+//  Model-Specific Styles
+@import 'legislations';
+@import 'meetings';
+
+//  Site-Wide Styles
+@import 'foundation_and_overrides';
