@@ -11,7 +11,21 @@
 require 'test_helper'
 
 class StatusTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  ## Setup and Teardown ########################################################
+  def setup
+    @status = create(:status)
+  end
+
+  ## Associations ##############################################################
+  test 'has many status_updates' do
+    assert @status.respond_to? :status_updates
+  end
+  test 'can destroy dependent status updates' do
+    @status_update = StatusUpdate.new(status: @status)
+    @status_update.save!
+    assert StatusUpdate.exists? @status_update.id
+
+    @status.destroy!
+    refute StatusUpdate.exists? @status_update.id
+  end
 end

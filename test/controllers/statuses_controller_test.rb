@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StatusesControllerTest < ActionController::TestCase
   setup do
-    @status = statuses(:one)
+    @status = create(:status)
   end
 
   test "should get index" do

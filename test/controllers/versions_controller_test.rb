@@ -2,9 +2,7 @@ require 'test_helper'
 
 class VersionsControllerTest < ActionController::TestCase
   def setup
-    @legislation = Legislation.new(title: legislations(:one).title,
-                                   body:  legislations(:one).body)
-    @legislation.save!
+    @legislation = create(:legislation)
 
     @legislation.update(body: 'New Body')
     @legislation.save!

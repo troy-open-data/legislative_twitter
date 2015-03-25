@@ -12,7 +12,23 @@
 require 'test_helper'
 
 class OrganizationTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  ## Setup and Teardown ########################################################
+  def setup
+    @organization = create(:organization)
+  end
+
+  ## Associations ##############################################################
+  test 'has many meetings' do
+    assert @organization.respond_to? :meetings
+  end
+
+  ## Validations ###############################################################
+  # test 'validates presence of name'
+  # test 'validates presence of level'
+  # test 'validates inclusion of level within given levels'
+
+  ## Scopes and Class Methods ##################################################
+  test 'has scope of meetable organizations' do
+    assert Organization.respond_to? :meetable
+  end
 end

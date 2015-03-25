@@ -15,7 +15,15 @@
 require 'test_helper'
 
 class FolioTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  setup do
+    assert @folio = create(:folio)
+  end
+
+  # Associations
+  test 'belongs to one legislation' do
+    assert @folio.respond_to? :legislation
+  end
+  test 'belongs to one meeting' do
+    assert @folio.respond_to? :meeting
+  end
 end

@@ -14,15 +14,48 @@
 require 'test_helper'
 
 class LegislationTest < ActiveSupport::TestCase
+  ## Setup and Teardown ########################################################
   def setup
-    @legislation = Legislation.new(title: legislations(:one).title,
-                                   body:  legislations(:one).body)
-    @legislation.save!
+    @legislation = create(:legislation)
   end
 
+  ## Associations ##############################################################
+  test 'has many status updates' do
+    assert @legislation.respond_to? :status_updates
+  end
+  test 'has many statuses' do
+    assert @legislation.respond_to? :statuses
+  end
+  test 'has many folios' do
+    assert @legislation.respond_to? :folios
+  end
+  test 'has many meetings' do
+    assert @legislation.respond_to? :meetings
+  end
+  test 'has many attachments' do
+    assert @legislation.respond_to? :attachments
+  end
 
-  # Legislation methods
-  #   General
+  ## Validations ###############################################################
+  # test 'must have title'
+  # test 'must have body'
+  # test 'must have legislation type'
+  #
+  # test 'legislation type must be from allowed types'
+
+  ## Scopes and Class Methods ##################################################
+  test 'has resolutions scope' do
+    assert Legislation.respond_to? :resolutions
+  end
+  test 'has ordinances scope' do
+    assert Legislation.respond_to? :resolutions
+  end
+  # test 'latest'
+
+
+  ## Instance Methods ##########################################################
+
+  # Text Output
   test 'created_at_time should contain the year, month, and day of creation' do
     created_datetime = @legislation.created_at
     created_string = @legislation.created_at_time
@@ -33,7 +66,11 @@ class LegislationTest < ActiveSupport::TestCase
     assert_match /#{created_datetime.day}/, created_string,
                  'should contain the day of creation'
   end
-  #   Diff Methods
+
+  # test 'legislative_numbering'
+  # test 'collection_text_method'
+
+  # Diff Methods
   test 'should return changed attributes of the last version' do
     @legislation.update(title: 'New Title')
     @legislation.save!
@@ -53,6 +90,8 @@ class LegislationTest < ActiveSupport::TestCase
     diff_attributes = @legislation.diff_attributes version
     assert_equal ['title'], diff_attributes
   end
+
+
 
   # Paper Trail Tests
   test 'legislations should have paper trails' do

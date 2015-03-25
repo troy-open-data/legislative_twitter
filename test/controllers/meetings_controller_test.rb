@@ -2,7 +2,7 @@ require 'test_helper'
 
 class MeetingsControllerTest < ActionController::TestCase
   setup do
-    @meeting = meetings(:one)
+    @meeting = create(:meeting)
   end
 
   test "should get index" do

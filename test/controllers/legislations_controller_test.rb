@@ -2,7 +2,7 @@ require 'test_helper'
 
 class LegislationsControllerTest < ActionController::TestCase
   setup do
-    @legislation = legislations(:one)
+    @legislation = create(:legislation)
   end
 
   test "should get index" do
