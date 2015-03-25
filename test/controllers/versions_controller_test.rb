@@ -11,12 +11,6 @@ class VersionsControllerTest < ActionController::TestCase
     request.env['HTTP_REFERER'] = legislations_path
   end
 
-  test 'revert should add a new version' do
-    assert_difference('@legislation.versions.count') do
-      post :revert, id: @most_recent
-    end
-  end
-
   test 'should revert a legislation to a version' do
     post :revert, id: @most_recent
     assert_redirected_to legislation_path(@legislation)
