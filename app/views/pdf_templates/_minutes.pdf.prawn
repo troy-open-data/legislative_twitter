@@ -25,7 +25,6 @@ pdf.move_down font_size
 
 
 # Legislations Table
-pdf.text @meeting.grouped_folios.inspect
 @meeting.grouped_folios.each do |legislation_type, folios|
   data = [[ {content: legislation_type.pluralize(folios.count).upcase, colspan: 3} ]]
   folios.each do |folio|
