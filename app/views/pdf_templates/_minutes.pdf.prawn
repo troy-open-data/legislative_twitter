@@ -31,7 +31,7 @@ pdf.text @meeting.grouped_folios.inspect
   folios.each do |folio|
     data << [folio.legislation.legislative_numbering(:integer).to_s+'.', {content:folio.legislation.title, colspan: 2}]
     data << ['','Sponsor', folio.sponsor]
-    data << ['','Notes', 'lorem ipsum'*100]
+    data << ['','Notes', folio.notes]
     data << ['','Final Vote', folio.vote]
     2.times { data << ['','',''] }
   end
