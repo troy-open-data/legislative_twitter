@@ -12,7 +12,7 @@
   <div class="admin panel">
     <h4>Start Meeting (Admin):</h4>
     <ul>
-      <% upcoming_meetings.each do |meeting| %>
+      <% Meeting.upcoming.each do |meeting| %>
           <li><%= link_to meeting.name, start_meeting_path(meeting) %></li>
       <% end %>
     </ul>

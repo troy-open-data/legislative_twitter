@@ -24,6 +24,9 @@ class Meeting < ActiveRecord::Base
   accepts_nested_attributes_for :folios,
                                 allow_destroy: true
 
+  # Scopes
+  scope :upcoming, -> { where('date_and_time > ?', Time.now) }
+
   # Validations
   validates_presence_of :organization, :date_and_time
 
@@ -55,7 +58,7 @@ class Meeting < ActiveRecord::Base
 
   # Status Methods
   def has_happened?
-    Date.today >= self.date
+    self.date_and_time <= Time.now
   end
   alias is_started? has_happened?
 
