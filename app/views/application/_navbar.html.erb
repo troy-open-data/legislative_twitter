@@ -10,14 +10,15 @@
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
+      <li class="admin has-dropdown">
+        <a href="#">Create New...</a>
+        <ul class="dropdown">
+          <li><%= link_to '...Organization', new_organization_path %></li>
+          <li><%= link_to '...Meeting', new_meeting_path %></li>
+          <li><%= link_to '...Legislation', new_legislation_path %></li>
+        </ul>
+      </li>
       <li class='' id="admin-toggle"><a href="#">Toggle Admin Mode</a></li>
-      <!--<li class="has-dropdown">-->
-        <!--<a href="#">Right Button Dropdown</a>-->
-        <!--<ul class="dropdown">-->
-          <!--<li><a href="#">First link in dropdown</a></li>-->
-          <!--<li class="active"><a href="#">Active link in dropdown</a></li>-->
-        <!--</ul>-->
-      <!--</li>-->
     </ul>
 
     <!-- Left Nav Section -->
