@@ -14,8 +14,8 @@ FactoryGirl.define do
   end
 
   factory :meeting do
-    date_and_time 1.week.ago
     organization
+    date_and_time 1.week.ago
   end
 
   factory :organization do

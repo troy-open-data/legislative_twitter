@@ -18,8 +18,7 @@ class MeetingsControllerTest < ActionController::TestCase
 
   test "should create meeting" do
     assert_difference('Meeting.count') do
-      post :create, meeting: { date_and_time: @meeting.date_and_time,
-                               location: @meeting.location,
+      post :create, meeting: { date_and_time:   @meeting.date_and_time,
                                organization_id: @meeting.organization_id }
     end
 
@@ -37,7 +36,8 @@ class MeetingsControllerTest < ActionController::TestCase
   end
 
   test "should update meeting" do
-    patch :update, id: @meeting, meeting: { date: @meeting.date, organization_id: @meeting.organization_id }
+    patch :update, id: @meeting, meeting: { date_and_time:    @meeting.date,
+                                            organization_id:  @meeting.organization_id }
     assert_redirected_to meeting_path(assigns(:meeting))
   end
 

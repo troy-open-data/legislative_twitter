@@ -18,7 +18,7 @@ class LegislationsControllerTest < ActionController::TestCase
 
   test "should create legislation" do
     assert_difference('Legislation.count') do
-      post :create, legislation: { body: @legislation.body, title: @legislation.title }
+      post :create, legislation: attributes_for(:legislation)
     end
 
     assert_redirected_to legislation_path(assigns(:legislation))
@@ -35,7 +35,7 @@ class LegislationsControllerTest < ActionController::TestCase
   end
 
   test "should update legislation" do
-    patch :update, id: @legislation, legislation: { body: @legislation.body, title: @legislation.title }
+    patch :update, id: @legislation, legislation: attributes_for(:legislation)
     assert_redirected_to legislation_path(assigns(:legislation))
   end
 
