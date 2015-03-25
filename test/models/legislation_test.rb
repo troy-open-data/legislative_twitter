@@ -61,6 +61,13 @@ class LegislationTest < ActiveSupport::TestCase
   test 'has ordinances scope' do
     assert Legislation.respond_to? :resolutions
   end
+  test 'has by_recent scope' do
+    assert Legislation.respond_to? :by_recent
+  end
+  test 'by_recent orders by created_at in descending order' do
+    assert_equal Legislation.order('created_at DESC'),
+                 Legislation.by_recent
+  end
   # test 'latest'
 
 

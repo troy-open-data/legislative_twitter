@@ -38,7 +38,7 @@
             <tr>
               <td><%= meeting.organization.name %></td>
               <td><%= meeting.date.to_formatted_s(:long) %></td>
-              <td><%= link_to 'Details', meeting %></td>
+              <td><%= link_to 'Details', meeting %>  (<%= pluralize meeting.legislations.count, 'item' %>)</td>
               <td>
                 <%= link_to 'html', agenda_path(meeting) %><br />
                 <%= link_to 'pdf', agenda_path(meeting, format: 'pdf') %>

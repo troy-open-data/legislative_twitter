@@ -21,6 +21,7 @@ class Legislation < ActiveRecord::Base
   # Scopes
   scope :resolutions, -> { where(legislation_type: 'Resolution') }
   scope :ordinances,  -> { where(legislation_type: 'Ordinance') }
+  scope :by_recent,   -> { order('created_at DESC') }
 
   # Model Relationships
   has_many :status_updates, dependent: :destroy

@@ -4,8 +4,8 @@ class LegislationsController < ApplicationController
   # GET /legislations
   # GET /legislations.json
   def index
-    @legislations = Legislation.includes(:attachments)
-                        .order('created_at DESC')
+    @legislations = Legislation.by_recent
+                        .includes(:attachments)
                         .page(params[:page])
   end
 

@@ -44,6 +44,10 @@ class Meeting < ActiveRecord::Base
     legislations.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
   end
 
+  def grouped_folios
+    folios.sort_by{|f| f.legislation.created_at}.group_by{|f| f.legislation.legislation_type}
+  end
+
   # Returns calculated name of meeting of the form <Organization> Meeting on <date>
   def name
     self.organization.name + ' Meeting on ' + self.date.to_formatted_s(:long_ordinal)

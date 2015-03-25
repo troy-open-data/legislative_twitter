@@ -17,7 +17,7 @@ prawn_document(
     bottom_margin: 1.in,
     background: @meeting.approved_agenda? ? nil : open('http://placehold.it/600.jpg/fff/ccc&text=Draft'),
     info: {
-        Title: "#{@meeting.date.to_formatted_s :long} #{@meeting.organization.name} Agenda",
+        Title: "#{@meeting.name} Agenda",
         Author: 'Unknown',
         Subject: 'Legislation',
         Keywords: 'Troy, Legislation, Code',
@@ -31,13 +31,6 @@ prawn_document(
   pdf.font("Times-Roman")
   pdf.default_leading font_size*0.2
 
-  # Draft stamp
-  # render 'pdf_templates/stamp',
-  #        pdf: pdf,
-  #        font_size: font_size,
-  #        stamp_text: 'Draft',
-  #        approved: @meeting.approved_agenda?
-
   # Render agenda main text
   render 'pdf_templates/agenda',
          pdf: pdf,
@@ -46,13 +39,15 @@ prawn_document(
 
   # Render each legislation
   if @attach[:legislation]
-    @meeting.legislations.each do |legislation|
-      pdf.start_new_page
-      render 'pdf_templates/legislation',
-             pdf: pdf,
-             font_size: font_size,
-             legislation: legislation,
-             attach: @attach
+    @meeting.grouped_legislations.each do |group, legislations|
+      legislations.each do |legislation|
+        pdf.start_new_page
+        render 'pdf_templates/legislation',
+               pdf: pdf,
+               font_size: font_size,
+               legislation: legislation,
+               attach: @attach
+      end
     end
   end
 

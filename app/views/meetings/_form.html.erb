@@ -30,7 +30,7 @@
     <fieldset>
       <legend>Set Meeting Docket</legend>
       <%= f.collection_check_boxes(:legislation_ids,
-                                   Legislation.order('created_at DESC').all,
+                                   Legislation.by_recent,
                                    :id,
                                    :collection_text_method) do |b|
         b.label { b.check_box + '  ' + b.text + "\n"}

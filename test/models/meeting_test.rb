@@ -78,7 +78,12 @@ class MeetingTest < ActiveSupport::TestCase
   ## Scopes and Class Methods ##################################################
 
   ## Instance Methods ##########################################################
-  # test 'grouped_legislations'
+  test 'grouped_legislations' do
+    @meeting.respond_to? :grouped_legislations
+  end
+  test 'grouped_folios' do
+    @meeting.respond_to? :grouped_folios
+  end
   # test 'name'
   # test 'datetimepicker_value'
   # test 'has_happened?'

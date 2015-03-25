@@ -15,9 +15,9 @@ prawn_document(
     margin: 0.5.in,
     top_margin: 1.in,
     bottom_margin: 1.in,
-    background: @meeting.approved_agenda? ? nil : open('http://placehold.it/600.jpg/fff/ccc&text=Draft'),
+    background: @meeting.approved_minutes? ? nil : open('http://placehold.it/600.jpg/fff/ccc&text=Draft'),
     info: {
-        Title: "#{@meeting.date.to_formatted_s :long} #{@meeting.organization.name} Minutes",
+        Title: "#{@meeting.name} Minutes",
         Author: 'Unknown',
         Subject: 'Legislation',
         Keywords: 'Troy, Legislation, Code',

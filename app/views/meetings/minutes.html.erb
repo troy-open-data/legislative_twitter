@@ -51,9 +51,9 @@
 
 <!--List legislations by type-->
 <hr />
-<% @meeting.folios.group_by{|f| f.legislation.legislation_type}.each do |legislation_type, folios| %>
+<% @meeting.grouped_folios.each do |legislation_type, folios| %>
     <h4><%= legislation_type %></h4>
-    <% folios.sort_by{|f| f.legislation.created_at}.each do |folio| %>
+    <% folios.each do |folio| %>
         <h5><%= folio.legislation.legislative_numbering %></h5>
         <dl>
           <dt>Title</dt>

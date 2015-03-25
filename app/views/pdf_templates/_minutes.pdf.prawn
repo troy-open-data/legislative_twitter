@@ -1,6 +1,6 @@
 # Title
 title_width = 3.in
-pdf.text_box "TROY CITY\n#{@meeting.organization.name.upcase} MINUTES\nREGULAR MEETING\n#{meeting.date.to_formatted_s :long}",
+pdf.text_box "TROY CITY\n#{@meeting.organization.name.upcase} MINUTES\nREGULAR MEETING\n#{@meeting.date.to_formatted_s :long}",
              align: :center,
              style: :bold,
              width: title_width,
@@ -25,12 +25,13 @@ pdf.move_down font_size
 
 
 # Legislations Table
-meeting.folios.group_by{|f| f.legislation.legislation_type}.each do |legislation_type, folios|
+pdf.text @meeting.grouped_folios.inspect
+@meeting.grouped_folios.each do |legislation_type, folios|
   data = [[ {content: legislation_type.pluralize(folios.count).upcase, colspan: 3} ]]
-  folios.sort_by{|f| f.legislation.created_at}.each do |folio|
+  folios.each do |folio|
     data << [folio.legislation.legislative_numbering(:integer).to_s+'.', {content:folio.legislation.title, colspan: 2}]
     data << ['','Sponsor', folio.sponsor]
-    data << ['','Notes', folio.notes]
+    data << ['','Notes', 'lorem ipsum'*100]
     data << ['','Final Vote', folio.vote]
     2.times { data << ['','',''] }
   end
@@ -43,16 +44,3 @@ meeting.folios.group_by{|f| f.legislation.legislation_type}.each do |legislation
   end
   pdf.move_down font_size*2
 end
-
-# meeting.grouped_legislations.each do |legislation_type, legislations|
-#   data = [[ {content: legislation_type.pluralize(legislations.count).upcase, colspan: 2} ]]
-#   legislations.each do |legislation|
-#     data << [legislation.legislative_numbering(:integer).to_s+'.', legislation.title]
-#   end
-#   pdf.table(data, header:true) do
-#     cells.borders = []
-#     column(0).width = 0.5.in
-#     row(0).font_style = :bold
-#   end
-#   pdf.move_down font_size*2
-# end
