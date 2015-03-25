@@ -22,7 +22,7 @@ class ApplicationHelperTest < ActionView::TestCase
   # def heroku_version
   # Returns a string of build information for the footer
   test 'heroku_version should return a string containing build information' do
-    assert_match /Last updated (.*) \(build #(.*) (.*)\)/i,
+    assert_match /(Last updated (.*) \(build #(.*) (.*)\))||(Previous build information unavailable)/i,
                  heroku_version
   end
 
