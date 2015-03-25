@@ -37,11 +37,22 @@ class LegislationTest < ActiveSupport::TestCase
   end
 
   ## Validations ###############################################################
-  # test 'must have title'
-  # test 'must have body'
-  # test 'must have legislation type'
-  #
-  # test 'legislation type must be from allowed types'
+  test 'must have title' do
+    @legislation.update(title: nil)
+    assert_not @legislation.save, 'saved legislation without a title'
+  end
+  test 'must have body' do
+    @legislation.update(body: nil)
+    assert_not @legislation.save, 'saved legislation without a body'
+  end
+  test 'must have legislation type' do
+    @legislation.update(legislation_type: nil)
+    assert_not @legislation.save, 'saved legislation without a type'
+  end
+  test 'legislation type must be from allowed types' do
+    @legislation.update(legislation_type: 'Invalid Type')
+    assert_not @legislation.save, 'saved legislation with an invalid type'
+  end
 
   ## Scopes and Class Methods ##################################################
   test 'has resolutions scope' do

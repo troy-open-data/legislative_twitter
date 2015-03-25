@@ -35,4 +35,9 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_match /#{titled_attachment.title}/i,
                  file_name(titled_attachment)
   end
+  test 'file_name should contain original filename if no title' do
+    untitled_attachment = create(:attachment)
+    assert_match /#{untitled_attachment.file.original_filename}/i,
+                 file_name(untitled_attachment)
+  end
 end

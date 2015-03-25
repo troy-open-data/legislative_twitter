@@ -41,8 +41,15 @@ class MeetingTest < ActiveSupport::TestCase
   end
 
   ## Validations ###############################################################
-  # test 'must have organization'
-  # test 'must have date_and_time'
+  test 'must have organization' do
+    @meeting.update(organization_id: nil)
+    assert_not @meeting.save, 'saved meeting without an organization'
+  end
+
+  test 'must have date_and_time' do
+    @meeting.update(date_and_time: nil)
+    assert_not @meeting.save, 'saved meeting without a date and time'
+  end
 
   ## Aliases ###################################################################
   test 'approved_agenda? is an alias of agenda_approved' do
