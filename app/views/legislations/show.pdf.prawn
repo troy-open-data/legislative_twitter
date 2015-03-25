@@ -8,16 +8,18 @@ Prawn::Font::AFM.hide_m17n_warning = true
 require "prawn/measurement_extensions"
 
 prawn_document(
-    margin: 0.5.in,
-    top_margin: 1.in,
-    bottom_margin: 1.in,
+    filename:       @legislation.title + '.pdf',
+    force_download: false,
+    margin:         0.5.in,
+    top_margin:     1.in,
+    bottom_margin:  1.in,
     info: {
-        Title: @legislation.title,
-        Author: 'Unknown',
-        Subject: 'Legislation',
-        Keywords: 'Troy, Legislation, Code',
-        Creator: 'City Clerk',
-        Producer: 'Troy City Council',
+        Title:        @legislation.title,
+        Author:       'Unknown',
+        Subject:      'Legislation',
+        Keywords:     'Troy, Legislation, Code',
+        Creator:      'City Clerk',
+        Producer:     'Troy City Council',
         CreationDate: Time.now}) do |pdf|
 
   # paper defaults
@@ -43,3 +45,4 @@ prawn_document(
          approved: true
 
 end
+
