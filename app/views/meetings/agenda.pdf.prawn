@@ -39,8 +39,9 @@ prawn_document(
 
   # Render each legislation
   if @attach[:legislation]
-    @meeting.grouped_legislations.each do |group, legislations|
-      legislations.each do |legislation|
+    @meeting.grouped_folios.each do |group, folios|
+      folios.each do |folio|
+        legislation = folio.legislation
         pdf.start_new_page
         render 'pdf_templates/legislation',
                pdf: pdf,

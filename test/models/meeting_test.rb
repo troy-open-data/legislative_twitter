@@ -76,6 +76,9 @@ class MeetingTest < ActiveSupport::TestCase
   end
 
   ## Scopes and Class Methods ##################################################
+  test 'upcoming' do
+    assert Meeting.respond_to? :upcoming
+  end
 
   ## Instance Methods ##########################################################
   test 'grouped_legislations' do
