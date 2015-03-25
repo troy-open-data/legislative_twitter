@@ -317,6 +317,7 @@ DEPENDENCIES
   sanitize
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  simplecov
   spring
   travis-lint
   turbolinks
