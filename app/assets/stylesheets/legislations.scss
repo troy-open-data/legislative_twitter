@@ -1,3 +1,6 @@
-// Place all the styles related to the Legislations controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+//Import Vendor Styles
+@import 'diffy';
+@import 'jquery-te-1.4.0';
+
+/* Hacky fix for modal background not filling entire screen */
+.reveal-modal-bg { position: fixed }

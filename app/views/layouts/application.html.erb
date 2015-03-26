@@ -4,11 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Troy City Council | <%= content_for?(:title) ? yield(:title) : "Legislative Twitter" %></title>
+    <title>Troy City Council | <%= content_for?(:title) ? yield(:title) : 'Legislative Twitter' %></title>
 
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/modernizr" %>
-    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= render 'touch_icons' %>
+
+    <%= stylesheet_link_tag    'application' %>
+    <!--For GeoComplete-->
+    <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places' %>
+    <!--For Foundation-->
+    <%= javascript_include_tag 'vendor/modernizr' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
     <%= csrf_meta_tags %>
   </head>
 

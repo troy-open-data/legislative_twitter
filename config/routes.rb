@@ -1,16 +1,31 @@
 Rails.application.routes.draw do
 
-  get 'search' => "search#search", :as => :search
+  resources :meetings
+
+  resources :organizations
+
+  resources :statuses
 
   resources :legislations
 
-  post "versions/:id/revert" => "versions#revert", :as => "revert_version"
+  get 'meetings/:id/agenda' => 'meetings#agenda', as: 'agenda'
+  get 'meetings/:id/minutes' => 'meetings#minutes', as: 'minutes'
+
+  # Toggle Agenda and Minutes
+  get 'toggle_agenda/:id' => 'meetings#toggle_agenda', as: 'toggle_agenda'
+  get 'toggle_minutes/:id' => 'meetings#toggle_minutes', as: 'toggle_minutes'
+
+  get 'meetings/start_meeting/:id' => 'meetings#start_meeting', as: 'start_meeting'
+
+  get 'search' => "search#search", :as => :search
+
+  post 'versions/:id/revert' => 'versions#revert', :as => 'revert_version'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'legislations#index'
+  root 'meetings#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

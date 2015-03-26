@@ -17,7 +17,21 @@
 require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  ## Setup and Teardown ########################################################
+  setup do
+    @attachment = create(:attachment)
+  end
+
+  ## Associations ##############################################################
+  test 'belongs to one legislation' do
+    @attachment.respond_to? :legislation
+  end
+  test 'has attached file' do
+    @attachment.respond_to? :file
+  end
+
+  ## Validations ###############################################################
+  # test 'validates attachment presence'
+  # test 'validates attachment size'
+  # test 'validates attachment content type'
 end

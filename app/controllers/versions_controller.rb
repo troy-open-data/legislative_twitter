@@ -9,7 +9,7 @@ class VersionsController < ApplicationController
       @version.reify.save!
       redirect_to legislation_path(@legislation), :notice => "Rolled back to version from #{@version.created_at}."
     else
-      raise StandardError, "cannot revert to version " + @version.id.to_s
+      raise StandardError, 'cannot revert to version ' + @version.id.to_s
     end
   end
 

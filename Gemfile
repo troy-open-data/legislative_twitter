@@ -28,8 +28,7 @@ gem 'paperclip', '~> 4.2'
 gem 'aws-sdk', '~> 1.5.7'
 # PDF generation with prawn
 gem 'prawn_rails'
-# Easy dynamic fields (adding and removing) in nested forms
-gem 'nested_form'
+gem 'prawn-table'
 
 
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
@@ -37,6 +36,9 @@ gem 'nested_form'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# gem 'jquery-ui-rails'
+# Easy dynamic fields (adding and removing) in nested forms
+gem 'nested_form'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -52,6 +54,8 @@ gem 'paper_trail', '~> 4.0.0.beta'
 
 # Use Unicorn as the app server
 # gem 'unicorn'
+# Use Passenger as the app server
+gem 'passenger'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -62,13 +66,20 @@ gem 'rails_12factor', group: :production
 gem 'rollbar', '~> 1.4.4'
 # Use NewRelic for application performance monitoring
 gem 'newrelic_rpm'
+# Use Heroku API to show update status
+gem 'platform-api'
+# Shim to load environment variables from .env into ENV in development.
+gem 'dotenv-rails'
 
 
 # Include Minitest and Minitest Reporters for RubyMine
 group :test do
   gem 'minitest'
   gem 'minitest-reporters'
+  gem 'simplecov', :require => false
   gem 'codeclimate-test-reporter', require: nil
+  gem 'factory_girl_rails'
+  # gem 'simplecov-rcov'
 end
 
 
@@ -92,8 +103,6 @@ group :development, :test do
   # Use Quiet Assets to turn off the Rails Asset Pipeline log
   gem 'quiet_assets'
 
-  # Shim to load environment variables from .env into ENV in development.
-  gem 'dotenv-rails'
   # Use Travis Lint to check .travis.yml syntax
   gem 'travis-lint'
 

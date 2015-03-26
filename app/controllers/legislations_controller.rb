@@ -4,21 +4,20 @@ class LegislationsController < ApplicationController
   # GET /legislations
   # GET /legislations.json
   def index
-    @legislations = Legislation.includes(:attachments)
-                        .order('created_at DESC')
+    @legislations = Legislation.by_recent
+                        .includes(:attachments)
                         .page(params[:page])
-    @recent_legislation_cache_name = "recent_legislation_pg_#{(params[:page] || '1').to_s}"
   end
 
   # GET /legislations/1
   # GET /legislations/1.json
+  # GET /legislations/1.pdf
   def show
     @versions = @legislation.versions.reorder('created_at DESC')
-    @version_count = @legislation.versions.count
-    @latest_version = @legislation.versions.order('created_at').last
-    @changelog_cache_name = "legislation-#{@legislation.id}-changelog"
-
     @attachments = @legislation.attachments
+
+    default_attachments = { attachments: true }
+    @attach = params[:attach] || default_attachments
 
     respond_to do |format|
       format.html
@@ -84,7 +83,11 @@ class LegislationsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def legislation_params
-    params.require(:legislation).permit(:title, :body, :legislation_type,
+    params.require(:legislation).permit(:title,
+                                        :short_title,
+                                        :body,
+                                        :legislation_type,
+
                                         attachments_attributes: [:title,
                                                                  :description,
                                                                  :file,

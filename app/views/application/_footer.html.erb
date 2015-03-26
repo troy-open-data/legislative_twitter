@@ -3,10 +3,13 @@
     <hr/>
     <div class="row">
       <div class="large-6 columns">
-        <p>© Copyright no one at all. v0.0.2</p>
+        <p>© Copyright no one at all.<br />
+          <%= heroku_version %></p>
       </div>
       <div class="large-6 columns">
         <ul class="inline-list right">
+          <li><%= link_to 'Edge', 'https://legislative-twitter-dev.herokuapp.com/' %></li>
+          <li><%= link_to 'Stable', 'https://legislative-twitter.herokuapp.com/' %></li>
           <li><%= link_to 'Commit Log', 'https://github.com/leesharma/legislative_twitter/commits/master' %></li>
           <li><%= link_to 'Feature List', 'https://github.com/leesharma/legislative_twitter/wiki/Features-List' %></li>
           <li><%= link_to 'GitHub', 'https://github.com/leesharma/legislative_twitter/' %></li>

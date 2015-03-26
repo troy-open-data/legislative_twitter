@@ -1,7 +1,7 @@
 <nav class="top-bar" data-topbar role="navigation">
   <ul class="title-area">
     <li class="name">
-      <h1><%= link_to 'Legislative Twitter', :root %></h1>
+      <h1><%= link_to 'Troy City Council', :root %></h1>
     </li>
     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
@@ -9,16 +9,17 @@
 
   <section class="top-bar-section">
     <!-- Right Nav Section -->
-    <!--<ul class="right">
-      <li class="active"><a href="#">Right Button Active</a></li>
-      <li class="has-dropdown">
-        <a href="#">Right Button Dropdown</a>
+    <ul class="right">
+      <li class="admin has-dropdown">
+        <a href="#">Create New...</a>
         <ul class="dropdown">
-          <li><a href="#">First link in dropdown</a></li>
-          <li class="active"><a href="#">Active link in dropdown</a></li>
+          <li><%= link_to '...Organization', new_organization_path %></li>
+          <li><%= link_to '...Meeting', new_meeting_path %></li>
+          <li><%= link_to '...Legislation', new_legislation_path %></li>
         </ul>
       </li>
-    </ul>-->
+      <li class='' id="admin-toggle"><a href="#">Toggle Admin Mode</a></li>
+    </ul>
 
     <!-- Left Nav Section -->
     <!--<ul class="left">

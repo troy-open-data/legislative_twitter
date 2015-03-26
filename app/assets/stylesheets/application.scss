@@ -10,11 +10,14 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
  *= require_self
- *= require foundation_and_overrides
-
  */
 
-/* Hacky fix for modal background not filling entire screen */
-.reveal-modal-bg { position: fixed }
+
+
+// Site-Wide Styles
+@import 'foundation_and_overrides';
+
+// Model-Specific Style Scopes
+@import 'legislations';
+@import 'meetings';

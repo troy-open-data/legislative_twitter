@@ -1,0 +1,43 @@
+<%= form_for(@meeting) do |f| %>
+  <% if @meeting.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+
+      <ul>
+      <% @meeting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :organization_id %>
+    <%= f.collection_select :organization_id, Organization.meetable, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :date_and_time, 'Date and Time' %>
+    <%= f.text_field :date_and_time, class:'datetimepicker', value: @meeting.datetimepicker_value %>
+  </div>
+
+    <div class="field">
+      <%= f.label :location %>
+      <%= f.text_field :location, class: 'geocomplete',
+                       value: (@meeting.location || Meeting::DEFAULT_LOCATION) %>
+    </div>
+
+    <!--Legislative Docket-->
+    <fieldset>
+      <legend>Set Meeting Docket</legend>
+      <%= f.collection_check_boxes(:legislation_ids,
+                                   Legislation.by_recent,
+                                   :id,
+                                   :collection_text_method) do |b|
+        b.label { b.check_box + '  ' + b.text + "\n"}
+      end %>
+    </fieldset>
+
+  <div class="actions">
+    <%= f.submit class:'button expand' %>
+  </div>
+<% end %>

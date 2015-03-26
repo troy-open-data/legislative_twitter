@@ -17,16 +17,14 @@
 /tmp
 
 # .env should NOT be checked into source control
-*.env
-
-# database.yml temporarily contains secret things.
-config/database.yml
+.env
 
 # RubyMine workspace files
 .idea
 
 # Code Climate code coverage results
-coverage
+coverage/.*
+coverage/*
 
 # Don't commit local attachments
 public/system/attachments

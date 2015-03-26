@@ -20,5 +20,5 @@ class Attachment < ActiveRecord::Base
 
   validates_attachment :file, presence: true,
                        size: { less_than: 1.megabytes },
-                       content_type: { content_type: %w{ image/jpg image/jpeg image/png image/gif application/pdf }}
+                       content_type: { content_type: %w{ image/jpg image/jpeg image/png application/pdf }}
 end

@@ -2,5 +2,6 @@
 {<img src="https://travis-ci.org/leesharma/legislative_twitter.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/leesharma/legislative_twitter]
 {<img src="https://codeclimate.com/github/leesharma/legislative_twitter/badges/gpa.svg" />}[https://codeclimate.com/github/leesharma/legislative_twitter]
 {<img src="https://codeclimate.com/github/leesharma/legislative_twitter/badges/coverage.svg" />}[https://codeclimate.com/github/leesharma/legislative_twitter]
+{<img src="https://hakiri.io/github/leesharma/legislative_twitter/master.svg" alt="security" />}[https://hakiri.io/github/leesharma/legislative_twitter/master]
 
 Legislative Twitter is a REST application designed to keep, track, and archive legislation; generate minutes and agendas; and streamline the workflow of the city clerk.

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150314033842) do
+ActiveRecord::Schema.define(version: 20150321205448) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,12 +28,62 @@ ActiveRecord::Schema.define(version: 20150314033842) do
     t.datetime "file_updated_at"
   end
 
+  create_table "folios", force: :cascade do |t|
+    t.integer  "meeting_id"
+    t.integer  "legislation_id"
+    t.text     "notes"
+    t.string   "vote"
+    t.string   "sponsor"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "folios", ["legislation_id"], name: "index_folios_on_legislation_id", using: :btree
+  add_index "folios", ["meeting_id"], name: "index_folios_on_meeting_id", using: :btree
+
   create_table "legislations", force: :cascade do |t|
     t.string   "title"
     t.text     "body"
     t.datetime "created_at",                              null: false
     t.datetime "updated_at",                              null: false
     t.string   "legislation_type", default: "Resolution", null: false
+    t.string   "short_title"
+  end
+
+  create_table "meetings", force: :cascade do |t|
+    t.integer  "organization_id"
+    t.datetime "date_and_time"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.boolean  "agenda_approved"
+    t.boolean  "minutes_approved"
+    t.string   "location"
+  end
+
+  add_index "meetings", ["organization_id"], name: "index_meetings_on_organization_id", using: :btree
+
+  create_table "organizations", force: :cascade do |t|
+    t.integer  "level"
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "status_updates", force: :cascade do |t|
+    t.integer  "legislation_id"
+    t.integer  "status_id"
+    t.text     "notes"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "status_updates", ["legislation_id"], name: "index_status_updates_on_legislation_id", using: :btree
+  add_index "status_updates", ["status_id"], name: "index_status_updates_on_status_id", using: :btree
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "versions", force: :cascade do |t|
@@ -48,4 +98,9 @@ ActiveRecord::Schema.define(version: 20150314033842) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  add_foreign_key "folios", "legislations"
+  add_foreign_key "folios", "meetings"
+  add_foreign_key "meetings", "organizations"
+  add_foreign_key "status_updates", "legislations"
+  add_foreign_key "status_updates", "statuses"
 end

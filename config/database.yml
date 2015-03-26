@@ -24,9 +24,8 @@ default: &default
 development:
   <<: *default
   database: legislative_twitter_development
-  username: legislative_twitter
+  username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
-  # fixme: read configuration from database.env
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.

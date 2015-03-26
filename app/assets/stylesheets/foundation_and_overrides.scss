@@ -1484,7 +1484,7 @@ $body-font-family: $font-family-serif;
 @import "foundation/components/buttons";
 @import "foundation/components/button-groups";
 //@import "foundation/components/split-buttons";
-//@import "foundation/components/dropdown-buttons";
+@import "foundation/components/dropdown-buttons";
 
 // TYPOGRAPHY
 @import "foundation/components/type";
@@ -1495,7 +1495,7 @@ $body-font-family: $font-family-serif;
 // CALLOUTS & PROMPTS
 @import "foundation/components/reveal";
 @import "foundation/components/alert-boxes";
-//@import "foundation/components/panels";
+@import "foundation/components/panels";
 //@import "foundation/components/tooltips";
 //@import "foundation/components/joyride";
 

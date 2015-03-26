@@ -1,9 +1,28 @@
 module ApplicationHelper
-  # Returns a diff string containing changes or, if no changes, 'No Changes'
-  def diff(content1, content2)
-    changes = Diffy::Diff.new(content1, content2,
-                              include_plus_and_minus_in_html: true)
-    changes.to_s.present? ? changes.to_s(:html).html_safe : 'No Changes'
+
+  # Returns in title case either the short title (if it exists) or a truncated
+  # version of the standard title for a piece of legislation
+  def short_title(legislation)
+    short_title = legislation.short_title || truncate(legislation.title, length: 72)
+    short_title.titleize
+  end
+
+
+  # Returns a string of build information for the footer
+  def heroku_version
+    begin
+      # Read in values from environment variables
+      released_at = DateTime.rfc3339(ENV['HEROKU_RELEASED_AT']).
+        in_time_zone('Eastern Time (US & Canada)').
+        strftime("%-l:%M%P %b %-d, %Y")
+      build_count = ENV['HEROKU_BUILD_COUNT'] || '?'
+      build_status = ENV['HEROKU_BUILD_STATUS'] || 'unknown'
+
+      # String construction
+      "Last updated #{released_at} (build ##{build_count} #{build_status})"
+    rescue StandardError
+      'Previous build information unavailable'
+    end
   end
 
   # Returns a string containing the attachment file's title and content type if
@@ -16,23 +35,4 @@ module ApplicationHelper
     end
   end
 
-  # Takes input in the form of an html-rich string and returns an array of
-  # prawn-sanitized paragraphs
-  def prawnify_paragraphs(body, size=16)
-    # Replace all headers with large text
-    body = body.gsub(/\<h\d\>/,"<font size='#{size}'>").gsub(/\<\/h\d\>/,'</font><p>')
-
-    # Remove all unexpected tags
-    body = body.split(/\<\/?p\>/).delete_if{|p| p.empty?}
-
-    body.map! do |paragraph|
-      Sanitize.fragment(paragraph,
-                        elements: %w{b i u strikethrough sub sup color font},
-                        attributes: {
-                            'font' => %w{size},
-                            'color' => %w{}
-                        })
-    end
-
-  end
 end
