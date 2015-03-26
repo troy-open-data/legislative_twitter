@@ -14,9 +14,11 @@
 class Legislation < ActiveRecord::Base
   # Model Variables
   LEGISLATION_TYPES = %w{ Resolution Ordinance }
+  NULL_ATTRS = %w( short_title )
 
   # Hooks
   before_save :clean_html
+  before_save :nil_if_blank
 
   # Scopes
   scope :resolutions, -> { where(legislation_type: 'Resolution') }
@@ -111,6 +113,10 @@ class Legislation < ActiveRecord::Base
     self.body = Sanitize.fragment(body,
                                   elements: %w{b i u strikethrough strike sub sup h1 h2 h3 h4 h5 h6 p b},
                                   attributes: {})
+  end
+
+  def nil_if_blank
+    NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }
   end
 
 end
