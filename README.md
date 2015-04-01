@@ -7,4 +7,4 @@ Legislative Twitter is a REST application designed to keep, track, and archive l
 
 ### Licencing
 
-Please feel free to fork this project and use it as you see fit! This project is under the MIT Licence. See LICENCE.md for more details.
+Please feel free to fork this project and use it as you see fit! This project is under the MIT Licence. Learn more about [the MIT Licence] (http://opensource.org/licenses/MIT) or [other open source licences](http://choosealicense.com).
