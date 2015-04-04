@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-![Application screenshot]({{ site.url }}/images/screenshot.png)
+![Application screenshot]({{ site.baseurl }}/images/screenshot.png)
 
 
 Legislative Twitter is the development name for an application designed for the
