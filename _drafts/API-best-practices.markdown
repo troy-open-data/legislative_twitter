@@ -2,6 +2,7 @@
 layout: post
 title:  "API Best Practices"
 date:  2015-04-03 21:39:33˚
+category: Engineering
 tags: API research
 ---
 Blog post about the research behind API best practices. What are the
