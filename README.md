@@ -7,7 +7,7 @@ Legislative Twitter is a REST application designed to keep, track, and archive l
 
 ## Development Progress
 
-The Legislative Twitter development blog can be found at http://leesharma.gihub.io/legislative_twitter (source code is on the gh-pages branch of this repository). 
+The Legislative Twitter development blog can be found at https://leesharma.com/legislative_twitter (source code is on the gh-pages branch of this repository). 
 
 ## Licencing
 
