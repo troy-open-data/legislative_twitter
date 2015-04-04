@@ -2,7 +2,7 @@
 layout: post
 title:  "Hello, World!"
 date:   2015-04-03 21:39:33
-categories: meta
+tags: meta
 ---
 Hello out there!
 

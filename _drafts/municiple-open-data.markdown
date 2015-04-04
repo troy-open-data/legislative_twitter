@@ -2,7 +2,7 @@
 layout: post
 title:  "Municipal Language"
 date:  2015-04-03 21:39:33
-categories: API
+tags: API research
 ---
 What are other small cities doing for open data? What prompted them to start?
 
