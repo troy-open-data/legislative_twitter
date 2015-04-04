@@ -4,6 +4,9 @@ title: About
 permalink: /about/
 ---
 
+![Application screenshot]({{ site.url }}/images/screenshot.png)
+
+
 Legislative Twitter is the development name for an application designed for the
 City of Troy to designed to keep, track, and archive legislation; generate minutes
 and agendas; and streamline the workflow of the city clerk. Above everything
