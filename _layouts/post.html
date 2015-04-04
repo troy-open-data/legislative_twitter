@@ -15,7 +15,6 @@ layout: default
         {{ content }}
     </article>
 
-    {% if site.related_posts %}
     <h2>Related Posts</h2>
     <dl>
         {% for post in site.related_posts %}
@@ -25,5 +24,4 @@ layout: default
         </dt>
         {% endfor %}
     </dl>
-    {% endif %}
 </div>
