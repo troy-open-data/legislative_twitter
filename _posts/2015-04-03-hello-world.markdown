@@ -2,8 +2,7 @@
 layout: post
 title:  "Hello, World!"
 date:   2015-04-03 21:39:33
-category: Watercooler
-tags: meta
+category: Meta
 ---
 Hello out there!
 
