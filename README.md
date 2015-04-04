@@ -7,4 +7,4 @@ else, this application is designed to begin the process of opening up city publi
 data in both machine-readable and human-readable formats.
 
 
-**[The blog can be found at http://leesharma.github.io/legislative_twitter.](http://leesharma.github.io/legislative_twitter)**
+**The blog can be found at http://leesharma.github.io/legislative_twitter.**
