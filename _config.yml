@@ -12,3 +12,9 @@ github_username:  leesharma
 
 # Build settings
 markdown: kramdown
+
+# Defaults
+defaults:
+  -
+    values:
+      author: "Lee"
