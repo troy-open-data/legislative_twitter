@@ -5,7 +5,7 @@ description: > # this means to ignore newlines until "baseurl:"
   We are writing an application for Troy, NY designed to automate some of their
   behind-the-scenes paperwork and begin the process of opening up public data in
   human- and machine-usable formats. This blog documents the development process.
-baseurl: "" # the subpath of your site, e.g. /blog/
+baseurl: "/legislative_twitter" # the subpath of your site, e.g. /blog/
 url: "http://legislative-twitter.herokuapp.com" # the base hostname & protocol for your site
 twitter_username: theleesharma
 github_username:  leesharma
