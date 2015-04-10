@@ -1,4 +1,4 @@
-require 'api_version'
+require 'api_version'  # lib/api_version.rb
 
 Rails.application.routes.draw do
   ##
@@ -7,9 +7,33 @@ Rails.application.routes.draw do
   #
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, constraints: ApiVersion.new('v1', true) do
+      #
+      #
+      # Version One (v1)
+      # ----------------
+      # This is the default API verison. If no version is specified in the Accept
+      # header, v1 will be returned. This is to encourage browser experimentation.
+      #
+      #
+      # Includes the following resources:
+      #
+      #   * Legislation
+      #   * Meetings
+      #   * Data        ROOT data#index
+      #
+      #
+      # API Endpoints  {format: 'json'}
+      # -------------------------------
+      #           Prefix Verb   URI Pattern                       Controller#Action
+      # api_legislations GET    /api/legislations.json            api/v1/legislations#index
+      #  api_legislation GET    /api/legislations/:id.json        api/v1/legislations#show
+      #
+      #     api_meetings GET    /api/meetings.json                api/v1/meetings#index
+      #      api_meeting GET    /api/meetings/:id.json            api/v1/meetings#show
+      #
+      #         api_root GET    /api.json                         api/v1/data#index
       resources :legislations, only: [:index, :show]
       resources :meetings, only: [:index, :show]
-
       root to: 'data#index'
     end
   end
@@ -21,16 +45,11 @@ Rails.application.routes.draw do
   # The default namespace contains the following resources:
   #
   #   * Legislation
-  #   * Meeting
+  #   * Meeting       ROOT meetings#index
   #   * Organization
   #   * Status
   #   * Search
   #   * Version
-  #
-  # Prefixes, HTTP Verbs, URI Patterns, and associated controller actions are
-  # listed for each set of resources (courtesy of rake routes).
-  #
-  # root: meetings#index (code at the end)
   #
   #
   # Legislation Routes
