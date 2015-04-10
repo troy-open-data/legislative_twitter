@@ -5,7 +5,7 @@ class MeetingsControllerTest < ActionController::TestCase
     @meeting = create(:meeting)
   end
 
-  test "should get index" do
+  test 'should get index' do
     get :index
     assert_response :success
     assert_not_nil assigns(:meetings)
