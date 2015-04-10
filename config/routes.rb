@@ -125,7 +125,7 @@ Rails.application.routes.draw do
   # Search Routes
   # -------------
   # Prefix Verb   URI Pattern                                   Controller#Action
-  # search GET    /search(.:format)                             search#search
+  # search GET    /search(.:format)                             search#index
   get 'search', to: 'search#index', as: 'search'
   #
   #
