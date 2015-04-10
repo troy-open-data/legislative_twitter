@@ -54,7 +54,7 @@ class OrganizationsControllerTest < ActionController::TestCase
       invalid_attributes = { name: nil }
       patch :update, id: @organization, organization: invalid_attributes
 
-      refute invalid_attributes[:name], @organization.name
+      refute_equal invalid_attributes[:name], @organization.name
       refute_equal :redirect, response.status
     end
 

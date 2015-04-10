@@ -21,6 +21,14 @@ class MeetingsControllerTest < ActionController::TestCase
       end
       assert_redirected_to meeting_path(assigns(:meeting))
     end
+
+    should 'not create with invalid parameters' do
+      invalid_attributes = attributes_for(:meeting, organization_id: nil)
+      assert_no_difference('Meeting.count') do
+        post :create, meeting: invalid_attributes
+      end
+      refute_equal :redirect, response.status
+    end
   end
 
 
@@ -48,6 +56,14 @@ class MeetingsControllerTest < ActionController::TestCase
       patch :update, id: @meeting, meeting: { date_and_time:    @meeting.date,
                                               organization_id:  @meeting.organization_id }
       assert_redirected_to meeting_path(assigns(:meeting))
+    end
+
+    should 'not update with invalid parameters' do
+      invalid_attributes = { organization_id: nil }
+      patch :update, id: @meeting, meeting: invalid_attributes
+
+      refute_equal invalid_attributes[:organization_id], @meeting.organization_id
+      refute_equal :redirect, response.status
     end
 
     should 'be destroyed' do

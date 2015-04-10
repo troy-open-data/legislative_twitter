@@ -17,8 +17,15 @@ class LegislationsControllerTest < ActionController::TestCase
       assert_difference('Legislation.count') do
         post :create, legislation: attributes_for(:legislation)
       end
-
       assert_redirected_to legislation_path(assigns(:legislation))
+    end
+
+    should 'not create with invalid parameters' do
+      invalid_attributes = attributes_for(:legislation, title: nil)
+      assert_no_difference('Legislation.count') do
+        post :create, legislation: invalid_attributes
+      end
+      refute_equal :redirect, response.status
     end
   end
 
@@ -45,6 +52,14 @@ class LegislationsControllerTest < ActionController::TestCase
     should 'patch update' do
       patch :update, id: @legislation, legislation: attributes_for(:legislation)
       assert_redirected_to legislation_path(assigns(:legislation))
+    end
+
+    should 'not update with invalid parameters' do
+      invalid_attributes = { title: nil }
+      patch :update, id: @legislation, legislation: invalid_attributes
+
+      refute_equal invalid_attributes[:title], @legislation.title
+      refute_equal :redirect, response.status
     end
 
     should 'be destroyed' do
