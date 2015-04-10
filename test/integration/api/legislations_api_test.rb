@@ -13,8 +13,7 @@ class LegislationsApiTest < ActionDispatch::IntegrationTest
   end
 
   test 'returns legislation filtered by type' do
-    type = 'Resolution'
-    create(:legislation, legislation_type: type)
+    type = @legislation.legislation_type
 
     get "/api/legislations?type=#{type}"
 
