@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class LegislationsControllerTest < ActionDispatch::IntegrationTest
+class LegislationsApiTest < ActionDispatch::IntegrationTest
   setup do
     @legislation = create(:legislation)
   end
