@@ -18,3 +18,7 @@ permalink: /docs/
 {% include_relative /_legislations/index.md %}
 
 {% include_relative quicklinks.md %}
+
+{% include_relative /_meetings/index.md %}
+
+{% include_relative quicklinks.md %}
