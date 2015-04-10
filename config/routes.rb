@@ -80,7 +80,7 @@ Rails.application.routes.draw do
   #
   #         agenda GET    /meetings/:id/agenda(.:format)           meetings#agenda
   #        minutes GET    /meetings/:id/minutes(.:format)          meetings#minutes
-  #  start_meeting GET    /meetings/:id/notes(.:format)            meetings#start_meeting
+  #  start_meeting GET    /meetings/:id/in_progress(.:format)      meetings#start_meeting
   #
   #  toggle_agenda GET    /meetings/:id/agenda/toggle(.:format)    meetings#toggle_agenda
   # toggle_minutes GET    /meetings/:id/minutes/toggle(.:format)   meetings#toggle_minutes
@@ -88,7 +88,7 @@ Rails.application.routes.draw do
   scope '/meetings/:id' do
     get '/agenda',  to: 'meetings#agenda', as: 'agenda'
     get '/minutes', to: 'meetings#minutes', as: 'minutes'
-    get '/notes',   to: 'meetings#start_meeting', as: 'start_meeting'
+    get '/in_progress',  to: 'meetings#start_meeting', as: 'start_meeting'
     get '/agenda/toggle',   to: 'meetings#toggle_agenda',  as: 'toggle_agenda'
     get '/minutes/toggle',  to: 'meetings#toggle_minutes', as: 'toggle_minutes'
   end
