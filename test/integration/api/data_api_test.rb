@@ -2,7 +2,8 @@ require 'test_helper'
 
 class DataApiTest < ActionDispatch::IntegrationTest
   test 'returns api version number' do
-    get '/api'
+    get '/api', {},
+        { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
     assert_response :success
     assert_equal Mime::JSON, response.content_type
@@ -12,7 +13,8 @@ class DataApiTest < ActionDispatch::IntegrationTest
   end
 
   test 'returns links to available APIs' do
-    get '/api'
+    get '/api', {},
+        { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
     assert_response :success
     assert_equal Mime::JSON, response.content_type

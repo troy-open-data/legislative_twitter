@@ -6,14 +6,17 @@ class LegislationsApiTest < ActionDispatch::IntegrationTest
   end
 
   test 'returns list of all legislation' do
-    get '/api/legislations'
+    get '/api/legislations', {},
+        { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
     assert_response :success
     assert_equal Mime::JSON, response.content_type
   end
 
   test 'list of legislation includes legislation urls' do
-    get '/api/legislations'
+    get '/api/legislations', {},
+        { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
+
     assert_response :success
 
     legislation_data = json(response.body)[0]
@@ -24,7 +27,8 @@ class LegislationsApiTest < ActionDispatch::IntegrationTest
   test 'returns legislation filtered by type' do
     type = @legislation.legislation_type
 
-    get "/api/legislations?type=#{type}"
+    get "/api/legislations?type=#{type}", {},
+        { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
     assert_response :success
     assert_equal Mime::JSON, response.content_type
@@ -37,7 +41,9 @@ class LegislationsApiTest < ActionDispatch::IntegrationTest
   end
 
   test 'returns legislation by id' do
-    get "/api/legislations/#{@legislation.id}"
+    get "/api/legislations/#{@legislation.id}", {},
+        { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
+
     assert_response :success
     assert_equal Mime::JSON, response.content_type
 
