@@ -1,6 +1,7 @@
 ---
 layout: page
 title: About
+category: top
 permalink: /about/
 ---
 
@@ -22,3 +23,7 @@ Our **issue tracking** (including iteration planning and bug squishing) can be f
 The **stable development site** can be found [here](http://legislative-twitter.herokuapp.com).
 
 The **edge site** can be found [here](http://legislative-twitter-dev.herokuapp.com).
+
+## Features
+
+* [v1.0.0](features)

@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Features
-permalink: /features/
+permalink: /about/features/
 ---
 
 This page details what new features are include in each software release.
