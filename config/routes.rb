@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: 'json' } do
     scope module: :v1, constraints: ApiVersion.new('v1', true) do
       resources :legislations, only: [:index, :show]
+      resources :meetings, only: [:index, :show]
 
       root to: 'data#index'
     end
