@@ -9,4 +9,4 @@ data in both machine-readable and human-readable formats.
 This is the developers site. It includes the development blog, API documentation 
 (including guides and libraries), and sign-up for the developers program.
 
-**The developers site can be found at http://leesharma.github.io/legislative_twitter.**
+**The developers site can be found at http://troy-open-data.github.io/legislative_twitter.**
