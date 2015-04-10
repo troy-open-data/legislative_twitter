@@ -12,6 +12,15 @@ class LegislationsApiTest < ActionDispatch::IntegrationTest
     assert_equal Mime::JSON, response.content_type
   end
 
+  test 'list of legislation includes legislation urls' do
+    get '/api/legislations'
+    assert_response :success
+
+    legislation_data = json(response.body)[0]
+    assert_equal api_legislation_url(legislation_data[:id], format: :json),
+                 legislation_data[:url]
+  end
+
   test 'returns legislation filtered by type' do
     type = @legislation.legislation_type
 
