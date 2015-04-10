@@ -31,14 +31,14 @@ class MeetingsControllerTest < ActionController::TestCase
   end
 
   test 'should show agenda' do
-    %w{html pdf json}.each do |format|
+    %w{html pdf}.each do |format|
       get :agenda, id: @meeting, format: format
       assert_response :success
     end
   end
 
   test 'should show minutes' do
-    %w{html pdf json}.each do |format|
+    %w{html pdf}.each do |format|
       get :minutes, id: @meeting, format: format
       assert_response :success
     end
