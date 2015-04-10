@@ -21,5 +21,6 @@ class DataApiTest < ActionDispatch::IntegrationTest
 
     data = json(response.body)
     assert_match api_legislations_url, data[:legislations]
+    assert_match api_meetings_url, data[:meetings]
   end
 end
