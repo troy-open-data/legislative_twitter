@@ -25,7 +25,7 @@ class LegislationsControllerTest < ActionController::TestCase
   end
 
   test 'should show legislation' do
-    %w{html pdf json}.each do |format|
+    %w{html pdf}.each do |format|
       get :show, id: @legislation, format: format
       assert_response :success
     end

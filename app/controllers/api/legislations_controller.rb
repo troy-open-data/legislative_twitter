@@ -3,15 +3,13 @@ module API
     before_action :set_legislation, only: :show
 
     def index
-      legislations = Legislation.all
+      @legislations = Legislation.all
       if params[:type].present?
-        legislations = legislations.where(legislation_type: params[:type])
+        @legislations = @legislations.where(legislation_type: params[:type])
       end
-      render json: legislations, status: :ok
     end
 
     def show
-      render json: @legislation, status: :ok
     end
 
     private
