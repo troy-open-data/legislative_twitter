@@ -86,11 +86,11 @@ Rails.application.routes.draw do
   # toggle_minutes GET    /meetings/:id/minutes/toggle(.:format)   meetings#toggle_minutes
   resources :meetings
   scope '/meetings/:id' do
-    get '/agenda'   => 'meetings#agenda',         as: 'agenda'
-    get '/minutes'  => 'meetings#minutes',        as: 'minutes'
-    get '/notes'    => 'meetings#start_meeting',  as: 'start_meeting'
-    get '/agenda/toggle'  => 'meetings#toggle_agenda',  as: 'toggle_agenda'
-    get '/minutes/toggle' => 'meetings#toggle_minutes', as: 'toggle_minutes'
+    get '/agenda',  to: 'meetings#agenda', as: 'agenda'
+    get '/minutes', to: 'meetings#minutes', as: 'minutes'
+    get '/notes',   to: 'meetings#start_meeting', as: 'start_meeting'
+    get '/agenda/toggle',   to: 'meetings#toggle_agenda',  as: 'toggle_agenda'
+    get '/minutes/toggle',  to: 'meetings#toggle_minutes', as: 'toggle_minutes'
   end
   #
   #
@@ -126,14 +126,14 @@ Rails.application.routes.draw do
   # -------------
   # Prefix Verb   URI Pattern                                   Controller#Action
   # search GET    /search(.:format)                             search#search
-  get 'search' => 'search#search', :as => :search
+  get 'search', to: 'search#index', as: 'search'
   #
   #
   # Version Routes
   # --------------
   #         Prefix Verb   URI Pattern                           Controller#Action
   # revert_version POST   /versions/:id/revert(.:format)        versions#revert
-  post 'versions/:id/revert' => 'versions#revert', :as => 'revert_version'
+  post 'versions/:id/revert', to: 'versions#revert', as: 'revert_version'
   #
   #
   # Site Root

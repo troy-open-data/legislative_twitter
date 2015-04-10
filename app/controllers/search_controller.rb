@@ -1,7 +1,7 @@
 class SearchController < ApplicationController
   # GET /search
   # GET /search.json
-  def search
+  def index
     search_term = "%#{params[:search]}%"
 
     # Legislation listing is case-insensitive, paginated, including attachments,
