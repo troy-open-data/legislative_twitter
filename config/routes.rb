@@ -1,10 +1,16 @@
+require 'api_version'
+
 Rails.application.routes.draw do
   ##
   # API (api namespace)
   # ===================
   #
   namespace :api, defaults: { format: 'json' } do
-    resources :legislations, only: [:index, :show]
+    scope module: :v1, constraints: ApiVersion.new('v1', true) do
+      resources :legislations, only: [:index, :show]
+
+      root to: 'data#index'
+    end
   end
 
   ##

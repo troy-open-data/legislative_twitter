@@ -1,5 +1,5 @@
-module API
-  class LegislationsController < BaseController
+module API::V1
+  class LegislationsController < ApiVersionsController
     before_action :set_legislation, only: :show
 
     def index
