@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class SearchControllerTest < ActionController::TestCase
-  test 'should get search' do
-    get :index, search: 'search'
-    assert_response :success
+  context 'Searching' do
+    should 'get results' do
+      get :index, search: 'query'
+      assert_response :success
+    end
   end
 end

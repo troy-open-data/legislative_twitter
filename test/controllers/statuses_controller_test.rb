@@ -1,49 +1,51 @@
 require 'test_helper'
 
 class StatusesControllerTest < ActionController::TestCase
-  setup do
-    @status = create(:status)
-  end
-
-  test 'should get index' do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:statuses)
-  end
-
-  test 'should get new' do
-    get :new
-    assert_response :success
-  end
-
-  test 'should create status' do
-    assert_difference('Status.count') do
-      post :create, status: { title: @status.title }
+  context 'Statuses' do
+    should 'get index' do
+      get :index
+      assert_response :success
+      assert_not_nil assigns(:statuses)
     end
 
-    assert_redirected_to status_path(assigns(:status))
-  end
-
-  test 'should show status' do
-    get :show, id: @status
-    assert_response :success
-  end
-
-  test 'should get edit' do
-    get :edit, id: @status
-    assert_response :success
-  end
-
-  test 'should update status' do
-    patch :update, id: @status, status: { title: @status.title }
-    assert_redirected_to status_path(assigns(:status))
-  end
-
-  test 'should destroy status' do
-    assert_difference('Status.count', -1) do
-      delete :destroy, id: @status
+    should 'get new' do
+      get :new
+      assert_response :success
     end
 
-    assert_redirected_to statuses_path
+    should 'create status' do
+      assert_difference('Status.count') do
+        post :create, status: attributes_for(:status)
+      end
+      assert_redirected_to status_path(assigns(:status))
+    end
+  end
+
+  context 'A Status' do
+    setup do
+      @status = create(:status)
+    end
+
+    should 'show' do
+      get :show, id: @status
+      assert_response :success
+    end
+
+    should 'get edit' do
+      get :edit, id: @status
+      assert_response :success
+    end
+
+    should 'patch update' do
+      patch :update, id: @status, status: { title: @status.title }
+      assert_redirected_to status_path(assigns(:status))
+    end
+
+    should 'be destroyed' do
+      assert_difference('Status.count', -1) do
+        delete :destroy, id: @status
+      end
+      assert_redirected_to statuses_path
+    end
   end
 end

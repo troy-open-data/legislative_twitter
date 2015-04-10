@@ -43,6 +43,10 @@ FactoryGirl.define do
     level 1
   end
 
-  factory :status
-  factory :status_update
+  factory :status do
+    title 'Awesome'
+  end
+
+  factory :status_update do
+  end
 end
