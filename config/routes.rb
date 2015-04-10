@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   ##
+  # API (api namespace)
+  # ===================
+  #
+  namespace :api, defaults: { format: 'json' } do
+    resources :legislations, only: [:index, :show]
+  end
+
+  ##
   # Browser App (default namespace)
   # ===============================
   #
