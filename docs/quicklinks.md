@@ -9,5 +9,8 @@
     * [Get a list of all legislation](#get-a-list-of-all-legislation)
     * [Get a list of legislation by type](#get-a-list-of-legislation-by-type)
     * [Get a single legislation](#get-a-single-legislation)
+* [Meetings](#meetings)
+    * [Get a list of all meetings](#get-a-list-of-all-meetings)
+    * [Get a single meeting](#get-a-single-meeting)
 
 ---
