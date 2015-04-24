@@ -1,11 +1,12 @@
 # Code Climate Test Reporter and SimpleCov (detects test coverage)
 require 'codeclimate-test-reporter'
-require 'simplecov'
-SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter[
-    SimpleCov::Formatter::HTMLFormatter,
-    CodeClimate::TestReporter::Formatter
-]
-SimpleCov.start 'rails'
+SimpleCov.start('rails') do
+  formatter SimpleCov::Formatter::MultiFormatter[
+      SimpleCov::Formatter::HTMLFormatter,
+      CodeClimate::TestReporter::Formatter
+  ]
+  minimum_coverage 95
+end
 
 
 # Minitest and Reporters
