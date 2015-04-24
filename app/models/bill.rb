@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: legislations
+# Table name: bills
 #
 #  id               :integer          not null, primary key
 #  title            :string
@@ -11,7 +11,7 @@
 #  short_title      :string
 #
 
-class Legislation < ActiveRecord::Base
+class Bill < ActiveRecord::Base
   # Model Variables
   LEGISLATION_TYPES = %w{ Resolution Ordinance }
   NULL_ATTRS = %w( short_title )
@@ -45,38 +45,38 @@ class Legislation < ActiveRecord::Base
 
   # Returns a string containing the created_at time in the
   # format Month day, Year:
-  # @legislation.created_at_time  # => "Added March 4, 2015"
+  # @bill.created_at_time  # => "Added March 4, 2015"
   def created_at_time
     created_at.strftime('Added %B %d, %Y')
   end
 
   # Returns a comma-separated list of changed attributes between
   # instance and version
-  # Example: @legislation.list_changed_attributes   # => "title, short_title"
+  # Example: @bill.list_changed_attributes   # => "title, short_title"
   def list_changed_attributes(version=versions.last)
     diff_attributes(version).join(", ")
   end
 
   # Returns all changed attributes between given and current version except for
   # specifically ignored attributes (created_at, updated_at, id)
-  # Example: @legislation.diff_attributes  # => ['title', 'short_title']
+  # Example: @bill.diff_attributes  # => ['title', 'short_title']
   def diff_attributes(version=versions.last,
                       ignored_changes=%w{ created_at updated_at id })
     version.changeset.keys - ignored_changes
   end
 
-  # Returns the legislative numbering of a legislation, formatted as a
+  # Returns the legislative numbering of a bill, formatted as a
   # string (default), array, integer, or abbreviated string
   #
   # Example:
-  # @legislation.legislative_numbering                # => "Ordinance 5"
-  # @legislation.legislative_numbering(:string)       # => "Ordinance 5"
-  # @legislation.legislative_numbering(:array)        # => ["Ordinance", 5]
-  # @legislation.legislative_numbering(:integer)      # => 5
-  # @legislation.legislative_numbering(:abbreviation) # => "ORD. #5"
-  # @legislation.legislative_numbering(:unsupported)  # => "unsupported is not supported"
+  # @bill.legislative_numbering                # => "Ordinance 5"
+  # @bill.legislative_numbering(:string)       # => "Ordinance 5"
+  # @bill.legislative_numbering(:array)        # => ["Ordinance", 5]
+  # @bill.legislative_numbering(:integer)      # => 5
+  # @bill.legislative_numbering(:abbreviation) # => "ORD. #5"
+  # @bill.legislative_numbering(:unsupported)  # => "unsupported is not supported"
   def legislative_numbering(output_type=:string)
-    index = Legislation.where(legislation_type: legislation_type)
+    index = Bill.where(legislation_type: legislation_type)
                 .order('created_at ASC').index(self) + 1
 
     case output_type
@@ -90,14 +90,14 @@ class Legislation < ActiveRecord::Base
   end
 
   def collection_text_method
-    index = Legislation.where(legislation_type: legislation_type)
+    index = Bill.where(legislation_type: legislation_type)
                 .order('created_at ASC').index(self) + 1
     legislation_type[0..2] + ' ' + index.to_s + ': ' + (short_title || title.truncate(72))
   end
 
-  # Returns the most recently updated legislation
+  # Returns the most recently updated bill
   def self.latest
-    Legislation.all.order('updated_at').last
+    Bill.all.order('updated_at').last
   end
 
 

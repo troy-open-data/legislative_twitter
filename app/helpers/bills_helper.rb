@@ -1,4 +1,4 @@
-module LegislationsHelper
+module BillsHelper
   # ====== LEGISLATION BLURB GENERATORS ======
   # returns the truncated body of a legislation, stripped of tags, with a note
   # of how many attachments the legislation has.
@@ -8,7 +8,7 @@ module LegislationsHelper
         with_attachments(legislation)
   end
 
-  # Returns nil or string containing attachment count for a piece of legislation
+  # Returns nil or string containing attachment count for a piece of bill
   # in the format "(with 3 attachments)"
   def with_attachments(legislation)
     unless legislation.attachments.empty?
@@ -16,7 +16,7 @@ module LegislationsHelper
     end
   end
 
-  # Returns a "metadata header" for legislation that includes type and creation
+  # Returns a "metadata header" for bill that includes type and creation
   # time in the format "Resolution | 3:24pm on 3/17/15"
   def meta_header(legislation)
     legislation.legislation_type + ' | ' + legislation.created_at.to_formatted_s(:long_ordinal)
@@ -56,16 +56,16 @@ module LegislationsHelper
 
 
   # ====== CACHE NAMING ======
-  # Returns an appropriate cache name for the legislation index page including
+  # Returns an appropriate cache name for the bill index page including
   # pagination params, in the format "recent_legislation_pg_3"
-  def recent_legislation_cache_name
+  def recent_bills_cache_name
     "recent_legislation_pg_#{(params[:page] || '1').to_s}"
   end
 
-  # Returns an appropriate cache name for changelog cache, including legislation
-  # id, in the format "legislation-52-changelog"
+  # Returns an appropriate cache name for changelog cache, including bill
+  # id, in the format "bill-52-changelog"
   def changelog_cache_name(legislation)
-    "legislation-#{legislation.id}-changelog"
+    "bill-#{legislation.id}-changelog"
   end
 
 end

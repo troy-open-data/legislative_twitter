@@ -1,29 +1,29 @@
-<%= nested_form_for(@legislation) do |f| %>
+<%= nested_form_for(@bill) do |f| %>
     <fieldset>
       <legend>Please enter legislation details below</legend>
 
-      <% if @legislation.errors.any? %>
+      <% if @bill.errors.any? %>
           <div id="error_explanation">
-            <h2><%= pluralize(@legislation.errors.count, "error") %> prohibited this legislation from being saved:</h2>
+            <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this legislation from being saved:</h2>
 
             <ul>
-              <% @legislation.errors.full_messages.each do |message| %>
+              <% @bill.errors.full_messages.each do |message| %>
                   <li><%= message %></li>
               <% end %>
             </ul>
           </div>
       <% end %>
 
-      <!--Legislation Type Select (Resolution or Ordinance?)-->
+      <!--Bill Type Select (Resolution or Ordinance?)-->
       <div class="field">
         <%= f.label :legislation_type %>
-        <%= f.select :legislation_type, Legislation::LEGISLATION_TYPES %>
+        <%= f.select :legislation_type, Bill::LEGISLATION_TYPES %>
       </div>
 
       <!--Full Title Field-->
       <div class="field">
         <%= f.label :title, 'Full Title' %>
-        <%= f.text_field :title, placeholder: 'Full legislation title' %>
+        <%= f.text_field :title, placeholder: 'Full bill title' %>
       </div>
 
       <!--Short Title Field-->
@@ -38,7 +38,7 @@
         <%= f.text_area :body, class:'jqte-test' %>
       </div>
 
-      <!--Legislation Attachments-->
+      <!--Bill Attachments-->
       <fieldset>
         <legend>Attachments</legend>
         <%= f.fields_for :attachments do |builder| %>

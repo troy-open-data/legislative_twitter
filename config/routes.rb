@@ -17,11 +17,11 @@ Rails.application.routes.draw do
       #
       # Includes the following resources:
       #
-      #   * Legislation
+      #   * Bill
       #   * Meetings
       #   * Data        ROOT data#index
       #
-      resources :legislations, only: [:index, :show]
+      resources :bills, only: [:index, :show]
       resources :meetings, only: [:index, :show]
       root to: 'data#index'
     end
@@ -33,13 +33,13 @@ Rails.application.routes.draw do
   #
   # Includes the following resources:
   #
-  #   * Legislation
+  #   * Bill
   #   * Organizations
   #   * Meetings        ROOT meetings#index
   #   * Search
   #   * Versions
   #
-  resources :legislations
+  resources :bills
   resources :organizations
   resources :meetings
   scope '/meetings/:id' do

@@ -1,7 +1,7 @@
 json.array!(@meetings) do |meeting|
   json.extract! meeting, :id, :name, :date, :location
 
-  json.legislation_count meeting.legislations.count
+  json.legislation_count meeting.bills.count
 
   json.organization do
     json.id meeting.organization_id

@@ -2,52 +2,52 @@ require 'test_helper'
 
 class LegislationsApiTest < ActionDispatch::IntegrationTest
   setup do
-    @legislation = create(:legislation)
+    @bill = create(:bill)
   end
 
-  test 'returns list of all legislation' do
-    get '/api/legislations', {},
+  test 'returns list of all bill' do
+    get '/api/bills', {},
         { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
     assert_response :success
     assert_equal Mime::JSON, response.content_type
   end
 
-  test 'list of legislation includes legislation urls' do
-    get '/api/legislations', {},
+  test 'list of bill includes bill urls' do
+    get '/api/bills', {},
         { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
     assert_response :success
 
-    legislation_data = json(response.body)[0]
-    assert_equal api_legislation_url(legislation_data[:id], format: :json),
-                 legislation_data[:url]
+    bill_data = json(response.body)[0]
+    assert_equal api_bill_url(bill_data[:id], format: :json),
+                 bill_data[:url]
   end
 
-  test 'returns legislation filtered by type' do
-    type = @legislation.legislation_type
+  test 'returns bill filtered by type' do
+    type = @bill.legislation_type
 
-    get "/api/legislations?type=#{type}", {},
+    get "/api/bills?type=#{type}", {},
         { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
     assert_response :success
     assert_equal Mime::JSON, response.content_type
 
-    legislations = json(response.body)
-    types = legislations.collect{|l| l[:legislation_type]}.uniq
+    bills = json(response.body)
+    types = bills.collect{|l| l[:legislation_type]}.uniq
 
     assert_equal 1, types.length
     assert_equal type, types[0]
   end
 
-  test 'returns legislation by id' do
-    get "/api/legislations/#{@legislation.id}", {},
+  test 'returns bill by id' do
+    get "/api/bills/#{@bill.id}", {},
         { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
     assert_response :success
     assert_equal Mime::JSON, response.content_type
 
-    legislation = json(response.body)
-    assert_equal @legislation.id, legislation[:id]
+    bill = json(response.body)
+    assert_equal @bill.id, bill[:id]
   end
 end

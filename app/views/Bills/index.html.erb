@@ -1,17 +1,17 @@
 <!--Header and New Button-->
 <div class="row">
-  <%= link_to '+ New Legislation', new_legislation_path, class:'right admin button' %>
+  <%= link_to '+ New Bill', new_bill_path, class:'right admin button' %>
 </div>
 
 <div class="row">
   <h2>Listing Legislation</h2>
 
-  <!--Legislation Listing
-          Updates cache when any legislation updates -->
-  <% cache [recent_legislation_cache_name, Legislation.latest] do %>
+  <!--Bill Listing
+          Updates cache when any bill updates -->
+  <% cache [recent_bills_cache_name, Bill.latest] do %>
       <div class="row">
         <div class="small-12 columns">
-          <%= render @legislations %>
+          <%= render @bills %>
         </div>
       </div>
   <% end %>
@@ -21,7 +21,7 @@
   <!--Pagination-->
   <div class="row">
     <div class="small-12 columns">
-      <%= paginate @legislations %>
+      <%= paginate @bills %>
     </div>
   </div>
 </div>

@@ -1,14 +1,14 @@
 # Title
 #   Numbering
-pdf.text legislation.legislative_numbering, align: :center, style: :bold
+pdf.text bill.legislative_numbering, align: :center, style: :bold
 pdf.move_down font_size
 #   Bill Title
-pdf.text "#{legislation.title.upcase}", align: :center, style: :bold
+pdf.text "#{bill.title.upcase}", align: :center, style: :bold
 pdf.stroke_horizontal_rule
 pdf.move_down font_size*2
 
 # sanitizes and splits the body based on paragraph markers
-body_paragraphs = prawnify_paragraphs(legislation.body, font_size*1.25)
+body_paragraphs = prawnify_paragraphs(bill.body, font_size*1.25)
 # outputs each paragraph
 body_paragraphs.each do |paragraph|
   pdf.text paragraph, inline_format: true
@@ -31,17 +31,17 @@ end
 
 # Start Outline
 pdf.outline.define do
-  section(legislation.legislative_numbering, destination: 1) do
-    page title: 'Legislation Text', destination: 1
+  section(bill.legislative_numbering, destination: 1) do
+    page title: 'Bill Text', destination: 1
   end
 end
 
 
 # Attach Attachments
 if attach[:attachments]
-  legislation.attachments.each do |attachment|
+  bill.attachments.each do |attachment|
     pdf.start_new_page
-    pdf.text 'ATTACHMENT FOR ' + legislation.legislative_numbering.upcase,
+    pdf.text 'ATTACHMENT FOR ' + bill.legislative_numbering.upcase,
              align: :center,
              style: :bold
     pdf.text file_name(attachment),

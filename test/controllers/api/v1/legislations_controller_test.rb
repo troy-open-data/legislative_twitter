@@ -1,25 +1,25 @@
 require 'test_helper'
 
 module API::V1
-  class LegislationsControllerTest < ActionController::TestCase
-    context 'Legislations API' do
+  class BillsControllerTest < ActionController::TestCase
+    context 'bills API' do
 
-      context 'legislations' do
+      context 'bills' do
         should 'get index' do
           get :index, { format: :json },
               { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
           assert_response :success
-          assert_not_nil assigns(:legislations), '@legislations not set'
+          assert_not_nil assigns(:bills), '@bills not set'
         end
       end
 
-      context 'individual legislation' do
+      context 'bill' do
         setup do
-          @legislation = create(:legislation)
+          @bill = create(:bill)
         end
         should 'show' do
-          get :show, { id: @legislation, format: :json },
+          get :show, { id: @bill, format: :json },
               { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
 
           assert_response :success

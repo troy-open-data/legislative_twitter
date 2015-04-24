@@ -1,4 +1,4 @@
-<!-- Legislation Options -->
+<!-- Bill Options -->
 <div class="row">
   <div class="right button-bar">
     <!-- Action Buttons -->
@@ -25,18 +25,18 @@
                       :'aria-expanded' => 'false' %><br />
         <!--Agenda Download Dropdown-->
         <ul id="agenda-pdf-options" data-dropdown-content class="f-dropdown" aria-hidden="true">
-          <!--Agenda with all attachments (legislations and legislative attachments)-->
+          <!--Agenda with all attachments (Bills and legislative attachments)-->
           <li>
-            <%= link_to 'with legislation+attachments',
+            <%= link_to 'with bill+attachments',
                         agenda_path(id: @meeting, format: 'pdf',
-                                    attach: { legislation: true,
+                                    attach: { bill: true,
                                               attachments: true }) %>
           </li>
-          <!--Agenda with legislations but no attachments-->
+          <!--Agenda with Bills but no attachments-->
           <li>
-            <%= link_to 'with legislation',
+            <%= link_to 'with bill',
                         agenda_path(@meeting, format: 'pdf',
-                                    attach: { legislation: true }) %>
+                                    attach: { bill: true }) %>
           </li>
           <!--Agenda only-->
           <li><%= link_to 'agenda only',
@@ -79,12 +79,12 @@
 
 <h3>Local Law</h3>
 
-<!--List legislations by type-->
+<!--List Bills by type-->
 <dl>
   <% @meeting.grouped_folios.each do |legislation_type, folios| %>
       <h4><%= legislation_type %></h4>
       <% folios.each do |folio| %>
-          <% legislation = folio.legislation %>
+          <% legislation = folio.bill %>
           <dt><%= legislation.legislative_numbering :abbreviation %></dt>
           <dd><%= short_title legislation %>
             (<%= link_to 'html', legislation_path(legislation) %>)

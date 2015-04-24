@@ -20,7 +20,7 @@ class DataApiTest < ActionDispatch::IntegrationTest
     assert_equal Mime::JSON, response.content_type
 
     data = json(response.body)
-    assert_match api_legislations_url, data[:legislations]
-    assert_match api_meetings_url, data[:meetings]
+    assert_match api_bills_url, data[:bills_url]
+    assert_match api_meetings_url, data[:meetings_url]
   end
 end

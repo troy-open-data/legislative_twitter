@@ -19,8 +19,8 @@ prawn_document(
     info: {
         Title: "#{@meeting.name} Agenda",
         Author: 'Unknown',
-        Subject: 'Legislation',
-        Keywords: 'Troy, Legislation, Code',
+        Subject: 'Bill',
+        Keywords: 'Troy, Bill, Code',
         Creator: 'City Clerk',
         Producer: 'Troy City Council',
         CreationDate: Time.now}) do |pdf|
@@ -37,16 +37,16 @@ prawn_document(
          font_size: font_size,
          meeting: @meeting
 
-  # Render each legislation
-  if @attach[:legislation]
+  # Render each bill
+  if @attach[:bill]
     @meeting.grouped_folios.each do |group, folios|
       folios.each do |folio|
-        legislation = folio.legislation
+        legislation = folio.bill
         pdf.start_new_page
-        render 'pdf_templates/legislation',
+        render 'pdf_templates/bill',
                pdf: pdf,
                font_size: font_size,
-               legislation: legislation,
+               bill: legislation,
                attach: @attach
       end
     end

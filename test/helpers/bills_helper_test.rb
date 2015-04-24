@@ -1,15 +1,15 @@
 require 'test_helper'
 
-class LegislationsHelperTest < ActionView::TestCase
-  include LegislationsHelper
+class BillsHelperTest < ActionView::TestCase
+  include BillsHelper
   # ====== LEGISLATION BLURB GENERATORS ======
-  # def truncated_body(legislation, length=200)
+  # def truncated_body(bill, length=200)
   #
-  # returns the truncated body of a legislation, stripped of tags, with a note
-  # of how many attachments the legislation has.
+  # returns the truncated body of a bill, stripped of tags, with a note
+  # of how many attachments the bill has.
   # this is in the format: "...lorem ipsum... (with 2 attachments)"
   test 'truncated_body contains stripped body text' do
-    legislation = create(:legislation)
+    legislation = create(:bill)
     stripped_body = strip_tags(legislation.body)
     assert_match /#{stripped_body.first(20)}/i,
                  truncated_body(legislation, 50)
@@ -22,12 +22,12 @@ class LegislationsHelperTest < ActionView::TestCase
   end
 
 
-  # def with_attachments(legislation)
+  # def with_attachments(bill)
   #
-  # Returns nil or string containing attachment count for a piece of legislation
+  # Returns nil or string containing attachment count for a piece of bill
   # in the format "(with 3 attachments)"
   test 'with_attachments returns nil if no attachments' do
-    unattached_legislation = create(:legislation)
+    unattached_legislation = create(:bill)
     assert with_attachments(unattached_legislation).nil?
   end
   test 'with_attachments returns string describing attachments if attachments' do
@@ -39,12 +39,12 @@ class LegislationsHelperTest < ActionView::TestCase
   end
 
 
-  # def meta_header(legislation)
+  # def meta_header(bill)
   #
-  # Returns a "metadata header" for legislation that includes type and creation
+  # Returns a "metadata header" for bill that includes type and creation
   # time in the format "Resolution | 3:24pm on 3/17/15"
-  test 'meta_header contains legislation type' do
-    legislation = create(:legislation)
+  test 'meta_header contains bill type' do
+    legislation = create(:bill)
     assert_match /#{legislation.legislation_type}/i,
                  meta_header(legislation)
   end
@@ -85,22 +85,22 @@ class LegislationsHelperTest < ActionView::TestCase
   # ====== CACHE NAMING ======
   # def recent_legislation_cache_name
   #
-  # Returns an appropriate cache name for the legislation index page including
+  # Returns an appropriate cache name for the bill index page including
   # pagination params, in the format "recent_legislation_pg_3"
   test 'recent_legislation_cache_name includes page number' do
     params[:page] = 4
-    assert_match /4/, recent_legislation_cache_name
+    assert_match /4/, recent_bills_cache_name
   end
   test 'recent_legislation_cache_name defaults to 1' do
-    assert_match /1/, recent_legislation_cache_name
+    assert_match /1/, recent_bills_cache_name
   end
 
-  # def changelog_cache_name(legislation)
+  # def changelog_cache_name(bill)
   #
-  # Returns an appropriate cache name for changelog cache, including legislation
-  # id, in the format "legislation-52-changelog"
-  test 'changelog_cache_name includes legislation id' do
-    legislation = create(:legislation)
+  # Returns an appropriate cache name for changelog cache, including bill
+  # id, in the format "bill-52-changelog"
+  test 'changelog_cache_name includes bill id' do
+    legislation = create(:bill)
     assert_match /#{legislation.id}/, changelog_cache_name(legislation)
   end
 end

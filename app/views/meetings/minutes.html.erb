@@ -1,4 +1,4 @@
-<!-- Legislation Options -->
+<!-- Bill Options -->
 <div class="row">
   <div class="right button-bar">
     <!-- Action Buttons -->
@@ -49,12 +49,12 @@
 
 <h3>Local Law</h3>
 
-<!--List legislations by type-->
+<!--List Bills by type-->
 <hr />
 <% @meeting.grouped_folios.each do |legislation_type, folios| %>
     <h4><%= legislation_type %></h4>
     <% folios.each do |folio| %>
-        <h5><%= folio.legislation.legislative_numbering %></h5>
+        <h5><%= folio.bill.legislative_numbering %></h5>
         <dl>
           <dt>Title</dt>
           <dd><%= folio.legislation.title.upcase %>
@@ -62,7 +62,7 @@
             (<%= link_to 'pdf', legislation_path(folio.legislation, format: 'pdf') %>)
           </dd>
           <dt>Sponsor</dt>
-          <dd><%= folio.sponsor || 'No legislation sponsor' %></dd>
+          <dd><%= folio.sponsor || 'No bill sponsor' %></dd>
           <dt>Notes</dt>
           <dd><%= folio.notes || 'No notes recorded' %></dd>
           <dt>Final Vote</dt>

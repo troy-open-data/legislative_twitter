@@ -8,16 +8,16 @@ Prawn::Font::AFM.hide_m17n_warning = true
 require "prawn/measurement_extensions"
 
 prawn_document(
-    filename:       @legislation.title + '.pdf',
+    filename:       @bill.title + '.pdf',
     force_download: false,
     margin:         0.5.in,
     top_margin:     1.in,
     bottom_margin:  1.in,
     info: {
-        Title:        @legislation.title,
+        Title:        @bill.title,
         Author:       'Unknown',
-        Subject:      'Legislation',
-        Keywords:     'Troy, Legislation, Code',
+        Subject:      'Bill',
+        Keywords:     'Troy, Bill, Code',
         Creator:      'City Clerk',
         Producer:     'Troy City Council',
         CreationDate: Time.now}) do |pdf|
@@ -28,15 +28,15 @@ prawn_document(
   pdf.font("Times-Roman")
   pdf.default_leading font_size*0.2
 
-  # Render each legislation
-  render 'pdf_templates/legislation',
+  # Render each bill
+  render 'pdf_templates/bill',
          pdf: pdf,
          font_size: font_size,
-         legislation: @legislation,
+         bill: @bill,
          attach: @attach
 
   # Render page headers
-  numbering = @legislation.legislative_numbering(:abbreviation)
+  numbering = @bill.legislative_numbering(:abbreviation)
   render 'pdf_templates/header',
          pdf: pdf,
          font_size: font_size,

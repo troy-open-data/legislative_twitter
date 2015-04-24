@@ -1,6 +1,6 @@
 json.extract! @meeting, :id, :name, :date, :location, :created_at, :updated_at
 
-json.legislation_count @meeting.legislations.count
+json.legislation_count @meeting.bills.count
 
 json.organization do
   json.id @meeting.organization_id
@@ -19,7 +19,7 @@ json.minutes do
 end
 
 json.legislations @meeting.folios.each do |folio|
-  legislation = folio.legislation
+  legislation = folio.bill
   json.extract! legislation, :id, :title, :short_title
   json.sponsor folio.sponsor
   json.url api_legislation_url(legislation, format: :json)

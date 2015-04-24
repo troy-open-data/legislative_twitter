@@ -1,6 +1,6 @@
-class CreateLegislations < ActiveRecord::Migration
+class CreateBills < ActiveRecord::Migration
   def change
-    create_table :legislations do |t|
+    create_table :bills do |t|
       t.string :title
       t.text :body
 

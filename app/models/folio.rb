@@ -14,5 +14,5 @@
 
 class Folio < ActiveRecord::Base
   belongs_to :meeting
-  belongs_to :legislation
+  belongs_to :bill
 end

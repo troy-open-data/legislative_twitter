@@ -36,8 +36,8 @@ class MeetingTest < ActiveSupport::TestCase
     @meeting.destroy!
     refute Folio.exists? @folio.id
   end
-  test 'has many legislations' do
-    assert @meeting.respond_to? :legislations
+  test 'has many bills' do
+    assert @meeting.respond_to? :bills
   end
 
   ## Validations ###############################################################

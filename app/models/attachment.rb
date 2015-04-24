@@ -15,7 +15,7 @@
 #
 
 class Attachment < ActiveRecord::Base
-  belongs_to :legislation, touch: true
+  belongs_to :bill, touch: true
   has_attached_file :file
 
   validates_attachment :file, presence: true,
