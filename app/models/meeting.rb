@@ -11,7 +11,6 @@
 #  minutes_approved :boolean
 #  location         :string
 #
-
 class Meeting < ActiveRecord::Base
   # Model Variables
   DEFAULT_LOCATION='Suite 5, 433 River Street, Troy, NY 12180'
@@ -20,7 +19,7 @@ class Meeting < ActiveRecord::Base
   belongs_to :organization
 
   has_many :folios, dependent: :destroy
-  has_many :legislations, through: :folios
+  has_many :bills, through: :folios
   accepts_nested_attributes_for :folios,
                                 allow_destroy: true
 
@@ -39,13 +38,13 @@ class Meeting < ActiveRecord::Base
 
 
   # INSTANCE METHODS
-  # Returns array of grouped legislation
+  # Returns array of grouped bill
   def grouped_legislations
-    legislations.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
+    bills.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
   end
 
   def grouped_folios
-    folios.sort_by{|f| f.legislation.created_at}.group_by{|f| f.legislation.legislation_type}
+    folios.sort_by{|f| f.bill.created_at}.group_by{|f| f.bill.legislation_type}
   end
 
   # Returns calculated name of meeting of the form <Organization> Meeting on <date>
@@ -62,7 +61,7 @@ class Meeting < ActiveRecord::Base
 
   # Status Methods
   def has_happened?
-    self.date_and_time <= Time.now
+    self.date_and_time <= Time.zone.now
   end
   alias is_started? has_happened?
 
@@ -75,5 +74,4 @@ class Meeting < ActiveRecord::Base
     end
     self.save!
   end
-
 end

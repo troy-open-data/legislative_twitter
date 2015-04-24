@@ -1,78 +1,54 @@
+require 'api_version'  # lib/api_version.rb
+
 Rails.application.routes.draw do
-
-  resources :meetings
-
-  resources :organizations
-
-  resources :statuses
-
-  resources :legislations
-
-  get 'meetings/:id/agenda' => 'meetings#agenda', as: 'agenda'
-  get 'meetings/:id/minutes' => 'meetings#minutes', as: 'minutes'
-
-  # Toggle Agenda and Minutes
-  get 'toggle_agenda/:id' => 'meetings#toggle_agenda', as: 'toggle_agenda'
-  get 'toggle_minutes/:id' => 'meetings#toggle_minutes', as: 'toggle_minutes'
-
-  get 'meetings/start_meeting/:id' => 'meetings#start_meeting', as: 'start_meeting'
-
-  get 'search' => "search#search", :as => :search
-
-  post 'versions/:id/revert' => 'versions#revert', :as => 'revert_version'
-
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
-  root 'meetings#index'
-
-  # Example of regular route:
-  #   get 'products/:id' => 'catalog#view'
-
-  # Example of named route that can be invoked with purchase_url(id: product.id)
-  #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
-
-  # Example resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Example resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
+  ##
+  # API (api namespace)
+  # ===================
   #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
+  namespace :api, defaults: { format: 'json' } do
+    scope module: :v1, constraints: ApiVersion.new('v1', true) do
+      #
+      #
+      # Version One (v1)
+      # ----------------
+      # This is the default API verison. If no version is specified in the Accept
+      # header, v1 will be returned. This is to encourage browser experimentation.
+      #
+      resources :bills,         only: [:index, :show]
+      resources :meetings,      only: [:index, :show]
+      scope '/meetings/:id' do
+        get '/agenda',  to: 'meetings#agenda',  as: 'agenda'
+        get '/minutes', to: 'meetings#minutes', as: 'minutes'
+      end
+      resources :organizations, only: [:index, :show]
+      root to: 'data#index'
+    end
+  end
 
-  # Example resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
+  ##
+  # Browser App (default namespace)
+  # ===============================
+  #
+  # Includes the following resources:
+  #
+  #   * Bill
+  #   * Organizations
+  #   * Meetings        ROOT meetings#index
+  #   * Search
+  #   * Versions
+  #
+  resources :bills
+  resources :organizations
+  resources :meetings
+  scope '/meetings/:id' do
+    get '/agenda',  to: 'meetings#agenda', as: 'agenda'
+    get '/minutes', to: 'meetings#minutes', as: 'minutes'
+    get '/in_progress',  to: 'meetings#start_meeting', as: 'start_meeting'
+    get '/agenda/toggle',   to: 'meetings#toggle_agenda',  as: 'toggle_agenda'
+    get '/minutes/toggle',  to: 'meetings#toggle_minutes', as: 'toggle_minutes'
+  end
+  get 'search', to: 'search#index', as: 'search'
+  post 'versions/:id/revert', to: 'versions#revert', as: 'revert_version'
 
-  # Example resource route with more complex sub-resources:
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', on: :collection
-  #     end
-  #   end
-
-  # Example resource route with concerns:
-  #   concern :toggleable do
-  #     post 'toggle'
-  #   end
-  #   resources :posts, concerns: :toggleable
-  #   resources :photos, concerns: :toggleable
-
-  # Example resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
+  root 'meetings#index'
 end

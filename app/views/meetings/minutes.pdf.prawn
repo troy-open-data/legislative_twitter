@@ -19,8 +19,8 @@ prawn_document(
     info: {
         Title: "#{@meeting.name} Minutes",
         Author: 'Unknown',
-        Subject: 'Legislation',
-        Keywords: 'Troy, Legislation, Code',
+        Subject: 'Bill',
+        Keywords: 'Troy, Bill, Code',
         Creator: 'City Clerk',
         Producer: 'Troy City Council',
         CreationDate: Time.now}) do |pdf|

@@ -20,8 +20,8 @@ class FolioTest < ActiveSupport::TestCase
   end
 
   # Associations
-  test 'belongs to one legislation' do
-    assert @folio.respond_to? :legislation
+  test 'belongs to one bill' do
+    assert @folio.respond_to? :bill
   end
   test 'belongs to one meeting' do
     assert @folio.respond_to? :meeting

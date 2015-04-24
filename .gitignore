@@ -23,8 +23,7 @@
 .idea
 
 # Code Climate code coverage results
-coverage/.*
-coverage/*
+coverage
 
 # Don't commit local attachments
 public/system/attachments

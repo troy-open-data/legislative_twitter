@@ -4,21 +4,21 @@
 
 <h2>Meeting in Progress</h2>
 
-<p>Meeting docket: <%= pluralize @meeting.legislations.count, 'legislation' %></p>
+<p>Meeting docket: <%= pluralize @meeting.bills.count, 'bill' %></p>
 
 <%= form_for @meeting do |f| %>
     <% @meeting.grouped_folios.each do |legislation_type, folios| %>
         <h3><%= pluralize folios.count, legislation_type %></h3>
         <%= f.fields_for :folios, folios do |fa| %>
             <fieldset>
-              <legend><%= fa.object.legislation.legislative_numbering %></legend>
+              <legend><%= fa.object.bill.legislative_numbering %></legend>
               <div class="row field">
                 <div class='small-2 columns'><%= fa.label :sponsor %></div>
-                <div class='small-10 columns'><%= fa.text_field :sponsor, placeholder: 'Legislation Sponsor' %></div>
+                <div class='small-10 columns'><%= fa.text_field :sponsor, placeholder: 'Bill Sponsor' %></div>
               </div>
               <div class="row field">
                 <div class='small-2 columns'><%= label_tag 'Title' %></div>
-                <div class='small-10 columns'><p><%= fa.object.legislation.title %></p></div>
+                <div class='small-10 columns'><p><%= fa.object.bill.title %></p></div>
               </div>
               <div class="row field">
                 <div class='small-2 columns'><%= fa.label :notes %></div>

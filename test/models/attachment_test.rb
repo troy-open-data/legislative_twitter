@@ -23,8 +23,8 @@ class AttachmentTest < ActiveSupport::TestCase
   end
 
   ## Associations ##############################################################
-  test 'belongs to one legislation' do
-    @attachment.respond_to? :legislation
+  test 'belongs to one bill' do
+    @attachment.respond_to? :bill
   end
   test 'has attached file' do
     @attachment.respond_to? :file

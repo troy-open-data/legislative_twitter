@@ -1,18 +1,30 @@
 require 'test_helper'
 
 class VersionsControllerTest < ActionController::TestCase
-  def setup
-    @legislation = create(:legislation)
-
-    @legislation.update(body: 'New Body')
-    @legislation.save!
-    @most_recent = @legislation.versions.last
-
-    request.env['HTTP_REFERER'] = legislations_path
+  setup do
+    @bill = create(:bill)
+    request.env['HTTP_REFERER'] = bills_path
   end
 
-  test 'should revert a legislation to a version' do
-    post :revert, id: @most_recent
-    assert_redirected_to legislation_path(@legislation)
+  context 'A previous version of an object' do
+    setup do
+      @bill.update(body: 'New Body')
+      @bill.save!
+
+      @most_recent = @bill.versions.last
+    end
+
+    should 'revert the parent object to that version' do
+      post :revert, id: @most_recent
+      assert_redirected_to bill_path(@bill)
+    end
+  end
+
+  context 'An invalid version' do
+    should 'raise an error when trying to revert' do
+      assert_raise(StandardError) do
+        post :revert, id: @bill.versions.last.id
+      end
+    end
   end
 end

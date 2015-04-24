@@ -8,12 +8,12 @@ FactoryGirl.define do
 
   factory :folio
 
-  factory :legislation do
+  factory :bill do
     title 'Resolution for Free Cake'
     body  'We should all have free cake.'
 
     # legislation_with_attachments will create attachments data after the
-    # legislation has been created
+    # bill has been created
     factory :legislation_with_attachments do
       # attachments_count is declared as a transient attribute and available in
       # attributes on the factory, as well as the callback via the evaluator
@@ -21,14 +21,14 @@ FactoryGirl.define do
         attachments_count 5
       end
 
-      # the after(:create) yields two values; the legislation instance itself and the
+      # the after(:create) yields two values; the bill instance itself and the
       # evaluator, which stores all values from the factory, including transient
       # attributes; `create_list`'s second argument is the number of records
       # to create and we make sure the attachments is associated properly to the
-      # legislation
+      # bill
       after(:create) do |legislation, evaluator|
         create_list(:attachment, evaluator.attachments_count,
-                    legislation: legislation)
+                    bill: legislation)
       end
     end
   end
@@ -42,7 +42,4 @@ FactoryGirl.define do
     name  'Council'
     level 1
   end
-
-  factory :status
-  factory :status_update
 end

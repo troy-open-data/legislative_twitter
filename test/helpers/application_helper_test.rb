@@ -3,18 +3,18 @@ require 'test_helper'
 class ApplicationHelperTest < ActionView::TestCase
   include ApplicationHelper
 
-  # def short_title(legislation)
+  # def short_title(bill)
   #
   # Returns in title case either the short title (if it exists) or a truncated
-  # version of the standard title for a piece of legislation
+  # version of the standard title for a piece of bill
   test 'short_title helper should return short_title attribute if it exists' do
     short_title = 'Short Title'
-    titled_legislation = create(:legislation, short_title: short_title)
+    titled_legislation = create(:bill, short_title: short_title)
     assert_match /#{short_title(titled_legislation)}/i,
                  titled_legislation.short_title
   end
   test 'short_title helper should return truncated title if no short_title attribute' do
-    untitled_legislation = create(:legislation)
+    untitled_legislation = create(:bill)
     assert_match /#{short_title(untitled_legislation).first(20)}/i,
                  untitled_legislation.title
   end
