@@ -19,10 +19,12 @@ Rails.application.routes.draw do
       #
       #   * Bill
       #   * Meetings
+      #   * Organizations
       #   * Data        ROOT data#index
       #
-      resources :bills, only: [:index, :show]
-      resources :meetings, only: [:index, :show]
+      resources :bills,         only: [:index, :show]
+      resources :meetings,      only: [:index, :show]
+      resources :organizations, only: [:index, :show]
       root to: 'data#index'
     end
   end
