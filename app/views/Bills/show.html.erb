@@ -107,7 +107,7 @@
                   <td><%= link_to 'Rollback', revert_version_path(id: version.id),
                                   method: :post %></td>
                   <%= render 'application/diff_modal', version: version,
-                             legislation: @bill,
+                             bill: @bill,
                              version_count: @versions.count %>
                 </tr>
             <% end %>
