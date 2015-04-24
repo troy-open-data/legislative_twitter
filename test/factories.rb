@@ -42,4 +42,9 @@ FactoryGirl.define do
     name  'Council'
     level 1
   end
+
+  factory :person do
+    first 'George'
+    last  'Washington'
+  end
 end
