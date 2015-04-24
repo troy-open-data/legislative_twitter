@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class BillsControllerTest < ActionController::TestCase
-  context 'bill' do
+  context 'bills' do
     should 'get index' do
       get :index
       assert_response :success
@@ -29,7 +29,7 @@ class BillsControllerTest < ActionController::TestCase
     end
   end
 
-  context 'A piece of bill' do
+  context 'a bill' do
     setup do
       @bill = create(:bill)
     end

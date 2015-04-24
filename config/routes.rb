@@ -14,14 +14,6 @@ Rails.application.routes.draw do
       # This is the default API verison. If no version is specified in the Accept
       # header, v1 will be returned. This is to encourage browser experimentation.
       #
-      #
-      # Includes the following resources:
-      #
-      #   * Bill
-      #   * Meetings
-      #   * Organizations
-      #   * Data        ROOT data#index
-      #
       resources :bills,         only: [:index, :show]
       resources :meetings,      only: [:index, :show]
       scope '/meetings/:id' do
