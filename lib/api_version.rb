@@ -6,7 +6,7 @@
 # sets marked version as default.
 class ApiVersion
 
-  def initialize(version, default=false)
+  def initialize(version, default = false)
     @version, @default = version, default
   end
 
@@ -18,7 +18,6 @@ class ApiVersion
 
   def check_headers(headers)
     accept = headers['Accept']
-    accept and accept.include?("application/vnd.troycitycouncil.#{@version}+json")
+    accept && accept.include?("application/vnd.troycitycouncil.#{@version}+json")
   end
-
 end

@@ -49,16 +49,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Paper Trail keeps versions of chosen models
 gem 'paper_trail', '~> 4.0.0.beta'
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use Unicorn as the app server
-# gem 'unicorn'
 # Use Passenger as the app server
 gem 'passenger'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
 
 # Use Rails 12 factor for Heroku
 gem 'rails_12factor', group: :production
@@ -80,7 +72,6 @@ group :test do
   gem 'simplecov', :require => false
   gem 'codeclimate-test-reporter', require: nil
   gem 'factory_girl_rails'
-  # gem 'simplecov-rcov'
 end
 
 
@@ -96,8 +87,6 @@ group :development, :test do
   gem 'bullet'
   # Use MailCatcher to test mailers
   gem 'mailcatcher'
-  # Use Reek to find inconsistancies and ugly programming
-  # gem 'reek'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
