@@ -5,5 +5,6 @@ json.bills @meeting.folios do |folio|
   json.extract! folio, :sponsor, :vote, :notes
   json.url api_bill_url(bill, format: :json)
 end
+json.approved @meeting.minutes_approved
 json.meeting_url api_meeting_url(@meeting, format: :json)
 json.pdf minutes_url(@meeting, format: :pdf)
