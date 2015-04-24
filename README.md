@@ -1,5 +1,5 @@
 # Legislative Twitter (under development)
-[![Build Status](https://travis-ci.org/troy-open-data/legislative_twitter.svg?branch=master)](https://travis-ci.org/troy-open-data/legislative_twitter)
+[![Build Status](https://travis-ci.org/troy-open-data/legislative_twitter.svg?branch=hardening-refactoring-and-API)](https://travis-ci.org/troy-open-data/legislative_twitter)
 
 ## What is this?
 
