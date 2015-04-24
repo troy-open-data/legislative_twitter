@@ -24,6 +24,10 @@ Rails.application.routes.draw do
       #
       resources :bills,         only: [:index, :show]
       resources :meetings,      only: [:index, :show]
+      scope '/meetings/:id' do
+        get '/agenda',  to: 'meetings#agenda',  as: 'agenda'
+        get '/minutes', to: 'meetings#minutes', as: 'minutes'
+      end
       resources :organizations, only: [:index, :show]
       root to: 'data#index'
     end

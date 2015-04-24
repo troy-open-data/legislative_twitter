@@ -1,6 +1,6 @@
 module API::V1
   class MeetingsController < ApiVersionsController
-    before_action :set_meeting, only: :show
+    before_action :set_meeting, only: [:show, :agenda, :minutes]
 
     # GET /api/meetings.json
     def index
@@ -9,6 +9,14 @@ module API::V1
 
     # GET /api/meetings/1.json
     def show
+    end
+
+    # GET /api/meetings/1/agenda.json
+    def agenda
+    end
+
+    # GET /api/meetings/1/minutes.json
+    def minutes
     end
 
     private
