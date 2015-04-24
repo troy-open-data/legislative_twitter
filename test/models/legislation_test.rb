@@ -19,23 +19,6 @@ class LegislationTest < ActiveSupport::TestCase
     @legislation = create(:legislation)
   end
 
-  ## Associations ##############################################################
-  test 'has many status updates' do
-    assert @legislation.respond_to? :status_updates
-  end
-  test 'has many statuses' do
-    assert @legislation.respond_to? :statuses
-  end
-  test 'has many folios' do
-    assert @legislation.respond_to? :folios
-  end
-  test 'has many meetings' do
-    assert @legislation.respond_to? :meetings
-  end
-  test 'has many attachments' do
-    assert @legislation.respond_to? :attachments
-  end
-
   ## Validations ###############################################################
   test 'must have title' do
     @legislation.update(title: nil)

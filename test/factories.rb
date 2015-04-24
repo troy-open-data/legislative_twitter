@@ -42,11 +42,4 @@ FactoryGirl.define do
     name  'Council'
     level 1
   end
-
-  factory :status do
-    title 'Awesome'
-  end
-
-  factory :status_update do
-  end
 end

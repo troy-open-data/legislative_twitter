@@ -26,9 +26,6 @@ class Legislation < ActiveRecord::Base
   scope :by_recent,   -> { order('created_at DESC') }
 
   # Model Relationships
-  has_many :status_updates, dependent: :destroy
-  has_many :statuses, through: :status_updates
-
   has_many :folios, dependent: :destroy
   has_many :meetings, through: :folios
 

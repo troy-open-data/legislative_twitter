@@ -1,21 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-statuses = Status.create([{ title: 'Passed' },
-                          { title: 'Signed Into Law' },
-                          { title: 'Amended in Session' },
-                          { title: 'Tabled' },
-                          { title: 'Vetoed' },
-                          { title: 'Veto Override' },
-                          { title: 'Rejected' },
-                          { title: 'Revised out of Session' },
-                          { title: 'Withdrawn' }])
-
 organizations = Organization.create([{ level: 0,
                                        name: 'Mayor Lou Rosamilia' },
                                      { level: 1,

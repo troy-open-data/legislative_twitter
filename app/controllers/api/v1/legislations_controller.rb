@@ -2,7 +2,9 @@ module API::V1
   class LegislationsController < ApiVersionsController
     before_action :set_legislation, only: :show
 
-    # GET /api/legislations.json
+    # @api {get} /legislations List legislation
+    # @apiName get_legislations
+    # @apiGroup legislations
     def index
       @legislations = Legislation.all
       if params[:type].present?
@@ -10,7 +12,9 @@ module API::V1
       end
     end
 
-    # GET /api/legislations/1.json
+    # @api {get} /legislation/:id Show legislation
+    # @apiName GetLegislation
+    # @apiGroup Legislation
     def show
     end
 

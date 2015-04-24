@@ -35,14 +35,12 @@ Rails.application.routes.draw do
   #
   #   * Legislation
   #   * Organizations
-  #   * Statuses
   #   * Meetings        ROOT meetings#index
   #   * Search
   #   * Versions
   #
   resources :legislations
   resources :organizations
-  resources :statuses
   resources :meetings
   scope '/meetings/:id' do
     get '/agenda',  to: 'meetings#agenda', as: 'agenda'
