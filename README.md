@@ -1,5 +1,5 @@
 # Legislative Twitter (under development)
-[![Build Status](https://travis-ci.org/leesharma/legislative_twitter.svg?branch=master)](https://travis-ci.org/leesharma/legislative_twitter)
+[![Build Status](https://travis-ci.org/troy-open-data/legislative_twitter.svg?branch=hardening-refactoring-and-API)](https://travis-ci.org/troy-open-data/legislative_twitter)
 
 ## What is this?
 
@@ -7,7 +7,7 @@ Legislative Twitter is a REST application designed to keep, track, and archive l
 
 ## Development Progress
 
-The Legislative Twitter development blog can be found at https://leesharma.github.io/legislative_twitter (source code is on the gh-pages branch of this repository). 
+The Legislative Twitter development blog can be found at https://troy-open-data.github.io/legislative_twitter (source code is on the gh-pages branch of this repository). 
 
 ## Licencing
 
