@@ -11,22 +11,14 @@ class MeetingsController < ApplicationController
   end
 
   # GET /meetings/1
-  # GET /meetings/1.json
   def show
   end
 
   # GET /meetings/1/agenda
-  # GET /meetings/1/agenda.json
   # GET /meetings/1/agenda.pdf
   def agenda
     default_attachments = { bill: true, attachments: true }
     @attach = params[:attach] || default_attachments
-
-    respond_to do |format|
-      format.html
-      format.json
-      format.pdf
-    end
   end
 
   # GET /toggle_agenda/1.js
@@ -46,14 +38,8 @@ class MeetingsController < ApplicationController
   end
 
   # GET /meetings/1/minutes
-  # GET /meetings/1/minutes.json
   # GET /meetings/1/minutes.pdf
   def minutes
-    respond_to do |format|
-      format.html
-      format.json
-      format.pdf
-    end
   end
 
   # GET /meetings/1/start_meeting

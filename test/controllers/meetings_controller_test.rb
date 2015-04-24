@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class MeetingsControllerTest < ActionController::TestCase
-  context 'Meetings' do
+  context 'meetings' do
     should 'get index' do
       get :index
       assert_response :success
@@ -32,7 +32,7 @@ class MeetingsControllerTest < ActionController::TestCase
   end
 
 
-  context 'A meeting' do
+  context 'a meeting' do
     setup do
       @meeting = create(:meeting)
     end

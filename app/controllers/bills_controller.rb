@@ -2,7 +2,6 @@ class BillsController < ApplicationController
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
 
   # GET /bills
-  # GET /bills.json
   def index
     @bills = Bill.by_recent
                         .includes(:attachments)
@@ -10,7 +9,6 @@ class BillsController < ApplicationController
   end
 
   # GET /bills/1
-  # GET /bills/1.json
   # GET /bills/1.pdf
   def show
     @versions = @bill.versions.reorder('created_at DESC')
@@ -18,12 +16,6 @@ class BillsController < ApplicationController
 
     default_attachments = { attachments: true }
     @attach = params[:attach] || default_attachments
-
-    respond_to do |format|
-      format.html
-      format.json
-      format.pdf
-    end
   end
 
   # GET /bills/new
