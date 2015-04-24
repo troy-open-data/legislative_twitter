@@ -1,13 +1,9 @@
-cache: bundler
-
 language: ruby
 rvm:
    - "2.2.0"
 
 addons:
   postgresql: "9.3"
-  code_climate:
-    repo_token: 078521c13227f6a90344d6e9b6b4b6602e358ec704c3aa632804b98620a2f80f
 
 before_script:
   - psql -c 'create database legislative_twitter_test;' -U postgres
