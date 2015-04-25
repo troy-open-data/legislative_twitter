@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150424231927) do
+ActiveRecord::Schema.define(version: 20150425004008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,16 @@ ActiveRecord::Schema.define(version: 20150424231927) do
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
   end
+
+  create_table "attendances", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "meeting_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "attendances", ["meeting_id"], name: "index_attendances_on_meeting_id", using: :btree
+  add_index "attendances", ["person_id"], name: "index_attendances_on_person_id", using: :btree
 
   create_table "bills", force: :cascade do |t|
     t.string   "title"
@@ -62,6 +72,17 @@ ActiveRecord::Schema.define(version: 20150424231927) do
 
   add_index "meetings", ["organization_id"], name: "index_meetings_on_organization_id", using: :btree
 
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "organization_id"
+    t.string   "role"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
+  add_index "memberships", ["organization_id"], name: "index_memberships_on_organization_id", using: :btree
+  add_index "memberships", ["person_id"], name: "index_memberships_on_person_id", using: :btree
+
   create_table "organizations", force: :cascade do |t|
     t.integer  "level"
     t.string   "name"
@@ -76,6 +97,16 @@ ActiveRecord::Schema.define(version: 20150424231927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "sponsorships", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "folio_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "sponsorships", ["folio_id"], name: "index_sponsorships_on_folio_id", using: :btree
+  add_index "sponsorships", ["person_id"], name: "index_sponsorships_on_person_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
     t.string   "item_type",      null: false

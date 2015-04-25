@@ -2,17 +2,20 @@
 #
 # Table name: folios
 #
-#  id             :integer          not null, primary key
-#  meeting_id     :integer
-#  legislation_id :integer
-#  notes          :text
-#  vote           :string
-#  sponsor        :string
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
+#  id         :integer          not null, primary key
+#  meeting_id :integer
+#  bill_id    :integer
+#  notes      :text
+#  vote       :string
+#  sponsor    :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Folio < ActiveRecord::Base
   belongs_to :meeting
   belongs_to :bill
+
+  has_many :sponsorships, dependent: :destroy
+  has_many :people, through: :sponsorships
 end

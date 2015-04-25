@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: Bills
+# Table name: bills
 #
 #  id               :integer          not null, primary key
 #  title            :string

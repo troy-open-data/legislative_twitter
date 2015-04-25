@@ -3,7 +3,7 @@
 # Table name: attachments
 #
 #  id                :integer          not null, primary key
-#  legislation_id    :integer
+#  bill_id           :integer
 #  title             :string
 #  description       :string
 #  created_at        :datetime         not null
