@@ -16,11 +16,11 @@ class PersonTest < ActiveSupport::TestCase
   context 'a valid person' do
     should 'have a first name' do
       person = build(:person, first: nil)
-      assert_raise(ActiveRecord::RecordInvalid) { person.save! }
+      assert_not person.save, 'saved organization without a name'
     end
     should 'have a last name' do
       person = build(:person, last: nil)
-      assert_raise(ActiveRecord::RecordInvalid) { person.save! }
+      assert_not person.save, 'saved organization without a name'
     end
     context 'with associations' do
       should 'have many organizations through memberships' do
