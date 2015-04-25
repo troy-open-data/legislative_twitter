@@ -7,6 +7,17 @@
 <p>Meeting docket: <%= pluralize @meeting.bills.count, 'bill' %></p>
 
 <%= form_for @meeting do |f| %>
+    <fieldset>
+      <legend>Attendance</legend>
+      <%=
+          f.collection_check_boxes(:person_ids,
+                                   @meeting.organization.people,
+                                   :id,
+                                   :name)
+      %>
+    </fieldset>
+
+
     <% @meeting.grouped_folios.each do |legislation_type, folios| %>
         <h3><%= pluralize folios.count, legislation_type %></h3>
         <%= f.fields_for :folios, folios do |fa| %>

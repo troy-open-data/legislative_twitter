@@ -23,6 +23,15 @@
     <%= f.label :bio %><br>
     <%= f.text_area :bio %>
   </div>
+    <fieldset>
+      <legend>Memberships</legend>
+      <%=
+          f.collection_check_boxes(:organization_ids,
+                                   Organization.all,
+                                   :id,
+                                   :name)
+      %>
+    </fieldset>
   <div class="actions">
     <%= f.submit %>
   </div>

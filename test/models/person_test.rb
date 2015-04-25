@@ -32,4 +32,13 @@ class PersonTest < ActiveSupport::TestCase
       end
     end
   end
+
+  context 'a person' do
+    setup do
+      @person = create(:person)
+    end
+    should 'have a full name' do
+      assert @person.respond_to? :name
+    end
+  end
 end

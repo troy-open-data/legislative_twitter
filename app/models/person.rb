@@ -22,4 +22,8 @@ class Person < ActiveRecord::Base
 
   has_many :attendances,    dependent: :destroy
   has_many :meetings,       through: :attendances
+
+  def name
+    "#{first} #{last}"
+  end
 end

@@ -103,13 +103,15 @@ class MeetingsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting_with_folios
-    @meeting = Meeting.includes(folios: :legislation).find(params[:id])
+    # @meeting = Meeting.includes(folios: :legislation).find(params[:id])
+    @meeting = Meeting.includes(:folios).find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:organization_id, :date_and_time, :location,
                                     bill_ids: [],
+                                    person_ids: [],
                                     folios_attributes: [:sponsor,
                                                         :vote,
                                                         :notes,
