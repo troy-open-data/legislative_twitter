@@ -18,12 +18,10 @@ class OrganizationTest < ActiveSupport::TestCase
     end
 
     should 'have a name' do
-      @organization.update(name: nil)
-      assert_not @organization.save, 'saved organization without a name'
+      assert should_validate_presence_of :name, :organization
     end
     should 'have a level' do
-      @organization.update(level: nil)
-      assert_not @organization.save, 'saved organization without a level'
+      assert should_validate_presence_of :level, :organization
     end
     should 'have a level within valid levels' do
       @organization.update(level: Organization::LEVELS.size + 2)
@@ -35,13 +33,10 @@ class OrganizationTest < ActiveSupport::TestCase
 
     context 'with associations' do
       should 'has many meetings' do
-        relationship = Organization.reflect_on_association(:meetings)
-        assert_equal relationship.macro, :has_many
+        assert should_have_many(Organization, :meetings)
       end
-      should 'have and belong to many meetings' do
-        relationship = Organization.reflect_on_association(:people)
-        assert_equal relationship.macro, :has_many
-        assert_equal relationship.options[:through], :memberships
+      should 'has many people through memberships' do
+        assert should_have_many_through(Organization, :people, :memberships)
       end
     end
   end

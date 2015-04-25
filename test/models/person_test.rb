@@ -15,28 +15,20 @@ require 'test_helper'
 class PersonTest < ActiveSupport::TestCase
   context 'a valid person' do
     should 'have a first name' do
-      person = build(:person, first: nil)
-      assert_not person.save, 'saved organization without a name'
+      assert should_validate_presence_of :first, :person
     end
     should 'have a last name' do
-      person = build(:person, last: nil)
-      assert_not person.save, 'saved organization without a name'
+      assert should_validate_presence_of :last, :person
     end
     context 'with associations' do
       should 'have many organizations through memberships' do
-        relationship = Person.reflect_on_association(:organizations)
-        assert_equal relationship.macro, :has_many
-        assert_equal relationship.options[:through], :memberships
+        assert should_have_many_through(Person, :organizations, :memberships)
       end
       should 'have and belong to many meetings' do
-        relationship = Person.reflect_on_association(:meetings)
-        assert_equal relationship.macro, :has_many
-        assert_equal relationship.options[:through], :attendances
+        assert should_have_many_through(Person, :meetings, :attendances)
       end
       should 'have many folios through sponsorship' do
-        relationship = Person.reflect_on_association(:folios)
-        assert_equal relationship.macro, :has_many
-        assert_equal relationship.options[:through], :sponsorships
+        assert should_have_many_through(Person, :folios, :sponsorships)
       end
     end
   end

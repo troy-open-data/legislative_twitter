@@ -24,7 +24,7 @@ class AttachmentTest < ActiveSupport::TestCase
 
   ## Associations ##############################################################
   test 'belongs to one bill' do
-    @attachment.respond_to? :bill
+    assert should_belong_to(Attachment, :bill)
   end
   test 'has attached file' do
     @attachment.respond_to? :file

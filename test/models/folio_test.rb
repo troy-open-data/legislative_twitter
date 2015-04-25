@@ -15,15 +15,21 @@
 require 'test_helper'
 
 class FolioTest < ActiveSupport::TestCase
-  setup do
-    assert @folio = create(:folio)
-  end
+  context 'a valid folio' do
+    setup do
+      @folio = create(:folio)
+    end
 
-  # Associations
-  test 'belongs to one bill' do
-    assert @folio.respond_to? :bill
-  end
-  test 'belongs to one meeting' do
-    assert @folio.respond_to? :meeting
+    context 'with associations' do
+      should 'belong to a bill' do
+        assert should_belong_to(Folio, :bill)
+      end
+      should 'belong to a meeting' do
+        assert should_belong_to(Folio, :meeting)
+      end
+      should 'have many people through sponsorships' do
+        assert should_have_many_through(Folio, :people, :sponsorships)
+      end
+    end
   end
 end
