@@ -8,6 +8,11 @@ pdf.text_box "TROY CITY\n#{@meeting.organization.name.upcase} MINUTES\nREGULAR M
 pdf.move_down font_size*8
 
 
+# Attendance
+pdf.text 'ATTENDANCE', align: :center, style: :bold
+attendance = list_attendees(@meeting)
+pdf.text attendance, align: :center
+pdf.move_down font_size*2
 
 
 # Intro Text
@@ -22,7 +27,6 @@ pdf.table(data) do
 end
 
 pdf.move_down font_size
-
 
 # Legislations Table
 @meeting.grouped_folios.each do |type, folios|

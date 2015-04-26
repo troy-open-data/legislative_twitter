@@ -37,6 +37,10 @@
   </ul>
 </div>
 
+<!--Attendance-->
+<h3>Attendance</h3>
+<p><%= list_attendees(@meeting) %></p>
+
 <dl>
   <dt>Pledge of Allegiance</dt>
   <dt>Roll Call</dt>
@@ -50,7 +54,6 @@
 <h3>Local Law</h3>
 
 <!--List Bills by type-->
-<hr />
 <% @meeting.grouped_folios.each do |legislation_type, folios| %>
     <h4><%= legislation_type %></h4>
     <% folios.each do |folio| %>
@@ -70,5 +73,4 @@
           <dd><%= folio.vote || 'No vote recorded' %></dd>
         </dl>
     <% end %>
-    <hr />
 <% end %>

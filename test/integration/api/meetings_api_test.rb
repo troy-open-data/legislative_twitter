@@ -33,4 +33,28 @@ class MeetingsApiTest < ActionDispatch::IntegrationTest
     meeting = json(response.body)
     assert_equal @meeting.id, meeting[:id]
   end
+
+  context 'a meeting with a bill and a member' do
+    setup do
+      @meeting = create(:meeting_with_bill)
+      @meeting.organization.people << create(:person)
+      @path = "/api/meetings/#{@meeting.id}"
+      @accept = { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
+    end
+    context 'agenda' do
+      setup { @path << '/agenda' }
+      should 'load json' do
+        get @path, {}, @header
+        assert_response :success
+      end
+    end
+
+    context 'minutes' do
+      setup { @path << '/minutes' }
+      should 'load json' do
+        get @path, {}, @header
+        assert_response :success
+      end
+    end
+  end
 end
