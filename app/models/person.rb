@@ -18,7 +18,9 @@ class Person < ActiveRecord::Base
   has_many :organizations,  through: :memberships
 
   has_many :sponsorships,   dependent: :destroy
-  has_many :folios,         through: :sponsorships
+  has_many :sponsored_bills,through: :sponsorships
+
+  has_many :votes,          dependent: :destroy
 
   has_many :attendances,    dependent: :destroy
   has_many :meetings,       through: :attendances

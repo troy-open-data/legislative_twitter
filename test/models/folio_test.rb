@@ -6,8 +6,6 @@
 #  meeting_id :integer
 #  bill_id    :integer
 #  notes      :text
-#  vote       :string
-#  sponsor    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -27,8 +25,11 @@ class FolioTest < ActiveSupport::TestCase
       should 'belong to a meeting' do
         assert should_belong_to(Folio, :meeting)
       end
-      should 'have many sponsors through sponsorships' do
+      should 'have many people (sponsors) through sponsorships' do
         assert should_have_many_through(Folio, :sponsors, :sponsorships)
+      end
+      should 'have many people (voters) through votes' do
+        assert should_have_many_through(Folio, :voters, :votes)
       end
     end
   end

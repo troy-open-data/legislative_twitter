@@ -70,7 +70,7 @@
           <dt>Notes</dt>
           <dd><%= folio.notes || 'No notes recorded' %></dd>
           <dt>Final Vote</dt>
-          <dd><%= folio.vote || 'No vote recorded' %></dd>
+          <dd><%= print_votes(folio) %></dd>
         </dl>
     <% end %>
 <% end %>

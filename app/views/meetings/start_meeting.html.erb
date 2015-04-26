@@ -43,8 +43,21 @@
                 <div class='small-10 columns'><%= fa.text_area :notes, placeholder: 'Type meeting notes here', rows:5 %></div>
               </div>
               <div class="row field">
-                <div class='small-2 columns'><%= fa.label :vote %></div>
-                <div class='small-10 columns'><%= fa.text_field :vote, placeholder: 'Final Vote' %></div>
+                <div class='small-2 columns'><%= label_tag :votes %></div>
+                <div class='small-10 columns'>
+                  <div class='small-10 columns'>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Name</th><th>Yea</th><th>Nay</th><th>Abstain</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr><td>Votes</td></tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </fieldset>
         <% end %>

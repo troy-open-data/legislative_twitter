@@ -109,7 +109,9 @@ class MeetingsController < ApplicationController
   end
 
   def set_meeting_with_folios
-    @meeting = Meeting.includes(folios: [:bill, :sponsors]).find(params[:id])
+    @meeting = Meeting.includes(folios: [:bill,
+                                         :sponsors,
+                                         :votes]).find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -117,12 +119,12 @@ class MeetingsController < ApplicationController
     params.require(:meeting).permit(:organization_id, :date_and_time, :location,
                                     bill_ids: [],
                                     person_ids: [],
-                                    folios_attributes: [:vote,
-                                                        :notes,
+                                    folios_attributes: [:notes,
                                                         :bill_id,
                                                         :meeting_id,
                                                         :id,
                                                         :_destroy,
-                                                        sponsor_ids: [] ])
+                                                        sponsor_ids:  [],
+                                                        voter_ids:    [] ])
   end
 end

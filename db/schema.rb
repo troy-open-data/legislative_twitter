@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150426171034) do
+ActiveRecord::Schema.define(version: 20150426194757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,6 @@ ActiveRecord::Schema.define(version: 20150426171034) do
     t.integer  "meeting_id"
     t.integer  "bill_id"
     t.text     "notes"
-    t.string   "vote"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -119,7 +118,20 @@ ActiveRecord::Schema.define(version: 20150426171034) do
 
   add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id", using: :btree
 
+  create_table "votes", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "folio_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "data"
+  end
+
+  add_index "votes", ["folio_id"], name: "index_votes_on_folio_id", using: :btree
+  add_index "votes", ["person_id"], name: "index_votes_on_person_id", using: :btree
+
   add_foreign_key "folios", "bills"
   add_foreign_key "folios", "meetings"
   add_foreign_key "meetings", "organizations"
+  add_foreign_key "votes", "folios"
+  add_foreign_key "votes", "people"
 end

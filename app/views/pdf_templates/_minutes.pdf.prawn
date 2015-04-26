@@ -35,7 +35,7 @@ pdf.move_down font_size
     data << [folio.bill.legislative_numbering(:integer).to_s+'.', {content:folio.bill.title, colspan: 2}]
     data << ['','Sponsor(s)', folio.sponsors_list]
     data << ['','Notes', folio.notes]
-    data << ['','Final Vote', folio.vote]
+    data << ['','Final Vote', print_votes(folio)]
     2.times { data << ['','',''] }
   end
   pdf.table(data, header:true) do

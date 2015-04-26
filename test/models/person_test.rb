@@ -27,8 +27,11 @@ class PersonTest < ActiveSupport::TestCase
       should 'have and belong to many meetings' do
         assert should_have_many_through(Person, :meetings, :attendances)
       end
-      should 'have many folios through sponsorship' do
-        assert should_have_many_through(Person, :folios, :sponsorships)
+      should 'have many folios (sponsored_bills) through sponsorship' do
+        assert should_have_many_through(Person, :sponsored_bills, :sponsorships)
+      end
+      should 'have many votes' do
+        assert should_have_many(Person, :votes)
       end
     end
   end

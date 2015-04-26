@@ -6,8 +6,6 @@
 #  meeting_id :integer
 #  bill_id    :integer
 #  notes      :text
-#  vote       :string
-#  sponsor    :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
@@ -18,6 +16,9 @@ class Folio < ActiveRecord::Base
 
   has_many :sponsorships, dependent:  :destroy
   has_many :sponsors,     through:    :sponsorships,
+                          source:     :person
+  has_many :votes,        dependent:  :destroy
+  has_many :voters,       through:    :votes,
                           source:     :person
 
 

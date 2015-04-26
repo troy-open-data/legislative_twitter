@@ -54,4 +54,8 @@ FactoryGirl.define do
     first 'George'
     last  'Washington'
   end
+
+  factory :vote do
+    data 0
+  end
 end

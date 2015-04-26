@@ -10,7 +10,15 @@ json.bills @meeting.folios do |folio|
     json.extract! sponsor, :id, :first, :last
     json.url api_person_url(sponsor, format: :json)
   end
-  json.extract! folio, :vote, :notes
+  json.votes folio.votes.sort_by(&:type) do |vote|
+    # json.yea_count folio.votes.yea.count
+    # json.nea_count folio.votes.nea.count
+    # json.abstain_count folio.votes.abstain.count
+    json.extract! vote.person, :id, :first, :last
+    json.vote vote.type
+    json.person_url api_person_url(vote.person, format: :json)
+  end
+  json.extract! folio, :notes
   json.url api_bill_url(bill, format: :json)
 end
 json.approved @meeting.minutes_approved
