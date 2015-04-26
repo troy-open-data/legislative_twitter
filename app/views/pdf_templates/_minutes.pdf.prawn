@@ -25,10 +25,10 @@ pdf.move_down font_size
 
 
 # Legislations Table
-@meeting.grouped_folios.each do |legislation_type, folios|
-  data = [[ {content: legislation_type.pluralize(folios.count).upcase, colspan: 3} ]]
+@meeting.grouped_folios.each do |type, folios|
+  data = [[ {content: type.pluralize(folios.count).upcase, colspan: 3} ]]
   folios.each do |folio|
-    data << [folio.bill.legislative_numbering(:integer).to_s+'.', {content:folio.legislation.title, colspan: 2}]
+    data << [folio.bill.legislative_numbering(:integer).to_s+'.', {content:folio.bill.title, colspan: 2}]
     data << ['','Sponsor', folio.sponsor]
     data << ['','Notes', folio.notes]
     data << ['','Final Vote', folio.vote]

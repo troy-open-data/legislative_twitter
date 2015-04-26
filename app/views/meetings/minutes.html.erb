@@ -54,12 +54,13 @@
 <% @meeting.grouped_folios.each do |legislation_type, folios| %>
     <h4><%= legislation_type %></h4>
     <% folios.each do |folio| %>
-        <h5><%= folio.bill.legislative_numbering %></h5>
+        <% bill = folio.bill %>
+        <h5><%= bill.legislative_numbering %></h5>
         <dl>
           <dt>Title</dt>
-          <dd><%= folio.legislation.title.upcase %>
-            (<%= link_to 'page', legislation_path(folio.legislation) %>)
-            (<%= link_to 'pdf', legislation_path(folio.legislation, format: 'pdf') %>)
+          <dd><%= bill.title.upcase %>
+            (<%= link_to 'page', bill_path(bill) %>)
+            (<%= link_to 'pdf', bill_path(bill, format: 'pdf') %>)
           </dd>
           <dt>Sponsor</dt>
           <dd><%= folio.sponsor || 'No bill sponsor' %></dd>

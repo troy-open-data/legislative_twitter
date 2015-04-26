@@ -1,7 +1,8 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy,
                                      :toggle_agenda, :toggle_minutes]
-  before_action :set_meeting_with_folios, only: [:agenda, :minutes, :start_meeting]
+  before_action :set_meeting_with_folios, only: [:agenda, :minutes]
+  before_action :set_meeting_with_folios_and_members, only: :start_meeting
 
   # GET /meetings
   # GET /meetings.json
@@ -102,9 +103,13 @@ class MeetingsController < ApplicationController
   end
 
   # Use callbacks to share common setup or constraints between actions.
+  def set_meeting_with_folios_and_members
+    @meeting = Meeting.includes(folios: :bill,
+                                organization: :people).find(params[:id])
+  end
+
   def set_meeting_with_folios
-    # @meeting = Meeting.includes(folios: :legislation).find(params[:id])
-    @meeting = Meeting.includes(:folios).find(params[:id])
+    @meeting = Meeting.includes(folios: :bill).find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
