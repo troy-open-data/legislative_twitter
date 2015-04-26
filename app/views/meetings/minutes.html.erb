@@ -62,8 +62,8 @@
             (<%= link_to 'page', bill_path(bill) %>)
             (<%= link_to 'pdf', bill_path(bill, format: 'pdf') %>)
           </dd>
-          <dt>Sponsor</dt>
-          <dd><%= folio.sponsor || 'No bill sponsor' %></dd>
+          <dt>Sponsor(s)</dt>
+          <dd><%= folio.sponsors_list %></dd>
           <dt>Notes</dt>
           <dd><%= folio.notes || 'No notes recorded' %></dd>
           <dt>Final Vote</dt>

@@ -24,8 +24,15 @@
             <fieldset>
               <legend><%= fa.object.bill.legislative_numbering %></legend>
               <div class="row field">
-                <div class='small-2 columns'><%= fa.label :sponsor %></div>
-                <div class='small-10 columns'><%= fa.text_field :sponsor, placeholder: 'Bill Sponsor' %></div>
+                <div class='small-2 columns'><%= label_tag 'Sponsor(s)' %></div>
+                <div class='small-10 columns'>
+                  <%=
+                      fa.collection_check_boxes(:sponsor_ids,
+                                               @meeting.organization.people,
+                                               :id,
+                                               :name)
+                  %>
+                </div>
               </div>
               <div class="row field">
                 <div class='small-2 columns'><%= label_tag 'Title' %></div>

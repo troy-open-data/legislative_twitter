@@ -6,8 +6,6 @@ FactoryGirl.define do
     file  { fixture_file_upload(Rails.root.join('test', 'fixtures', 'images', 'image.jpeg'), 'image/jpeg') }
   end
 
-  factory :folio
-
   factory :bill do
     title 'Resolution for Free Cake'
     body  'We should all have free cake.'
@@ -40,6 +38,11 @@ FactoryGirl.define do
     factory :meeting_with_bill do
       after(:create) { |meeting| meeting.bills << create(:bill) }
     end
+  end
+
+  factory :folio do
+    bill
+    meeting
   end
 
   factory :organization do

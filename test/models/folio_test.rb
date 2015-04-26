@@ -27,8 +27,28 @@ class FolioTest < ActiveSupport::TestCase
       should 'belong to a meeting' do
         assert should_belong_to(Folio, :meeting)
       end
-      should 'have many people through sponsorships' do
-        assert should_have_many_through(Folio, :people, :sponsorships)
+      should 'have many sponsors through sponsorships' do
+        assert should_have_many_through(Folio, :sponsors, :sponsorships)
+      end
+    end
+  end
+
+  context 'folio' do
+    setup do
+      @folio = create(:folio)
+    end
+
+    context '#sponsors' do
+      context 'when there are no sponsors' do
+        should 'return "no recorded sponsors"' do
+          assert_equal 'no recorded sponsors', @folio.sponsors_list
+        end
+      end
+      context 'when there are sponsors' do
+        setup { @folio.sponsors << create(:person) }
+        should 'contain sponsor names' do
+          assert_match /#{@folio.sponsors[0].name}/, @folio.sponsors_list
+        end
       end
     end
   end
