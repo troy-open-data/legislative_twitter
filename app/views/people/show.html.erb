@@ -1,19 +1,65 @@
-<p id="notice"><%= notice %></p>
+<!-- Org Options -->
+<div class="row">
+  <div class="right button-bar">
+    <!-- Action Buttons -->
+    <ul class="button-group">
+      <li><%= link_to 'All', people_path, class:'tiny button' %></li>
+    </ul>
+    <ul class="admin button-group">
+      <li><%= link_to 'Edit', edit_person_path(@person), class:'tiny button' %></li>
+      <li><%= link_to('Delete', person_path,
+                      method: 'delete', class: 'tiny alert button',
+                      data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Content -->
+
+<!--Title/Metadata-->
+<h2><%= @person.name %></h2>
 
 <p>
-  <strong>First:</strong>
-  <%= @person.first %>
-</p>
-
-<p>
-  <strong>Last:</strong>
-  <%= @person.last %>
-</p>
-
-<p>
-  <strong>Bio:</strong>
   <%= @person.bio %>
 </p>
 
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+<h3>Committee Membership</h3>
+<ul>
+  <% @person.organizations.each do |org| %>
+  <li><%= link_to org.name, org %></li>
+  <% end %>
+</ul>
+
+<h3>Sponsored Legislation</h3>
+<ul>
+  <% @person.sponsored_bills.each do |folio| %>
+      <% bill = folio.bill %>
+      <li>
+        <%= link_to bill.short_title || bill.title, bill %>
+        (<%= link_to folio.meeting.name, folio.meeting %>)
+      </li>
+  <% end %>
+</ul>
+
+<h3>Voting History</h3>
+<table>
+  <tr>
+    <th>Meeting</th>
+    <th>Bill</th>
+    <th>Vote</th>
+  </tr>
+  <% @person.votes.each do |vote| %>
+  <tr>
+    <td><%= link_to vote.folio.meeting.name, vote.folio.meeting %></td>
+    <td><%= link_to vote.folio.bill.short_title || vote.folio.bill.title, vote.folio.bill %></td>
+    <td><%= vote.type %></td>
+  </tr>
+  <% end %>
+</table>
+
+<h3>Attendance</h3>
+<ul>
+  <% @person.attendances.each do |attendance| %>
+  <li><%= link_to attendance.meeting.name, attendance.meeting %></li>
+  <% end %>
+</ul>

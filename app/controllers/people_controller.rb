@@ -4,12 +4,14 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all
+    @people = Person.includes(:organizations).all
   end
 
   # GET /people/1
   # GET /people/1.json
   def show
+    @person = Person.includes(votes: [folio: [:bill, :meeting]],
+                              meetings: :organization).find(params[:id])
   end
 
   # GET /people/new

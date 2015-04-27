@@ -23,6 +23,7 @@ class Vote < ActiveRecord::Base
   scope :abstains,  -> { where(data: 0) }
 
   validates :data, presence: :true
+  validates :person_id, uniqueness: { scope: :folio_id }
 
   def type
     MAP[data]

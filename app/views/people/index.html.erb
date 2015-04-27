@@ -1,14 +1,18 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+  <%= link_to '+ New Person', new_person_path, class: 'right admin button' %>
+</div>
 
-<h1>Listing People</h1>
+
+<h2>Council Representatives</h2>
 
 <table>
   <thead>
     <tr>
       <th>First</th>
       <th>Last</th>
-      <th>Bio</th>
-      <th colspan="3"></th>
+      <th>Committees</th>
+      <th></th>
+      <th colspan="2" class="admin">Admin</th>
     </tr>
   </thead>
 
@@ -17,15 +21,13 @@
       <tr>
         <td><%= person.first %></td>
         <td><%= person.last %></td>
-        <td><%= person.bio %></td>
+        <td><%= person.organizations.map(&:name).join(', ') %></td>
         <td><%= link_to 'Show', person %></td>
-        <td><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td class="admin"><%= link_to 'Edit', edit_person_path(person) %></td>
+        <td class="admin"><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Person', new_person_path %>
+<h3>Other Site Members</h3>

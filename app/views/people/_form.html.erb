@@ -24,7 +24,7 @@
     <%= f.text_area :bio %>
   </div>
     <fieldset>
-      <legend>Memberships</legend>
+      <legend>Committee Memberships</legend>
       <%=
           f.collection_check_boxes(:organization_ids,
                                    Organization.all,
@@ -33,6 +33,6 @@
       %>
     </fieldset>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class:'button expand' %>
   </div>
 <% end %>
