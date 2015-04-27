@@ -18,6 +18,9 @@ class Meeting < ActiveRecord::Base
   # Model Relationships
   belongs_to :organization
 
+  has_many :attendances, dependent: :destroy
+  has_many :people, through: :attendances
+
   has_many :folios, dependent: :destroy
   has_many :bills, through: :folios
   accepts_nested_attributes_for :folios,

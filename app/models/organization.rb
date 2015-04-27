@@ -17,6 +17,8 @@ class Organization < ActiveRecord::Base
 
   # Model Relationships
   has_many :meetings
+  has_many :memberships, dependent: :destroy
+  has_many :people, through: :memberships
 
   # Validations
   validates :name, presence: true

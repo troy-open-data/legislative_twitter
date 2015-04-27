@@ -22,11 +22,11 @@ class MeetingTest < ActiveSupport::TestCase
 
   ## Associations ##############################################################
   test 'belongs to one organization' do
-    assert @meeting.respond_to? :organization
+    assert should_belong_to(Meeting, :organization)
   end
 
   test 'has many folios' do
-    assert @meeting.respond_to? :folios
+    assert should_have_many(Meeting, :folios)
   end
   test 'can destroy dependent folios' do
     @folio = Folio.new(meeting: @meeting)
@@ -37,18 +37,16 @@ class MeetingTest < ActiveSupport::TestCase
     refute Folio.exists? @folio.id
   end
   test 'has many bills' do
-    assert @meeting.respond_to? :bills
+    assert should_have_many(Meeting, :bills)
   end
 
   ## Validations ###############################################################
   test 'must have organization' do
-    @meeting.update(organization_id: nil)
-    assert_not @meeting.save, 'saved meeting without an organization'
+    assert should_validate_presence_of :organization_id, :meeting
   end
 
   test 'must have date_and_time' do
-    @meeting.update(date_and_time: nil)
-    assert_not @meeting.save, 'saved meeting without a date and time'
+    assert should_validate_presence_of :date_and_time, :meeting
   end
 
   ## Aliases ###################################################################

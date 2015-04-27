@@ -1,7 +1,8 @@
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy,
                                      :toggle_agenda, :toggle_minutes]
-  before_action :set_meeting_with_folios, only: [:agenda, :minutes, :start_meeting]
+  before_action :set_meeting_with_folios, only: [:agenda, :minutes]
+  before_action :set_meeting_with_folios_and_members, only: :start_meeting
 
   # GET /meetings
   # GET /meetings.json
@@ -44,6 +45,11 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/1/start_meeting
   def start_meeting
+    @meeting.folios.each do |folio|
+      @meeting.organization.people.each do |member|
+        folio.votes.where(person: member).first || folio.votes.build(person: member)
+      end
+    end
   end
 
   # GET /meetings/new
@@ -102,20 +108,34 @@ class MeetingsController < ApplicationController
   end
 
   # Use callbacks to share common setup or constraints between actions.
+  def set_meeting_with_folios_and_members
+    @meeting = Meeting.includes(folios: [:bill,
+                                         :sponsors,
+                                         votes: :person],
+                                organization: :people).find(params[:id])
+  end
+
   def set_meeting_with_folios
-    @meeting = Meeting.includes(folios: :legislation).find(params[:id])
+    @meeting = Meeting.includes(folios: [:bill,
+                                         :sponsors,
+                                         :votes]).find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:organization_id, :date_and_time, :location,
                                     bill_ids: [],
-                                    folios_attributes: [:sponsor,
-                                                        :vote,
-                                                        :notes,
+                                    person_ids: [],
+                                    folios_attributes: [:notes,
                                                         :bill_id,
                                                         :meeting_id,
                                                         :id,
-                                                        :_destroy])
+                                                        :_destroy,
+                                                        sponsor_ids:  [],
+                                                        votes_attributes: [:id,
+                                                                           :person_id,
+                                                                           :folio_id,
+                                                                           :data,
+                                                                           :_destroy]])
   end
 end

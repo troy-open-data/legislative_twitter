@@ -8,6 +8,11 @@ pdf.text_box "TROY CITY\n#{@meeting.organization.name.upcase} MINUTES\nREGULAR M
 pdf.move_down font_size*8
 
 
+# Attendance
+pdf.text 'ATTENDANCE', align: :center, style: :bold
+attendance = list_attendees(@meeting)
+pdf.text attendance, align: :center
+pdf.move_down font_size*2
 
 
 # Intro Text
@@ -23,15 +28,14 @@ end
 
 pdf.move_down font_size
 
-
 # Legislations Table
-@meeting.grouped_folios.each do |legislation_type, folios|
-  data = [[ {content: legislation_type.pluralize(folios.count).upcase, colspan: 3} ]]
+@meeting.grouped_folios.each do |type, folios|
+  data = [[ {content: type.pluralize(folios.count).upcase, colspan: 3} ]]
   folios.each do |folio|
-    data << [folio.bill.legislative_numbering(:integer).to_s+'.', {content:folio.legislation.title, colspan: 2}]
-    data << ['','Sponsor', folio.sponsor]
+    data << [folio.bill.legislative_numbering(:integer).to_s+'.', {content:folio.bill.title, colspan: 2}]
+    data << ['','Sponsor(s)', folio.sponsors_list]
     data << ['','Notes', folio.notes]
-    data << ['','Final Vote', folio.vote]
+    data << ['','Final Vote (yea-nay-abstain)', print_votes(folio)]
     2.times { data << ['','',''] }
   end
   pdf.table(data, header:true) do

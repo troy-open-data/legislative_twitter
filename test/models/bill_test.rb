@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: Bills
+# Table name: bills
 #
 #  id               :integer          not null, primary key
 #  title            :string
@@ -21,16 +21,13 @@ class BillTest < ActiveSupport::TestCase
 
   ## Validations ###############################################################
   test 'must have title' do
-    @bill.update(title: nil)
-    assert_not @bill.save, 'saved bill without a title'
+    assert should_validate_presence_of :title, :bill
   end
   test 'must have body' do
-    @bill.update(body: nil)
-    assert_not @bill.save, 'saved bill without a body'
+    assert should_validate_presence_of :body, :bill
   end
   test 'must have bill type' do
-    @bill.update(legislation_type: nil)
-    assert_not @bill.save, 'saved bill without a type'
+    assert should_validate_presence_of :legislation_type, :bill
   end
   test 'bill type must be from allowed types' do
     @bill.update(legislation_type: 'Invalid Type')

@@ -12,32 +12,32 @@
 require 'test_helper'
 
 class OrganizationTest < ActiveSupport::TestCase
-  ## Setup and Teardown ########################################################
-  def setup
-    @organization = create(:organization)
-  end
+  context 'a valid organization' do
+    setup do
+      @organization = create(:organization)
+    end
 
-  ## Associations ##############################################################
-  test 'has many meetings' do
-    assert @organization.respond_to? :meetings
-  end
+    should 'have a name' do
+      assert should_validate_presence_of :name, :organization
+    end
+    should 'have a level' do
+      assert should_validate_presence_of :level, :organization
+    end
+    should 'have a level within valid levels' do
+      @organization.update(level: Organization::LEVELS.size + 2)
+      assert_not @organization.save, 'saved organization with an invalid level'
+    end
+    should 'have scope of meetable organizations' do
+      assert Organization.respond_to? :meetable
+    end
 
-  ## Validations ###############################################################
-  test 'validates presence of name' do
-    @organization.update(name: nil)
-    assert_not @organization.save, 'saved organization without a name'
-  end
-  test 'validates presence of level' do
-    @organization.update(level: nil)
-    assert_not @organization.save, 'saved organization without a level'
-  end
-  test 'validates inclusion of level within given levels' do
-    @organization.update(level: Organization::LEVELS.size + 2)
-    assert_not @organization.save, 'saved organization with an invalid level'
-  end
-
-  ## Scopes and Class Methods ##################################################
-  test 'has scope of meetable organizations' do
-    assert Organization.respond_to? :meetable
+    context 'with associations' do
+      should 'has many meetings' do
+        assert should_have_many(Organization, :meetings)
+      end
+      should 'has many people through memberships' do
+        assert should_have_many_through(Organization, :people, :memberships)
+      end
+    end
   end
 end

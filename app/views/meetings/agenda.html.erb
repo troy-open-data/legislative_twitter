@@ -87,8 +87,8 @@
           <% legislation = folio.bill %>
           <dt><%= legislation.legislative_numbering :abbreviation %></dt>
           <dd><%= short_title legislation %>
-            (<%= link_to 'html', legislation_path(legislation) %>)
-            (<%= link_to 'pdf', legislation_path(legislation, format: 'pdf') %>)
+            (<%= link_to 'html', bill_path(legislation) %>)
+            (<%= link_to 'pdf', bill_path(legislation, format: 'pdf') %>)
           </dd>
       <% end %>
   <% end %>
