@@ -45,6 +45,11 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/1/start_meeting
   def start_meeting
+    @meeting.folios.each do |folio|
+      @meeting.organization.people.each do |member|
+        folio.votes.where(person: member).first || folio.votes.build(person: member)
+      end
+    end
   end
 
   # GET /meetings/new
@@ -104,7 +109,9 @@ class MeetingsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting_with_folios_and_members
-    @meeting = Meeting.includes(folios: :bill,
+    @meeting = Meeting.includes(folios: [:bill,
+                                         :sponsors,
+                                         votes: :person],
                                 organization: :people).find(params[:id])
   end
 
@@ -125,6 +132,10 @@ class MeetingsController < ApplicationController
                                                         :id,
                                                         :_destroy,
                                                         sponsor_ids:  [],
-                                                        voter_ids:    [] ])
+                                                        votes_attributes: [:id,
+                                                                           :person_id,
+                                                                           :folio_id,
+                                                                           :data,
+                                                                           :_destroy]])
   end
 end

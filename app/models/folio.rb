@@ -20,6 +20,9 @@ class Folio < ActiveRecord::Base
   has_many :votes,        dependent:  :destroy
   has_many :voters,       through:    :votes,
                           source:     :person
+  accepts_nested_attributes_for :votes,
+                                reject_if: lambda { |attribute| attribute[:data].blank? },
+                                allow_destroy: true
 
 
   def sponsors_list

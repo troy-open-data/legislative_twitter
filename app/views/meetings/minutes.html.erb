@@ -69,8 +69,10 @@
           <dd><%= folio.sponsors_list %></dd>
           <dt>Notes</dt>
           <dd><%= folio.notes || 'No notes recorded' %></dd>
-          <dt>Final Vote</dt>
-          <dd><%= print_votes(folio) %></dd>
+          <dt>Final Vote (yea-nay-abstain)</dt>
+          <dd>
+            <%= print_votes(folio) %>
+          </dd>
         </dl>
     <% end %>
 <% end %>

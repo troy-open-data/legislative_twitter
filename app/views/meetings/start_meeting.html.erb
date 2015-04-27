@@ -21,45 +21,7 @@
     <% @meeting.grouped_folios.each do |legislation_type, folios| %>
         <h3><%= pluralize folios.count, legislation_type %></h3>
         <%= f.fields_for :folios, folios do |fa| %>
-            <fieldset>
-              <legend><%= fa.object.bill.legislative_numbering %></legend>
-              <div class="row field">
-                <div class='small-2 columns'><%= label_tag 'Sponsor(s)' %></div>
-                <div class='small-10 columns'>
-                  <%=
-                      fa.collection_check_boxes(:sponsor_ids,
-                                               @meeting.organization.people,
-                                               :id,
-                                               :name)
-                  %>
-                </div>
-              </div>
-              <div class="row field">
-                <div class='small-2 columns'><%= label_tag 'Title' %></div>
-                <div class='small-10 columns'><p><%= fa.object.bill.title %></p></div>
-              </div>
-              <div class="row field">
-                <div class='small-2 columns'><%= fa.label :notes %></div>
-                <div class='small-10 columns'><%= fa.text_area :notes, placeholder: 'Type meeting notes here', rows:5 %></div>
-              </div>
-              <div class="row field">
-                <div class='small-2 columns'><%= label_tag :votes %></div>
-                <div class='small-10 columns'>
-                  <div class='small-10 columns'>
-                    <table>
-                      <thead>
-                        <tr>
-                          <th>Name</th><th>Yea</th><th>Nay</th><th>Abstain</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                      <tr><td>Votes</td></tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
+            <%= render 'folio_form', f: fa %>
         <% end %>
     <% end %>
     <%= f.submit 'Finish Meeting', class: 'button expand' %>

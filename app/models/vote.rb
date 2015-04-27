@@ -11,9 +11,9 @@
 #
 
 class Vote < ActiveRecord::Base
-  MAP = { -1  => 'nay',
-          0   => 'abstain',
-          1   => 'yea' }
+  MAP = { 1   => 'yea',
+          -1  => 'nay',
+          0   => 'abstain' }
 
   belongs_to :person
   belongs_to :folio
