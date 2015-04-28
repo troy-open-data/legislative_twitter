@@ -7,12 +7,14 @@
       <li><%= link_to 'Agenda', agenda_path(@meeting), class: 'tiny button'%></li>
       <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
     </ul>
-    <ul class="admin button-group">
-      <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny admin button' %></li>
-      <li><%= link_to('Delete', meeting_path,
-                      method: 'delete', class: 'tiny admin alert button',
-                      data: { confirm: 'Are you sure you want to delete this?'}) %></li>
-    </ul>
+    <% if admin_signed_in? %>
+        <ul class="admin button-group">
+          <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny admin button' %></li>
+          <li><%= link_to('Delete', meeting_path,
+                          method: 'delete', class: 'tiny admin alert button',
+                          data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+        </ul>
+    <% end %>
     <!-- Download PDF Button -->
     <ul class="button-group">
       <li><%= link_to 'Download PDF',
@@ -28,14 +30,16 @@
   <small>for <%= @meeting.date.to_formatted_s(:long_ordinal) %></small></h2>
 
 <!--Admin-->
-<div class="admin panel">
-  <h3>Minutes Admin:</h3>
-  <ul>
-    <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
-    <% minutes_option = @meeting.approved_minutes? ? 'Unapprove Minutes' : 'Approve Minutes' %>
-    <li><%= link_to minutes_option, toggle_minutes_path, remote: true, id:'minutes-toggle' %></li>
-  </ul>
-</div>
+<% if admin_signed_in? %>
+    <div class="admin panel">
+      <h3>Minutes Admin:</h3>
+      <ul>
+        <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
+        <% minutes_option = @meeting.approved_minutes? ? 'Unapprove Minutes' : 'Approve Minutes' %>
+        <li><%= link_to minutes_option, toggle_minutes_path, remote: true, id:'minutes-toggle' %></li>
+      </ul>
+    </div>
+<% end %>
 
 <!--Attendance-->
 <h3>Attendance</h3>

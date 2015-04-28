@@ -1,8 +1,10 @@
 class MeetingsController < ApplicationController
+  before_action :authenticate_admin!, except: [:index, :show, :agenda, :minutes]
+
   before_action :set_meeting, only: [:show, :edit, :update, :destroy,
                                      :toggle_agenda, :toggle_minutes]
   before_action :set_meeting_with_folios, only: [:agenda, :minutes]
-  before_action :set_meeting_with_folios_and_members, only: :start_meeting
+  # before_action :set_meeting_with_folios_and_members, only: :start_meeting
 
   # GET /meetings
   # GET /meetings.json
@@ -18,6 +20,8 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/agenda
   # GET /meetings/1/agenda.pdf
   def agenda
+    @meeting = Meeting.includes(folios: [:bill]).find(params[:id])
+
     default_attachments = { bill: true, attachments: true }
     @attach = params[:attach] || default_attachments
   end
@@ -41,10 +45,18 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/minutes
   # GET /meetings/1/minutes.pdf
   def minutes
+    @meeting = Meeting.includes(folios: [:bill,
+                                         :sponsors,
+                                         :votes]).find(params[:id])
   end
 
   # GET /meetings/1/start_meeting
   def start_meeting
+    @meeting = Meeting.includes(folios: [:bill,
+                                         :sponsors,
+                                         votes: :person],
+                                organization: :people).find(params[:id])
+
     @meeting.folios.each do |folio|
       @meeting.organization.people.each do |member|
         folio.votes.where(person: member).first || folio.votes.build(person: member)
@@ -107,18 +119,8 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
   end
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_meeting_with_folios_and_members
-    @meeting = Meeting.includes(folios: [:bill,
-                                         :sponsors,
-                                         votes: :person],
-                                organization: :people).find(params[:id])
-  end
-
   def set_meeting_with_folios
-    @meeting = Meeting.includes(folios: [:bill,
-                                         :sponsors,
-                                         :votes]).find(params[:id])
+
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

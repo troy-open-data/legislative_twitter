@@ -9,20 +9,22 @@
       <% end %>
       <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
     </ul>
-    <ul class="admin button-group">
-      <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
-      <li><%= link_to('Delete', meeting_path,
-                      method: "delete", class: 'tiny alert button',
-                      data: { confirm: 'Are you sure you want to delete this?'}) %></li>
-    </ul>
+    <% if admin_signed_in? %>
+        <ul class="admin button-group">
+          <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
+          <li><%= link_to('Delete', meeting_path,
+                          method: "delete", class: 'tiny alert button',
+                          data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+        </ul>
+    <% end %>
     <!-- Download PDF Button -->
     <ul class="button-group">
       <li>
         <%= link_to "Download PDF", '#',
-                      class: 'dropdown button',
-                      :'data-dropdown' => 'agenda-pdf-options',
-                      :'aria-controls' => 'agenda-pdf-options',
-                      :'aria-expanded' => 'false' %><br />
+                    class: 'dropdown button',
+                    :'data-dropdown' => 'agenda-pdf-options',
+                    :'aria-controls' => 'agenda-pdf-options',
+                    :'aria-expanded' => 'false' %><br />
         <!--Agenda Download Dropdown-->
         <ul id="agenda-pdf-options" data-dropdown-content class="f-dropdown" aria-hidden="true">
           <!--Agenda with all attachments (Bills and legislative attachments)-->
@@ -58,14 +60,16 @@
 </h2>
 
 <!--Admin-->
-<div class="admin panel">
-  <h3>Agenda Admin:</h3>
-  <ul>
-    <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
-    <% agenda_option = @meeting.approved_agenda? ? 'Unapprove Agenda' : 'Approve Agenda' %>
-    <li><%= link_to agenda_option, toggle_agenda_path, remote: true, id:'agenda-toggle' %></li>
-  </ul>
-</div>
+<% if admin_signed_in? %>
+    <div class="admin panel">
+      <h3>Agenda Admin:</h3>
+      <ul>
+        <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
+        <% agenda_option = @meeting.approved_agenda? ? 'Unapprove Agenda' : 'Approve Agenda' %>
+        <li><%= link_to agenda_option, toggle_agenda_path, remote: true, id:'agenda-toggle' %></li>
+      </ul>
+    </div>
+<% end %>
 
 <dl>
   <dt>Pledge of Allegiance</dt>

@@ -1,6 +1,7 @@
 require 'api_version'  # lib/api_version.rb
 
 Rails.application.routes.draw do
+  devise_for :admins
   ##
   # API (api namespace)
   # ===================

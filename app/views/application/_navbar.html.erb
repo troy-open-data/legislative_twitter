@@ -10,16 +10,27 @@
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="admin has-dropdown">
-        <a href="#">Create New...</a>
-        <ul class="dropdown">
-          <li><%= link_to '...Organization', new_organization_path %></li>
-          <li><%= link_to '...Meeting', new_meeting_path %></li>
-          <li><%= link_to '...Person', new_person_path %></li>
-          <li><%= link_to '...Bill', new_bill_path %></li>
-        </ul>
+      <% if admin_signed_in? %>
+          <li class="admin has-dropdown">
+            <a href="#">Create New...</a>
+            <ul class="dropdown">
+              <li><%= link_to '...Organization', new_organization_path %></li>
+              <li><%= link_to '...Meeting', new_meeting_path %></li>
+              <li><%= link_to '...Person', new_person_path %></li>
+              <li><%= link_to '...Bill', new_bill_path %></li>
+            </ul>
+          </li>
+      <% end %>
+      <% if admin_signed_in? %>
+          <li class='' id="admin-toggle"><a href="#">Toggle Public View</a></li>
+      <% end %>
+      <li class=''>
+        <% if admin_signed_in? %>
+            <%= link_to 'Sign Out', destroy_admin_session_path, method: :delete %>
+        <% else %>
+            <%= link_to 'Sign In', new_admin_session_path %>
+        <% end %>
       </li>
-      <li class='' id="admin-toggle"><a href="#">Toggle Admin Mode</a></li>
     </ul>
 
     <!-- Left Nav Section -->

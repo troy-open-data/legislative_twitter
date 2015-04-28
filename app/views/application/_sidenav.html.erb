@@ -25,6 +25,7 @@
     <li><%= link_to 'People', people_path %></li>
   </ul>
 
+  <% if admin_signed_in? %>
   <div class="admin panel">
     <h4>Admin</h4>
     <ul class="side-nav">
@@ -33,6 +34,7 @@
       <li><%= link_to 'Add New Person', new_person_path %></li>
     </ul>
   </div>
+      <% end %>
 
 
 </div>

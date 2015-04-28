@@ -1,9 +1,14 @@
+people = Person.create([{ first:  'George',
+                          last:   'Washington' },
+                        { first:  'Thomas',
+                          last:   'Jefferson' }])
+
 organizations = Organization.create([{ level: 0,
-                                       name: 'Mayor Lou Rosamilia' },
+                                       name:  'Mayor' },
                                      { level: 1,
-                                       name: 'City Council' },
+                                       name:  'City Council' },
                                      { level: 2,
-                                       name: 'Finance Committee' }])
+                                       name:  'Finance Committee' }])
 
 bills = Bill.create([ { legislation_type: 'Ordinance',
                                       title: 'Ordinance Amending Ordinance No. 12 Adopted by the Troy City Council on December 4, 1975; as Amended by Ordinance No.1 Adopted December 15, 1979; as Amended by Ordinance No.1 Adopted December 1, 1981; as Amended by Ordinance No.1 Adopted Aprill4, 1983; as Amended by Ordinance No.1 Adopted April2, 1992; as Amended by Ordinance No.2 Adopted January 19, 1996; as Amended by Ordinance No.3 Adopted January 8, 1998; as Amended by Ordinance No. 15 Adopted December 7, 2000; as Amended by Ordinance No. 1 Adopted November 30, 2006; as Amended by Ordinance No. 3 Adopted November 20, 2012; Which Pursuant to Section 10.06 ofthe City Charter and Section 30-17 ofthe Troy Code o f Ordinances Established a Code o f Rules and Regulations for the Department o f Public Utilities and as Amended to fucrease the Sewer Rate From 65% to 85% ofthe Water Bill Rate. (Council President Wiltshire) (At the Request ofthe Administration)',

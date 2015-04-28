@@ -23,7 +23,6 @@ require 'rails/test_help'
 
 
 class ActiveSupport::TestCase
-  # Allow Factory Girl methods to not be prefixed with the class FactoryGirl
   include FactoryGirl::Syntax::Methods
 
   def json(body)
@@ -51,5 +50,13 @@ class ActiveSupport::TestCase
   def should_validate_presence_of(attribute, klass)
     klass = build(klass, attribute => nil)
     !klass.save
+  end
+end
+
+class ActionController::TestCase
+  include Devise::TestHelpers
+
+  def setup
+    @admin = create(:admin)
   end
 end

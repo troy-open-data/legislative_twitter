@@ -1,7 +1,9 @@
 <!--Action Buttons-->
-<div class="row">
-  <%= link_to '+ New Meeting', new_meeting_path, class: 'right admin button' %>
-</div>
+<% if admin_signed_in? %>
+    <div class="row">
+      <%= link_to '+ New Meeting', new_meeting_path, class: 'right admin button' %>
+    </div>
+<% end %>
 
 
 <!--Listed Meetings-->
@@ -9,14 +11,16 @@
   <h2>All Meetings</h2>
 
   <!--Admin Panel-->
-  <div class="admin panel">
-    <h4>Start Meeting (Admin):</h4>
-    <ul>
-      <% Meeting.upcoming.each do |meeting| %>
-          <li><%= link_to meeting.name, start_meeting_path(meeting) %></li>
-      <% end %>
-    </ul>
-  </div>
+  <% if admin_signed_in? %>
+      <div class="admin panel">
+        <h4>Start Meeting (Admin):</h4>
+        <ul>
+          <% Meeting.upcoming.each do |meeting| %>
+              <li><%= link_to meeting.name, start_meeting_path(meeting) %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
 
   <% @grouped_meetings.each do |organization,meetings| %>
       <br />
@@ -29,7 +33,9 @@
           <th>Meeting Details</th>
           <th>Agendas</th>
           <th>Minutes</th>
-          <th colspan="3", class="admin">Admin</th>
+          <% if admin_signed_in? %>
+              <th colspan="2", class="admin">Admin</th>
+          <% end %>
         </tr>
         </thead>
 
@@ -51,8 +57,10 @@
                     Upcoming...
                 <% end %>
               </td>
-              <td class='admin'><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
-              <td class='admin'><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% if admin_signed_in? %>
+                  <td class='admin'><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
+                  <td class='admin'><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+              <% end %>
             </tr>
         <% end %>
         </tbody>
