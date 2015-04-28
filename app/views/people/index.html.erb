@@ -37,10 +37,12 @@
 </table>
 
 <% if admin_signed_in? %>
-    <h3 class="admin">Admins</h3>
-    <ul>
-      <% Admin.all.each do |admin| %>
-          <li><%= admin.email %></li>
-      <% end %>
-    </ul>
+    <div class="admin">
+      <h3>Admins</h3>
+      <ul>
+        <% Admin.all.each do |admin| %>
+            <li><%= admin.email %></li>
+        <% end %>
+      </ul>
+    </div>
 <% end %>
