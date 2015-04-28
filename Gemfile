@@ -63,6 +63,9 @@ gem 'platform-api'
 # Shim to load environment variables from .env into ENV in development.
 gem 'dotenv-rails'
 
+# Auth
+gem 'devise'
+
 
 # Include Minitest and Minitest Reporters for RubyMine
 group :test do

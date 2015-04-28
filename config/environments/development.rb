@@ -41,6 +41,7 @@ Rails.application.configure do
 
   # Configure for mailcatcher on port 1025
   # More details: https://mailcatcher.me
+  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
 
@@ -60,7 +61,7 @@ Rails.application.configure do
     # Bullet.bugsnag = true
     # Bullet.airbrake = true
     Bullet.add_footer = true
-    Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
+    # Bullet.stacktrace_includes = [ 'your_gem', 'your_middleware' ]
   end
 
   # Store uploaded files to Amazon S3 storage

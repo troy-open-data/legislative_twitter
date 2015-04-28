@@ -2,6 +2,11 @@
 include ActionDispatch::TestProcess
 
 FactoryGirl.define do
+  factory :admin do
+    email     'email@email.com'
+    password  'password'
+  end
+
   factory :attachment do
     file  { fixture_file_upload(Rails.root.join('test', 'fixtures', 'images', 'image.jpeg'), 'image/jpeg') }
   end

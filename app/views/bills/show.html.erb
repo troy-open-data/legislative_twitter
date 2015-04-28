@@ -7,12 +7,14 @@
     <ul class="button-group">
       <li><%= link_to 'All', bills_path, class:'tiny button' %></li>
     </ul>
-    <ul class="admin button-group">
-      <li><%= link_to 'Edit', edit_bill_path(@bill), class:'tiny admin button' %></li>
-      <li><%= link_to('Delete', bill_path,
-                      method: "delete", class: 'tiny admin alert button',
-                      data: { confirm: 'Are you sure you want to delete this?'}) %></li>
-    </ul>
+    <% if admin_signed_in? %>
+        <ul class="admin button-group">
+          <li><%= link_to 'Edit', edit_bill_path(@bill), class:'tiny admin button' %></li>
+          <li><%= link_to('Delete', bill_path,
+                          method: "delete", class: 'tiny admin alert button',
+                          data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+        </ul>
+    <% end %>
     <!-- Download PDF Button -->
     <ul class="button-group">
       <li><%= link_to 'Download PDF',
@@ -27,12 +29,12 @@
           <li>
             <%= link_to 'with attachments',
                         bill_path(id: @bill.id, format: 'pdf',
-                                         attach: { attachments: true }) %>
+                                  attach: { attachments: true }) %>
           </li>
           <!--Bill only-->
           <li><%= link_to 'bill only',
                           bill_path(id: @bill.id, format: 'pdf',
-                                           attach: { false: false }) %></li>
+                                    attach: { false: false }) %></li>
         </ul>
       </li>
 
@@ -92,7 +94,9 @@
           <th>Changed Attributes</th>
           <th>Time</th>
           <th>&Delta;</th>
-          <th>Rollback</th>
+          <% if admin_signed_in? %>
+              <th class="admin">Rollback</th>
+          <% end %>
         </tr>
         </thead>
         <tbody>
@@ -104,9 +108,11 @@
                   <td><%= @bill.list_changed_attributes version %></td>
                   <td><%= version.created_at.to_formatted_s(:long_ordinal) %></td>
                   <td><a href="#" data-no-turbolink data-reveal-id="diffModal<%=version.id%>">View Diff</a></td>
-                  <td><%= link_to 'Rollback', revert_version_path(id: version.id),
-                                  method: :post %></td>
-                  <%= render 'application/diff_modal', version: version,
+                  <% if admin_signed_in? %>
+                      <td class="admin"><%= link_to 'Rollback', revert_version_path(id: version.id),
+                                                    method: :post %></td>
+                  <% end %>
+                  <%= render 'diff_modal', version: version,
                              bill: @bill,
                              version_count: @versions.count %>
                 </tr>

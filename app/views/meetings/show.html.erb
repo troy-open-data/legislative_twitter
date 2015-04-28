@@ -9,12 +9,14 @@
       <% end %>
       <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
     </ul>
-    <ul class="admin button-group">
-      <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
-      <li><%= link_to('Delete', meeting_path,
-                      method: "delete", class: 'tiny alert button',
-                      data: { confirm: 'Are you sure you want to delete this?'}) %></li>
-    </ul>
+    <% if admin_signed_in? %>
+        <ul class="admin button-group">
+          <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
+          <li><%= link_to('Delete', meeting_path,
+                          method: "delete", class: 'tiny alert button',
+                          data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+        </ul>
+    <% end %>
   </div>
 </div>
 
@@ -28,19 +30,21 @@
   </h2>
 
   <!--Admin-->
-  <div class="admin panel">
-    <h3>Meeting Admin:</h3>
-    <ul>
-      <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
-      <% agenda_option = @meeting.approved_agenda? ? 'Unapprove Agenda' : 'Approve Agenda' %>
-      <li><%= link_to agenda_option, toggle_agenda_path, remote: true, id:'agenda-toggle' %></li>
+  <% if admin_signed_in? %>
+      <div class="admin panel">
+        <h3>Meeting Admin:</h3>
+        <ul>
+          <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
+          <% agenda_option = @meeting.approved_agenda? ? 'Unapprove Agenda' : 'Approve Agenda' %>
+          <li><%= link_to agenda_option, toggle_agenda_path, remote: true, id:'agenda-toggle' %></li>
 
-      <% if @meeting.has_happened? %>
-          <% minutes_option = @meeting.approved_minutes? ? 'Unapprove Minutes' : 'Approve Minutes' %>
-          <li><%= link_to minutes_option, toggle_minutes_path, remote: true, id:'minutes-toggle' %></li>
-      <% end %>
-    </ul>
-  </div>
+          <% if @meeting.has_happened? %>
+              <% minutes_option = @meeting.approved_minutes? ? 'Unapprove Minutes' : 'Approve Minutes' %>
+              <li><%= link_to minutes_option, toggle_minutes_path, remote: true, id:'minutes-toggle' %></li>
+          <% end %>
+        </ul>
+      </div>
+  <% end %>
 
 
   <!--Details-->

@@ -1,7 +1,9 @@
 <!--Header and New Button-->
-<div class="row">
-  <%= link_to '+ New Bill', new_bill_path, class:'right admin button' %>
-</div>
+<% if admin_signed_in? %>
+    <div class="row">
+      <%= link_to '+ New Bill', new_bill_path, class:'right admin button' %>
+    </div>
+<% end %>
 
 <div class="row">
   <h2>Listing Legislation</h2>

@@ -1,33 +1,46 @@
-<div class="row">
-  <%= link_to '+ New Person', new_person_path, class: 'right admin button' %>
-</div>
+<% if admin_signed_in? %>
+    <div class="row">
+      <%= link_to '+ New Person', new_person_path, class: 'right admin button' %>
+    </div>
+<% end %>
 
 
 <h2>Council Representatives</h2>
 
 <table>
   <thead>
-    <tr>
-      <th>First</th>
-      <th>Last</th>
-      <th>Committees</th>
-      <th></th>
-      <th colspan="2" class="admin">Admin</th>
-    </tr>
+  <tr>
+    <th>First</th>
+    <th>Last</th>
+    <th>Committees</th>
+    <th></th>
+    <% if admin_signed_in? %>
+        <th colspan="2" class="admin">Admin</th>
+    <% end %>
+  </tr>
   </thead>
 
   <tbody>
-    <% @people.each do |person| %>
+  <% @people.each do |person| %>
       <tr>
         <td><%= person.first %></td>
         <td><%= person.last %></td>
         <td><%= person.organizations.map(&:name).join(', ') %></td>
         <td><%= link_to 'Show', person %></td>
-        <td class="admin"><%= link_to 'Edit', edit_person_path(person) %></td>
-        <td class="admin"><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if admin_signed_in? %>
+            <td class="admin"><%= link_to 'Edit', edit_person_path(person) %></td>
+            <td class="admin"><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
 
-<h3>Other Site Members</h3>
+<% if admin_signed_in? %>
+    <h3 class="admin">Admins</h3>
+    <ul>
+      <% Admin.all.each do |admin| %>
+          <li><%= link_to admin.email, admin %></li>
+      <% end %>
+    </ul>
+<% end %>

@@ -1,28 +1,34 @@
-<div class="row">
-<%= link_to '+ New Organization', new_organization_path, class: 'right admin button' %>
-</div>
+<% if admin_signed_in? %>
+    <div class="row">
+      <%= link_to '+ New Organization', new_organization_path, class: 'right admin button' %>
+    </div>
+<% end %>
 
 <h2>Listing Organizations</h2>
 
 <table>
   <thead>
-    <tr>
-      <th>Level</th>
-      <th>Name</th>
-      <th></th>
-      <th colspan="2" class="admin">Admin</th>
-    </tr>
+  <tr>
+    <th>Level</th>
+    <th>Name</th>
+    <th></th>
+    <% if admin_signed_in? %>
+        <th colspan="2" class="admin">Admin</th>
+    <% end %>
+  </tr>
   </thead>
 
   <tbody>
-    <% @organizations.each do |organization| %>
+  <% @organizations.each do |organization| %>
       <tr>
         <td><%= Organization::LEVELS[organization.level] + ", Lvl.#{organization.level}" %></td>
         <td><%= organization.name %></td>
         <td><%= link_to 'Show', organization %></td>
-        <td class="admin"><%= link_to 'Edit', edit_organization_path(organization) %></td>
-        <td class="admin"><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% if admin_signed_in? %>
+            <td class="admin"><%= link_to 'Edit', edit_organization_path(organization) %></td>
+            <td class="admin"><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
-    <% end %>
+  <% end %>
   </tbody>
 </table>
