@@ -40,7 +40,7 @@
     <h3 class="admin">Admins</h3>
     <ul>
       <% Admin.all.each do |admin| %>
-          <li><%= link_to admin.email, admin %></li>
+          <li><%= admin.email %></li>
       <% end %>
     </ul>
 <% end %>
