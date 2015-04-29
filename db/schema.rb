@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150428151018) do
+ActiveRecord::Schema.define(version: 20150429185159) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150428151018) do
     t.datetime "updated_at",                              null: false
     t.string   "legislation_type", default: "Resolution", null: false
     t.string   "short_title"
+    t.string   "enacting_formula"
   end
 
   create_table "folios", force: :cascade do |t|
@@ -124,6 +125,16 @@ ActiveRecord::Schema.define(version: 20150428151018) do
     t.inet     "last_sign_in_ip"
   end
 
+  create_table "recitals", force: :cascade do |t|
+    t.string   "clause"
+    t.string   "prefix"
+    t.integer  "bill_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "recitals", ["bill_id"], name: "index_recitals_on_bill_id", using: :btree
+
   create_table "sponsorships", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "folio_id"
@@ -160,6 +171,7 @@ ActiveRecord::Schema.define(version: 20150428151018) do
   add_foreign_key "folios", "bills"
   add_foreign_key "folios", "meetings"
   add_foreign_key "meetings", "organizations"
+  add_foreign_key "recitals", "bills"
   add_foreign_key "votes", "folios"
   add_foreign_key "votes", "people"
 end

@@ -24,7 +24,7 @@
                       :'aria-controls' => 'bill-pdf-options',
                       :'aria-expanded' => 'false' %><br />
         <!--Agenda Download Dropdown-->
-        <ul id="legislation-pdf-options" data-dropdown-content class="f-dropdown" aria-hidden="true">
+        <ul id="bill-pdf-options" data-dropdown-content class="f-dropdown" aria-hidden="true">
           <!--Bill with attachments-->
           <li>
             <%= link_to 'with attachments',
@@ -68,7 +68,20 @@
 
     <!--Bill Full Text-->
     <div class="content active" id="fulltext_tab">
-      <%= @bill.body.html_safe %>
+
+      <!--Preamble-->
+      <dl>
+        <% @bill.recitals.each do |recital| %>
+        <dt><%= recital.prefix %></dt>
+            <dd><%= recital.clause %></dd>
+        <% end %>
+      </dl>
+      <p class="enacting_formula">
+        <b><%= @bill.enacting_formula.upcase %></b>
+      </p>
+
+      <!--Main Content-->
+      <p><%= @bill.body.html_safe %></p>
       <!--todo: how does this impact security?-->
     </div>
 

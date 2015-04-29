@@ -19,6 +19,7 @@ class Bill < ActiveRecord::Base
   # Hooks
   before_save :clean_html
   before_save :nil_if_blank
+  before_validation :set_defaults
 
   # Scopes
   scope :resolutions, -> { where(legislation_type: 'Resolution') }
@@ -26,8 +27,13 @@ class Bill < ActiveRecord::Base
   scope :by_recent,   -> { order('created_at DESC') }
 
   # Model Relationships
-  has_many :folios, dependent: :destroy
-  has_many :meetings, through: :folios
+  has_many :recitals, dependent: :destroy
+  accepts_nested_attributes_for :recitals,
+                                reject_if: lambda {|attribute| attribute[:clause].blank?},
+                                allow_destroy: true
+
+  has_many :folios,   dependent: :destroy
+  has_many :meetings, through:   :folios
 
   has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments,
@@ -37,7 +43,8 @@ class Bill < ActiveRecord::Base
   paginates_per 5
 
   # Validations
-  validates_presence_of :title, :body, :legislation_type
+  validates_presence_of :title, :short_title, :body,
+                        :legislation_type, :enacting_formula
   validates :legislation_type, inclusion: LEGISLATION_TYPES
 
 
@@ -102,6 +109,10 @@ class Bill < ActiveRecord::Base
 
 
   private
+
+  def set_defaults
+    self.enacting_formula ||= 'Let it be hereby resolved'
+  end
 
 
   # Allows only whitelisted tags in body richtext

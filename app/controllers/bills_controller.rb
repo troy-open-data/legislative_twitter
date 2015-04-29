@@ -21,6 +21,7 @@ class BillsController < ApplicationController
   # GET /bills/new
   def new
     @bill = Bill.new
+    @bill.recitals.build
   end
 
   # GET /bills/1/edit
@@ -79,6 +80,12 @@ class BillsController < ApplicationController
                                         :short_title,
                                         :body,
                                         :legislation_type,
+                                        :enacting_formula,
+
+                                        recitals_attributes: [:prefix,
+                                                              :clause,
+                                                              :id,
+                                                              :_destroy],
 
                                         attachments_attributes: [:title,
                                                                  :description,

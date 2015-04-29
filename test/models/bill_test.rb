@@ -19,15 +19,26 @@ class BillTest < ActiveSupport::TestCase
     @bill = create(:bill)
   end
 
+  should 'have many recitals' do
+    assert should_have_many Bill, :recitals
+  end
+
   ## Validations ###############################################################
   test 'must have title' do
     assert should_validate_presence_of :title, :bill
+  end
+  should 'have short title' do
+    assert should_validate_presence_of :short_title, :bill
   end
   test 'must have body' do
     assert should_validate_presence_of :body, :bill
   end
   test 'must have bill type' do
     assert should_validate_presence_of :legislation_type, :bill
+  end
+  should 'have enacting formula default to \'Let it be hereby resolved\' if nil' do
+    bill = create(:bill, enacting_formula: nil)
+    assert_equal 'Let it be hereby resolved', bill.enacting_formula
   end
   test 'bill type must be from allowed types' do
     @bill.update(legislation_type: 'Invalid Type')

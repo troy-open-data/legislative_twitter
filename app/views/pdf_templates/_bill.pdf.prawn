@@ -7,6 +7,15 @@ pdf.text "#{bill.title.upcase}", align: :center, style: :bold
 pdf.stroke_horizontal_rule
 pdf.move_down font_size*2
 
+# Preamble
+bill.recitals.each do |recital|
+    pdf.text "<b>#{recital.prefix.upcase}</b> #{recital.clause};", inline_format: true
+  pdf.move_down font_size/2
+end
+pdf.move_down font_size
+pdf.text "#{bill.enacting_formula.upcase}", align: :center, style: :bold
+pdf.move_down font_size*2
+
 # sanitizes and splits the body based on paragraph markers
 body_paragraphs = prawnify_paragraphs(bill.body, font_size*1.25)
 # outputs each paragraph
@@ -22,8 +31,8 @@ pdf.bounding_box([0, pdf.cursor], :width => 3.5.in) do
   pdf.move_down font_size*3
   pdf.stroke_horizontal_rule
   pdf.move_down font_size*0.3
-  legal_name = "Ian H. Silverman, Esq."
-  legal_title = ", Corporation Counsel"
+  legal_name = 'Ian H. Silverman, Esq.'
+  legal_title = ', Corporation Counsel'
   pdf.formatted_text [ { text: legal_name, styles: [:bold, :italic] },
                        { text: legal_title } ]
 end
