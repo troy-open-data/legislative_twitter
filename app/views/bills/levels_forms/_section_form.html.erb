@@ -1,0 +1,27 @@
+<!--Add Level Field-->
+<fieldset>
+  <div class="row field">
+    <div class="small-12 columns">
+      <b>Section</b>
+      <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :heading %>
+    <%= f.text_field :heading, placeholder: 'heading (optional)' %>
+  </div>
+  <div class="field">
+    <%= f.label :subheading %>
+    <%= f.text_field :subheading, placeholder: 'subheading (optional)' %>
+  </div>
+  <div class="field">
+    <%= f.label :text %>
+    <%= f.text_area :text, placeholder: 'content' %>
+  </div>
+
+
+  <%= f.fields_for :sub_sections do |builder| %>
+      <%= render 'bills/levels_forms/sub_sections_form', f: builder %>
+  <% end %>
+  <%= f.link_to_add '+ add a subsection', :sub_sections, class: 'small button expand' %>
+</fieldset>

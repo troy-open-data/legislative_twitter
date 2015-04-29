@@ -17,7 +17,7 @@
 
 class SubSection < Level
   belongs_to :section, class_name: 'Section', foreign_key: 'level_id'
-  has_many :paragraphs, dependent: :destroy
+  has_many :paragraphs, foreign_key: 'level_id', dependent: :destroy
   accepts_nested_attributes_for :paragraphs,
                                 allow_destroy: true
 end

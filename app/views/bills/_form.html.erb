@@ -50,7 +50,7 @@
       <fieldset>
         <legend>Main Content</legend>
         <%= f.fields_for :sections do |builder| %>
-            <%= render 'level_form', f: builder %>
+            <%= render 'bills/levels_forms/section_form', f: builder %>
         <% end %>
         <%= f.link_to_add '+ add a section', :sections, class: 'small button expand' %>
 

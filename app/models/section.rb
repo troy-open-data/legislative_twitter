@@ -17,7 +17,7 @@
 
 class Section < Level
   belongs_to :bill
-  has_many :sub_sections, dependent: :destroy
+  has_many :sub_sections, foreign_key: 'level_id', dependent: :destroy
   accepts_nested_attributes_for :sub_sections,
                                 allow_destroy: true
 end

@@ -72,7 +72,7 @@
       <!--Preamble-->
       <dl>
         <% @bill.recitals.each do |recital| %>
-        <dd><%= recital.prefix.upcase %>  <%= recital.clause %></dd>
+            <dd><%= recital.prefix.upcase %>  <%= recital.clause %></dd>
         <% end %>
       </dl>
       <p class="enacting_formula">
@@ -80,18 +80,59 @@
       </p>
 
       <!--Main Content-->
+      <!--TODO: Refactor into helper-->
       <ol>
-      <% @bill.sections.each do |section| %>
-      <li>
-        <% if section.heading || section.subheading %>
-            <h4>
-        <%= section.heading %>
-        <small><%= section.subheading %></small>
-      </h4>
-            <% end %>
-          <p><%= section.text %></p>
-      </li>
-      <% end %>
+        <% @bill.sections.each do |section| %>
+            <li>
+              <% if section.heading || section.subheading %>
+                  <h4>
+                    <%= section.heading %>
+                    <small><%= section.subheading %></small>
+                  </h4>
+              <% end %>
+              <p><%= section.text %></p>
+
+              <ol>
+                <% section.sub_sections.each do |sub_section| %>
+                    <li>
+                      <% if sub_section.heading || sub_section.subheading %>
+                          <h4>
+                            <%= sub_section.heading %>
+                            <small><%= sub_section.subheading %></small>
+                          </h4>
+                      <% end %>
+                      <p><%= sub_section.text %></p>
+                      <ol>
+                        <% sub_section.paragraphs.each do |paragraph| %>
+                            <li>
+                              <% if paragraph.heading || paragraph.subheading %>
+                                  <h4>
+                                    <%= paragraph.heading %>
+                                    <small><%= paragraph.subheading %></small>
+                                  </h4>
+                              <% end %>
+                              <p><%= paragraph.text %></p>
+                              <ol>
+                                <% paragraph.sub_paragraphs.each do |sub_paragraph| %>
+                                    <li>
+                                      <% if sub_paragraph.heading || sub_paragraph.subheading %>
+                                          <h4>
+                                            <%= sub_paragraph.heading %>
+                                            <small><%= sub_paragraph.subheading %></small>
+                                          </h4>
+                                      <% end %>
+                                      <p><%= sub_paragraph.text %></p>
+                                    </li>
+                                <% end %>
+                              </ol>
+                            </li>
+                        <% end %>
+                      </ol>
+                    </li>
+                <% end %>
+              </ol>
+            </li>
+        <% end %>
       </ol>
 
       <p><%= @bill.body.html_safe %></p>
