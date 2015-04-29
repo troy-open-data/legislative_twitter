@@ -17,6 +17,4 @@
 
 class SubParagraph < Level
   belongs_to :paragraph, class_name: 'Paragraph', foreign_key: 'level_id'
-
-  validates :paragraph, presence: true
 end

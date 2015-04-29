@@ -72,8 +72,7 @@
       <!--Preamble-->
       <dl>
         <% @bill.recitals.each do |recital| %>
-        <dt><%= recital.prefix %></dt>
-            <dd><%= recital.clause %></dd>
+        <dd><%= recital.prefix.upcase %>  <%= recital.clause %></dd>
         <% end %>
       </dl>
       <p class="enacting_formula">
@@ -81,6 +80,20 @@
       </p>
 
       <!--Main Content-->
+      <ol>
+      <% @bill.sections.each do |section| %>
+      <li>
+        <% if section.heading || section.subheading %>
+            <h4>
+        <%= section.heading %>
+        <small><%= section.subheading %></small>
+      </h4>
+            <% end %>
+          <p><%= section.text %></p>
+      </li>
+      <% end %>
+      </ol>
+
       <p><%= @bill.body.html_safe %></p>
       <!--todo: how does this impact security?-->
     </div>

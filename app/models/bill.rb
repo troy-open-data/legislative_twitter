@@ -48,7 +48,7 @@ class Bill < ActiveRecord::Base
   paginates_per 5
 
   # Validations
-  validates_presence_of :title, :short_title, :body,
+  validates_presence_of :title, :short_title, #:body,
                         :legislation_type, :enacting_formula
   validates :legislation_type, inclusion: LEGISLATION_TYPES
 

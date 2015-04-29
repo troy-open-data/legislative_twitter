@@ -34,9 +34,6 @@ class BillTest < ActiveSupport::TestCase
   should 'have short title' do
     assert should_validate_presence_of :short_title, :bill
   end
-  test 'must have body' do
-    assert should_validate_presence_of :body, :bill
-  end
   test 'must have bill type' do
     assert should_validate_presence_of :legislation_type, :bill
   end

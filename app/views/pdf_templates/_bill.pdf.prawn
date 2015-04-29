@@ -9,20 +9,32 @@ pdf.move_down font_size*2
 
 # Preamble
 bill.recitals.each do |recital|
-    pdf.text "<b>#{recital.prefix.upcase}</b> #{recital.clause};", inline_format: true
+    pdf.text "<b>#{recital.prefix.upcase}</b> #{recital.clause}", inline_format: true
   pdf.move_down font_size/2
 end
 pdf.move_down font_size
 pdf.text "#{bill.enacting_formula.upcase}", align: :center, style: :bold
 pdf.move_down font_size*2
 
-# sanitizes and splits the body based on paragraph markers
-body_paragraphs = prawnify_paragraphs(bill.body, font_size*1.25)
-# outputs each paragraph
-body_paragraphs.each do |paragraph|
-  pdf.text paragraph, inline_format: true
-  pdf.move_down font_size
+# Sections
+bill.sections.each do |section|
+  if section.heading || section.subheading
+    pdf.text "<b>#{section.heading.upcase}</b> <i>#{section.subheading}</i>", inline_format: true
+  end
+
+  pdf.text section.text
+  pdf.move_down font_size*2
 end
+#
+# pdf.text "NOTE: THE BELOW CONTENT IS BEING DEPRICATED SHORTLY."
+#
+# # sanitizes and splits the body based on paragraph markers
+# body_paragraphs = prawnify_paragraphs(bill.body, font_size*1.25)
+# # outputs each paragraph
+# body_paragraphs.each do |paragraph|
+#   pdf.text paragraph, inline_format: true
+#   pdf.move_down font_size
+# end
 
 # Signature Block
 pdf.move_down font_size*2

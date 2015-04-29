@@ -17,9 +17,6 @@ class RecitalTest < ActiveSupport::TestCase
     should 'belong to a bill' do
       assert should_belong_to Recital, :bill
     end
-    should 'require a bill' do
-      assert should_validate_presence_of :bill_id, :recital
-    end
     should 'require a clause' do
       assert should_validate_presence_of :clause, :recital
     end

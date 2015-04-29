@@ -18,6 +18,6 @@
 class Paragraph < Level
   belongs_to :sub_section, class_name: 'SubSection', foreign_key: 'level_id'
   has_many :sub_paragraphs, dependent: :destroy
-
-  validates :sub_section, presence: true
+  accepts_nested_attributes_for :sub_paragraphs,
+                                allow_destroy: true
 end

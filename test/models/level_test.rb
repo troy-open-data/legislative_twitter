@@ -37,9 +37,6 @@ class LevelTest < ActiveSupport::TestCase
   end
 
   context 'a section' do
-    should 'require a bill' do
-      assert should_validate_presence_of :bill_id, :section
-    end
     context 'with associations' do
       should 'belong to a bill' do
         assert should_belong_to Section, :bill
@@ -51,9 +48,6 @@ class LevelTest < ActiveSupport::TestCase
   end
 
   context 'a subsection' do
-    should 'require a section' do
-      assert should_validate_presence_of :section, :sub_section
-    end
     context 'with associations' do
       should 'belong to a section' do
         assert should_belong_to SubSection, :section
@@ -65,9 +59,6 @@ class LevelTest < ActiveSupport::TestCase
   end
 
   context 'a paragraph' do
-    should 'require a sub-section' do
-      assert should_validate_presence_of :sub_section, :paragraph
-    end
     context 'with associations' do
       should 'belong to a sub-section' do
         assert should_belong_to Paragraph, :sub_section
@@ -79,9 +70,6 @@ class LevelTest < ActiveSupport::TestCase
   end
 
   context 'a sub-paragraph' do
-    should 'require a paragraph' do
-      assert should_validate_presence_of :paragraph, :sub_paragraph
-    end
     context 'with associations' do
       should 'belong to a paragraph' do
         assert should_belong_to SubParagraph, :paragraph

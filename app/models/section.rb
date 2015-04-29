@@ -18,6 +18,6 @@
 class Section < Level
   belongs_to :bill
   has_many :sub_sections, dependent: :destroy
-
-  validates :bill_id, presence: true
+  accepts_nested_attributes_for :sub_sections,
+                                allow_destroy: true
 end

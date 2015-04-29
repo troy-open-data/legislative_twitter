@@ -77,6 +77,7 @@ class BillsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def bill_params
+    level_attrs = [:heading, :subheading, :chapeau, :continuation, :text, :id, :_destroy]
     params.require(:bill).permit(:title,
                                         :short_title,
                                         :body,
@@ -88,15 +89,7 @@ class BillsController < ApplicationController
                                                               :id,
                                                               :_destroy],
 
-                                        levels_attributes: [:heading,
-                                                            :subheading,
-                                                            :chapeau,
-                                                            :continuation,
-                                                            :text,
-                                                            :type,
-                                                            :level_id,
-                                                            :id,
-                                                            :_destroy],
+                                        sections_attributes: level_attrs,
 
                                         attachments_attributes: [:title,
                                                                  :description,
