@@ -9,6 +9,7 @@
 #  updated_at       :datetime         not null
 #  legislation_type :string           default("Resolution"), not null
 #  short_title      :string
+#  enacting_formula :string
 #
 
 require 'test_helper'
@@ -21,6 +22,9 @@ class BillTest < ActiveSupport::TestCase
 
   should 'have many recitals' do
     assert should_have_many Bill, :recitals
+  end
+  should 'have many sections' do
+    assert should_have_many Bill, :sections
   end
 
   ## Validations ###############################################################

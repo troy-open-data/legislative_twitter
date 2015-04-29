@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429185159) do
+ActiveRecord::Schema.define(version: 20150429205503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,6 +76,22 @@ ActiveRecord::Schema.define(version: 20150429185159) do
 
   add_index "folios", ["bill_id"], name: "index_folios_on_bill_id", using: :btree
   add_index "folios", ["meeting_id"], name: "index_folios_on_meeting_id", using: :btree
+
+  create_table "levels", force: :cascade do |t|
+    t.text     "text"
+    t.string   "heading"
+    t.string   "subheading"
+    t.text     "chapeau"
+    t.text     "continuation"
+    t.string   "type"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "bill_id"
+    t.integer  "level_id"
+  end
+
+  add_index "levels", ["bill_id"], name: "index_levels_on_bill_id", using: :btree
+  add_index "levels", ["level_id"], name: "index_levels_on_level_id", using: :btree
 
   create_table "meetings", force: :cascade do |t|
     t.integer  "organization_id"
@@ -170,6 +186,8 @@ ActiveRecord::Schema.define(version: 20150429185159) do
 
   add_foreign_key "folios", "bills"
   add_foreign_key "folios", "meetings"
+  add_foreign_key "levels", "bills"
+  add_foreign_key "levels", "levels"
   add_foreign_key "meetings", "organizations"
   add_foreign_key "recitals", "bills"
   add_foreign_key "votes", "folios"

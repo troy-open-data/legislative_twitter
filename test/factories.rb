@@ -2,8 +2,22 @@
 include ActionDispatch::TestProcess
 
 FactoryGirl.define do
+  # Levels
+  factory :section do
+    bill
+  end
+  factory :sub_section do
+    section
+  end
+  factory :paragraph do
+    sub_section
+  end
+  factory :sub_paragraph do
+    paragraph
+  end
+
   factory :recital do
-    clause    'lorem'
+    clause    'cake is good'
     bill
   end
 

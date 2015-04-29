@@ -9,6 +9,7 @@
 #  updated_at       :datetime         not null
 #  legislation_type :string           default("Resolution"), not null
 #  short_title      :string
+#  enacting_formula :string
 #
 
 class Bill < ActiveRecord::Base
@@ -31,6 +32,8 @@ class Bill < ActiveRecord::Base
   accepts_nested_attributes_for :recitals,
                                 reject_if: lambda {|attribute| attribute[:clause].blank?},
                                 allow_destroy: true
+
+  has_many :sections, dependent: :destroy
 
   has_many :folios,   dependent: :destroy
   has_many :meetings, through:   :folios
