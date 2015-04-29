@@ -49,10 +49,15 @@
       <!--Main Content-->
       <fieldset>
         <legend>Main Content</legend>
-        <div class="field">
-          <%= f.label :body %>
-          <%= f.text_area :body, class:'jqte-test' %>
-        </div>
+        <%= f.fields_for :sections do |builder| %>
+            <%= render 'level_form', f: builder %>
+        <% end %>
+        <%= f.link_to_add '+ add a section', :sections, class: 'small button expand' %>
+
+        <!--<div class="field">-->
+          <!--<%#= f.label :body %>-->
+          <!--<%#= f.text_area :body, class:'jqte-test' %>-->
+        <!--</div>-->
       </fieldset>
 
       <!--Bill Appendices-->
