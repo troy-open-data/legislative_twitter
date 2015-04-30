@@ -105,6 +105,11 @@ class Bill < ActiveRecord::Base
     Bill.all.order('updated_at').last
   end
 
+  # @return [String] Label for collection check boxes ('RES #3 Short Title')
+  def collection_text_method
+    "#{numbering(:abbreviation)}  #{short_title}"
+  end
+
   private
 
   def set_defaults
