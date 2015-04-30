@@ -3,10 +3,10 @@ module BillsHelper
   # returns the truncated body of a legislation, stripped of tags, with a note
   # of how many attachments the legislation has.
   # this is in the format: "...lorem ipsum... (with 2 attachments)"
-  def truncated_body(legislation, length=200)
-    truncate(strip_tags(legislation.body), length: length) +
-        with_attachments(legislation)
-  end
+  # def truncated_body(legislation, length=200)
+  #   truncate(strip_tags(legislation.body), length: length) +
+  #       with_attachments(legislation)
+  # end
 
   # Returns nil or string containing attachment count for a piece of bill
   # in the format "(with 3 attachments)"

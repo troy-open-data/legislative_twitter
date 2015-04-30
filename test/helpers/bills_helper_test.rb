@@ -8,18 +8,18 @@ class BillsHelperTest < ActionView::TestCase
   # returns the truncated body of a bill, stripped of tags, with a note
   # of how many attachments the bill has.
   # this is in the format: "...lorem ipsum... (with 2 attachments)"
-  test 'truncated_body contains stripped body text' do
-    legislation = create(:bill)
-    stripped_body = strip_tags(legislation.body)
-    assert_match /#{stripped_body.first(20)}/i,
-                 truncated_body(legislation, 50)
-  end
-  test 'truncated_body contains attachment information if attachments' do
-    attached_legislation = create(:legislation_with_attachments,
-                                  body: 'lorem ipsum')
-    assert_match /attachment/i,
-                 truncated_body(attached_legislation)
-  end
+  # test 'truncated_body contains stripped body text' do
+  #   legislation = create(:bill)
+  #   stripped_body = strip_tags(legislation.body)
+  #   assert_match /#{stripped_body.first(20)}/i,
+  #                truncated_body(legislation, 50)
+  # end
+  # test 'truncated_body contains attachment information if attachments' do
+  #   attached_legislation = create(:legislation_with_attachments,
+  #                                 body: 'lorem ipsum')
+  #   assert_match /attachment/i,
+  #                truncated_body(attached_legislation)
+  # end
 
 
   # def with_attachments(bill)

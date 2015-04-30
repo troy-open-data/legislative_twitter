@@ -3,9 +3,7 @@ class BillsController < ApplicationController
 
   # GET /bills
   def index
-    @bills = Bill.by_recent
-                 .includes(:attachments)
-                 .page(params[:page])
+    @bills = Bill.by_recent.page(params[:page])
   end
 
   # GET /bills/1
@@ -77,7 +75,6 @@ class BillsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def bill_params
-    level_attrs = [:heading, :subheading, :chapeau, :continuation, :text, :id, :_destroy]
     params.require(:bill).permit(:title,
                                  :short_title,
                                  :body,

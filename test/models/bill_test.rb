@@ -92,7 +92,7 @@ class BillTest < ActiveSupport::TestCase
   test 'should return changed attributes in a given version' do
     @bill.update(title: 'New Title')
     @bill.save!
-    @bill.update(body: 'New Body')
+    @bill.update(title: 'New Title 2')
     @bill.save!
 
     version = @bill.versions[-2]

@@ -18,7 +18,6 @@ class Bill < ActiveRecord::Base
   NULL_ATTRS = %w( short_title )
 
   # Hooks
-  before_save :clean_html
   before_save :nil_if_blank
   before_validation :set_defaults
 
@@ -45,7 +44,7 @@ class Bill < ActiveRecord::Base
                                 reject_if: lambda {|attribute| attribute[:file].blank?},
                                 allow_destroy: true
   has_paper_trail
-  paginates_per 5
+  paginates_per 10
 
   # Validations
   validates_presence_of :title, :short_title, #:body,
@@ -117,15 +116,6 @@ class Bill < ActiveRecord::Base
 
   def set_defaults
     self.enacting_formula ||= 'Let it be hereby resolved'
-  end
-
-
-  # Allows only whitelisted tags in body richtext
-  def clean_html
-    # self.body = Sanitize.fragment(body, Sanitize::Config::BASIC)
-    self.body = Sanitize.fragment(body,
-                                  elements: %w{b i u strikethrough strike sub sup h1 h2 h3 h4 h5 h6 p b},
-                                  attributes: {})
   end
 
   def nil_if_blank

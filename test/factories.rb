@@ -33,13 +33,9 @@ FactoryGirl.define do
   factory :bill do
     title             'Resolution for Free Cake'
     short_title       'Free Cake'
-    body              'We should all have free cake.'
 
     factory :legislation_with_attachments do
-
-      transient do
-        attachments_count 5
-      end
+      transient { attachments_count 5 }
 
       after(:create) do |bill, evaluator|
         create_list(:attachment, evaluator.attachments_count,
