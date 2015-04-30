@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430154706) do
+ActiveRecord::Schema.define(version: 20150430170320) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -150,6 +150,26 @@ ActiveRecord::Schema.define(version: 20150430154706) do
 
   add_index "recitals", ["bill_id"], name: "index_recitals_on_bill_id", using: :btree
 
+  create_table "roll_call_votes", force: :cascade do |t|
+    t.string   "type"
+    t.text     "notes"
+    t.integer  "motion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "roll_call_votes", ["motion_id"], name: "index_roll_call_votes_on_motion_id", using: :btree
+
+  create_table "roll_calls", force: :cascade do |t|
+    t.string   "type"
+    t.text     "notes"
+    t.integer  "motion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "roll_calls", ["motion_id"], name: "index_roll_calls_on_motion_id", using: :btree
+
   create_table "sponsorships", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "motion_id"
@@ -175,13 +195,15 @@ ActiveRecord::Schema.define(version: 20150430154706) do
   create_table "votes", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "motion_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "data"
+    t.integer  "roll_call_id"
   end
 
   add_index "votes", ["motion_id"], name: "index_votes_on_motion_id", using: :btree
   add_index "votes", ["person_id"], name: "index_votes_on_person_id", using: :btree
+  add_index "votes", ["roll_call_id"], name: "index_votes_on_roll_call_id", using: :btree
 
   add_foreign_key "levels", "bills"
   add_foreign_key "levels", "levels"
@@ -190,6 +212,9 @@ ActiveRecord::Schema.define(version: 20150430154706) do
   add_foreign_key "motions", "bills"
   add_foreign_key "motions", "meetings"
   add_foreign_key "recitals", "bills"
+  add_foreign_key "roll_call_votes", "motions"
+  add_foreign_key "roll_calls", "motions"
   add_foreign_key "votes", "motions"
   add_foreign_key "votes", "people"
+  add_foreign_key "votes", "roll_calls"
 end

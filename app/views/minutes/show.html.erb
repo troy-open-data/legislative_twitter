@@ -57,10 +57,10 @@
 <h3>Local Law</h3>
 
 <!--List Bills by type-->
-<% @meeting.grouped_motions.each do |legislation_type, folios| %>
+<% @meeting.grouped_motions.each do |legislation_type, motions| %>
     <h4><%= legislation_type %></h4>
-    <% folios.each do |folio| %>
-        <% bill = folio.bill %>
+    <% motions.each do |motion| %>
+        <% bill = motion.bill %>
         <h5><%= bill.numbering %></h5>
         <dl>
           <dt>Title</dt>
@@ -69,13 +69,15 @@
             (<%= link_to 'pdf', bill_path(bill, format: 'pdf') %>)
           </dd>
           <dt>Sponsor(s)</dt>
-          <dd><%= folio.sponsors_list %></dd>
+          <dd><%= motion.sponsors_list %></dd>
           <dt>Notes</dt>
-          <dd><%= folio.notes || 'No notes recorded' %></dd>
-          <dt>Final Vote (yea-nay-abstain)</dt>
-          <dd>
-            <%= print_votes(folio) %>
-          </dd>
+          <dd><%= motion.notes || 'No notes recorded' %></dd>
+          <% motion.roll_calls.each do |roll_call| %>
+              <dt>Vote (yea-nay-abstain)</dt>
+              <dd>
+                <%= print_votes(roll_call) %>
+              </dd>
+          <% end %>
         </dl>
     <% end %>
 <% end %>

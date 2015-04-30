@@ -1,0 +1,34 @@
+# == Schema Information
+#
+# Table name: roll_calls
+#
+#  id         :integer          not null, primary key
+#  type       :string
+#  notes      :text
+#  motion_id  :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+require 'test_helper'
+
+class RollCallTest < ActiveSupport::TestCase
+  context 'a valid roll call' do
+    should 'belong to a motion' do
+      assert should_belong_to RollCall, :motion
+    end
+    should 'have many votes' do
+      assert should_have_many RollCall, :votes
+    end
+    context 'with validations' do
+      should 'ensure type is selected from allowed types' do
+        assert_raise(ActiveRecord::RecordInvalid) do
+          build(:roll_call, type: 'Not Allowed').save!
+        end
+      end
+      should 'have a type' do
+        assert should_validate_presence_of :type, :roll_call
+      end
+    end
+  end
+end

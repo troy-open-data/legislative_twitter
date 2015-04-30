@@ -8,8 +8,8 @@ module MeetingsHelper
     end
   end
 
-  def print_votes(folio)
-    votes = folio.votes
+  def print_votes(roll_call)
+    votes = roll_call.votes
     if votes.empty?
       'no vote recorded'
     else

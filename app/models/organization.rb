@@ -21,7 +21,7 @@ class Organization < ActiveRecord::Base
   has_many :people, through: :memberships
 
   # Validations
-  validates :name, presence: true
-  validates :level, presence: true
-  validates :level, inclusion: { in: 0...(LEVELS.length) }
+  validates :name,  presence: true
+  validates :level, presence: true,
+                    inclusion: { in: 0...(LEVELS.length) }
 end

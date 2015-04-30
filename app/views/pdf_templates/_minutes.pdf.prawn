@@ -28,14 +28,16 @@ pdf.move_down font_size
 pdf.text 'LOCAL LAW', style: :bold, align: :center
 pdf.move_down font_size
 
-# Legislations Table
-@meeting.grouped_motions.each do |type, folios|
-  data = [[ {content: type.pluralize(folios.count).upcase, colspan: 3} ]]
-  folios.each do |folio|
-    data << [folio.bill.numbering(:integer).to_s+'.', {content:folio.bill.title, colspan: 2}]
-    data << ['','Sponsor(s)', folio.sponsors_list]
-    data << ['','Notes', folio.notes]
-    data << ['','Final Vote (yea-nay-abstain)', print_votes(folio)]
+# Motions Table
+@meeting.grouped_motions.each do |type, motions|
+  data = [[ {content: type.pluralize(motions.count).upcase, colspan: 3} ]]
+  motions.each do |motion|
+    data << [motion.bill.numbering(:integer).to_s+'.', {content:motion.bill.title, colspan: 2}]
+    data << ['','Sponsor(s)', motion.sponsors_list]
+    data << ['','Notes', motion.notes]
+    motions.roll_calls.each do |roll_call|
+      data << ['',"#{roll_call.type} Vote (yea-nay-abstain)", print_votes(roll_call)]
+    end
     2.times { data << ['','',''] }
   end
   pdf.table(data, header:true) do

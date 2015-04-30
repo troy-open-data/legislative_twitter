@@ -68,7 +68,13 @@ FactoryGirl.define do
     last  'Washington'
   end
 
+  factory :roll_call do
+    type  RollCall::TYPES[0]
+    motion
+  end
+
   factory :vote do
     data 0
+    roll_call
   end
 end

@@ -2,12 +2,13 @@
 #
 # Table name: votes
 #
-#  id         :integer          not null, primary key
-#  person_id  :integer
-#  motion_id  :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  data       :integer
+#  id           :integer          not null, primary key
+#  person_id    :integer
+#  motion_id    :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  data         :integer
+#  roll_call_id :integer
 #
 
 require 'test_helper'
@@ -39,14 +40,17 @@ class VoteTest < ActiveSupport::TestCase
     should 'have data' do
       assert should_validate_presence_of :data, :vote
     end
-    should 'have only one vote per person per motion' do
+    should 'belong to a roll call' do
+      assert should_belong_to Vote, :roll_call
+    end
+    should 'have only one vote per person per roll call' do
       vote = create(:vote)
-      dup_vote =    build(:vote, person: vote.person, motion: vote.motion)
+      dup_vote =    build(:vote, person: vote.person, roll_call: vote.roll_call)
       refute dup_vote.save, 'duplicate vote was saved'
-      valid_vote =  build(:vote, person: vote.person, motion: create(:motion))
+      valid_vote =  build(:vote, person: vote.person, roll_call: create(:roll_call))
       assert valid_vote.save, 'valid vote for duplicate person was not saved'
-      valid_vote =  build(:vote, motion: vote.motion, person: create(:person))
-      assert valid_vote.save, 'valid vote for duplicate motion was not saved'
+      valid_vote =  build(:vote, roll_call: vote.roll_call, person: create(:person))
+      assert valid_vote.save, 'valid vote for duplicate roll call was not saved'
     end
   end
 

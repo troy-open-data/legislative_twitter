@@ -28,8 +28,11 @@ class MotionTest < ActiveSupport::TestCase
       should 'have many people (sponsors) through sponsorships' do
         assert should_have_many_through(Motion, :sponsors, :sponsorships)
       end
-      should 'have many people (voters) through votes' do
-        assert should_have_many_through(Motion, :voters, :votes)
+      should 'have many votes through roll calls' do
+        assert should_have_many_through(Motion, :votes, :roll_calls)
+      end
+      should 'have many roll call votes' do
+        assert should_have_many(Motion, :roll_calls)
       end
     end
   end
