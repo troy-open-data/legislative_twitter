@@ -1,0 +1,30 @@
+<div class="row field">
+  <div class="small-9 columns">
+    <%= f.select :type, RollCall.subclass_human.zip(RollCall.subclass_names)  %>
+  </div>
+  <div class="small-3 columns">
+    <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
+  </div>
+</div>
+
+  <div class="field">
+    <%= f.label :notes %>
+    <%= f.text_area :notes, placeholder: 'regarding the vote' %>
+  </div>
+
+  <div class="row field">
+      <div class='small-2 columns'><%= label_tag :votes %></div>
+      <div class='small-10 columns'>
+        <!--TODO: Logic out of view-->
+        <%
+           voters.each do |voter|
+             f.object.votes.build(person: voter) if f.object.votes.where(person: voter).empty?
+           end
+        %>
+
+        <%= f.fields_for :votes do |builder| %>
+            <%= render 'vote_form', f: builder, voter: builder.object.person %>
+        <% end %>
+      </div>
+  </div>
+

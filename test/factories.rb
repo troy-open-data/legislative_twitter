@@ -69,7 +69,6 @@ FactoryGirl.define do
   end
 
   factory :roll_call do
-    type  RollCall::TYPES[0]
     motion
   end
 

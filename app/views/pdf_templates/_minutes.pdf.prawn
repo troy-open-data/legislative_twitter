@@ -35,8 +35,8 @@ pdf.move_down font_size
     data << [motion.bill.numbering(:integer).to_s+'.', {content:motion.bill.title, colspan: 2}]
     data << ['','Sponsor(s)', motion.sponsors_list]
     data << ['','Notes', motion.notes]
-    motions.roll_calls.each do |roll_call|
-      data << ['',"#{roll_call.type} Vote (yea-nay-abstain)", print_votes(roll_call)]
+    motion.roll_calls.each do |roll_call|
+      data << ['', roll_call.type + ' Vote', print_votes(roll_call) + " (yea-nay-abstain)"]
     end
     2.times { data << ['','',''] }
   end

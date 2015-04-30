@@ -20,15 +20,19 @@ class RollCallTest < ActiveSupport::TestCase
     should 'have many votes' do
       assert should_have_many RollCall, :votes
     end
+    should 'have a default type of Accept/Reject' do
+      roll_call = create(:roll_call)
+      assert_equal Pass.name, roll_call.type
+    end
     context 'with validations' do
-      should 'ensure type is selected from allowed types' do
-        assert_raise(ActiveRecord::RecordInvalid) do
-          build(:roll_call, type: 'Not Allowed').save!
-        end
-      end
-      should 'have a type' do
-        assert should_validate_presence_of :type, :roll_call
-      end
+      # should 'ensure type is selected from allowed types' do
+      #   assert_raise(ActiveRecord::RecordInvalid) do
+      #     build(:roll_call, type: 'Not Allowed').save!
+      #   end
+      # end
+      # should 'have a type' do
+      #   assert should_validate_presence_of :type, :roll_call
+      # end
     end
   end
 end

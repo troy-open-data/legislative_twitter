@@ -5,7 +5,6 @@
 <h2>Meeting in Progress</h2>
 
 <p>Meeting docket: <%= pluralize @meeting.bills.count, 'bill' %></p>
-
 <%= nested_form_for @meeting do |f| %>
     <fieldset>
       <legend>Attendance</legend>
@@ -28,7 +27,7 @@
     <% @meeting.grouped_motions.each do |legislation_type, motions| %>
         <h3><%= pluralize motions.count, legislation_type %></h3>
         <%= f.fields_for :motions, motions do |fa| %>
-            <%= render 'motion_form', f: fa, motion: fa.object %>
+            <%= render 'motion_form', f: fa, motion: fa.object, members: @meeting.organization.people %>
         <% end %>
     <% end %>
     <%= f.submit 'Finish Meeting', class: 'button expand' %>

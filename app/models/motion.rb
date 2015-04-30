@@ -16,7 +16,8 @@ class Motion < ActiveRecord::Base
   has_many :roll_calls,         dependent: :destroy
   has_many :votes,              through: :roll_calls
   accepts_nested_attributes_for :roll_calls,
-                                reject_if: ->(attr) { attr[:type].blank? },
+                                # Reject if no votes are recorded or the type is blank
+                                reject_if: ->(attr) { attr[:type].blank? || !(attr[:votes_attributes].map{|k,v| v.keys}.flatten.uniq.include?('data')) },
                                 allow_destroy: true
 
   has_many :sponsorships, dependent:  :destroy

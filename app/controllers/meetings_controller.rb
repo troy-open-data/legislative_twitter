@@ -21,10 +21,7 @@ class MeetingsController < ApplicationController
                                 organization: :people).find(params[:id])
 
     @meeting.motions.each do |motion|
-      @meeting.organization.people.each do |member|
-        motion.votes.where(person: member).first ||
-          motion.votes.build(person: member)
-      end
+      motion.roll_calls.build if motion.roll_calls.empty?
     end
   end
 
@@ -102,10 +99,14 @@ class MeetingsController < ApplicationController
                                                          :id,
                                                          :_destroy,
                                                          sponsor_ids:  [],
-                                                         votes_attributes: [:id,
-                                                                            :person_id,
-                                                                            :folio_id,
-                                                                            :data,
-                                                                            :_destroy]])
+                                                         roll_calls_attributes: [:type,
+                                                                                 :notes,
+                                                                                 :id,
+                                                                                 :_destroy,
+                                                                                 votes_attributes: [:id,
+                                                                                                    :person_id,
+                                                                                                    :folio_id,
+                                                                                                    :data,
+                                                                                                    :_destroy]]])
   end
 end

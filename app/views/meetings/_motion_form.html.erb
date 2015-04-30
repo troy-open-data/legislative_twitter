@@ -2,7 +2,6 @@
   <legend><%= motion.bill.numbering %></legend>
 
   <div class="row field">
-    <!--<div class='small-2 columns'><%#= label_tag 'Title' %></div>-->
     <div class='small-12 columns'><p><%= motion.bill.title %></p></div>
   </div>
 
@@ -16,7 +15,7 @@
     <div class='small-10 columns'>
       <%=
           f.collection_check_boxes(:sponsor_ids,
-                                   @meeting.organization.people,
+                                   members,
                                    :id,
                                    :name)
       %>
@@ -47,14 +46,13 @@
         </div>
       </div>
 
-      <div class="row field">
-        <div class='small-2 columns'><%= label_tag :votes %></div>
-        <div class='small-10 columns'>
-          <%= f.fields_for :votes do |builder| %>
-              <%= render 'vote_form', f: builder %>
-          <% end %>
-        </div>
-      </div>
+        <%= f.fields_for :roll_calls do |builder| %>
+            <fieldset>
+              <legend>Roll Call Vote</legend>
+            <%= render 'roll_call_form', f: builder, voters: members %>
+            </fieldset>
+        <% end %>
+        <%= f.link_to_add '+ add a roll call vote', :roll_calls, class: 'small button expand' %>
       </p>
     </div>
 
