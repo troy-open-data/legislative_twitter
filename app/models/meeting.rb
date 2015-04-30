@@ -14,9 +14,25 @@
 class Meeting < ActiveRecord::Base
   # Model Variables
   DEFAULT_LOCATION = 'Suite 5, 433 River Street, Troy, NY 12180'
+  PROCEDURE =   'Pursuant to Section 2.72-2 entitled "Public Forum" of the '\
+                'Special Rules of Order of the Troy City Council a period of '\
+                'time shall be designated during each regular or special '\
+                'meeting of the City Council as a public forum during which '\
+                'citizens of the City shall be permitted to address the Council '\
+                'on legislation on that meeting\'s agenda and on any subject '\
+                'appropriate to the conduct ofTroy City government. Length of '\
+                'time allotted for citizen comment shall be no longer than '\
+                'five (5) minutes per speaker. At the completion of the agenda, '\
+                'citizen\'s comment shall be no longer than five (5) minutes per '\
+                'speaker appropriate to any subject to the conduct of Troy '\
+                'City government.'
 
-  # Model Relationships
   belongs_to :organization
+
+  has_many :meeting_items, dependent: :destroy
+  accepts_nested_attributes_for :meeting_items,
+                                reject_if: ->(attr) { attr[:title].blank? && attr[:text].blank? },
+                                allow_destroy: true
 
   has_many :attendances, dependent: :destroy
   has_many :people, through: :attendances

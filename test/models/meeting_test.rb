@@ -21,14 +21,14 @@ class MeetingTest < ActiveSupport::TestCase
   end
 
   ## Associations ##############################################################
-  test 'belongs to one organization' do
+  should 'belong to one organization' do
     assert should_belong_to(Meeting, :organization)
   end
 
-  test 'has many motions' do
+  should 'have many motions' do
     assert should_have_many(Meeting, :motions)
   end
-  test 'can destroy dependent folios' do
+  should 'destroy dependent motions' do
     @motion = Motion.new(meeting: @meeting)
     @motion.save!
     assert Motion.exists? @motion.id
@@ -36,8 +36,11 @@ class MeetingTest < ActiveSupport::TestCase
     @meeting.destroy!
     refute Motion.exists? @motion.id
   end
-  test 'has many bills' do
+  should 'have many bills' do
     assert should_have_many(Meeting, :bills)
+  end
+  should 'have many meeting items' do
+    assert should_have_many Meeting, :meeting_items
   end
 
   ## Validations ###############################################################

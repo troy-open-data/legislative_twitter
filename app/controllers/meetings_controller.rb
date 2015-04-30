@@ -31,6 +31,8 @@ class MeetingsController < ApplicationController
   # GET /meetings/new
   def new
     @meeting = Meeting.new
+    item_titles = ['Pledge of Allegiance', 'Roll Call', 'Good News Agenda']
+    item_titles.each { |title| @meeting.meeting_items.build(title: title) }
   end
 
   # GET /meetings/1/edit
@@ -90,6 +92,10 @@ class MeetingsController < ApplicationController
     params.require(:meeting).permit(:organization_id, :date_and_time, :location,
                                     bill_ids: [],
                                     person_ids: [],
+                                    meeting_items_attributes: [:title,
+                                                               :text,
+                                                               :id,
+                                                               :_destroy],
                                     motions_attributes: [:notes,
                                                          :bill_id,
                                                          :meeting_id,

@@ -15,17 +15,17 @@ pdf.text attendance, align: :center
 pdf.move_down font_size*2
 
 
-# Intro Text
-data = [["Pledge of Allegiance\nRoll Call\nGood News Agenda\nVacancy List"],
-        ["Pursuant to Section 2.72-2 entitled \"Public Forum\" of the Special Rules ofOrder of the Troy City Council a period of time shall be designated during each regular or special meeting of the City Council as a public forum during which citizens of the City shall be permitted to address the Council on bill on that meeting's agenda and on any subject appropriate to the conduct ofTroy City government. Length of time allotted for citizen comment shall be no longer than five (5) minutes per speaker. At the completion of the agenda, citizen's comment shall be no longer than five (5) minutes per speaker appropriate to any subject to the conduct of Troy City government."],
-        ["\nLOCAL LAW"]]
-pdf.table(data) do
-  cells.borders = []
-  # row(1).font_style = :italic
-  row(2).font_style = :bold
-  row(2).style align: :center
+# "Intro" Minutes Information
+meeting.meeting_items.each do |item|
+  pdf.text(item.title, style: :bold)  if item.title
+  pdf.text(item.text)                 if item.text
 end
+pdf.move_down font_size
 
+pdf.text Meeting::PROCEDURE
+pdf.move_down font_size
+
+pdf.text 'LOCAL LAW', style: :bold, align: :center
 pdf.move_down font_size
 
 # Legislations Table

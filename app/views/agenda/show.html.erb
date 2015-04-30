@@ -71,15 +71,14 @@
     </div>
 <% end %>
 
-<!--<dl>-->
-  <!--<dt>Pledge of Allegiance</dt>-->
-  <!--<dt>Roll Call</dt>-->
-  <!--<dt>Good News Agenda</dt>-->
-  <!--<dt>Vacancy List</dt>-->
-<!--</dl>-->
-
-<!--Legal paragraph thing-->
-<!--<p>Pursuant to Section 2.72-2 entitled "Public Forum" of the Special Rules ofOrder of the Troy City Council a period of time shall be designated during each regular or special meeting of the City Council as a public forum during which citizens of the City shall be permitted to address the Council on legislation on that meeting's agenda and on any subject appropriate to the conduct ofTroy City government. Length of time allotted for citizen comment shall be no longer than five (5) minutes per speaker. At the completion of the agenda, citizen's comment shall be no longer than five (5) minutes per speaker appropriate to any subject to the conduct of Troy City government.</p>-->
+<!--Intro Section-->
+<dl>
+<% @meeting.meeting_items.each do |item| %>
+    <dt><%= item.title %></dt>
+      <dd><%= item.text %></dd>
+<% end %>
+</dl>
+<p><%= Meeting::PROCEDURE %></p>
 
 <h3>Local Law</h3>
 
