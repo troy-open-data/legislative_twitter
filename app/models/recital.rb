@@ -9,7 +9,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class Recital < ActiveRecord::Base
   before_validation :set_defaults
 

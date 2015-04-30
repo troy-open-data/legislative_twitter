@@ -1,3 +1,4 @@
+# helper module for meetings views
 module MeetingsHelper
   def list_attendees(meeting)
     if meeting.people.empty?
@@ -12,7 +13,7 @@ module MeetingsHelper
     if votes.empty?
       'no vote recorded'
     else
-      "#{votes.yeas.count.to_s}-#{votes.nays.count.to_s}-#{votes.abstains.count.to_s}"
+      "#{votes.yeas.count}-#{votes.nays.count}-#{votes.abstains.count}"
     end
   end
 end

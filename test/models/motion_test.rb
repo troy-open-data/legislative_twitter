@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: folios
+# Table name: motions
 #
 #  id         :integer          not null, primary key
 #  meeting_id :integer
@@ -12,8 +12,8 @@
 
 require 'test_helper'
 
-class FolioTest < ActiveSupport::TestCase
-  context 'a valid folio' do
+class MotionTest < ActiveSupport::TestCase
+  context 'a valid motion' do
     setup do
       @motion = create(:motion)
     end
@@ -34,7 +34,7 @@ class FolioTest < ActiveSupport::TestCase
     end
   end
 
-  context 'folio' do
+  context 'motion' do
     setup do
       @motion = create(:motion)
     end
@@ -47,8 +47,9 @@ class FolioTest < ActiveSupport::TestCase
       end
       context 'when there are sponsors' do
         setup { @motion.sponsors << create(:person) }
+
         should 'contain sponsor names' do
-          assert_match /#{@motion.sponsors[0].name}/, @motion.sponsors_list
+          assert_match(/#{@motion.sponsors[0].name}/, @motion.sponsors_list)
         end
       end
     end

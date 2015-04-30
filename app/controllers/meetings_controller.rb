@@ -1,3 +1,4 @@
+# Meetings actions
 class MeetingsController < ApplicationController
   before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
@@ -5,7 +6,7 @@ class MeetingsController < ApplicationController
   # GET /meetings.json
   def index
     @meetings = Meeting.includes(:organization).order('date_and_time DESC')
-    @grouped_meetings = @meetings.group_by{|meeting| meeting.organization}
+    @grouped_meetings = @meetings.group_by(&:organization)
   end
 
   # GET /meetings/1
@@ -15,13 +16,14 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/start_meeting
   def start_meeting
     @meeting = Meeting.includes(motions: [:bill,
-                                         :sponsors,
-                                         votes: :person],
+                                          :sponsors,
+                                          votes: :person],
                                 organization: :people).find(params[:id])
 
     @meeting.motions.each do |motion|
       @meeting.organization.people.each do |member|
-        motion.votes.where(person: member).first || motion.votes.build(person: member)
+        motion.votes.where(person: member).first ||
+          motion.votes.build(person: member)
       end
     end
   end
@@ -76,26 +78,28 @@ class MeetingsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting
     @meeting = Meeting.find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet,
+  #   only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:organization_id, :date_and_time, :location,
                                     bill_ids: [],
                                     person_ids: [],
-                                    motionss_attributes: [:notes,
-                                                          :bill_id,
-                                                          :meeting_id,
-                                                          :id,
-                                                          :_destroy,
-                                                          sponsor_ids:  [],
-                                                          votes_attributes: [:id,
-                                                                             :person_id,
-                                                                             :folio_id,
-                                                                             :data,
-                                                                             :_destroy]])
+                                    motions_attributes: [:notes,
+                                                         :bill_id,
+                                                         :meeting_id,
+                                                         :id,
+                                                         :_destroy,
+                                                         sponsor_ids:  [],
+                                                         votes_attributes: [:id,
+                                                                            :person_id,
+                                                                            :folio_id,
+                                                                            :data,
+                                                                            :_destroy]])
   end
 end

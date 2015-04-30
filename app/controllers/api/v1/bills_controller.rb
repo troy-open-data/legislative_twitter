@@ -1,27 +1,21 @@
-module API::V1
-  class BillsController < ApiVersionsController
-    before_action :set_bill, only: :show
-
-    # @api {get} /Bills List bill
-    # @apiName get_bills
-    # @apiGroup Bills
-    def index
-      @bills = Bill.all
-      if params[:type].present?
-        @bills = @bills.where(legislation_type: params[:type])
+module API
+  module V1
+    # Actions for the v1 Bills API
+    class BillsController < ApiVersionsController
+      # GET /api/bills.json
+      def index
+        @bills = case
+                 when params[:type].present?
+                   Bill.where(legislation_type: params[:type])
+                 else
+                   Bill.all
+                 end
       end
-    end
 
-    # @api {get} /bill/:id Show bill
-    # @apiName get_bill
-    # @apiGroup Bills
-    def show
-    end
-
-    private
-
-    def set_bill
-      @bill = Bill.find(params[:id])
+      # GET /api/bills/1.json
+      def show
+        @bill = Bill.find(params[:id])
+      end
     end
   end
 end

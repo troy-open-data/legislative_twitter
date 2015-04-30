@@ -1,4 +1,5 @@
 module API
+  # Base controller class for all versions of the API
   class BaseController < ApplicationController
     abstract!
     # Prevent CSRF attacks by raising an exception.

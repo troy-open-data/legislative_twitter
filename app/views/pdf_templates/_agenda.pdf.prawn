@@ -28,7 +28,7 @@ meeting.grouped_motions.each do |legislation_type, motions|
   data = [[ {content: legislation_type.pluralize(motions.count).upcase, colspan: 2} ]]
   motions.each do |folio|
     legislation = folio.bill
-    data << [legislation.legislative_numbering(:integer).to_s+'.', legislation.title]
+    data << [legislation.numbering(:integer).to_s+'.', legislation.title]
   end
   pdf.table(data, header:true) do
     cells.borders = []

@@ -4,7 +4,7 @@
     <!-- Action Buttons -->
     <ul class="button-group">
       <li><%= link_to 'Meeting', meeting_path(@meeting), class:'tiny button' %></li>
-      <% if @meeting.has_happened? %>
+      <% if @meeting.happened? %>
           <li><%= link_to 'Minutes', minutes_path(@meeting), class: 'tiny button'%></li>
       <% end %>
       <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
@@ -89,7 +89,7 @@
       <h4><%= legislation_type %></h4>
       <% folios.each do |folio| %>
           <% legislation = folio.bill %>
-          <dt><%= legislation.legislative_numbering :abbreviation %></dt>
+          <dt><%= legislation.numbering :abbreviation %></dt>
           <dd><%= short_title legislation %>
             (<%= link_to 'html', bill_path(legislation) %>)
             (<%= link_to 'pdf', bill_path(legislation, format: 'pdf') %>)

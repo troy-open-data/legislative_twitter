@@ -36,7 +36,7 @@ class BillTest < ActiveSupport::TestCase
   test 'must have bill type' do
     assert should_validate_presence_of :legislation_type, :bill
   end
-  should 'have enacting formula default to \'Let it be hereby resolved\' if nil' do
+  should 'have enacting formula default to \'Let it be hereby resolved\'' do
     bill = create(:bill, enacting_formula: nil)
     assert_equal 'Let it be hereby resolved', bill.enacting_formula
   end
@@ -60,20 +60,17 @@ class BillTest < ActiveSupport::TestCase
                  Bill.by_recent
   end
   # test 'latest'
-
-
   ## Instance Methods ##########################################################
-
   # Text Output
   test 'created_at_time should contain the year, month, and day of creation' do
     created_datetime = @bill.created_at
     created_string = @bill.created_at_time
-    assert_match /#{created_datetime.year}/, created_string,
-                 'should contain the year of creation'
-    assert_match /#{Date::MONTHNAMES[created_datetime.month]}/, created_string,
-                 'should contain the fulltext month of creation'
-    assert_match /#{created_datetime.day}/, created_string,
-                 'should contain the day of creation'
+    assert_match(/#{created_datetime.year}/, created_string,
+                 'should contain the year of creation')
+    assert_match(/#{Date::MONTHNAMES[created_datetime.month]}/, created_string,
+                 'should contain the fulltext month of creation')
+    assert_match(/#{created_datetime.day}/, created_string,
+                 'should contain the day of creation')
   end
 
   # test 'legislative_numbering'
@@ -99,8 +96,6 @@ class BillTest < ActiveSupport::TestCase
     diff_attributes = @bill.diff_attributes version
     assert_equal ['title'], diff_attributes
   end
-
-
 
   # Paper Trail Tests
   test 'Bills should have paper trails' do

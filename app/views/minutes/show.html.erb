@@ -62,7 +62,7 @@
     <h4><%= legislation_type %></h4>
     <% folios.each do |folio| %>
         <% bill = folio.bill %>
-        <h5><%= bill.legislative_numbering %></h5>
+        <h5><%= bill.numbering %></h5>
         <dl>
           <dt>Title</dt>
           <dd><%= bill.title.upcase %>

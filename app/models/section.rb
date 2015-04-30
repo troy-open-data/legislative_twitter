@@ -14,7 +14,6 @@
 #  bill_id      :integer
 #  level_id     :integer
 #
-
 class Section < Level
   belongs_to :bill
   has_many :sub_sections, foreign_key: 'level_id', dependent: :destroy

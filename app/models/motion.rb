@@ -9,7 +9,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class Motion < ActiveRecord::Base
   belongs_to :meeting
   belongs_to :bill
@@ -21,9 +20,8 @@ class Motion < ActiveRecord::Base
   has_many :voters,       through:    :votes,
                           source:     :person
   accepts_nested_attributes_for :votes,
-                                reject_if: lambda { |attribute| attribute[:data].blank? },
+                                reject_if: ->(attr) { attr[:data].blank? },
                                 allow_destroy: true
-
 
   def sponsors_list
     if sponsors.empty?

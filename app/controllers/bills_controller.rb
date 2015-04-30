@@ -1,3 +1,4 @@
+# Bills actions
 class BillsController < ApplicationController
   before_action :set_bill, only: [:show, :edit, :update, :destroy]
 
@@ -66,12 +67,17 @@ class BillsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_bill
-    @bill = Bill.includes(sections: [sub_sections: [paragraphs: :sub_paragraphs]]).find(params[:id])
+    @bill = Bill.includes(sections:
+                              [sub_sections:
+                                   [paragraphs: :sub_paragraphs]])
+            .find(params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet,
+  #   only allow the white list through.
   def bill_params
     params.require(:bill).permit(:title,
                                  :short_title,
@@ -84,7 +90,7 @@ class BillsController < ApplicationController
                                                        :id,
                                                        :_destroy],
 
-                                 # TODO: refactor levels into something more consolidated
+                                 # TODO: refactor levels
                                  sections_attributes: [:heading,
                                                        :subheading,
                                                        :chapeau,

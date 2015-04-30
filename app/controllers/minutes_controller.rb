@@ -1,3 +1,4 @@
+# Meeting minutes actions
 class MinutesController < ApplicationController
   # GET /meetings/1/minutes
   # GET /meetings/1/minutes.pdf

@@ -36,7 +36,7 @@ prawn_document(
          attach: @attach
 
   # Render page headers
-  numbering = @bill.legislative_numbering(:abbreviation)
+  numbering = @bill.numbering(:abbreviation)
   render 'pdf_templates/header',
          pdf: pdf,
          font_size: font_size,

@@ -14,7 +14,6 @@
 #  bill_id      :integer
 #  level_id     :integer
 #
-
 class Paragraph < Level
   belongs_to :sub_section, class_name: 'SubSection', foreign_key: 'level_id'
   has_many :sub_paragraphs, foreign_key: 'level_id', dependent: :destroy

@@ -1,3 +1,4 @@
+# Meeting agenda actions
 class AgendaController < ApplicationController
   # GET /meetings/1/agenda
   # GET /meetings/1/agenda.pdf

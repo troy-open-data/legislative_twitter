@@ -14,7 +14,6 @@
 #  bill_id      :integer
 #  level_id     :integer
 #
-
 class Level < ActiveRecord::Base
   self.inheritance_column = :type
 end

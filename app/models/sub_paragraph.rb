@@ -14,7 +14,6 @@
 #  bill_id      :integer
 #  level_id     :integer
 #
-
 class SubParagraph < Level
   belongs_to :paragraph, class_name: 'Paragraph', foreign_key: 'level_id'
 end

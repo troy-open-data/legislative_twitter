@@ -10,25 +10,20 @@
 #  short_title      :string
 #  enacting_formula :string
 #
-
 class Bill < ActiveRecord::Base
-  # Model Variables
-  LEGISLATION_TYPES = %w{ Resolution Ordinance }
-  NULL_ATTRS = %w( short_title )
+  LEGISLATION_TYPES = %w(Resolution Ordinance)
+  NULL_ATTRS        = %w(short_title)
 
-  # Hooks
   before_save :nil_if_blank
   before_validation :set_defaults
 
-  # Scopes
   scope :resolutions, -> { where(legislation_type: 'Resolution') }
   scope :ordinances,  -> { where(legislation_type: 'Ordinance') }
   scope :by_recent,   -> { order('created_at DESC') }
 
-  # Model Relationships
   has_many :recitals, dependent: :destroy
   accepts_nested_attributes_for :recitals,
-                                reject_if: lambda {|attribute| attribute[:clause].blank?},
+                                reject_if: ->(attr) { attr[:clause].blank? },
                                 allow_destroy: true
 
   has_many :sections, dependent: :destroy
@@ -40,76 +35,75 @@ class Bill < ActiveRecord::Base
 
   has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments,
-                                reject_if: lambda {|attribute| attribute[:file].blank?},
+                                reject_if: ->(attr) { attr[:file].blank? },
                                 allow_destroy: true
   has_paper_trail
   paginates_per 10
 
-  # Validations
-  validates_presence_of :title, :short_title, #:body,
-                        :legislation_type, :enacting_formula
-  validates :legislation_type, inclusion: LEGISLATION_TYPES
+  validates :title,             presence: true
+  validates :short_title,       presence: true
+  validates :legislation_type,  presence: true,
+                                inclusion: LEGISLATION_TYPES
+  validates :enacting_formula,  presence: true
 
-
-
-
-  # Returns a string containing the created_at time in the
-  # format Month day, Year:
-  # @bill.created_at_time  # => "Added March 4, 2015"
+  # @return [String] Returns a string containing the created_at time in the
+  #   format Month day, Year:
+  #   @bill.created_at_time  # => "Added March 4, 2015"
   def created_at_time
     created_at.strftime('Added %B %d, %Y')
   end
 
-  # Returns a comma-separated list of changed attributes between
-  # instance and version
-  # Example: @bill.list_changed_attributes   # => "title, short_title"
-  def list_changed_attributes(version=versions.last)
-    diff_attributes(version).join(", ")
+  # @example
+  #   @bill.list_changed_attributes   # => "title, short_title"
+  #
+  # @param [Version] version
+  # @return [String] Returns a comma-separated list of changed attributes
+  #   between instance and version
+  def list_changed_attributes(version = versions.last)
+    diff_attributes(version).join(', ')
   end
 
   # Returns all changed attributes between given and current version except for
   # specifically ignored attributes (created_at, updated_at, id)
   # Example: @bill.diff_attributes  # => ['title', 'short_title']
-  def diff_attributes(version=versions.last,
-                      ignored_changes=%w{ created_at updated_at id })
-    version.changeset.keys - ignored_changes
+  def diff_attributes(version = versions.last,
+                      ignored = %w(created_at updated_at id))
+    version.changeset.keys - ignored
   end
 
-  # Returns the legislative numbering of a bill, formatted as a
-  # string (default), array, integer, or abbreviated string
+  # @param [Symbol] format
+  # @return [Object] Returns the legislative numbering of a bill, formatted as a
+  #   string (default), array, integer, or abbreviated string
   #
-  # Example:
-  # @bill.legislative_numbering                # => "Ordinance 5"
-  # @bill.legislative_numbering(:string)       # => "Ordinance 5"
-  # @bill.legislative_numbering(:array)        # => ["Ordinance", 5]
-  # @bill.legislative_numbering(:integer)      # => 5
-  # @bill.legislative_numbering(:abbreviation) # => "ORD. #5"
-  # @bill.legislative_numbering(:unsupported)  # => "unsupported is not supported"
-  def legislative_numbering(output_type=:string)
-    index = Bill.where(legislation_type: legislation_type)
-                .order('created_at ASC').index(self) + 1
-
-    case output_type
-      when :string then legislation_type + ' ' + index.to_s
-      when :array then [legislation_type,index]
-      when :integer then index
-      when :abbreviation then legislation_type[0..2].upcase + '. #' + index.to_s
-      else
-        raise StandardError, "#{output_type.to_s} is not supported"
+  # @example
+  #   @bill.numbering                # => "Ordinance 5"
+  #   @bill.numbering(:string)       # => "Ordinance 5"
+  #   @bill.numbering(:array)        # => ["Ordinance", 5]
+  #   @bill.numbering(:integer)      # => 5
+  #   @bill.numbering(:abbreviation) # => "ORD. #5"
+  #   @bill.numbering(:dne)          # => "dne is not supported"
+  def numbering(format = :string)
+    index = bill_index
+    case format
+    when :string        then legislation_type + ' ' + index.to_s
+    when :array         then [legislation_type, index]
+    when :integer       then index
+    when :abbreviation  then legislation_type[0..2].upcase + '. #' + index.to_s
+    else
+      fail StandardError, "#{format} is not supported"
     end
   end
 
-  def collection_text_method
-    index = Bill.where(legislation_type: legislation_type)
-                .order('created_at ASC').index(self) + 1
-    legislation_type[0..2] + ' ' + index.to_s + ': ' + (short_title || title.truncate(72))
+  # @return [Integer] Returns the index of the resolution or ordinance
+  def bill_index
+    Bill.where(legislation_type: legislation_type).order('created_at ASC')
+      .index(self) + 1
   end
 
-  # Returns the most recently updated bill
+  # @return [Bill] Returns the most recently updated bill
   def self.latest
     Bill.all.order('updated_at').last
   end
-
 
   private
 
@@ -120,5 +114,4 @@ class Bill < ActiveRecord::Base
   def nil_if_blank
     NULL_ATTRS.each { |attr| self[attr] = nil if self[attr].blank? }
   end
-
 end

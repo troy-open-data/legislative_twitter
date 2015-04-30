@@ -1,3 +1,4 @@
+# People actions
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
 
@@ -64,13 +65,15 @@ class PeopleController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_person
-      @person = Person.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def person_params
-      params.require(:person).permit(:first, :last, :bio, organization_ids: [])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_person
+    @person = Person.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet,
+  #   only allow the white list through.
+  def person_params
+    params.require(:person).permit(:first, :last, :bio, organization_ids: [])
+  end
 end

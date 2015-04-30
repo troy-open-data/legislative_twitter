@@ -5,7 +5,6 @@
 # checks incoming Accept headers for which version to route to;
 # sets marked version as default.
 class ApiVersion
-
   def initialize(version, default = false)
     @version, @default = version, default
   end
@@ -17,7 +16,9 @@ class ApiVersion
   private
 
   def check_headers(headers)
+    valid_header = "application/vnd.troycitycouncil.#{@version}+json"
     accept = headers['Accept']
-    accept && accept.include?("application/vnd.troycitycouncil.#{@version}+json")
+
+    accept && accept.include?(valid_header)
   end
 end

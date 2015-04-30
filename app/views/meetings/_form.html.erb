@@ -32,7 +32,7 @@
       <%= f.collection_check_boxes(:bill_ids,
                                    Bill.by_recent,
                                    :id,
-                                   :collection_text_method) do |b|
+                                   :short_title) do |b|
         b.label { b.check_box + '  ' + b.text + "\n"}
       end %>
     </fieldset>

@@ -12,6 +12,7 @@
 
 require 'test_helper'
 
+# Recital model unit tests
 class RecitalTest < ActiveSupport::TestCase
   context 'a valid recital' do
     should 'belong to a bill' do

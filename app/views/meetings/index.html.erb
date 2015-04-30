@@ -50,7 +50,7 @@
                 <%= link_to 'pdf', agenda_path(meeting, format: 'pdf') %>
               </td>
               <td>
-                <% if meeting.has_happened? %>
+                <% if meeting.happened? %>
                     <%= link_to 'html', minutes_path(meeting) %><br />
                     <%= link_to 'pdf', minutes_path(meeting, format: 'pdf') %>
                 <% else %>

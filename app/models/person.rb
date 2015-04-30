@@ -9,7 +9,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class Person < ActiveRecord::Base
   validates :first, presence: true
   validates :last,  presence: true

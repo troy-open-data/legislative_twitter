@@ -68,9 +68,9 @@ class MeetingTest < ActiveSupport::TestCase
   end
   test 'is_started? is an alias of has_happened?' do
     @meeting.date_and_time = 2.years.ago
-    assert_equal @meeting.has_happened?, @meeting.is_started?
+    assert_equal @meeting.happened?, @meeting.started?
     @meeting.date_and_time = 2.years.from_now
-    assert_equal @meeting.has_happened?, @meeting.is_started?
+    assert_equal @meeting.happened?, @meeting.started?
   end
 
   ## Scopes and Class Methods ##################################################
@@ -89,5 +89,4 @@ class MeetingTest < ActiveSupport::TestCase
   # test 'datetimepicker_value'
   # test 'has_happened?'
   # test 'toggle_approval'
-
 end

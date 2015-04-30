@@ -14,7 +14,7 @@ class MeetingsHelperTest < ActionView::TestCase
       context 'with attendees' do
         setup { @meeting.people << create(:person) }
         should 'include attendee name' do
-          assert_match /#{@meeting.people[0].name}/, list_attendees(@meeting)
+          assert_match(/#{@meeting.people[0].name}/, list_attendees(@meeting))
         end
       end
     end
@@ -30,7 +30,7 @@ class MeetingsHelperTest < ActionView::TestCase
         context 'with votes' do
           setup { @motion.votes << create(:vote, motion: @motion) }
           should 'return string of vote summary' do
-            assert_match /\d-\d-\d/, print_votes(@motion)
+            assert_match(/\d-\d-\d/, print_votes(@motion))
           end
         end
       end

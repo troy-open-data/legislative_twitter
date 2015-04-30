@@ -32,7 +32,7 @@ pdf.move_down font_size
 @meeting.grouped_motions.each do |type, folios|
   data = [[ {content: type.pluralize(folios.count).upcase, colspan: 3} ]]
   folios.each do |folio|
-    data << [folio.bill.legislative_numbering(:integer).to_s+'.', {content:folio.bill.title, colspan: 2}]
+    data << [folio.bill.numbering(:integer).to_s+'.', {content:folio.bill.title, colspan: 2}]
     data << ['','Sponsor(s)', folio.sponsors_list]
     data << ['','Notes', folio.notes]
     data << ['','Final Vote (yea-nay-abstain)', print_votes(folio)]

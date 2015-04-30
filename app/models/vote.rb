@@ -9,7 +9,6 @@
 #  updated_at :datetime         not null
 #  data       :integer
 #
-
 class Vote < ActiveRecord::Base
   MAP = { 1   => 'yea',
           -1  => 'nay',

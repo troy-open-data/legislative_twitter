@@ -1,6 +1,6 @@
 # Title
 #   Numbering
-pdf.text bill.legislative_numbering, align: :center, style: :bold
+pdf.text bill.numbering, align: :center, style: :bold
 pdf.move_down font_size
 #   Bill Title
 pdf.text "#{bill.title.upcase}", align: :center, style: :bold
@@ -104,7 +104,7 @@ end
 
 # Start Outline
 pdf.outline.define do
-  section(bill.legislative_numbering, destination: 1) do
+  section(bill.numbering, destination: 1) do
     page title: 'Bill Text', destination: 1
   end
 end
@@ -114,7 +114,7 @@ end
 if attach[:attachments]
   bill.attachments.each do |attachment|
     pdf.start_new_page
-    pdf.text 'ATTACHMENT FOR ' + bill.legislative_numbering.upcase,
+    pdf.text 'ATTACHMENT FOR ' + bill.numbering.upcase,
              align: :center,
              style: :bold
     pdf.text file_name(attachment),

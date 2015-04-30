@@ -12,6 +12,7 @@
 
 require 'test_helper'
 
+# Vote model unit tests
 class VoteTest < ActiveSupport::TestCase
   context 'Vote::MAP' do
     should 'be a hash of vote integers to meanings' do
@@ -19,17 +20,17 @@ class VoteTest < ActiveSupport::TestCase
     end
     context '-1' do
       should 'mean "nay"' do
-        assert_match /nay/i, Vote::MAP[-1]
+        assert_match(/nay/i, Vote::MAP[-1])
       end
     end
     context '0' do
       should 'mean "abstain"' do
-        assert_match /abstain/i, Vote::MAP[0]
+        assert_match(/abstain/i, Vote::MAP[0])
       end
     end
     context '1' do
       should 'mean "nay"' do
-        assert_match /yea/i, Vote::MAP[1]
+        assert_match(/yea/i, Vote::MAP[1])
       end
     end
   end
