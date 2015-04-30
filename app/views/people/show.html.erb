@@ -34,7 +34,7 @@
 
 <h3>Sponsored Legislation</h3>
 <ul>
-  <% @person.sponsored_bills.each do |motion| %>
+  <% @person.motions.each do |motion| %>
       <% bill = motion.bill %>
       <li>
         <%= link_to bill.short_title || bill.title, bill %>

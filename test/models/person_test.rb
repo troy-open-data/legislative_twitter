@@ -2,22 +2,12 @@
 #
 # Table name: people
 #
-#  id                     :integer          not null, primary key
-#  first                  :string
-#  last                   :string
-#  bio                    :text
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  reset_password_token   :string
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  sign_in_count          :integer          default(0), not null
-#  current_sign_in_at     :datetime
-#  last_sign_in_at        :datetime
-#  current_sign_in_ip     :inet
-#  last_sign_in_ip        :inet
+#  id         :integer          not null, primary key
+#  first      :string
+#  last       :string
+#  bio        :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 require 'test_helper'
@@ -37,8 +27,8 @@ class PersonTest < ActiveSupport::TestCase
       should 'have and belong to many meetings' do
         assert should_have_many_through(Person, :meetings, :attendances)
       end
-      should 'have many folios (sponsored_bills) through sponsorship' do
-        assert should_have_many_through(Person, :sponsored_bills, :sponsorships)
+      should 'have many motions through sponsorship' do
+        assert should_have_many_through(Person, :motions, :sponsorships)
       end
       should 'have many votes' do
         assert should_have_many(Person, :votes)

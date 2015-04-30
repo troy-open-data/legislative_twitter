@@ -2,22 +2,12 @@
 #
 # Table name: people
 #
-#  id                     :integer          not null, primary key
-#  first                  :string
-#  last                   :string
-#  bio                    :text
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  email                  :string           default(""), not null
-#  encrypted_password     :string           default(""), not null
-#  reset_password_token   :string
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  sign_in_count          :integer          default(0), not null
-#  current_sign_in_at     :datetime
-#  last_sign_in_at        :datetime
-#  current_sign_in_ip     :inet
-#  last_sign_in_ip        :inet
+#  id         :integer          not null, primary key
+#  first      :string
+#  last       :string
+#  bio        :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Person < ActiveRecord::Base
@@ -28,8 +18,7 @@ class Person < ActiveRecord::Base
   has_many :organizations,  through: :memberships
 
   has_many :sponsorships,   dependent: :destroy
-  has_many :sponsored_bills,through: :sponsorships,
-                            source: :motion
+  has_many :motions,        through: :sponsorships
 
   has_many :votes,          dependent: :destroy
 
