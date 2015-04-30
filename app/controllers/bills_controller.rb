@@ -10,8 +10,6 @@ class BillsController < ApplicationController
   # GET /bills/1.pdf
   def show
     @versions = @bill.versions.reorder('created_at DESC')
-    @attachments = @bill.attachments
-
     default_attachments = { attachments: true }
     @attach = params[:attach] || default_attachments
   end

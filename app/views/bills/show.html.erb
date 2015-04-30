@@ -58,8 +58,8 @@
   <!--Tab headers-->
   <ul class="tabs" data-tab>
     <li class="tab-title active"><a href="#fulltext_tab">Full Text</a></li>
-    <% unless @attachments.empty? %>
-        <li class='tab-title'><a href='#attachments_tab'>Attachments (<%= @attachments.count %>)</a></li>
+    <% unless @bill.attachments.empty? %>
+        <li class='tab-title'><a href='#attachments_tab'>Attachments (<%= @bill.attachments.count %>)</a></li>
     <% end %>
     <li class="tab-title"><a href="#changelog_tab">Changelog</a></li>
   </ul>
@@ -80,96 +80,14 @@
       </p>
 
       <!--Main Content-->
-      <!--TODO: Refactor into helper-->
-      <ol>
-        <% @bill.sections.each do |section| %>
-            <li>
-              <!--Section Header-->
-              <% if section.heading || section.subheading %>
-                  <h4>
-                    <%= section.heading %>
-                    <small><%= section.subheading %></small>
-                  </h4>
-              <% end %>
-
-              <!--Section Content-->
-              <% if section.sub_sections.empty? %>
-                  <p><%= section.text %></p>
-              <% else %>
-                  <p><%= section.chapeau %></p>
-                  <ol>
-                    <% section.sub_sections.each do |sub_section| %>
-                        <li>
-                          <!--Subsection Header-->
-                          <% if sub_section.heading || sub_section.subheading %>
-                              <h4>
-                                <%= sub_section.heading %>
-                                <small><%= sub_section.subheading %></small>
-                              </h4>
-                          <% end %>
-
-                          <!--Subsection Content-->
-                          <% if sub_section.paragraphs.empty? %>
-                              <p><%= sub_section.text %></p>
-                          <% else %>
-                              <p><%= sub_section.chapeau %></p>
-                              <ol>
-                                <% sub_section.paragraphs.each do |paragraph| %>
-                                    <li>
-                                      <!--Paragraph Header-->
-                                      <% if paragraph.heading || paragraph.subheading %>
-                                          <h4>
-                                            <%= paragraph.heading %>
-                                            <small><%= paragraph.subheading %></small>
-                                          </h4>
-                                      <% end %>
-
-                                      <!--Paragraph Content-->
-                                      <% if paragraph.sub_paragraphs.empty? %>
-                                          <p><%= paragraph.text %></p>
-                                      <% else %>
-                                          <p><%= paragraph.chapeau %></p>
-                                          <ol>
-                                            <% paragraph.sub_paragraphs.each do |sub_paragraph| %>
-                                                <li>
-                                                  <!--Subparagraph Header-->
-                                                  <% if sub_paragraph.heading || sub_paragraph.subheading %>
-                                                      <h4>
-                                                        <%= sub_paragraph.heading %>
-                                                        <small><%= sub_paragraph.subheading %></small>
-                                                      </h4>
-                                                  <% end %>
-
-                                                  <!--Subparagraph Content-->
-                                                  <p><%= sub_paragraph.text %></p>
-                                                </li>
-                                            <% end %>
-                                          </ol>
-                                          <p><%= paragraph.continuation %></p>
-                                      <% end %>
-                                    </li>
-                                <% end %>
-                              </ol>
-                              <p><%= sub_section.continuation %></p>
-                          <% end %>
-                        </li>
-                    <% end %>
-                  </ol>
-                  <p><%= section.continuation %></p>
-              <% end %>
-            </li>
-        <% end %>
-      </ol>
-
-      <!--<p><%#= @bill.body.html_safe %></p>-->
-      <!--todo: how does this impact security?-->
+      <%= render 'bill_sections', bill: @bill %>
     </div>
 
     <!-- Attachment List -->
     <div class="content" id="attachments_tab">
       <h4>Attached Material:</h4>
       <dl>
-        <% @attachments.each do |attachment| %>
+        <% @bill.attachments.each do |attachment| %>
             <dt><%= link_to file_name(attachment), attachment.file.url %></dt>
             <dd><%= attachment.description %></dd>
         <% end %>
