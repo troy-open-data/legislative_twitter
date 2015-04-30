@@ -21,3 +21,9 @@
 // Model-Specific Style Scopes
 @import 'bills';
 @import 'meetings';
+
+.sidenav-img {
+  max-height: 200px;
+  margin: auto;
+  display: block;
+}
