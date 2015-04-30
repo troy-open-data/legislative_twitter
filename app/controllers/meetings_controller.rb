@@ -1,8 +1,8 @@
 class MeetingsController < ApplicationController
-  before_action :authenticate_admin!, except: [:index, :show, :agenda, :minutes]
+  before_action :authenticate_admin!, except: [:index, :show, :minutes]
 
   before_action :set_meeting, only: [:show, :edit, :update, :destroy,
-                                     :toggle_agenda, :toggle_minutes]
+                                     :toggle_minutes]
   # before_action :set_meeting_with_folios_and_members, only: :start_meeting
 
   # GET /meetings
@@ -18,12 +18,12 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/1/agenda
   # GET /meetings/1/agenda.pdf
-  def agenda
-    @meeting = Meeting.includes(motions: [:bill]).find(params[:id])
-
-    default_attachments = { bill: true, attachments: true }
-    @attach = params[:attach] || default_attachments
-  end
+  # def agenda
+  #   @meeting = Meeting.includes(motions: [:bill]).find(params[:id])
+  #
+  #   default_attachments = { bill: true, attachments: true }
+  #   @attach = params[:attach] || default_attachments
+  # end
 
   # GET /toggle_agenda/1.js
   def toggle_agenda
