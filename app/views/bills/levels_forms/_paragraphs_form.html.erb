@@ -15,8 +15,16 @@
     <%= f.text_field :subheading, placeholder: 'subheading (optional)' %>
   </div>
   <div class="field">
-    <%= f.label :text %>
-    <%= f.text_area :text, placeholder: 'content' %>
+    <%= f.label :text, 'Paragraph Content (no subparagraphs)' %>
+    <%= f.text_area :text, placeholder: 'only shown if there are no subparagraphs; otherwise, use chapeau and continuation.' %>
+  </div>
+  <div class="field">
+    <%= f.label :chapeau, 'Chapeau (content before subparagraphs)' %>
+    <%= f.text_area :chapeau, placeholder: 'content shown before subparagraphs' %>
+  </div>
+  <div class="field">
+    <%= f.label :continuation, 'Continuation (content after subparagraphs)' %>
+    <%= f.text_area :continuation, placeholder: 'content shows after subparagraphs' %>
   </div>
 
 

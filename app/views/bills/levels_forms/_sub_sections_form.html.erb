@@ -15,8 +15,16 @@
     <%= f.text_field :subheading, placeholder: 'subheading (optional)' %>
   </div>
   <div class="field">
-    <%= f.label :text %>
-    <%= f.text_area :text, placeholder: 'content' %>
+    <%= f.label :text, 'Sub Section Content (no paragraphs)' %>
+    <%= f.text_area :text, placeholder: 'only shown if there are no paragraphs; otherwise, use chapeau and continuation.' %>
+  </div>
+  <div class="field">
+    <%= f.label :chapeau, 'Chapeau (content before paragraphs)' %>
+    <%= f.text_area :chapeau, placeholder: 'content shown before paragraphs' %>
+  </div>
+  <div class="field">
+    <%= f.label :continuation, 'Continuation (content after paragraphs)' %>
+    <%= f.text_area :continuation, placeholder: 'content shows after paragraphs' %>
   </div>
 
 

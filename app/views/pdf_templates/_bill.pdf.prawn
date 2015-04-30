@@ -19,32 +19,61 @@ pdf.move_down font_size*2
 # Sections
 # TODO: Refactor out
 bill.sections.each do |section|
+  # Section headers
   if section.heading || section.subheading
     pdf.text "<b>Section: #{section.heading.upcase}</b> <i>#{section.subheading}</i>", inline_format: true
   end
-  pdf.text section.text
 
-  section.sub_sections.each do |sub_section|
-    if sub_section.heading || sub_section.subheading
-      pdf.text "<b>Subsection: #{sub_section.heading.upcase}</b> <i>#{sub_section.subheading}</i>", inline_format: true
-    end
-    pdf.text sub_section.text
+  # Section content
+  if section.sub_sections.empty?
+    pdf.text section.text
+  else
+    pdf.text section.chapeau
 
-    sub_section.paragraphs.each do |paragraph|
-      if paragraph.heading || paragraph.subheading
-        pdf.text "<b>Paragraph: #{paragraph.heading.upcase}</b> <i>#{paragraph.subheading}</i>", inline_format: true
+    section.sub_sections.each do |sub_section|
+      # Sub-section headings
+      if sub_section.heading || sub_section.subheading
+        pdf.text "<b>Subsection: #{sub_section.heading.upcase}</b> <i>#{sub_section.subheading}</i>", inline_format: true
       end
-      pdf.text paragraph.text
 
-      paragraph.sub_paragraphs.each do |sub_paragraph|
-        if sub_paragraph.heading || sub_paragraph.subheading
-          pdf.text "<b>Subparagraph: #{sub_paragraph.heading.upcase}</b> <i>#{sub_paragraph.subheading}</i>", inline_format: true
+      # Sub-section content
+      if sub_section.paragraphs.empty?
+        pdf.text sub_section.text
+      else
+        pdf.text sub_section.chapeau
+
+        sub_section.paragraphs.each do |paragraph|
+          # Paragraph headings/subheadings
+          if paragraph.heading || paragraph.subheading
+            pdf.text "<b>Paragraph: #{paragraph.heading.upcase}</b> <i>#{paragraph.subheading}</i>", inline_format: true
+          end
+
+          # Paragraph content
+          if paragraph.sub_paragraphs.empty?
+            pdf.text paragraph.text
+
+          else
+            pdf.text paragraph.chapeau
+
+            # Sub-paragraph content
+            paragraph.sub_paragraphs.each do |sub_paragraph|
+              if sub_paragraph.heading || sub_paragraph.subheading
+                pdf.text "<b>Subparagraph: #{sub_paragraph.heading.upcase}</b> <i>#{sub_paragraph.subheading}</i>", inline_format: true
+              end
+              pdf.text sub_paragraph.text
+            end
+
+            pdf.text paragraph.continuation
+          end
+
         end
-        pdf.text sub_paragraph.text
+
+        pdf.text sub_section.continuation
       end
     end
-  end
 
+    pdf.text section.continuation
+  end
 
   pdf.move_down font_size*2
 end
