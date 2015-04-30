@@ -11,14 +11,21 @@
       %>
     </div>
   </div>
+
   <div class="row field">
     <div class='small-2 columns'><%= label_tag 'Title' %></div>
     <div class='small-10 columns'><p><%= f.object.bill.title %></p></div>
   </div>
+
   <div class="row field">
     <div class='small-2 columns'><%= f.label :notes %></div>
-    <div class='small-10 columns'><%= f.text_area :notes, placeholder: 'Type meeting notes here', rows:5 %></div>
+    <div class='small-10 columns'>
+      <%= f.text_area :notes,
+                      placeholder: 'Type meeting notes here',
+                      rows: 5 %>
+    </div>
   </div>
+
   <div class="row field">
     <div class='small-2 columns'><%= label_tag :votes %></div>
     <div class='small-10 columns'>
