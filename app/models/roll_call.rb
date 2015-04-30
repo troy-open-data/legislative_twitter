@@ -30,6 +30,11 @@ class RollCall < ActiveRecord::Base
     self.subclasses.map { |klass| klass.model_name.human }
   end
 
+  # @return[String] 'Passed' or 'Failed'
+  def result
+    passed ? 'Passed' : 'Failed'
+  end
+
   private
 
   def set_defaults

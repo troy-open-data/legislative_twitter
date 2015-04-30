@@ -35,4 +35,17 @@ class RollCallTest < ActiveSupport::TestCase
       # end
     end
   end
+
+  context 'roll call' do
+    context '#result' do
+      should 'return "Passed" if passed' do
+        rc = create(:roll_call, passed: true)
+        assert_equal 'Passed', rc.result
+      end
+      should 'return "Failed" if not passed' do
+        rc = create(:roll_call, passed: false)
+        assert_equal 'Failed', rc.result
+      end
+    end
+  end
 end

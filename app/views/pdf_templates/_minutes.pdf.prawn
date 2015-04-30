@@ -36,7 +36,7 @@ pdf.move_down font_size
     data << ['','Sponsor(s)', motion.sponsors_list]
     data << ['','Notes', motion.notes]
     motion.roll_calls.each do |roll_call|
-      data << ['', roll_call.type + ' Vote', print_votes(roll_call) + " (yea-nay-abstain)"]
+      data << ['', roll_call.type + ' Vote', "#{print_votes(roll_call)} (yea-nay-abstain): #{roll_call.result.upcase}"]
     end
     2.times { data << ['','',''] }
   end

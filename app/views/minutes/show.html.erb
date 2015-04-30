@@ -75,7 +75,7 @@
           <dt><%= 'Votes (yea-nay-abstain)' unless motion.roll_calls.empty? %></dt>
           <% motion.roll_calls.each do |roll_call| %>
               <dd>
-                <%= roll_call.type %> Vote: <%= print_votes(roll_call) %>
+                <%= roll_call.type %> Vote: <%= print_votes(roll_call) %> <b><%= roll_call.result.upcase %></b>
               </dd>
           <% end %>
         </dl>
