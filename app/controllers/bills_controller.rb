@@ -1,6 +1,6 @@
 # Bills actions
 class BillsController < ApplicationController
-  before_action :set_bill, only: [:show, :edit, :update, :destroy]
+  before_action :set_bill, only: [:edit, :update, :destroy]
 
   # GET /bills
   def index
@@ -10,6 +10,12 @@ class BillsController < ApplicationController
   # GET /bills/1
   # GET /bills/1.pdf
   def show
+    @bill = Bill.includes(motions: [:meeting],
+                          sections:
+                              [sub_sections:
+                                   [paragraphs: :sub_paragraphs]])
+                .find(params[:id])
+
     @versions = @bill.versions.reorder('created_at DESC')
     default_attachments = { attachments: true }
     @attach = params[:attach] || default_attachments

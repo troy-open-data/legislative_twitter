@@ -1,5 +1,16 @@
 # Application-wide helper methods
 module ApplicationHelper
+  # @param [RollCall] roll_call
+  # @result [String] '4-3-1' or 'no vote recorded'
+  def print_votes(roll_call)
+    votes = roll_call.votes
+    if votes.empty?
+      'no vote recorded'
+    else
+      "#{votes.yeas.count}-#{votes.nays.count}-#{votes.abstains.count}"
+    end
+  end
+
   # Returns in title case either the short title (if it exists) or a truncated
   # version of the standard title for a piece of bill
   def short_title(bill)

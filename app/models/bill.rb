@@ -30,8 +30,8 @@ class Bill < ActiveRecord::Base
   accepts_nested_attributes_for :sections,
                                 allow_destroy: true
 
-  has_many :motions,   dependent: :destroy
-  has_many :meetings, through:   :folios
+  has_many :motions,    dependent: :destroy
+  has_many :roll_calls, through: :motions
 
   has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments,

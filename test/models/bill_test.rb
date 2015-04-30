@@ -25,6 +25,12 @@ class BillTest < ActiveSupport::TestCase
   should 'have many sections' do
     assert should_have_many Bill, :sections
   end
+  should 'have many motions' do
+    assert should_have_many Bill, :motions
+  end
+  should 'have many roll call votes through motions' do
+    assert should_have_many_through Bill, :roll_calls, :motions
+  end
 
   ## Validations ###############################################################
   test 'must have title' do
