@@ -3,7 +3,6 @@ class MeetingsController < ApplicationController
 
   before_action :set_meeting, only: [:show, :edit, :update, :destroy,
                                      :toggle_agenda, :toggle_minutes]
-  before_action :set_meeting_with_folios, only: [:agenda, :minutes]
   # before_action :set_meeting_with_folios_and_members, only: :start_meeting
 
   # GET /meetings
@@ -20,7 +19,7 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/agenda
   # GET /meetings/1/agenda.pdf
   def agenda
-    @meeting = Meeting.includes(folios: [:bill]).find(params[:id])
+    @meeting = Meeting.includes(motions: [:bill]).find(params[:id])
 
     default_attachments = { bill: true, attachments: true }
     @attach = params[:attach] || default_attachments
@@ -45,21 +44,21 @@ class MeetingsController < ApplicationController
   # GET /meetings/1/minutes
   # GET /meetings/1/minutes.pdf
   def minutes
-    @meeting = Meeting.includes(folios: [:bill,
+    @meeting = Meeting.includes(motions: [:bill,
                                          :sponsors,
                                          :votes]).find(params[:id])
   end
 
   # GET /meetings/1/start_meeting
   def start_meeting
-    @meeting = Meeting.includes(folios: [:bill,
+    @meeting = Meeting.includes(motions: [:bill,
                                          :sponsors,
                                          votes: :person],
                                 organization: :people).find(params[:id])
 
-    @meeting.folios.each do |folio|
+    @meeting.motions.each do |motion|
       @meeting.organization.people.each do |member|
-        folio.votes.where(person: member).first || folio.votes.build(person: member)
+        motion.votes.where(person: member).first || motion.votes.build(person: member)
       end
     end
   end
@@ -119,25 +118,21 @@ class MeetingsController < ApplicationController
     @meeting = Meeting.find(params[:id])
   end
 
-  def set_meeting_with_folios
-
-  end
-
   # Never trust parameters from the scary internet, only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:organization_id, :date_and_time, :location,
                                     bill_ids: [],
                                     person_ids: [],
-                                    folios_attributes: [:notes,
-                                                        :bill_id,
-                                                        :meeting_id,
-                                                        :id,
-                                                        :_destroy,
-                                                        sponsor_ids:  [],
-                                                        votes_attributes: [:id,
-                                                                           :person_id,
-                                                                           :folio_id,
-                                                                           :data,
-                                                                           :_destroy]])
+                                    motionss_attributes: [:notes,
+                                                          :bill_id,
+                                                          :meeting_id,
+                                                          :id,
+                                                          :_destroy,
+                                                          sponsor_ids:  [],
+                                                          votes_attributes: [:id,
+                                                                             :person_id,
+                                                                             :folio_id,
+                                                                             :data,
+                                                                             :_destroy]])
   end
 end

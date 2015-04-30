@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: folios
+# Table name: motions
 #
 #  id         :integer          not null, primary key
 #  meeting_id :integer
@@ -10,7 +10,7 @@
 #  updated_at :datetime         not null
 #
 
-class Folio < ActiveRecord::Base
+class Motion < ActiveRecord::Base
   belongs_to :meeting
   belongs_to :bill
 

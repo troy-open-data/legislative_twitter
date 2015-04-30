@@ -21,9 +21,9 @@ class Meeting < ActiveRecord::Base
   has_many :attendances, dependent: :destroy
   has_many :people, through: :attendances
 
-  has_many :folios, dependent: :destroy
-  has_many :bills, through: :folios
-  accepts_nested_attributes_for :folios,
+  has_many :motions, dependent: :destroy
+  has_many :bills, through: :motions
+  accepts_nested_attributes_for :motions,
                                 allow_destroy: true
 
   # Scopes
@@ -42,12 +42,12 @@ class Meeting < ActiveRecord::Base
 
   # INSTANCE METHODS
   # Returns array of grouped bill
-  def grouped_legislations
+  def grouped_bills
     bills.uniq.sort_by{|l| l.created_at}.group_by{|l| l.legislation_type}
   end
 
-  def grouped_folios
-    folios.sort_by{|f| f.bill.created_at}.group_by{|f| f.bill.legislation_type}
+  def grouped_motions
+    motions.sort_by{|f| f.bill.created_at}.group_by{|f| f.bill.legislation_type}
   end
 
   # Returns calculated name of meeting of the form <Organization> Meeting on <date>

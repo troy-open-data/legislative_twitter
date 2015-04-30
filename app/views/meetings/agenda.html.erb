@@ -85,7 +85,7 @@
 
 <!--List Bills by type-->
 <dl>
-  <% @meeting.grouped_folios.each do |legislation_type, folios| %>
+  <% @meeting.grouped_motions.each do |legislation_type, folios| %>
       <h4><%= legislation_type %></h4>
       <% folios.each do |folio| %>
           <% legislation = folio.bill %>

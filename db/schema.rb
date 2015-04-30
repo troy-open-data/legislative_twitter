@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150430011439) do
+ActiveRecord::Schema.define(version: 20150430015637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -65,17 +65,6 @@ ActiveRecord::Schema.define(version: 20150430011439) do
     t.string   "enacting_formula"
   end
 
-  create_table "folios", force: :cascade do |t|
-    t.integer  "meeting_id"
-    t.integer  "bill_id"
-    t.text     "notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "folios", ["bill_id"], name: "index_folios_on_bill_id", using: :btree
-  add_index "folios", ["meeting_id"], name: "index_folios_on_meeting_id", using: :btree
-
   create_table "levels", force: :cascade do |t|
     t.text     "text"
     t.string   "heading"
@@ -115,6 +104,17 @@ ActiveRecord::Schema.define(version: 20150430011439) do
   add_index "memberships", ["organization_id"], name: "index_memberships_on_organization_id", using: :btree
   add_index "memberships", ["person_id"], name: "index_memberships_on_person_id", using: :btree
 
+  create_table "motions", force: :cascade do |t|
+    t.integer  "meeting_id"
+    t.integer  "bill_id"
+    t.text     "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "motions", ["bill_id"], name: "index_motions_on_bill_id", using: :btree
+  add_index "motions", ["meeting_id"], name: "index_motions_on_meeting_id", using: :btree
+
   create_table "organizations", force: :cascade do |t|
     t.integer  "level"
     t.string   "name"
@@ -152,12 +152,12 @@ ActiveRecord::Schema.define(version: 20150430011439) do
 
   create_table "sponsorships", force: :cascade do |t|
     t.integer  "person_id"
-    t.integer  "folio_id"
+    t.integer  "motion_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "sponsorships", ["folio_id"], name: "index_sponsorships_on_folio_id", using: :btree
+  add_index "sponsorships", ["motion_id"], name: "index_sponsorships_on_motion_id", using: :btree
   add_index "sponsorships", ["person_id"], name: "index_sponsorships_on_person_id", using: :btree
 
   create_table "versions", force: :cascade do |t|
@@ -174,21 +174,21 @@ ActiveRecord::Schema.define(version: 20150430011439) do
 
   create_table "votes", force: :cascade do |t|
     t.integer  "person_id"
-    t.integer  "folio_id"
+    t.integer  "motion_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "data"
   end
 
-  add_index "votes", ["folio_id"], name: "index_votes_on_folio_id", using: :btree
+  add_index "votes", ["motion_id"], name: "index_votes_on_motion_id", using: :btree
   add_index "votes", ["person_id"], name: "index_votes_on_person_id", using: :btree
 
-  add_foreign_key "folios", "bills"
-  add_foreign_key "folios", "meetings"
   add_foreign_key "levels", "bills"
   add_foreign_key "levels", "levels"
   add_foreign_key "meetings", "organizations"
+  add_foreign_key "motions", "bills"
+  add_foreign_key "motions", "meetings"
   add_foreign_key "recitals", "bills"
-  add_foreign_key "votes", "folios"
+  add_foreign_key "votes", "motions"
   add_foreign_key "votes", "people"
 end

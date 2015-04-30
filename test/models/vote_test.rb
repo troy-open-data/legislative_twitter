@@ -38,14 +38,14 @@ class VoteTest < ActiveSupport::TestCase
     should 'have data' do
       assert should_validate_presence_of :data, :vote
     end
-    should 'have only one vote per person per folio' do
+    should 'have only one vote per person per motion' do
       vote = create(:vote)
-      dup_vote = build(:vote, person: vote.person, folio: vote.folio)
+      dup_vote =    build(:vote, person: vote.person, motion: vote.motion)
       refute dup_vote.save, 'duplicate vote was saved'
-      valid_vote = build(:vote, person: vote.person, folio: create(:folio))
+      valid_vote =  build(:vote, person: vote.person, motion: create(:motion))
       assert valid_vote.save, 'valid vote for duplicate person was not saved'
-      valid_vote = build(:vote, folio: vote.folio, person: create(:person))
-      assert valid_vote.save, 'valid vote for duplicate folio was not saved'
+      valid_vote =  build(:vote, motion: vote.motion, person: create(:person))
+      assert valid_vote.save, 'valid vote for duplicate motion was not saved'
     end
   end
 

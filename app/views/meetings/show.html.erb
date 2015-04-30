@@ -93,7 +93,7 @@
   <h3>Listing Associated Legislation</h3>
 
   <ul>
-    <% @meeting.grouped_legislations.each do |legislation_type, legislations| %>
+    <% @meeting.grouped_bills.each do |legislation_type, legislations| %>
         <h4><%= pluralize legislations.count, legislation_type %></h4>
         <% legislations.each do |legislation| %>
             <li>

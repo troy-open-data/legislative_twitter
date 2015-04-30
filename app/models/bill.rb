@@ -4,7 +4,6 @@
 #
 #  id               :integer          not null, primary key
 #  title            :string
-#  body             :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  legislation_type :string           default("Resolution"), not null
@@ -36,7 +35,7 @@ class Bill < ActiveRecord::Base
   accepts_nested_attributes_for :sections,
                                 allow_destroy: true
 
-  has_many :folios,   dependent: :destroy
+  has_many :motions,   dependent: :destroy
   has_many :meetings, through:   :folios
 
   has_many :attachments, dependent: :destroy

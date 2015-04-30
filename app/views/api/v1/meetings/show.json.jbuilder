@@ -18,9 +18,9 @@ json.minutes do
   json.pdf minutes_url(@meeting, format: :pdf)
 end
 
-json.bills @meeting.folios.each do |folio|
-  legislation = folio.bill
+json.bills @meeting.motions.each do |motion|
+  legislation = motion.bill
   json.extract! legislation, :id, :title, :short_title
-  json.sponsor folio.sponsor
+  json.sponsor motion.sponsor
   json.url api_bill_url(legislation, format: :json)
 end

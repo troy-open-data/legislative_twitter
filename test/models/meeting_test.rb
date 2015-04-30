@@ -25,16 +25,16 @@ class MeetingTest < ActiveSupport::TestCase
     assert should_belong_to(Meeting, :organization)
   end
 
-  test 'has many folios' do
-    assert should_have_many(Meeting, :folios)
+  test 'has many motions' do
+    assert should_have_many(Meeting, :motions)
   end
   test 'can destroy dependent folios' do
-    @folio = Folio.new(meeting: @meeting)
-    @folio.save!
-    assert Folio.exists? @folio.id
+    @motion = Motion.new(meeting: @meeting)
+    @motion.save!
+    assert Motion.exists? @motion.id
 
     @meeting.destroy!
-    refute Folio.exists? @folio.id
+    refute Motion.exists? @motion.id
   end
   test 'has many bills' do
     assert should_have_many(Meeting, :bills)
@@ -79,11 +79,11 @@ class MeetingTest < ActiveSupport::TestCase
   end
 
   ## Instance Methods ##########################################################
-  test 'grouped_legislations' do
-    @meeting.respond_to? :grouped_legislations
+  test '#grouped_legislations' do
+    @meeting.respond_to? :grouped_bills
   end
-  test 'grouped_folios' do
-    @meeting.respond_to? :grouped_folios
+  test '#grouped_motions' do
+    @meeting.respond_to? :grouped_motions
   end
   # test 'name'
   # test 'datetimepicker_value'

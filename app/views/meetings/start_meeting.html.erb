@@ -18,7 +18,7 @@
     </fieldset>
 
 
-    <% @meeting.grouped_folios.each do |legislation_type, folios| %>
+    <% @meeting.grouped_motions.each do |legislation_type, folios| %>
         <h3><%= pluralize folios.count, legislation_type %></h3>
         <%= f.fields_for :folios, folios do |fa| %>
             <%= render 'folio_form', f: fa %>

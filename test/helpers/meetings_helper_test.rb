@@ -19,18 +19,18 @@ class MeetingsHelperTest < ActionView::TestCase
       end
     end
 
-    context 'given a folio' do
-      setup { @folio = create(:folio) }
+    context 'given a motion' do
+      setup { @motion = create(:motion) }
       context '#print_votes' do
         context 'with no votes' do
           should 'return string of vote summary' do
-            assert_equal 'no vote recorded', print_votes(@folio)
+            assert_equal 'no vote recorded', print_votes(@motion)
           end
         end
         context 'with votes' do
-          setup { @folio.votes << create(:vote, folio: @folio) }
+          setup { @motion.votes << create(:vote, motion: @motion) }
           should 'return string of vote summary' do
-            assert_match /\d-\d-\d/, print_votes(@folio)
+            assert_match /\d-\d-\d/, print_votes(@motion)
           end
         end
       end

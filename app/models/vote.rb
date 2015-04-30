@@ -16,14 +16,14 @@ class Vote < ActiveRecord::Base
           0   => 'abstain' }
 
   belongs_to :person
-  belongs_to :folio
+  belongs_to :motion
   #
   scope :yeas,      -> { where(data: 1) }
   scope :nays,      -> { where(data: -1) }
   scope :abstains,  -> { where(data: 0) }
 
   validates :data, presence: :true
-  validates :person_id, uniqueness: { scope: :folio_id }
+  validates :person_id, uniqueness: { scope: :motion_id }
 
   def type
     MAP[data]

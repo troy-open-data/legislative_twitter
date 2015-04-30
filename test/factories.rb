@@ -53,7 +53,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :folio do
+  factory :motion do
     bill
     meeting
   end

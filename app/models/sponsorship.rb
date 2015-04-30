@@ -11,5 +11,5 @@
 
 class Sponsorship < ActiveRecord::Base
   belongs_to :person
-  belongs_to :folio
+  belongs_to :motion
 end

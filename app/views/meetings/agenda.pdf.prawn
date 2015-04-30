@@ -39,7 +39,7 @@ prawn_document(
 
   # Render each bill
   if @attach[:bill]
-    @meeting.grouped_folios.each do |group, folios|
+    @meeting.grouped_motions.each do |group, folios|
       folios.each do |folio|
         legislation = folio.bill
         pdf.start_new_page
