@@ -15,8 +15,8 @@ class MeetingsController < ApplicationController
 
   # GET /meetings/1/start_meeting
   def start_meeting
-    @meeting = Meeting.includes(motions: [:bill,
-                                          :sponsors,
+    @meeting = Meeting.includes(motions: [:sponsors,
+                                          bill: [:recitals, :sections],
                                           votes: :person],
                                 organization: :people).find(params[:id])
 

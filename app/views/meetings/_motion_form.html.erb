@@ -1,37 +1,68 @@
 <fieldset>
-  <legend><%= f.object.bill.numbering %></legend>
+  <legend><%= motion.bill.numbering %></legend>
+
+  <div class="row field">
+    <!--<div class='small-2 columns'><%#= label_tag 'Title' %></div>-->
+    <div class='small-12 columns'><p><%= motion.bill.title %></p></div>
+  </div>
+
+  <div class="row field">
+    <div class='small-2 columns'><%= label_tag 'Short Title' %></div>
+    <div class='small-10 columns'><p><%= motion.bill.short_title %></p></div>
+  </div>
+
   <div class="row field">
     <div class='small-2 columns'><%= label_tag 'Sponsor(s)' %></div>
     <div class='small-10 columns'>
       <%=
           f.collection_check_boxes(:sponsor_ids,
-                                    @meeting.organization.people,
-                                    :id,
-                                    :name)
+                                   @meeting.organization.people,
+                                   :id,
+                                   :name)
       %>
     </div>
   </div>
 
-  <div class="row field">
-    <div class='small-2 columns'><%= label_tag 'Title' %></div>
-    <div class='small-10 columns'><p><%= f.object.bill.title %></p></div>
-  </div>
 
-  <div class="row field">
-    <div class='small-2 columns'><%= f.label :notes %></div>
-    <div class='small-10 columns'>
-      <%= f.text_area :notes,
-                      placeholder: 'Type meeting notes here',
-                      rows: 5 %>
+    <!--Tab Headers-->
+  <ul class="tabs" data-tab>
+    <li class="tab-title active">
+      <a href="#panel1-m<%= motion.id %>">Actions</a>
+    </li>
+    <li class="tab-title">
+      <a href="#panel2-m<%= motion.id %>">Full Text</a>
+    </li>
+  </ul>
+
+  <div class="tabs-content">
+    <!--Action Tab-->
+    <div class="content active" id="panel1-m<%= motion.id %>">
+      <p>
+      <div class="row field">
+        <div class='small-2 columns'><%= f.label :notes %></div>
+        <div class='small-10 columns'>
+          <%= f.text_area :notes,
+                          placeholder: 'Type meeting notes here',
+                          rows: 5 %>
+        </div>
+      </div>
+
+      <div class="row field">
+        <div class='small-2 columns'><%= label_tag :votes %></div>
+        <div class='small-10 columns'>
+          <%= f.fields_for :votes do |builder| %>
+              <%= render 'vote_form', f: builder %>
+          <% end %>
+        </div>
+      </div>
+      </p>
     </div>
-  </div>
 
-  <div class="row field">
-    <div class='small-2 columns'><%= label_tag :votes %></div>
-    <div class='small-10 columns'>
-            <%= f.fields_for :votes do |builder| %>
-                <%= render 'vote_form', f: builder %>
-            <% end %>
+    <!--Full Text Tab-->
+    <div class="content" id="panel2-m<%= motion.id %>">
+      <p>
+        <%= render 'application/bill_sections', bill: motion.bill %>
+      </p>
     </div>
   </div>
 </fieldset>

@@ -1,3 +1,16 @@
+<!--Preamble-->
+<dl>
+  <% bill.recitals.each do |recital| %>
+      <dd><%= recital.prefix.upcase %>  <%= recital.clause %></dd>
+  <% end %>
+</dl>
+<p class="enacting_formula">
+  <b><%= bill.enacting_formula.upcase %></b>
+</p>
+
+<!--Main Content-->
+
+
 <!--TODO: Refactor to be more DRY-->
 <ol>
   <% bill.sections.each do |section| %>

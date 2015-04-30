@@ -21,7 +21,7 @@
     <% @meeting.grouped_motions.each do |legislation_type, motions| %>
         <h3><%= pluralize motions.count, legislation_type %></h3>
         <%= f.fields_for :motions, motions do |fa| %>
-            <%= render 'motion_form', f: fa %>
+            <%= render 'motion_form', f: fa, motion: fa.object %>
         <% end %>
     <% end %>
     <%= f.submit 'Finish Meeting', class: 'button expand' %>

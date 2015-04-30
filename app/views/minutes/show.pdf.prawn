@@ -5,8 +5,8 @@
 Prawn::Font::AFM.hide_m17n_warning = true
 
 # Allows for easy use of alternate measurements, such as inches, mm, cm, etc.
-require "prawn/measurement_extensions"
-require "prawn/table"
+require 'prawn/measurement_extensions'
+require 'prawn/table'
 
 
 

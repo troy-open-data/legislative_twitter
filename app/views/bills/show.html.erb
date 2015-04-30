@@ -68,19 +68,7 @@
 
     <!--Bill Full Text-->
     <div class="content active" id="fulltext_tab">
-
-      <!--Preamble-->
-      <dl>
-        <% @bill.recitals.each do |recital| %>
-            <dd><%= recital.prefix.upcase %>  <%= recital.clause %></dd>
-        <% end %>
-      </dl>
-      <p class="enacting_formula">
-        <b><%= @bill.enacting_formula.upcase %></b>
-      </p>
-
-      <!--Main Content-->
-      <%= render 'bill_sections', bill: @bill %>
+      <%= render 'application/bill_sections', bill: @bill %>
     </div>
 
     <!-- Attachment List -->
