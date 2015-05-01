@@ -18,54 +18,85 @@ pdf.move_down font_size*2
 
 # Sections
 # TODO: Refactor out
+
+
+def section_number(snum)
+  "#{snum.to_s}"
+end
+def subsection_number(snum,ssnum)
+  "#{snum.to_s}.#{ssnum.to_s}"
+end
+def paragraph_number(snum,ssnum,pnum)
+  "#{snum.to_s}.#{ssnum.to_s}.#{pnum.to_s}"
+end
+def subparagraph_number(snum,ssnum,pnum,spnum)
+  "#{snum.to_s}.#{ssnum.to_s}.#{pnum.to_s}.#{spnum.to_s}"
+end
+
+
+sec_num = 1
 bill.sections.each do |section|
+  data = [[]]
+  num = ''
   # Section headers
-  if section.heading || section.subheading
-    pdf.text "<b>Section: #{section.heading.upcase}</b> <i>#{section.subheading}</i>", inline_format: true
+  if section.heading && !section.heading.empty?
+    data << [section_number(sec_num), "#{section.heading.upcase} #{section.subheading}"]
+  else
+    num = section_number(sec_num)
   end
 
   # Section content
   if section.sub_sections.empty?
-    pdf.text section.text
+    data << [num, section.text]
   else
-    pdf.text section.chapeau
+    data << [num, section.chapeau]
 
+    subsec_num = 1
     section.sub_sections.each do |sub_section|
       # Sub-section headings
       # Sub-section content
       if sub_section.paragraphs.empty?
-        pdf.text sub_section.text
+        data << [subsection_number(sec_num,subsec_num), sub_section.text]
       else
-        pdf.text sub_section.chapeau
+        data << [subsection_number(sec_num,subsec_num), sub_section.chapeau]
 
+        p_num = 1
         sub_section.paragraphs.each do |paragraph|
           # Paragraph headings/subheadings
           # Paragraph content
           if paragraph.sub_paragraphs.empty?
-            pdf.text paragraph.text
-
+            data << [paragraph_number(sec_num,subsec_num,p_num), paragraph.text]
           else
-            pdf.text paragraph.chapeau
+            data << [paragraph_number(sec_num,subsec_num,p_num), paragraph.chapeau]
 
+            sp_num = 1
             paragraph.sub_paragraphs.each do |sub_paragraph|
               # Sub-paragraph content
-              pdf.text sub_paragraph.text
+              data << [subparagraph_number(sec_num,subsec_num,p_num,sp_num), sub_paragraph.text]
+              sp_num += 1
             end
 
-            pdf.text paragraph.continuation
+            data << ['', paragraph.continuation]
+            p_num += 1
           end
-
         end
-
-        pdf.text sub_section.continuation
+        data << ['', sub_section.continuation]
+        subsec_num += 1
       end
     end
-
-    pdf.text section.continuation
+    data << ['', section.continuation]
   end
 
+
+  pdf.table(data, header:true) do
+    cells.borders = []
+    column(0).width = 1.in
+    column(0).style align: :right
+  end
+  sec_num += 1
   pdf.move_down font_size*2
 end
+
 
 # Signature Block
 pdf.move_down font_size*2
