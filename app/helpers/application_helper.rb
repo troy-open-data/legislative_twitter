@@ -20,7 +20,8 @@ module ApplicationHelper
   # Returns a string of build information for the footer
   def heroku_version
     time = DateTime.rfc3339(ENV['HEROKU_RELEASED_AT'])
-               .strftime('%-l:%M%P %b %-d, %Y') || 'unknown'
+           .in_time_zone('Eastern Time (US & Canada)')
+           .strftime('%-l:%M%P EST %b %-d, %Y') || 'unknown'
     count   = ENV['HEROKU_BUILD_COUNT']   || 'unknown'
     status  = ENV['HEROKU_BUILD_STATUS']  || 'unknown'
 
