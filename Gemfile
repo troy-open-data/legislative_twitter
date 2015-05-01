@@ -64,7 +64,8 @@ gem 'platform-api'
 gem 'dotenv-rails'
 
 # Auth
-gem 'devise'
+gem 'devise',           '>= 2.0.0'
+gem 'devise_invitable', '~> 1.3.4'
 
 
 # Include Minitest and Minitest Reporters for RubyMine

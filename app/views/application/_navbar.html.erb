@@ -29,9 +29,8 @@
               <li><%= link_to '...Bill', new_bill_path %></li>
             </ul>
           </li>
-      <% end %>
-      <% if admin_signed_in? %>
           <li class='' id="admin-toggle"><a href="#">Toggle Public View</a></li>
+          <li class="admin"><%= link_to 'Invite Admin', new_admin_invitation_path %></li>
       <% end %>
       <li class=''>
         <% if admin_signed_in? %>
