@@ -43,7 +43,16 @@ Rails.application.configure do
   # More details: https://mailcatcher.me
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  config.action_mailer.smtp_settings = { address: 'localhost', port: 1025 }
+  #
+  # config.action_mailer.smtp_settings = {
+  #     address:        'smtp.mandrillapp.com',
+  #     port:           25,                       # Alts: ports 587 and 2525
+  #     authentication: :login,                   # 'plain' or 'login'
+  #     user_name:      ENV['MANDRILL_USERNAME'],
+  #     password:       ENV['MANDRILL_PASSWORD'],
+  #     enable_starttls_auto: true
+  # }
 
   # Configuration for bullet
   # More details: https://github.com/flyerhzm/bullet
