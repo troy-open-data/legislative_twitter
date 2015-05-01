@@ -11,7 +11,8 @@ class PeopleController < ApplicationController
   # GET /people/1
   # GET /people/1.json
   def show
-    @person = Person.includes(votes: [folio: [:bill, :meeting]],
+    @person = Person.includes(votes: [roll_call: [motion: [:bill, :meeting]]],
+                              motions: [:bill, :meeting],
                               meetings: :organization).find(params[:id])
   end
 

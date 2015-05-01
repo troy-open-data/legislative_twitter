@@ -52,8 +52,9 @@
   </tr>
   <% @person.votes.each do |vote| %>
       <tr>
-        <td><%= link_to vote.folio.meeting.name, vote.folio.meeting %></td>
-        <td><%= link_to vote.folio.bill.short_title || vote.folio.bill.title, vote.folio.bill %></td>
+        <% motion = vote.roll_call.motion %>
+        <td><%= link_to motion.meeting.name, motion.meeting %></td>
+        <td><%= link_to motion.bill.short_title || motion.bill.title, motion.bill %></td>
         <td><%= vote.type %></td>
       </tr>
   <% end %>
