@@ -1,0 +1,98 @@
+<!-- Bill Options -->
+<div class="row">
+  <div class="right button-bar">
+    <!-- Action Buttons -->
+    <ul class="button-group">
+      <li><%= link_to 'Meeting', meeting_path(@meeting), class:'tiny button' %></li>
+      <% if @meeting.happened? %>
+          <li><%= link_to 'Minutes', minutes_path(@meeting), class: 'tiny button'%></li>
+      <% end %>
+      <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
+    </ul>
+    <% if admin_signed_in? %>
+        <ul class="admin button-group">
+          <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
+          <li><%= link_to('Delete', meeting_path,
+                          method: "delete", class: 'tiny alert button',
+                          data: { confirm: 'Are you sure you want to delete this?'}) %></li>
+        </ul>
+    <% end %>
+    <!-- Download PDF Button -->
+    <ul class="button-group">
+      <li>
+        <%= link_to "Download PDF", '#',
+                    class: 'dropdown button',
+                    :'data-dropdown' => 'agenda-pdf-options',
+                    :'aria-controls' => 'agenda-pdf-options',
+                    :'aria-expanded' => 'false' %><br />
+        <!--Agenda Download Dropdown-->
+        <ul id="agenda-pdf-options" data-dropdown-content class="f-dropdown" aria-hidden="true">
+          <!--Agenda with all attachments (Bills and legislative attachments)-->
+          <li>
+            <%= link_to 'with bill+attachments',
+                        agenda_path(id: @meeting, format: 'pdf',
+                                    attach: { bill: true,
+                                              attachments: true }) %>
+          </li>
+          <!--Agenda with Bills but no attachments-->
+          <li>
+            <%= link_to 'with bill',
+                        agenda_path(@meeting, format: 'pdf',
+                                    attach: { bill: true }) %>
+          </li>
+          <!--Agenda only-->
+          <li><%= link_to 'agenda only',
+                          agenda_path(@meeting, format: 'pdf',
+                                      attach: { false: false }) %></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+
+<!--Agenda title-->
+<h2>
+  <%= "#{@meeting.organization.name} Agenda" %>
+  <%= @meeting.approved_agenda? ? '(Approved)' : '(Draft)' %>
+  <small>for <%= @meeting.date.to_formatted_s(:long_ordinal) %></small>
+</h2>
+
+<!--Admin-->
+<% if admin_signed_in? %>
+    <div class="admin panel">
+      <h3>Agenda Admin:</h3>
+      <ul>
+        <li><%= link_to 'Start Meeting', start_meeting_path(@meeting) %></li>
+        <% agenda_option = @meeting.approved_agenda? ? 'Unapprove Agenda' : 'Approve Agenda' %>
+        <li><%= link_to agenda_option, toggle_agenda_path, remote: true, id:'agenda-toggle' %></li>
+      </ul>
+    </div>
+<% end %>
+
+<!--Intro Section-->
+<dl>
+<% @meeting.meeting_items.each do |item| %>
+    <dt><%= item.title %></dt>
+      <dd><%= item.text %></dd>
+<% end %>
+</dl>
+<p><%= Meeting::PROCEDURE %></p>
+
+<h3>Local Law</h3>
+
+<!--List Bills by type-->
+<dl>
+  <% @meeting.grouped_motions.each do |legislation_type, folios| %>
+      <h4><%= legislation_type %></h4>
+      <% folios.each do |folio| %>
+          <% legislation = folio.bill %>
+          <dt><%= legislation.numbering :abbreviation %></dt>
+          <dd><%= short_title legislation %>
+            (<%= link_to 'html', bill_path(legislation) %>)
+            (<%= link_to 'pdf', bill_path(legislation, format: 'pdf') %>)
+          </dd>
+      <% end %>
+  <% end %>
+</dl>

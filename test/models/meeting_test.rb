@@ -21,23 +21,26 @@ class MeetingTest < ActiveSupport::TestCase
   end
 
   ## Associations ##############################################################
-  test 'belongs to one organization' do
+  should 'belong to one organization' do
     assert should_belong_to(Meeting, :organization)
   end
 
-  test 'has many folios' do
-    assert should_have_many(Meeting, :folios)
+  should 'have many motions' do
+    assert should_have_many(Meeting, :motions)
   end
-  test 'can destroy dependent folios' do
-    @folio = Folio.new(meeting: @meeting)
-    @folio.save!
-    assert Folio.exists? @folio.id
+  should 'destroy dependent motions' do
+    @motion = Motion.new(meeting: @meeting)
+    @motion.save!
+    assert Motion.exists? @motion.id
 
     @meeting.destroy!
-    refute Folio.exists? @folio.id
+    refute Motion.exists? @motion.id
   end
-  test 'has many bills' do
+  should 'have many bills' do
     assert should_have_many(Meeting, :bills)
+  end
+  should 'have many meeting items' do
+    assert should_have_many Meeting, :meeting_items
   end
 
   ## Validations ###############################################################
@@ -68,9 +71,9 @@ class MeetingTest < ActiveSupport::TestCase
   end
   test 'is_started? is an alias of has_happened?' do
     @meeting.date_and_time = 2.years.ago
-    assert_equal @meeting.has_happened?, @meeting.is_started?
+    assert_equal @meeting.happened?, @meeting.started?
     @meeting.date_and_time = 2.years.from_now
-    assert_equal @meeting.has_happened?, @meeting.is_started?
+    assert_equal @meeting.happened?, @meeting.started?
   end
 
   ## Scopes and Class Methods ##################################################
@@ -79,15 +82,14 @@ class MeetingTest < ActiveSupport::TestCase
   end
 
   ## Instance Methods ##########################################################
-  test 'grouped_legislations' do
-    @meeting.respond_to? :grouped_legislations
+  test '#grouped_legislations' do
+    @meeting.respond_to? :grouped_bills
   end
-  test 'grouped_folios' do
-    @meeting.respond_to? :grouped_folios
+  test '#grouped_motions' do
+    @meeting.respond_to? :grouped_motions
   end
   # test 'name'
   # test 'datetimepicker_value'
   # test 'has_happened?'
   # test 'toggle_approval'
-
 end

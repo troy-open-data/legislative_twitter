@@ -1,72 +1,35 @@
+# Meetings actions
 class MeetingsController < ApplicationController
-  before_action :authenticate_admin!, except: [:index, :show, :agenda, :minutes]
-
-  before_action :set_meeting, only: [:show, :edit, :update, :destroy,
-                                     :toggle_agenda, :toggle_minutes]
-  before_action :set_meeting_with_folios, only: [:agenda, :minutes]
-  # before_action :set_meeting_with_folios_and_members, only: :start_meeting
+  before_action :set_meeting, only: [:show, :edit, :update, :destroy]
 
   # GET /meetings
   # GET /meetings.json
   def index
     @meetings = Meeting.includes(:organization).order('date_and_time DESC')
-    @grouped_meetings = @meetings.group_by{|meeting| meeting.organization}
+    @grouped_meetings = @meetings.group_by(&:organization)
   end
 
   # GET /meetings/1
   def show
   end
 
-  # GET /meetings/1/agenda
-  # GET /meetings/1/agenda.pdf
-  def agenda
-    @meeting = Meeting.includes(folios: [:bill]).find(params[:id])
-
-    default_attachments = { bill: true, attachments: true }
-    @attach = params[:attach] || default_attachments
-  end
-
-  # GET /toggle_agenda/1.js
-  def toggle_agenda
-    @meeting.toggle_approval :agenda
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  # GET /toggle_minutes/1.js
-  def toggle_minutes
-    @meeting.toggle_approval :minutes
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  # GET /meetings/1/minutes
-  # GET /meetings/1/minutes.pdf
-  def minutes
-    @meeting = Meeting.includes(folios: [:bill,
-                                         :sponsors,
-                                         :votes]).find(params[:id])
-  end
-
   # GET /meetings/1/start_meeting
   def start_meeting
-    @meeting = Meeting.includes(folios: [:bill,
-                                         :sponsors,
-                                         votes: :person],
+    @meeting = Meeting.includes(motions: [:sponsors,
+                                          bill: [:recitals, :sections],
+                                          votes: :person],
                                 organization: :people).find(params[:id])
 
-    @meeting.folios.each do |folio|
-      @meeting.organization.people.each do |member|
-        folio.votes.where(person: member).first || folio.votes.build(person: member)
-      end
+    @meeting.motions.each do |motion|
+      motion.roll_calls.build if motion.roll_calls.empty?
     end
   end
 
   # GET /meetings/new
   def new
     @meeting = Meeting.new
+    item_titles = ['Pledge of Allegiance', 'Roll Call', 'Good News Agenda']
+    item_titles.each { |title| @meeting.meeting_items.build(title: title) }
   end
 
   # GET /meetings/1/edit
@@ -114,30 +77,36 @@ class MeetingsController < ApplicationController
   end
 
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_meeting
     @meeting = Meeting.find(params[:id])
   end
 
-  def set_meeting_with_folios
-
-  end
-
-  # Never trust parameters from the scary internet, only allow the white list through.
+  # Never trust parameters from the scary internet,
+  #   only allow the white list through.
   def meeting_params
     params.require(:meeting).permit(:organization_id, :date_and_time, :location,
                                     bill_ids: [],
                                     person_ids: [],
-                                    folios_attributes: [:notes,
-                                                        :bill_id,
-                                                        :meeting_id,
-                                                        :id,
-                                                        :_destroy,
-                                                        sponsor_ids:  [],
-                                                        votes_attributes: [:id,
-                                                                           :person_id,
-                                                                           :folio_id,
-                                                                           :data,
-                                                                           :_destroy]])
+                                    meeting_items_attributes: [:title,
+                                                               :text,
+                                                               :id,
+                                                               :_destroy],
+                                    motions_attributes: [:notes,
+                                                         :bill_id,
+                                                         :meeting_id,
+                                                         :id,
+                                                         :_destroy,
+                                                         sponsor_ids:  [],
+                                                         roll_calls_attributes: [:type,
+                                                                                 :notes,
+                                                                                 :id,
+                                                                                 :_destroy,
+                                                                                 votes_attributes: [:id,
+                                                                                                    :person_id,
+                                                                                                    :folio_id,
+                                                                                                    :data,
+                                                                                                    :_destroy]]])
   end
 end

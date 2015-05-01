@@ -14,24 +14,7 @@ class MeetingsHelperTest < ActionView::TestCase
       context 'with attendees' do
         setup { @meeting.people << create(:person) }
         should 'include attendee name' do
-          assert_match /#{@meeting.people[0].name}/, list_attendees(@meeting)
-        end
-      end
-    end
-
-    context 'given a folio' do
-      setup { @folio = create(:folio) }
-      context '#print_votes' do
-        context 'with no votes' do
-          should 'return string of vote summary' do
-            assert_equal 'no vote recorded', print_votes(@folio)
-          end
-        end
-        context 'with votes' do
-          setup { @folio.votes << create(:vote, folio: @folio) }
-          should 'return string of vote summary' do
-            assert_match /\d-\d-\d/, print_votes(@folio)
-          end
+          assert_match(/#{@meeting.people[0].name}/, list_attendees(@meeting))
         end
       end
     end

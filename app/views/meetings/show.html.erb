@@ -4,7 +4,7 @@
     <!-- Action Buttons -->
     <ul class="button-group">
       <li><%= link_to 'Agenda', agenda_path(@meeting), class:'tiny button' %></li>
-      <% if @meeting.has_happened? %>
+      <% if @meeting.happened? %>
           <li><%= link_to 'Minutes', minutes_path(@meeting), class: 'tiny button'%></li>
       <% end %>
       <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
@@ -38,7 +38,7 @@
           <% agenda_option = @meeting.approved_agenda? ? 'Unapprove Agenda' : 'Approve Agenda' %>
           <li><%= link_to agenda_option, toggle_agenda_path, remote: true, id:'agenda-toggle' %></li>
 
-          <% if @meeting.has_happened? %>
+          <% if @meeting.happened? %>
               <% minutes_option = @meeting.approved_minutes? ? 'Unapprove Minutes' : 'Approve Minutes' %>
               <li><%= link_to minutes_option, toggle_minutes_path, remote: true, id:'minutes-toggle' %></li>
           <% end %>
@@ -70,7 +70,7 @@
     <li><%= link_to 'Agenda', agenda_path(@meeting) %>
       (<%= link_to 'pdf', agenda_path(@meeting, format: 'pdf') %>)</li>
 
-    <% if @meeting.has_happened? %>
+    <% if @meeting.happened? %>
         <li><%= link_to 'Minutes', minutes_path(@meeting) %>
           (<%= link_to 'pdf', minutes_path(@meeting, format: 'pdf') %>)</li>
     <% else %>
@@ -79,7 +79,7 @@
   </ul>
 
   <!--Stream Link-->
-  <% if @meeting.is_started? %>
+  <% if @meeting.started? %>
       <%= link_to 'Go To Meeting Stream', 'http://www.ustream.tv/channel/troycitycouncil',
                   class: 'large button expand',
                   target:'_blank' %>
@@ -90,10 +90,10 @@
 
 
   <!--Bill Listing-->
-  <h3>Listing Associated Legislation</h3>
+  <h3>Listing Bills</h3>
 
   <ul>
-    <% @meeting.grouped_legislations.each do |legislation_type, legislations| %>
+    <% @meeting.grouped_bills.each do |legislation_type, legislations| %>
         <h4><%= pluralize legislations.count, legislation_type %></h4>
         <% legislations.each do |legislation| %>
             <li>

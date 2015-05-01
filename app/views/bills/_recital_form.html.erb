@@ -1,0 +1,14 @@
+<!--Add Recital Field-->
+<div class="row field">
+  <div class="small-3 columns">
+    <%= f.text_field :prefix,   value: 'Whereas',
+                                placeholder: 'Whereas, Given, etc.',
+                                class: 'right' %>
+  </div>
+  <div class="small-7 columns">
+    <%= f.text_field :clause, placeholder: 'add the recital clause here' %>
+  </div>
+  <div class="small-2 columns">
+    <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
+  </div>
+</div>

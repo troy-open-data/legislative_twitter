@@ -1,0 +1,66 @@
+<fieldset>
+  <legend><%= motion.bill.numbering %></legend>
+
+  <div class="row field">
+    <div class='small-12 columns'><p><%= motion.bill.title %></p></div>
+  </div>
+
+  <div class="row field">
+    <div class='small-2 columns'><%= label_tag 'Short Title' %></div>
+    <div class='small-10 columns'><p><%= motion.bill.short_title %></p></div>
+  </div>
+
+  <div class="row field">
+    <div class='small-2 columns'><%= label_tag 'Sponsor(s)' %></div>
+    <div class='small-10 columns'>
+      <%=
+          f.collection_check_boxes(:sponsor_ids,
+                                   members,
+                                   :id,
+                                   :name)
+      %>
+    </div>
+  </div>
+
+
+    <!--Tab Headers-->
+  <ul class="tabs" data-tab>
+    <li class="tab-title active">
+      <a href="#panel1-m<%= motion.id %>">Actions</a>
+    </li>
+    <li class="tab-title">
+      <a href="#panel2-m<%= motion.id %>">Full Text</a>
+    </li>
+  </ul>
+
+  <div class="tabs-content">
+    <!--Action Tab-->
+    <div class="content active" id="panel1-m<%= motion.id %>">
+      <p>
+      <div class="row field">
+        <div class='small-2 columns'><%= f.label :notes %></div>
+        <div class='small-10 columns'>
+          <%= f.text_area :notes,
+                          placeholder: 'Type meeting notes here',
+                          rows: 5 %>
+        </div>
+      </div>
+
+        <%= f.fields_for :roll_calls do |builder| %>
+            <fieldset>
+              <legend>Roll Call Vote</legend>
+            <%= render 'roll_call_form', f: builder, voters: members %>
+            </fieldset>
+        <% end %>
+        <%= f.link_to_add '+ add a roll call vote', :roll_calls, class: 'small button expand' %>
+      </p>
+    </div>
+
+    <!--Full Text Tab-->
+    <div class="content" id="panel2-m<%= motion.id %>">
+      <p>
+        <%= render 'application/bill_sections', bill: motion.bill %>
+      </p>
+    </div>
+  </div>
+</fieldset>

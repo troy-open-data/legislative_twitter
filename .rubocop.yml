@@ -8,6 +8,4 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'script/**/*'
-    - 'test/**/*'
-    - 'bin/**/*'
     - 'coverage/**/*'

@@ -31,7 +31,6 @@ class BillsControllerTest < ActionController::TestCase
       context 'as admin' do
         should 'create bill' do
           sign_in @admin
-
           assert_difference('Bill.count') do
             post :create, bill: attributes_for(:bill)
           end

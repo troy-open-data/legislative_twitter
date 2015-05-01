@@ -2,12 +2,13 @@
 #
 # Table name: votes
 #
-#  id         :integer          not null, primary key
-#  person_id  :integer
-#  folio_id   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  data       :integer
+#  id           :integer          not null, primary key
+#  person_id    :integer
+#  motion_id    :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  data         :integer
+#  roll_call_id :integer
 #
 
 class Vote < ActiveRecord::Base
@@ -16,14 +17,14 @@ class Vote < ActiveRecord::Base
           0   => 'abstain' }
 
   belongs_to :person
-  belongs_to :folio
-  #
+  belongs_to :roll_call
+
   scope :yeas,      -> { where(data: 1) }
   scope :nays,      -> { where(data: -1) }
   scope :abstains,  -> { where(data: 0) }
 
   validates :data, presence: :true
-  validates :person_id, uniqueness: { scope: :folio_id }
+  validates :person_id, uniqueness: { scope: :roll_call_id }
 
   def type
     MAP[data]

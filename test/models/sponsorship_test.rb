@@ -4,7 +4,7 @@
 #
 #  id         :integer          not null, primary key
 #  person_id  :integer
-#  folio_id   :integer
+#  motion_id  :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

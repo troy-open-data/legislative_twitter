@@ -24,7 +24,7 @@
 
   <% @grouped_meetings.each do |organization,meetings| %>
       <br />
-      <table  width="100%" role="grid" summary="Listed meetings for <%= organization.name %>.">
+      <table role="grid" summary="Listed meetings for <%= organization.name %>.">
         <caption><%= organization.name %></caption>
         <thead>
         <tr>
@@ -50,7 +50,7 @@
                 <%= link_to 'pdf', agenda_path(meeting, format: 'pdf') %>
               </td>
               <td>
-                <% if meeting.has_happened? %>
+                <% if meeting.happened? %>
                     <%= link_to 'html', minutes_path(meeting) %><br />
                     <%= link_to 'pdf', minutes_path(meeting, format: 'pdf') %>
                 <% else %>

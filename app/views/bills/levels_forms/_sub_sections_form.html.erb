@@ -1,0 +1,35 @@
+<!--Add Level Field-->
+<fieldset>
+  <div class="row field">
+    <div class="small-12 columns">
+      <b>Sub Section</b>
+      <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
+    </div>
+  </div>
+  <div class="field">
+    <%= f.label :heading %>
+    <%= f.text_field :heading, placeholder: 'heading (optional)' %>
+  </div>
+  <div class="field">
+    <%= f.label :subheading %>
+    <%= f.text_field :subheading, placeholder: 'subheading (optional)' %>
+  </div>
+  <div class="field">
+    <%= f.label :text, 'Sub Section Content (no paragraphs)' %>
+    <%= f.text_area :text, placeholder: 'only shown if there are no paragraphs; otherwise, use chapeau and continuation.' %>
+  </div>
+  <div class="field">
+    <%= f.label :chapeau, 'Chapeau (content before paragraphs)' %>
+    <%= f.text_area :chapeau, placeholder: 'content shown before paragraphs' %>
+  </div>
+  <div class="field">
+    <%= f.label :continuation, 'Continuation (content after paragraphs)' %>
+    <%= f.text_area :continuation, placeholder: 'content shows after paragraphs' %>
+  </div>
+
+
+  <%= f.fields_for :paragraphs do |builder| %>
+      <%= render 'bills/levels_forms/paragraphs_form', f: builder %>
+  <% end %>
+  <%= f.link_to_add '+ add a paragraph', :paragraphs, class: 'small button expand' %>
+</fieldset>

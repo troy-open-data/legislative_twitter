@@ -1,4 +1,4 @@
-<%= form_for(@meeting) do |f| %>
+<%= nested_form_for(@meeting) do |f| %>
   <% if @meeting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
@@ -26,9 +26,18 @@
                        value: (@meeting.location || Meeting::DEFAULT_LOCATION) %>
     </div>
 
-    <!--Legislative Docket-->
+    <!--Orders of Business-->
     <fieldset>
-      <legend>Set Meeting Docket</legend>
+      <legend>Orders of Business</legend>
+      <%= f.fields_for :meeting_items do |builder| %>
+          <%= render 'meeting_item_form', f: builder %>
+      <% end %>
+      <%= f.link_to_add '+ add an order of business', :meeting_items, class: 'small button expand' %>
+    </fieldset>
+
+    <!--Bill Docket-->
+    <fieldset>
+      <legend>Set Bill Docket</legend>
       <%= f.collection_check_boxes(:bill_ids,
                                    Bill.by_recent,
                                    :id,

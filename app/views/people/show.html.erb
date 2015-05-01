@@ -34,11 +34,11 @@
 
 <h3>Sponsored Legislation</h3>
 <ul>
-  <% @person.sponsored_bills.each do |folio| %>
-      <% bill = folio.bill %>
+  <% @person.motions.each do |motion| %>
+      <% bill = motion.bill %>
       <li>
         <%= link_to bill.short_title || bill.title, bill %>
-        (<%= link_to folio.meeting.name, folio.meeting %>)
+        (<%= link_to motion.meeting.name, motion.meeting %>)
       </li>
   <% end %>
 </ul>

@@ -2,6 +2,25 @@
 include ActionDispatch::TestProcess
 
 FactoryGirl.define do
+  # Levels
+  factory :section do
+    bill
+  end
+  factory :sub_section do
+    section
+  end
+  factory :paragraph do
+    sub_section
+  end
+  factory :sub_paragraph do
+    paragraph
+  end
+
+  factory :recital do
+    clause    'cake is good'
+    bill
+  end
+
   factory :admin do
     email     'email@email.com'
     password  'password'
@@ -12,23 +31,12 @@ FactoryGirl.define do
   end
 
   factory :bill do
-    title 'Resolution for Free Cake'
-    body  'We should all have free cake.'
+    title             'Resolution for Free Cake'
+    short_title       'Free Cake'
 
-    # legislation_with_attachments will create attachments data after the
-    # bill has been created
     factory :legislation_with_attachments do
-      # attachments_count is declared as a transient attribute and available in
-      # attributes on the factory, as well as the callback via the evaluator
-      transient do
-        attachments_count 5
-      end
+      transient { attachments_count 5 }
 
-      # the after(:create) yields two values; the bill instance itself and the
-      # evaluator, which stores all values from the factory, including transient
-      # attributes; `create_list`'s second argument is the number of records
-      # to create and we make sure the attachments is associated properly to the
-      # bill
       after(:create) do |bill, evaluator|
         create_list(:attachment, evaluator.attachments_count,
                     bill: bill)
@@ -45,7 +53,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :folio do
+  factory :motion do
     bill
     meeting
   end
@@ -60,7 +68,12 @@ FactoryGirl.define do
     last  'Washington'
   end
 
+  factory :roll_call do
+    motion
+  end
+
   factory :vote do
     data 0
+    roll_call
   end
 end

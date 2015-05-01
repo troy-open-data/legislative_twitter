@@ -5,8 +5,7 @@
 <h2>Meeting in Progress</h2>
 
 <p>Meeting docket: <%= pluralize @meeting.bills.count, 'bill' %></p>
-
-<%= form_for @meeting do |f| %>
+<%= nested_form_for @meeting do |f| %>
     <fieldset>
       <legend>Attendance</legend>
       <%=
@@ -17,11 +16,18 @@
       %>
     </fieldset>
 
+    <fieldset>
+      <legend>Initial Orders of Business</legend>
+      <%= f.fields_for :meeting_items do |builder| %>
+          <%= render 'meeting_item_form', f: builder %>
+      <% end %>
+      <%= f.link_to_add '+ add an order of business', :meeting_items, class: 'small button expand' %>
+    </fieldset>
 
-    <% @meeting.grouped_folios.each do |legislation_type, folios| %>
-        <h3><%= pluralize folios.count, legislation_type %></h3>
-        <%= f.fields_for :folios, folios do |fa| %>
-            <%= render 'folio_form', f: fa %>
+    <% @meeting.grouped_motions.each do |legislation_type, motions| %>
+        <h3><%= pluralize motions.count, legislation_type %></h3>
+        <%= f.fields_for :motions, motions do |fa| %>
+            <%= render 'motion_form', f: fa, motion: fa.object, members: @meeting.organization.people %>
         <% end %>
     <% end %>
     <%= f.submit 'Finish Meeting', class: 'button expand' %>

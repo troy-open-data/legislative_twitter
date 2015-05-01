@@ -4,7 +4,7 @@
 
       <% if @bill.errors.any? %>
           <div id="error_explanation">
-            <h2><%= pluralize(@bill.errors.count, "error") %> prohibited this legislation from being saved:</h2>
+            <h2><%= pluralize(@bill.errors.count, 'error') %> prohibited this legislation from being saved:</h2>
 
             <ul>
               <% @bill.errors.full_messages.each do |message| %>
@@ -28,19 +28,36 @@
 
       <!--Short Title Field-->
       <div class="field">
-          <%= f.label :short_title, 'Short Title (optional)' %>
-          <%= f.text_field :short_title, placeholder: 'Shorter title for searches and listings' %>
+        <%= f.label :short_title, 'Short Title' %>
+        <%= f.text_field :short_title, placeholder: 'Shorter title for searches and listings' %>
       </div>
 
-      <!--Body Field-->
-      <div class="field">
-        <%= f.label :body %>
-        <%= f.text_area :body, class:'jqte-test' %>
-      </div>
-
-      <!--Bill Attachments-->
+      <!--Preamble-->
       <fieldset>
-        <legend>Attachments</legend>
+        <legend>Preamble</legend>
+        <%= f.fields_for :recitals do |builder| %>
+            <%= render 'recital_form', f: builder %>
+        <% end %>
+        <%= f.link_to_add '+ add a recital clause', :recitals, class: 'small button expand' %>
+        <div class="field">
+          <%= f.label :enacting_formula %>
+          <%= f.text_field :enacting_formula,   value: 'Let it be hereby resolved that',
+                                                placeholder: 'Enacting formula (ex. "Let it be hereby resolved that")' %>
+        </div>
+      </fieldset>
+
+      <!--Main Content-->
+      <fieldset>
+        <legend>Main Content</legend>
+        <%= f.fields_for :sections do |builder| %>
+            <%= render 'bills/levels_forms/section_form', f: builder %>
+        <% end %>
+        <%= f.link_to_add '+ add a section', :sections, class: 'small button expand' %>
+      </fieldset>
+
+      <!--Bill Appendices-->
+      <fieldset>
+        <legend>Appendices</legend>
         <%= f.fields_for :attachments do |builder| %>
             <%= render 'attachment_form', f: builder %>
         <% end %>

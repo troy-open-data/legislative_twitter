@@ -4,11 +4,11 @@
 #
 #  id               :integer          not null, primary key
 #  title            :string
-#  body             :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  legislation_type :string           default("Resolution"), not null
 #  short_title      :string
+#  enacting_formula :string
 #
 
 require 'test_helper'
@@ -19,15 +19,32 @@ class BillTest < ActiveSupport::TestCase
     @bill = create(:bill)
   end
 
+  should 'have many recitals' do
+    assert should_have_many Bill, :recitals
+  end
+  should 'have many sections' do
+    assert should_have_many Bill, :sections
+  end
+  should 'have many motions' do
+    assert should_have_many Bill, :motions
+  end
+  should 'have many roll call votes through motions' do
+    assert should_have_many_through Bill, :roll_calls, :motions
+  end
+
   ## Validations ###############################################################
   test 'must have title' do
     assert should_validate_presence_of :title, :bill
   end
-  test 'must have body' do
-    assert should_validate_presence_of :body, :bill
+  should 'have short title' do
+    assert should_validate_presence_of :short_title, :bill
   end
   test 'must have bill type' do
     assert should_validate_presence_of :legislation_type, :bill
+  end
+  should 'have enacting formula default to \'Let it be hereby resolved\'' do
+    bill = create(:bill, enacting_formula: nil)
+    assert_equal 'Let it be hereby resolved', bill.enacting_formula
   end
   test 'bill type must be from allowed types' do
     @bill.update(legislation_type: 'Invalid Type')
@@ -49,20 +66,17 @@ class BillTest < ActiveSupport::TestCase
                  Bill.by_recent
   end
   # test 'latest'
-
-
   ## Instance Methods ##########################################################
-
   # Text Output
   test 'created_at_time should contain the year, month, and day of creation' do
     created_datetime = @bill.created_at
     created_string = @bill.created_at_time
-    assert_match /#{created_datetime.year}/, created_string,
-                 'should contain the year of creation'
-    assert_match /#{Date::MONTHNAMES[created_datetime.month]}/, created_string,
-                 'should contain the fulltext month of creation'
-    assert_match /#{created_datetime.day}/, created_string,
-                 'should contain the day of creation'
+    assert_match(/#{created_datetime.year}/, created_string,
+                 'should contain the year of creation')
+    assert_match(/#{Date::MONTHNAMES[created_datetime.month]}/, created_string,
+                 'should contain the fulltext month of creation')
+    assert_match(/#{created_datetime.day}/, created_string,
+                 'should contain the day of creation')
   end
 
   # test 'legislative_numbering'
@@ -80,7 +94,7 @@ class BillTest < ActiveSupport::TestCase
   test 'should return changed attributes in a given version' do
     @bill.update(title: 'New Title')
     @bill.save!
-    @bill.update(body: 'New Body')
+    @bill.update(title: 'New Title 2')
     @bill.save!
 
     version = @bill.versions[-2]
@@ -88,8 +102,6 @@ class BillTest < ActiveSupport::TestCase
     diff_attributes = @bill.diff_attributes version
     assert_equal ['title'], diff_attributes
   end
-
-
 
   # Paper Trail Tests
   test 'Bills should have paper trails' do

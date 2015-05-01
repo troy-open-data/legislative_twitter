@@ -2,16 +2,18 @@
 #
 # Table name: votes
 #
-#  id         :integer          not null, primary key
-#  person_id  :integer
-#  folio_id   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  data       :integer
+#  id           :integer          not null, primary key
+#  person_id    :integer
+#  motion_id    :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  data         :integer
+#  roll_call_id :integer
 #
 
 require 'test_helper'
 
+# Vote model unit tests
 class VoteTest < ActiveSupport::TestCase
   context 'Vote::MAP' do
     should 'be a hash of vote integers to meanings' do
@@ -19,17 +21,17 @@ class VoteTest < ActiveSupport::TestCase
     end
     context '-1' do
       should 'mean "nay"' do
-        assert_match /nay/i, Vote::MAP[-1]
+        assert_match(/nay/i, Vote::MAP[-1])
       end
     end
     context '0' do
       should 'mean "abstain"' do
-        assert_match /abstain/i, Vote::MAP[0]
+        assert_match(/abstain/i, Vote::MAP[0])
       end
     end
     context '1' do
       should 'mean "nay"' do
-        assert_match /yea/i, Vote::MAP[1]
+        assert_match(/yea/i, Vote::MAP[1])
       end
     end
   end
@@ -38,14 +40,17 @@ class VoteTest < ActiveSupport::TestCase
     should 'have data' do
       assert should_validate_presence_of :data, :vote
     end
-    should 'have only one vote per person per folio' do
+    should 'belong to a roll call' do
+      assert should_belong_to Vote, :roll_call
+    end
+    should 'have only one vote per person per roll call' do
       vote = create(:vote)
-      dup_vote = build(:vote, person: vote.person, folio: vote.folio)
+      dup_vote =    build(:vote, person: vote.person, roll_call: vote.roll_call)
       refute dup_vote.save, 'duplicate vote was saved'
-      valid_vote = build(:vote, person: vote.person, folio: create(:folio))
+      valid_vote =  build(:vote, person: vote.person, roll_call: create(:roll_call))
       assert valid_vote.save, 'valid vote for duplicate person was not saved'
-      valid_vote = build(:vote, folio: vote.folio, person: create(:person))
-      assert valid_vote.save, 'valid vote for duplicate folio was not saved'
+      valid_vote =  build(:vote, roll_call: vote.roll_call, person: create(:person))
+      assert valid_vote.save, 'valid vote for duplicate roll call was not saved'
     end
   end
 

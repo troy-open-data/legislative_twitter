@@ -10,7 +10,7 @@ class VersionsControllerTest < ActionController::TestCase
     context 'as an admin' do
       context 'A previous version of an object' do
         setup do
-          @bill.update(body: 'New Body')
+          @bill.update(title: 'New Title')
           @bill.save!
 
           @most_recent = @bill.versions.last

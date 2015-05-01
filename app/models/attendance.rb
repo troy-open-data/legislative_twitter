@@ -8,7 +8,6 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
-
 class Attendance < ActiveRecord::Base
   belongs_to :person
   belongs_to :meeting

@@ -15,27 +15,29 @@ pdf.text attendance, align: :center
 pdf.move_down font_size*2
 
 
-# Intro Text
-data = [["Pledge of Allegiance\nRoll Call\nGood News Agenda\nVacancy List"],
-        ["Pursuant to Section 2.72-2 entitled \"Public Forum\" of the Special Rules ofOrder of the Troy City Council a period of time shall be designated during each regular or special meeting of the City Council as a public forum during which citizens of the City shall be permitted to address the Council on bill on that meeting's agenda and on any subject appropriate to the conduct ofTroy City government. Length of time allotted for citizen comment shall be no longer than five (5) minutes per speaker. At the completion of the agenda, citizen's comment shall be no longer than five (5) minutes per speaker appropriate to any subject to the conduct of Troy City government."],
-        ["\nLOCAL LAW"]]
-pdf.table(data) do
-  cells.borders = []
-  # row(1).font_style = :italic
-  row(2).font_style = :bold
-  row(2).style align: :center
+# "Intro" Minutes Information
+meeting.meeting_items.each do |item|
+  pdf.text(item.title, style: :bold)  if item.title
+  pdf.text(item.text)                 if item.text
 end
-
 pdf.move_down font_size
 
-# Legislations Table
-@meeting.grouped_folios.each do |type, folios|
-  data = [[ {content: type.pluralize(folios.count).upcase, colspan: 3} ]]
-  folios.each do |folio|
-    data << [folio.bill.legislative_numbering(:integer).to_s+'.', {content:folio.bill.title, colspan: 2}]
-    data << ['','Sponsor(s)', folio.sponsors_list]
-    data << ['','Notes', folio.notes]
-    data << ['','Final Vote (yea-nay-abstain)', print_votes(folio)]
+pdf.text Meeting::PROCEDURE
+pdf.move_down font_size
+
+pdf.text 'LOCAL LAW', style: :bold, align: :center
+pdf.move_down font_size
+
+# Motions Table
+@meeting.grouped_motions.each do |type, motions|
+  data = [[ {content: type.pluralize(motions.count).upcase, colspan: 3} ]]
+  motions.each do |motion|
+    data << [motion.bill.numbering(:integer).to_s+'.', {content:motion.bill.title, colspan: 2}]
+    data << ['','Sponsor(s)', motion.sponsors_list]
+    data << ['','Notes', motion.notes]
+    motion.roll_calls.each do |roll_call|
+      data << ['', roll_call.type + ' Vote', "#{print_votes(roll_call)} (yea-nay-abstain): #{roll_call.result.upcase}"]
+    end
     2.times { data << ['','',''] }
   end
   pdf.table(data, header:true) do

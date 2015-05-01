@@ -10,25 +10,27 @@ pdf.move_down font_size*8
 
 
 # "Intro" Agenda Information
-data = [["Pledge of Allegiance\nRoll Call\nGood News Agenda\nVacancy List"],
-        ["Pursuant to Section 2.72-2 entitled \"Public Forum\" of the Special Rules ofOrder of the Troy City Council a period of time shall be designated during each regular or special meeting of the City Council as a public forum during which citizens of the City shall be permitted to address the Council on bill on that meeting's agenda and on any subject appropriate to the conduct ofTroy City government. Length of time allotted for citizen comment shall be no longer than five (5) minutes per speaker. At the completion of the agenda, citizen's comment shall be no longer than five (5) minutes per speaker appropriate to any subject to the conduct of Troy City government."],
-        ["\nLOCAL LAW"]]
-pdf.table(data) do
-  cells.borders = []
-  row(2).font_style = :bold
+meeting.meeting_items.each do |item|
+  pdf.text(item.title, style: :bold)  if item.title
+  pdf.text(item.text)                 if item.text
 end
+pdf.move_down font_size
 
+pdf.text Meeting::PROCEDURE
+pdf.move_down font_size
+
+pdf.text 'LOCAL LAW', style: :bold, align: :center
 pdf.move_down font_size
 
 
 
 
 # Legislations Table
-meeting.grouped_folios.each do |legislation_type, folios|
-  data = [[ {content: legislation_type.pluralize(folios.count).upcase, colspan: 2} ]]
-  folios.each do |folio|
+meeting.grouped_motions.each do |legislation_type, motions|
+  data = [[ {content: legislation_type.pluralize(motions.count).upcase, colspan: 2} ]]
+  motions.each do |folio|
     legislation = folio.bill
-    data << [legislation.legislative_numbering(:integer).to_s+'.', legislation.title]
+    data << [legislation.numbering(:integer).to_s+'.', legislation.title]
   end
   pdf.table(data, header:true) do
     cells.borders = []

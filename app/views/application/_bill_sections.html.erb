@@ -1,0 +1,93 @@
+<!--Preamble-->
+<dl>
+  <% bill.recitals.each do |recital| %>
+      <dd><%= recital.prefix.upcase %>  <%= recital.clause %></dd>
+  <% end %>
+</dl>
+<p class="enacting_formula">
+  <b><%= bill.enacting_formula.upcase %></b>
+</p>
+
+<!--Main Content-->
+
+
+<!--TODO: Refactor to be more DRY-->
+<ol>
+  <% bill.sections.each do |section| %>
+      <li>
+        <!--Section Header-->
+        <% if section.heading || section.subheading %>
+            <h4>
+              <%= section.heading %>
+              <small><%= section.subheading %></small>
+            </h4>
+        <% end %>
+
+        <!--Section Content-->
+        <% if section.sub_sections.empty? %>
+            <p><%= section.text %></p>
+        <% else %>
+            <p><%= section.chapeau %></p>
+            <ol>
+              <% section.sub_sections.each do |sub_section| %>
+                  <li>
+                    <!--Subsection Header-->
+                    <% if sub_section.heading || sub_section.subheading %>
+                        <h4>
+                          <%= sub_section.heading %>
+                          <small><%= sub_section.subheading %></small>
+                        </h4>
+                    <% end %>
+
+                    <!--Subsection Content-->
+                    <% if sub_section.paragraphs.empty? %>
+                        <p><%= sub_section.text %></p>
+                    <% else %>
+                        <p><%= sub_section.chapeau %></p>
+                        <ol>
+                          <% sub_section.paragraphs.each do |paragraph| %>
+                              <li>
+                                <!--Paragraph Header-->
+                                <% if paragraph.heading || paragraph.subheading %>
+                                    <h4>
+                                      <%= paragraph.heading %>
+                                      <small><%= paragraph.subheading %></small>
+                                    </h4>
+                                <% end %>
+
+                                <!--Paragraph Content-->
+                                <% if paragraph.sub_paragraphs.empty? %>
+                                    <p><%= paragraph.text %></p>
+                                <% else %>
+                                    <p><%= paragraph.chapeau %></p>
+                                    <ol>
+                                      <% paragraph.sub_paragraphs.each do |sub_paragraph| %>
+                                          <li>
+                                            <!--Subparagraph Header-->
+                                            <% if sub_paragraph.heading || sub_paragraph.subheading %>
+                                                <h4>
+                                                  <%= sub_paragraph.heading %>
+                                                  <small><%= sub_paragraph.subheading %></small>
+                                                </h4>
+                                            <% end %>
+
+                                            <!--Subparagraph Content-->
+                                            <p><%= sub_paragraph.text %></p>
+                                          </li>
+                                      <% end %>
+                                    </ol>
+                                    <p><%= paragraph.continuation %></p>
+                                <% end %>
+                              </li>
+                          <% end %>
+                        </ol>
+                        <p><%= sub_section.continuation %></p>
+                    <% end %>
+                  </li>
+              <% end %>
+            </ol>
+            <p><%= section.continuation %></p>
+        <% end %>
+      </li>
+  <% end %>
+</ol>

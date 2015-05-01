@@ -13,12 +13,14 @@
 #  file_file_size    :integer
 #  file_updated_at   :datetime
 #
-
 class Attachment < ActiveRecord::Base
+  VALID_FILETYPES = %w(image/jpg image/jpeg image/png application/pdf)
+
   belongs_to :bill, touch: true
   has_attached_file :file
 
-  validates_attachment :file, presence: true,
-                       size: { less_than: 1.megabytes },
-                       content_type: { content_type: %w{ image/jpg image/jpeg image/png application/pdf }}
+  validates_attachment :file,
+                       presence:      true,
+                       size:          { less_than: 1.megabytes },
+                       content_type:  { content_type: VALID_FILETYPES }
 end

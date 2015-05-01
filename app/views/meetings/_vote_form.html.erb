@@ -1,9 +1,8 @@
 <%= f.label :person, f.object.person.name %>
 <%=
     f.collection_radio_buttons(:data,
-                                   Vote::MAP,
-                                   :first,
-                                   :last)
+                               Vote::MAP,
+                               :first,
+                               :last)
 %>
 <%= f.hidden_field :person_id %>
-<%= f.hidden_field :folio_id %>

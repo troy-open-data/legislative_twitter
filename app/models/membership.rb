@@ -9,7 +9,6 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
-
 class Membership < ActiveRecord::Base
   belongs_to :person
   belongs_to :organization
