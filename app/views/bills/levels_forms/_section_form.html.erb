@@ -2,7 +2,7 @@
 <fieldset>
   <div class="row field">
     <div class="small-12 columns">
-      <b>Section</b>
+      <b>Section (I.)</b>
       <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
     </div>
   </div>
@@ -31,5 +31,5 @@
   <%= f.fields_for :sub_sections do |builder| %>
       <%= render 'bills/levels_forms/sub_sections_form', f: builder %>
   <% end %>
-  <%= f.link_to_add '+ add a subsection', :sub_sections, class: 'small button expand' %>
+  <%= f.link_to_add '+ add a subsection', :sub_sections, class: 'small right button' %>
 </fieldset>

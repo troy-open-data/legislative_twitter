@@ -2,17 +2,9 @@
 <fieldset>
   <div class="row field">
     <div class="small-12 columns">
-      <b>Sub Section</b>
+      <b>Sub Section (a.)</b>
       <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
     </div>
-  </div>
-  <div class="field">
-    <%= f.label :heading %>
-    <%= f.text_field :heading, placeholder: 'heading (optional)' %>
-  </div>
-  <div class="field">
-    <%= f.label :subheading %>
-    <%= f.text_field :subheading, placeholder: 'subheading (optional)' %>
   </div>
   <div class="field">
     <%= f.label :text, 'Sub Section Content (no paragraphs)' %>
@@ -31,5 +23,5 @@
   <%= f.fields_for :paragraphs do |builder| %>
       <%= render 'bills/levels_forms/paragraphs_form', f: builder %>
   <% end %>
-  <%= f.link_to_add '+ add a paragraph', :paragraphs, class: 'small button expand' %>
+  <%= f.link_to_add '+ add a paragraph', :paragraphs, class: 'small right button' %>
 </fieldset>

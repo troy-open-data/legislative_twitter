@@ -12,11 +12,11 @@
 
 
 <!--TODO: Refactor to be more DRY-->
-<ol>
+<ol type="I">
   <% bill.sections.each do |section| %>
       <li>
         <!--Section Header-->
-        <% if section.heading || section.subheading %>
+        <% if section.heading && !section.heading.empty? %>
             <h4>
               <%= section.heading %>
               <small><%= section.subheading %></small>
@@ -28,49 +28,28 @@
             <p><%= section.text %></p>
         <% else %>
             <p><%= section.chapeau %></p>
-            <ol>
+            <ol type="a">
               <% section.sub_sections.each do |sub_section| %>
                   <li>
                     <!--Subsection Header-->
-                    <% if sub_section.heading || sub_section.subheading %>
-                        <h4>
-                          <%= sub_section.heading %>
-                          <small><%= sub_section.subheading %></small>
-                        </h4>
-                    <% end %>
-
                     <!--Subsection Content-->
                     <% if sub_section.paragraphs.empty? %>
                         <p><%= sub_section.text %></p>
                     <% else %>
                         <p><%= sub_section.chapeau %></p>
-                        <ol>
+                        <ol type="1">
                           <% sub_section.paragraphs.each do |paragraph| %>
                               <li>
                                 <!--Paragraph Header-->
-                                <% if paragraph.heading || paragraph.subheading %>
-                                    <h4>
-                                      <%= paragraph.heading %>
-                                      <small><%= paragraph.subheading %></small>
-                                    </h4>
-                                <% end %>
-
                                 <!--Paragraph Content-->
                                 <% if paragraph.sub_paragraphs.empty? %>
                                     <p><%= paragraph.text %></p>
                                 <% else %>
                                     <p><%= paragraph.chapeau %></p>
-                                    <ol>
+                                    <ol type="A">
                                       <% paragraph.sub_paragraphs.each do |sub_paragraph| %>
                                           <li>
                                             <!--Subparagraph Header-->
-                                            <% if sub_paragraph.heading || sub_paragraph.subheading %>
-                                                <h4>
-                                                  <%= sub_paragraph.heading %>
-                                                  <small><%= sub_paragraph.subheading %></small>
-                                                </h4>
-                                            <% end %>
-
                                             <!--Subparagraph Content-->
                                             <p><%= sub_paragraph.text %></p>
                                           </li>
