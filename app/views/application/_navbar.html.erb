@@ -10,6 +10,15 @@
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
+      <li class="admin has-dropdown show-for-medium-down">
+        <a href="#">Go to...</a>
+        <ul class="dropdown">
+          <li><%= link_to '...Organizations', organizations_path %></li>
+          <li><%= link_to '...Meetings', meetings_path %></li>
+          <li><%= link_to '...People', people_path %></li>
+          <li><%= link_to '...Bills', bills_path %></li>
+        </ul>
+      </li>
       <% if admin_signed_in? %>
           <li class="admin has-dropdown">
             <a href="#">Create New...</a>
