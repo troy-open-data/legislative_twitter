@@ -1,19 +1,21 @@
-require 'platform-api'
-
 # Set up integration wtih Heroku API
-unless (app_name = ENV['HEROKU_APP_NAME']).nil?
+unless (app = ENV['HEROKU_APP_NAME']).nil?
   require 'platform-api'
 
-  heroku = PlatformAPI.connect(ENV['HEROKU_API_KEY'])
+  client = PlatformAPI.connect(ENV['HEROKU_API_KEY'])
+  begin
+    # Fetch list of builds
+    builds = client.build.list(app)
 
-  # Fetch lsit of builds
-  build_list = heroku.build.list(app_name)
+    build_count = builds.count
+    build = builds.last
 
-  # Determine buld count and most recent build
-  build_count = build_list.count
-  last_build = build_list.last
-
-  ENV['HEROKU_BUILD_COUNT'] = build_count.to_s
-  ENV['HEROKU_BUILD_STATUS'] = last_build['status'].to_s
-  ENV['HEROKU_RELEASED_AT'] = last_build['updated_at'].to_s
+    ENV['HEROKU_BUILD_COUNT']   = build_count.to_s
+    ENV['HEROKU_BUILD_STATUS']  = build['status'].to_s
+    ENV['HEROKU_RELEASED_AT']   = build['updated_at'].to_s
+  rescue
+    ENV['HEROKU_BUILD_COUNT']  ||= 'unknown'
+    ENV['HEROKU_BUILD_STATUS'] ||= 'unknown'
+    ENV['HEROKU_RELEASED_AT']  ||= 'unknown'
+  end
 end
