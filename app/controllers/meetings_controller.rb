@@ -102,6 +102,7 @@ class MeetingsController < ApplicationController
                                                          roll_calls_attributes: [:type,
                                                                                  :notes,
                                                                                  :id,
+                                                                                 :passed,
                                                                                  :_destroy,
                                                                                  votes_attributes: [:id,
                                                                                                     :person_id,
