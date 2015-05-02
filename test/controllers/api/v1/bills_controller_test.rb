@@ -3,12 +3,6 @@ require 'test_helper'
 module API
   module V1
     class BillsControllerTest < ActionController::TestCase
-      context 'Bills API endpoints' do
-        should route(:get, '/api/v1/bills').to(action: :index, format: :json)
-        should route(:get, '/api/v1/bills/1')
-               .to(action: :show, id: 1, format: :json)
-      end
-
       context 'Bills API views' do
         context 'GET #index' do
           setup { get :index, { format: :json } }
