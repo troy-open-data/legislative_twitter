@@ -14,42 +14,37 @@
 require 'test_helper'
 
 class BillTest < ActiveSupport::TestCase
-  ## Setup and Teardown ########################################################
-  def setup
-    @bill = create(:bill)
-  end
+  # Associations
+  should have_many(:recitals)
+  should accept_nested_attributes_for(:recitals)
+         .allow_destroy(true)
 
-  should 'have many recitals' do
-    assert should_have_many Bill, :recitals
-  end
-  should 'have many sections' do
-    assert should_have_many Bill, :sections
-  end
-  should 'have many motions' do
-    assert should_have_many Bill, :motions
-  end
-  should 'have many roll call votes through motions' do
-    assert should_have_many_through Bill, :roll_calls, :motions
-  end
+  should have_many(:sections)
+  should accept_nested_attributes_for(:sections)
+         .allow_destroy(true)
 
-  ## Validations ###############################################################
-  test 'must have title' do
-    assert should_validate_presence_of :title, :bill
-  end
-  should 'have short title' do
-    assert should_validate_presence_of :short_title, :bill
-  end
-  test 'must have bill type' do
-    assert should_validate_presence_of :legislation_type, :bill
-  end
+  should have_many(:motions)
+  should have_many(:roll_calls)
+         .through(:motions)
+
+  should have_many(:attachments)
+  should accept_nested_attributes_for(:attachments)
+         .allow_destroy(true)
+
+  # Validations
+  should validate_presence_of(:title)
+  should validate_presence_of(:short_title)
+  should validate_presence_of(:legislation_type)
+
+  should validate_inclusion_of(:legislation_type)
+         .in_array(Bill::LEGISLATION_TYPES)
+
   should 'have enacting formula default to \'Let it be hereby resolved\'' do
     bill = create(:bill, enacting_formula: nil)
     assert_equal 'Let it be hereby resolved', bill.enacting_formula
   end
-  test 'bill type must be from allowed types' do
-    @bill.update(legislation_type: 'Invalid Type')
-    assert_not @bill.save, 'saved bill with an invalid type'
-  end
+
+
 
   ## Scopes and Class Methods ##################################################
   test 'has resolutions scope' do
@@ -68,6 +63,11 @@ class BillTest < ActiveSupport::TestCase
   # test 'latest'
   ## Instance Methods ##########################################################
   # Text Output
+
+  def setup
+    @bill = create(:bill)
+  end
+
   test 'created_at_time should contain the year, month, and day of creation' do
     created_datetime = @bill.created_at
     created_string = @bill.created_at_time

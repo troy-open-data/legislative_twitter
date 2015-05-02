@@ -12,7 +12,6 @@
 require 'test_helper'
 
 class AttendanceTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  should belong_to(:person)
+  should belong_to(:meeting)
 end

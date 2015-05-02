@@ -28,7 +28,7 @@ prawn_document(
   # paper defaults
   font_size = 12
   pdf.font_size = font_size
-  pdf.font("Times-Roman")
+  pdf.font('Times-Roman')
   pdf.default_leading font_size*0.2
 
   # Render agenda main text

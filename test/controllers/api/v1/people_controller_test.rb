@@ -3,29 +3,27 @@ require 'test_helper'
 module API
   module V1
     class PeopleControllerTest < ActionController::TestCase
-      context 'People API' do
-        setup do
-          @headers = { 'Accept:' => 'application/vnd.troycitycouncil.v1+json' }
+      context 'People API endpoints' do
+        should route(:get, '/api/people').to(action: :index, format: :json)
+        should route(:get, '/api/people/1')
+                   .to(action: :show, id: 1, format: :json)
+      end
+
+      context 'People API views' do
+        setup { @v1 = { 'Accept:'=>'application/vnd.troycitycouncil.v1+json' } }
+
+        context 'GET #index' do
+          setup { get :index, { format: :json }, @v1 }
+          should respond_with(:success)
+          # assert_not_nil assigns(:people), '@people not set'
         end
 
-        context 'people' do
-          should 'get index' do
-            get :index, { format: :json }, @headers
-
-            assert_response :success
-            assert_not_nil assigns(:people), '@people not set'
-          end
-        end
-
-        context 'people' do
+        context 'GET #show' do
           setup do
-            @people = create(:person)
+            @person = create(:person)
+            get :show, { id: @person, format: :json }, @v1
           end
-          should 'show' do
-            get :show, { id: @people, format: :json }, @headers
-
-            assert_response :success
-          end
+          should respond_with(:success)
         end
       end
     end
