@@ -17,14 +17,18 @@ class OrganizationTest < ActiveSupport::TestCase
     # Associations
     should have_many(:meetings)
 
-    should have_many(:memberships).dependent(:destroy)
-    should have_many(:people).through(:memberships)
+    should have_many(:memberships)
+           .dependent(:destroy)
+
+    should have_many(:people)
+           .through(:memberships)
 
     # Validations
     should validate_presence_of(:name)
 
     should validate_presence_of(:level)
-    should validate_inclusion_of(:level).in_range(0...Organization::LEVELS.length)
+    should validate_inclusion_of(:level)
+           .in_range(0...Organization::LEVELS.length)
 
 
     should 'have scope of meetable organizations' do

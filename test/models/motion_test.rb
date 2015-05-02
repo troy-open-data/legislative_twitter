@@ -16,9 +16,15 @@ class MotionTest < ActiveSupport::TestCase
   # Associations
   should belong_to(:bill)
   should belong_to(:meeting)
-  should have_many(:sponsors).through(:sponsorships)
+
+  should have_many(:sponsorships)
+  should have_many(:sponsors)
+         .through(:sponsorships)
+         .source(:person)
+
   should have_many(:roll_calls)
-  should have_many(:votes).through(:roll_calls)
+  should have_many(:votes)
+         .through(:roll_calls)
 
   context 'motion' do
     setup { @motion = create(:motion) }

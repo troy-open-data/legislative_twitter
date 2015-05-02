@@ -17,21 +17,12 @@
 require 'test_helper'
 
 class AttachmentTest < ActiveSupport::TestCase
-  ## Setup and Teardown ########################################################
-  # setup do
-  #   @attachment = create(:attachment)
-  # end
-
-  ## Associations ##############################################################
   should belong_to(:bill)
-  # test 'has attached file' do
-  #   @attachment.respond_to? :file
-  # end
 
-
-  ## Validations ###############################################################
-  # test 'validates attachment size'
-  # test 'validates attachment content type'
-  should validate_presence_of(:file)
-
+  should have_attached_file(:file)
+  should validate_attachment_presence(:file)
+  should validate_attachment_content_type(:file)
+         .allowing(Attachment::VALID_FILETYPES)
+  should validate_attachment_size(:file)
+         .less_than(1.megabyte)
 end

@@ -17,30 +17,28 @@ class BillTest < ActiveSupport::TestCase
   # Associations
   should have_many(:recitals)
   should accept_nested_attributes_for(:recitals)
+         .allow_destroy(true)
 
   should have_many(:sections)
   should accept_nested_attributes_for(:sections)
+         .allow_destroy(true)
 
   should have_many(:motions)
-  should have_many(:roll_calls).through(:motions)
+  should have_many(:roll_calls)
+         .through(:motions)
 
   should have_many(:attachments)
   should accept_nested_attributes_for(:attachments)
+         .allow_destroy(true)
 
   # Validations
   should validate_presence_of(:title)
   should validate_presence_of(:short_title)
   should validate_presence_of(:legislation_type)
 
-  should validate_inclusion_of(:legislation_type).in_array(Bill::LEGISLATION_TYPES)
+  should validate_inclusion_of(:legislation_type)
+         .in_array(Bill::LEGISLATION_TYPES)
 
-
-
-
-
-
-
-  ## Validations ###############################################################
   should 'have enacting formula default to \'Let it be hereby resolved\'' do
     bill = create(:bill, enacting_formula: nil)
     assert_equal 'Let it be hereby resolved', bill.enacting_formula

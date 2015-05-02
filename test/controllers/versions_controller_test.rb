@@ -1,6 +1,8 @@
 require 'test_helper'
 
 class VersionsControllerTest < ActionController::TestCase
+  should route(:post, '/versions/1/revert').to(action: :revert, id: 1)
+
   setup do
     @bill = create(:bill)
     request.env['HTTP_REFERER'] = bills_path
