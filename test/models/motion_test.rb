@@ -13,34 +13,15 @@
 require 'test_helper'
 
 class MotionTest < ActiveSupport::TestCase
-  context 'a valid motion' do
-    setup do
-      @motion = create(:motion)
-    end
-
-    context 'with associations' do
-      should 'belong to a bill' do
-        assert should_belong_to(Motion, :bill)
-      end
-      should 'belong to a meeting' do
-        assert should_belong_to(Motion, :meeting)
-      end
-      should 'have many people (sponsors) through sponsorships' do
-        assert should_have_many_through(Motion, :sponsors, :sponsorships)
-      end
-      should 'have many votes through roll calls' do
-        assert should_have_many_through(Motion, :votes, :roll_calls)
-      end
-      should 'have many roll call votes' do
-        assert should_have_many(Motion, :roll_calls)
-      end
-    end
-  end
+  # Associations
+  should belong_to(:bill)
+  should belong_to(:meeting)
+  should have_many(:sponsors).through(:sponsorships)
+  should have_many(:roll_calls)
+  should have_many(:votes).through(:roll_calls)
 
   context 'motion' do
-    setup do
-      @motion = create(:motion)
-    end
+    setup { @motion = create(:motion) }
 
     context '#sponsors' do
       context 'when there are no sponsors' do

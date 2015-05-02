@@ -49,7 +49,7 @@ gem 'devise_invitable', '~> 1.3.4'
 group :test do
   gem 'minitest'
   gem 'minitest-reporters'                # For RubyMine
-  gem 'shoulda-context'
+  gem 'shoulda'
   gem 'codeclimate-test-reporter', require: nil
   gem 'factory_girl_rails'
 end

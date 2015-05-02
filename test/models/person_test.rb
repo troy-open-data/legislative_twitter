@@ -13,35 +13,22 @@
 require 'test_helper'
 
 class PersonTest < ActiveSupport::TestCase
-  context 'a valid person' do
-    should 'have a first name' do
-      assert should_validate_presence_of :first, :person
-    end
-    should 'have a last name' do
-      assert should_validate_presence_of :last, :person
-    end
-    context 'with associations' do
-      should 'have many organizations through memberships' do
-        assert should_have_many_through(Person, :organizations, :memberships)
-      end
-      should 'have and belong to many meetings' do
-        assert should_have_many_through(Person, :meetings, :attendances)
-      end
-      should 'have many motions through sponsorship' do
-        assert should_have_many_through(Person, :motions, :sponsorships)
-      end
-      should 'have many votes' do
-        assert should_have_many(Person, :votes)
-      end
-    end
-  end
+  should validate_presence_of :first
+  should validate_presence_of :last
 
-  context 'a person' do
-    setup do
-      @person = create(:person)
-    end
-    should 'have a full name' do
-      assert @person.respond_to? :name
-    end
+  should have_many(:memberships).dependent(:destroy)
+  should have_many(:organizations).through(:memberships)
+
+  should have_many(:sponsorships).dependent(:destroy)
+  should have_many(:motions).through(:sponsorships)
+
+  should have_many(:votes).dependent(:destroy)
+
+  should have_many(:attendances).dependent(:destroy)
+  should have_many(:meetings).through(:attendances)
+
+  should 'have a full name' do
+    person = create(:person)
+    assert person.respond_to? :name
   end
 end

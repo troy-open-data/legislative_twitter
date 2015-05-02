@@ -15,6 +15,16 @@ require 'test_helper'
 
 # Vote model unit tests
 class VoteTest < ActiveSupport::TestCase
+  # Validations
+  should validate_presence_of(:data)
+  # should validate_uniqueness_of(:person_id).scoped_to(:roll_call_id)
+
+  # Associations
+  should belong_to(:roll_call)
+  should belong_to(:person)
+
+
+
   context 'Vote::MAP' do
     should 'be a hash of vote integers to meanings' do
       assert Vote::MAP.is_a? Hash
@@ -37,12 +47,6 @@ class VoteTest < ActiveSupport::TestCase
   end
 
   context 'a valid vote' do
-    should 'have data' do
-      assert should_validate_presence_of :data, :vote
-    end
-    should 'belong to a roll call' do
-      assert should_belong_to Vote, :roll_call
-    end
     should 'have only one vote per person per roll call' do
       vote = create(:vote)
       dup_vote =    build(:vote, person: vote.person, roll_call: vote.roll_call)
