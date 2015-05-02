@@ -45,16 +45,16 @@ json.history do
       json.extract! motion.meeting, :id, :date_and_time
       json.organization do
         json.extract! motion.meeting.organization, :id, :name
-        json.url api_meeting_path(motion.meeting.organization, format: :json)
+        json.url api_v1_meeting_url(motion.meeting.organization, format: :json)
       end
-      json.url api_meeting_path(motion.meeting, format: :json)
+      json.url api_v1_meeting_url(motion.meeting, format: :json)
     end
   end
   json.sponsors @bill.motions.collect(&:sponsors).flatten.each do |sponsor|
     json.extract! sponsor, :id, :first, :last
-    json.url api_person_url(sponsor, format: :json)
+    json.url api_v1_person_url(sponsor, format: :json)
   end
 end
 
 json.pdf bill_url(@bill, format: :pdf)
-json.bills_url api_bills_url
+json.bills_url api_v1_bills_url

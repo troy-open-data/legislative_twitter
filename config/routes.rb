@@ -1,19 +1,12 @@
-require 'api_version'  # lib/api_version.rb
-
 Rails.application.routes.draw do
   ##
   # API (api namespace)
   # ===================
   #
-  namespace :api, defaults: { format: 'json' } do
-    scope module: :v1, constraints: ApiVersion.new('v1', true) do
-      #
-      #
-      # Version One (v1)
-      # ----------------
-      # This is the default API verison. If no version is specified in the Accept
-      # header, v1 will be returned. This is to encourage browser experimentation.
-      #
+  namespace :api do
+    api_version(module: 'V1',
+                path: {value: 'v1'},
+                defaults: {format: 'json'}, default: true) do
       resources :bills,         only: [:index, :show]
       resources :meetings,      only: [:index, :show]
       resources :organizations, only: [:index, :show]

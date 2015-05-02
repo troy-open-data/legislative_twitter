@@ -3,7 +3,7 @@ json.extract! @meeting, :id, :name, :date, :location, :created_at, :updated_at
 json.organization do
   json.id @meeting.organization_id
   json.name @meeting.organization.name
-  json.url api_organization_url(@meeting.organization_id, format: :json)
+  json.url api_v1_organization_url(@meeting.organization_id, format: :json)
 end
 
 json.agenda do
@@ -18,7 +18,7 @@ end
 
 json.attendees @meeting.people do |attendee|
   json.extract! attendee, :id, :first, :last
-  json.url api_person_url(attendee, format: :json)
+  json.url api_v1_person_url(attendee, format: :json)
 end
 
 json.orders_of_business @meeting.meeting_items do |item|
@@ -30,7 +30,7 @@ json.bills @meeting.motions.each do |motion|
   json.extract! bill, :id, :title, :short_title
   json.sponsors motion.sponsors do |sponsor|
     json.extract! sponsor, :id, :first, :last
-    json.url api_person_url(sponsor, format: :json)
+    json.url api_v1_person_url(sponsor, format: :json)
   end
 
   json.roll_calls motion.roll_calls.sort_by(&:type) do |rc|
@@ -38,11 +38,11 @@ json.bills @meeting.motions.each do |motion|
     json.votes rc.votes do |vote|
       json.extract! vote.person, :id, :first, :last
       json.vote vote.type
-      json.person_url api_person_url(vote.person, format: :json)
+      json.person_url api_v1_person_url(vote.person, format: :json)
     end
   end
   json.extract! motion, :notes
-  json.url api_bill_url(bill, format: :json)
+  json.url api_v1_bill_url(bill, format: :json)
 end
 
-json.meetings_url api_meetings_url
+json.meetings_url api_v1_meetings_url

@@ -8,5 +8,5 @@ json.sponsorships @person.motions.collect(&:bill).flatten do |bill|
   json.extract! bill, :title, :short_title, :id
 end
 
-json.people_url api_people_url(format: :json)
+json.people_url api_v1_people_url(format: :json)
 
