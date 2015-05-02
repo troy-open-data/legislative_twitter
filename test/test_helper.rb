@@ -5,7 +5,7 @@ SimpleCov.start('rails') do
       SimpleCov::Formatter::HTMLFormatter,
       CodeClimate::TestReporter::Formatter
   ]
-  minimum_coverage 95
+  minimum_coverage 90
 end
 
 # Minitest and Reporters
