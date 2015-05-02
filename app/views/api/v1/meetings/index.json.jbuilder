@@ -10,12 +10,12 @@ json.array!(@meetings) do |meeting|
   end
 
   json.agenda do
-    json.url api_agenda_url(meeting, format: :json)
+    json.approved !!meeting.agenda_approved
     json.pdf agenda_url(meeting, format: :pdf)
   end
 
   json.minutes do
-    json.url api_minutes_url(meeting, format: :json)
+    json.approved !!meeting.minutes_approved
     json.pdf minutes_url(meeting, format: :pdf)
   end
 
