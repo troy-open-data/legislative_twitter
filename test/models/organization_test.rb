@@ -14,31 +14,25 @@ require 'test_helper'
 
 class OrganizationTest < ActiveSupport::TestCase
   context 'a valid organization' do
-    setup do
-      @organization = create(:organization)
-    end
+    # Associations
+    should have_many(:meetings)
 
-    should 'have a name' do
-      assert should_validate_presence_of :name, :organization
-    end
-    should 'have a level' do
-      assert should_validate_presence_of :level, :organization
-    end
-    should 'have a level within valid levels' do
-      @organization.update(level: Organization::LEVELS.size + 2)
-      assert_not @organization.save, 'saved organization with an invalid level'
-    end
+    should have_many(:memberships)
+           .dependent(:destroy)
+
+    should have_many(:people)
+           .through(:memberships)
+
+    # Validations
+    should validate_presence_of(:name)
+
+    should validate_presence_of(:level)
+    should validate_inclusion_of(:level)
+           .in_range(0...Organization::LEVELS.length)
+
+
     should 'have scope of meetable organizations' do
       assert Organization.respond_to? :meetable
-    end
-
-    context 'with associations' do
-      should 'has many meetings' do
-        assert should_have_many(Organization, :meetings)
-      end
-      should 'has many people through memberships' do
-        assert should_have_many_through(Organization, :people, :memberships)
-      end
     end
   end
 end

@@ -32,11 +32,12 @@ pdf.move_down font_size
 @meeting.grouped_motions.each do |type, motions|
   data = [[ {content: type.pluralize(motions.count).upcase, colspan: 3} ]]
   motions.each do |motion|
-    data << [motion.bill.numbering(:integer).to_s+'.', {content:motion.bill.title, colspan: 2}]
-    data << ['','Sponsor(s)', motion.sponsors_list]
-    data << ['','Notes', motion.notes]
+    data << [motion.bill.numbering(:integer).to_s+'.',
+             {content:motion.bill.title, colspan: 2}]
+    data << ['', 'Sponsor(s)',  motion.sponsors_list]
+    data << ['', 'Notes',       motion.notes]
     motion.roll_calls.each do |roll_call|
-      data << ['', roll_call.type + ' Vote', "#{print_votes(roll_call)} (yea-nay-abstain): #{roll_call.result.upcase}"]
+      data << ['', "#{roll_call.type} Vote", "#{print_votes(roll_call)} (yea-nay-abstain): #{roll_call.result.upcase}"]
     end
     2.times { data << ['','',''] }
   end

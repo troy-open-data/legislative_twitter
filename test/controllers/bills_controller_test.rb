@@ -1,140 +1,103 @@
 require 'test_helper'
 
 class BillsControllerTest < ActionController::TestCase
-  context 'bills' do
-    context '#index' do
-      should 'get index' do
-        get :index
-        assert_response :success
-        assert_not_nil assigns(:bills)
-      end
+  # Rendering by role (guest, admin)
+  context 'as a guest' do
+    context 'GET #index' do
+      setup { get :index }
+      should respond_with(:success)
+    end
+    context 'GET #new' do
+      setup { get :new }
+      should redirect_to(action: 'new', controller: 'devise/sessions')
+    end
+    context 'POST #create' do
+      setup { post :create, bill: {} }
+      should redirect_to(action: 'new', controller: 'devise/sessions')
     end
 
-    context '#new' do
-      context 'as admin' do
-        should 'get new' do
-          sign_in @admin
+    context 'when a bill exists' do
+      setup { @bill = create(:bill) }
 
-          get :new
-          assert_response :success
+      context 'GET #show' do
+        context 'html' do
+          setup { get :show, id: @bill, format: :html }
+          should respond_with(:success)
+        end
+        context 'html' do
+          setup { get :show, id: @bill, format: :pdf }
+          should respond_with(:success)
         end
       end
-      context 'not as admin' do
-        should 'redirect to login' do
-          get :new
-          assert_redirected_to new_admin_session_path
-        end
+
+      context 'GET #edit' do
+        setup { get :edit, id: @bill}
+        should redirect_to(action: 'new', controller: 'devise/sessions')
       end
-    end
-
-    context '#create' do
-      context 'as admin' do
-        should 'create bill' do
-          sign_in @admin
-          assert_difference('Bill.count') do
-            post :create, bill: attributes_for(:bill)
-          end
-          assert_redirected_to bill_path(assigns(:bill))
-        end
-
-        should 'not create with invalid parameters' do
-          sign_in @admin
-
-          invalid_attributes = attributes_for(:bill, title: nil)
-          assert_no_difference('Bill.count') do
-            post :create, bill: invalid_attributes
-          end
-          refute_equal :redirect, response.status
-        end
+      context 'PATCH #update' do
+        setup { patch :update, id: @bill, bill: {} }
+        should redirect_to(action: 'new', controller: 'devise/sessions')
       end
-      context 'not as admin' do
-        should 'redirect to login' do
-          post :create, bill: {}
-          assert_redirected_to new_admin_session_path
-        end
+      context 'DELETE #destroy' do
+        setup { delete :destroy, id: @bill }
+        should redirect_to(action: 'new', controller: 'devise/sessions')
       end
     end
-
   end
 
-  context 'a bill' do
-    setup do
-      @bill = create(:bill)
+
+  context 'as an admin' do
+    setup { sign_in @admin }
+
+    context 'GET #new' do
+      setup { get :new }
+      should respond_with(:success)
     end
-
-    context '#show' do
-      should 'show in html' do
-        get :show, id: @bill, format: :html
-        assert_response :success
-      end
-
-      should 'show in pdf' do
-        get :show, id: @bill, format: :pdf
-        assert_response :success
-      end
-    end
-
-    context '#edit' do
-      context 'as admin' do
-        should 'get edit' do
-          sign_in @admin
-
-          get :edit, id: @bill
-          assert_response :success
+    context 'POST #create' do
+      should 'create bill' do
+        assert_difference('Bill.count') do
+          post :create, bill: attributes_for(:bill)
         end
+        assert_redirected_to bill_path(assigns(:bill))
       end
-      context 'not as admin' do
-        should 'redirect to login' do
-          get :edit, id: @bill
-          assert_redirected_to new_admin_session_path
+
+      should 'not create with invalid parameters' do
+        invalid_attributes = attributes_for(:bill, title: nil)
+        assert_no_difference('Bill.count') do
+          post :create, bill: invalid_attributes
         end
+        refute_equal :redirect, response.status
       end
     end
 
-    context '#update' do
-      context 'as admin' do
-        should 'patch update' do
-          sign_in @admin
-
-          patch :update, id: @bill, bill: attributes_for(:bill)
-          assert_redirected_to bill_path(assigns(:bill))
+    context 'when a bill exists' do
+      setup { @bill = create(:bill) }
+      context 'GET #edit' do
+        setup { get :edit, id: @bill }
+        should respond_with(:success)
+      end
+      context 'PATCH #update' do
+        context 'with valid parameters' do
+          setup { patch :update, id: @bill, bill: attributes_for(:bill) }
+          should 'redirect to bill path' do
+            assert_redirected_to bill_path(assigns(:bill))
+          end
         end
-
-        should 'not update with invalid parameters' do
-          sign_in @admin
-
-          invalid_attributes = { title: nil }
-          patch :update, id: @bill, bill: invalid_attributes
-
-          refute_equal invalid_attributes[:title], @bill.title
-          refute_equal :redirect, response.status
+        context 'with invalid parameters' do
+          setup { patch :update, id: @bill, bill: { title: nil } }
+          should 'not update' do
+            refute_equal nil, @bill.title
+            refute_equal :redirect, response.status
+          end
         end
       end
-      context 'not as admin' do
-        should 'redirect to login' do
-          get :update, id: @bill, bill: {}
-          assert_redirected_to new_admin_session_path
-        end
-      end
-    end
-
-    context '#destroy' do
-      context 'as admin' do
-        should 'be destroyed' do
-          sign_in @admin
-
+      context 'DELETE #destroy' do
+        should 'destroy bill' do
           assert_difference('Bill.count', -1) do
             delete :destroy, id: @bill
           end
-
           assert_redirected_to bills_path
         end
-      end
-    end
-    context 'not as admin' do
-      should 'redirect to login' do
-        get :destroy, id: @bill
-        assert_redirected_to new_admin_session_path
       end
     end
   end

@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class MeetingsControllerTest < ActionController::TestCase
+  # Meeting routes
+  should route(:get, '/meetings/1/in_progress')
+         .to(action: :start_meeting, id: 1)
+
   context 'meetings' do
     context '#index' do
       should 'get index' do

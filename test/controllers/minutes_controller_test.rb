@@ -1,34 +1,36 @@
 require 'test_helper'
 
 class MinutesControllerTest < ActionController::TestCase
-  context 'minutes' do
-    setup { @meeting = create(:meeting) }
-    context '#show' do
-      should 'show in html' do
-        get :show, { id: @meeting, format: :html }
-        assert_response :success
-      end
+  should route(:get, '/meetings/1/minutes').to(action: :show, id: 1)
+  should route(:get, '/meetings/1/minutes/toggle')
+         .to(action: :edit, id: 1)
 
-      should 'show in pdf' do
-        get :show, { id: @meeting, format: :pdf }
-        assert_response :success
+  context 'a meeting agenda' do
+    setup { @meeting = create(:meeting) }
+
+    context 'as an admin' do
+      setup { sign_in @admin }
+      context 'GET #edit' do
+        setup { xhr :get, :edit, id: @meeting, format: 'js' }
+        should respond_with(:success)
       end
     end
 
-    context '#edit' do
-      context 'as admin' do
-        should 'toggle approval' do
-          sign_in @admin
-
-          xhr :get, :edit, id: @meeting, format: 'js'
-          assert_response :success
+    context 'as a guest' do
+      context 'GET #show' do
+        context 'in html' do
+          setup { get :show, { id: @meeting, format: :html } }
+          should respond_with(:success)
+        end
+        context 'in pdf' do
+          setup { get :show, { id: @meeting, format: :pdf } }
+          should respond_with(:success)
         end
       end
-      context 'not as admin' do
-        should 'redirect to login' do
-          xhr :get, :edit, id: @meeting, format: 'js'
-          assert_response :unauthorized
-        end
+
+      context 'GET #edit' do
+        setup { xhr :get, :edit, id: @meeting, format: 'js' }
+        should respond_with(:unauthorized)
       end
     end
   end

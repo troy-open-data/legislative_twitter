@@ -3,12 +3,17 @@ require 'test_helper'
 module API
   module V1
     class DataControllerTest < ActionController::TestCase
-      context 'API data' do
-        should 'get API data index' do
-          get :index, { format: :json },
-              'Accept:' => 'application/vnd.troycitycouncil.v1+json'
+      context 'Data API endpoint' do
+        should route(:get, '/api').to(action: :index, format: :json)
+      end
 
-          assert_response :success
+      context 'Data API view' do
+        setup do
+          @headers = { 'Accept:'=>'application/vnd.troycitycouncil.v1+json' }
+        end
+        context 'GET #index' do
+          setup { get :index, { format: :json }, @headers }
+          should respond_with(:success)
         end
       end
     end

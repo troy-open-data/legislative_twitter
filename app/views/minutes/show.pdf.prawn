@@ -24,12 +24,19 @@ prawn_document(
         Creator: 'City Clerk',
         Producer: 'Troy City Council',
         CreationDate: Time.now}) do |pdf|
+  # FIXME: 508 Loop Detected, error appeared and went away without prompt
+  # Error:
+  #     MinutesControllerTest#test_: minutes #show should show in pdf. :
+  # ActionView::Template::Error: 508 Loop Detected
+  # app/views/minutes/show.pdf.prawn:18:in `_app_views_minutes_show_pdf_prawn__3636985827340667802_70303959262220'
+  #   test/controllers/minutes_controller_test.rb:13:in `block (3 levels) in <class:MinutesControllerTest>'
+
 
   # paper defaults
   font_size = 12
   pdf.font_size = font_size
-  pdf.font("Times-Roman")
-  pdf.default_leading font_size*0.2
+  pdf.font('Times-Roman')
+  pdf.default_leading font_size * 0.2
 
   # Render agenda main text
   render 'pdf_templates/minutes',

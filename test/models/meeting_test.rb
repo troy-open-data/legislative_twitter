@@ -15,44 +15,26 @@
 require 'test_helper'
 
 class MeetingTest < ActiveSupport::TestCase
-  ## Setup and Teardown ########################################################
+  should belong_to(:organization)
+  should have_many(:motions)
+         .dependent(:destroy)
+
+  should have_many(:bills)
+  should have_many(:meeting_items)
+
+  ## Validations ###############################################################
+  # test 'must have organization' do
+  #   assert should_validate_presence_of :organization_id, :meeting
+  # end
+  # should validate_presence_of(:organization_id)
+
+  should validate_presence_of(:date_and_time)
+
+  ## Aliases ###################################################################
   def setup
     @meeting = create(:meeting)
   end
 
-  ## Associations ##############################################################
-  should 'belong to one organization' do
-    assert should_belong_to(Meeting, :organization)
-  end
-
-  should 'have many motions' do
-    assert should_have_many(Meeting, :motions)
-  end
-  should 'destroy dependent motions' do
-    @motion = Motion.new(meeting: @meeting)
-    @motion.save!
-    assert Motion.exists? @motion.id
-
-    @meeting.destroy!
-    refute Motion.exists? @motion.id
-  end
-  should 'have many bills' do
-    assert should_have_many(Meeting, :bills)
-  end
-  should 'have many meeting items' do
-    assert should_have_many Meeting, :meeting_items
-  end
-
-  ## Validations ###############################################################
-  test 'must have organization' do
-    assert should_validate_presence_of :organization_id, :meeting
-  end
-
-  test 'must have date_and_time' do
-    assert should_validate_presence_of :date_and_time, :meeting
-  end
-
-  ## Aliases ###################################################################
   test 'approved_agenda? is an alias of agenda_approved' do
     [true, false].each do |boolean|
       @meeting.agenda_approved = boolean
