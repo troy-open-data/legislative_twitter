@@ -92,11 +92,13 @@ class BillsControllerTest < ActionController::TestCase
         end
       end
       context 'DELETE #destroy' do
-        should 'destroy bill' do
-          assert_difference('Bill.count', -1) do
+        should 'temporarily not destroy bill' do
+          assert_no_difference('Bill.count', -1) do
             delete :destroy, id: @bill
           end
-          assert_redirected_to bills_path
+          assert_redirected_to root_path
+
+          # assert_redirected_to bills_path
         end
       end
     end
