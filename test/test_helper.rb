@@ -12,7 +12,7 @@ end
 require 'minitest/autorun'
 require 'minitest/reporters'
 require 'paperclip/matchers'
-require 'matchers/controller_matchers'
+require 'matchers/controller/allow_requests_from_origin_matcher'
 Minitest::Reporters.use! Minitest::Reporters::RubyMineReporter.new
 
 ENV['RAILS_ENV'] ||= 'test'
@@ -30,6 +30,5 @@ end
 
 class ActionController::TestCase
   include Devise::TestHelpers
-  include Matchers::Controller
   setup { @admin = create(:admin) }
 end
