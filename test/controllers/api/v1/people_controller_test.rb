@@ -16,6 +16,7 @@ module API
           setup { get :index, { format: :json }, @v1 }
           should respond_with(:success)
           # assert_not_nil assigns(:people), '@people not set'
+          should allow_requests_from_origin('*')
         end
 
         context 'GET #show' do
@@ -24,6 +25,7 @@ module API
             get :show, { id: @person, format: :json }, @v1
           end
           should respond_with(:success)
+          should allow_requests_from_origin('*')
         end
       end
     end

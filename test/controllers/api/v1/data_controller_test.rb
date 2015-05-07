@@ -14,6 +14,7 @@ module API
         context 'GET #index' do
           setup { get :index, { format: :json }, @headers }
           should respond_with(:success)
+          should allow_requests_from_origin('*')
         end
       end
     end

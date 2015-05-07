@@ -17,6 +17,7 @@ module API
           should respond_with(:success)
           # assert_not_nil assigns(:bills), '@bills not set'
           # TODO: test for types?
+          should allow_requests_from_origin('*')
         end
 
         context 'GET #show' do
@@ -25,6 +26,7 @@ module API
             get :show, { id: @bill, format: :json }, @v1
           end
           should respond_with(:success)
+          should allow_requests_from_origin('*')
         end
       end
     end

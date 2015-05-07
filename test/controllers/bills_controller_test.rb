@@ -6,6 +6,7 @@ class BillsControllerTest < ActionController::TestCase
     context 'GET #index' do
       setup { get :index }
       should respond_with(:success)
+      should_not allow_requests_from_origin('*')
     end
     context 'GET #new' do
       setup { get :new }

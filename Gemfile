@@ -26,7 +26,6 @@ gem 'jquery-rails'        # Use jquery as the JavaScript library
 # gem 'jquery-ui-rails'
 gem 'nested_form'         # Easy dynamic fields (adding and removing) in nested forms
 gem 'turbolinks'          # Mkes following links in your web application faster. (https://github.com/rails/turbolinks)
-gem 'jbuilder', '~> 2.0'  # JSON APIs  (https://github.com/rails/jbuilder)
 
 gem 'sdoc', '~> 0.4.0', group: :doc   # bundle exec rake doc:rails generates the API under doc/api.
 
@@ -40,6 +39,9 @@ gem 'newrelic_rpm'                        # Application performance monitoring
 
 gem 'platform-api'                        # Use Heroku API to show update status
 gem 'dotenv-rails'                        # Load environment variables from .env into ENV in development.
+
+# API
+gem 'jbuilder', '~> 2.0'  # JSON APIs  (https://github.com/rails/jbuilder)
 
 # Auth
 gem 'devise',           '>= 2.0.0'
