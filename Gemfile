@@ -44,6 +44,9 @@ gem 'newrelic_rpm'                        # Application performance monitoring
 gem 'platform-api'                        # Use Heroku API to show update status
 gem 'dotenv-rails'                        # Load environment variables from .env into ENV in development.
 
+# API
+gem 'jbuilder', '~> 2.0'  # JSON APIs  (https://github.com/rails/jbuilder)
+
 # Auth
 gem 'devise',           '>= 2.0.0'
 gem 'devise_invitable', '~> 1.3.4'
