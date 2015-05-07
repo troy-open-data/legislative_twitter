@@ -23,6 +23,14 @@ gem 'aws-sdk', '~> 1.5.7'
 gem 'prawn_rails'           # PDF generation
 gem 'prawn-table'
 
+# See https://github.com/sstephenson/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+
+gem 'jquery-rails'        # Use jquery as the JavaScript library
+# gem 'jquery-ui-rails'
+gem 'nested_form'         # Easy dynamic fields (adding and removing) in nested forms
+gem 'turbolinks'          # Mkes following links in your web application faster. (https://github.com/rails/turbolinks)
+
 gem 'sdoc', '~> 0.4.0', group: :doc   # bundle exec rake doc:rails generates the API under doc/api.
 
 gem 'paper_trail', '~> 4.0.0.beta'    # Keeps versions of chosen models
