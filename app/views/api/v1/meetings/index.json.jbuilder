@@ -11,12 +11,12 @@ json.array!(@meetings) do |meeting|
 
   json.agenda do
     json.approved !!meeting.agenda_approved
-    json.pdf agenda_url(meeting, format: :pdf)
+    json.pdf agenda_url(meeting, format: :pdf, subdomain: 'www')
   end
 
   json.minutes do
     json.approved !!meeting.minutes_approved
-    json.pdf minutes_url(meeting, format: :pdf)
+    json.pdf minutes_url(meeting, format: :pdf, subdomain: 'www')
   end
 
   json.url api_v1_meeting_url(meeting, format: :json)

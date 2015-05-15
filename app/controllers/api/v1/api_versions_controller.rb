@@ -4,5 +4,7 @@ module API
     class ApiVersionsController < BaseController
       abstract!
     end
+
+    # TODO: PDF needs www subdomain
   end
 end

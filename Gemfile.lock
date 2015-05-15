@@ -170,7 +170,7 @@ GEM
       rack
       rake (>= 0.8.1)
     pdf-core (0.5.1)
-    pg (0.18.1)
+    pg (0.18.2)
     platform-api (0.2.0)
       heroics (~> 0.0.10)
     prawn (2.0.0)
@@ -321,7 +321,7 @@ DEPENDENCIES
   paper_trail (~> 4.0.0.beta)
   paperclip (~> 4.2)
   passenger
-  pg
+  pg (= 0.18.2)
   platform-api
   prawn-table
   prawn_rails

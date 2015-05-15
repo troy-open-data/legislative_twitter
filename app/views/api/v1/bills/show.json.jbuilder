@@ -56,5 +56,5 @@ json.history do
   end
 end
 
-json.pdf bill_url(@bill, format: :pdf)
+json.pdf bill_url(@bill, format: :pdf, subdomain: 'www')
 json.bills_url api_v1_bills_url
