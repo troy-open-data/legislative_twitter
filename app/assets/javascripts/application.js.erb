@@ -19,26 +19,3 @@
 //= require foundation
 //= require turbolinks
 //= require_tree .
-
-
-
-var ready;
-ready = function() {
-    // todo: only put this on pages that need it
-    $(document).foundation();
-    // jQuery Text Editor
-    $('.jqte-test').jqte();
-    // jQuery DateTimePicker
-    $('.datetimepicker').datetimepicker({
-        inline:true
-    });
-    // jQuery GeoComplete
-    $('.geocomplete').geocomplete();
-    // Toggles admin-only buttons
-    $('#admin-toggle').click(function() {
-        $('.admin').toggle(600);
-    });
-};
-
-$(document).ready(ready);
-$(document).on('page:load', ready);
