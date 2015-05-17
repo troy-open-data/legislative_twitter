@@ -1,13 +1,16 @@
 ready = ->
   $(document).foundation()
-  # $('.jqte-test').jqte()
-  $('.datetimepicker').datetimepicker({
-    inline: true
-  })
-  $('.geocomplete').geocomplete()
   $('#admin-toggle').click(->
     $('.admin').toggle(600)
   )
 
-$(document).ready(ready);
-$(document).on('page:load', ready);
+$(document).ready(ready)
+$(document).on('page:load', ready)
+
+# bills.js.coffee
+#
+# ready = ->
+#   $('.jqte-test').jqte()
+#
+# $(document).ready(ready)
+# $(document).on('page:load', ready)
