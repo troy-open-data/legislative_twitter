@@ -15,7 +15,7 @@ prawn_document(
     margin: 0.5.in,
     top_margin: 1.in,
     bottom_margin: 1.in,
-    background: @meeting.approved_minutes? ? nil : open('http://placehold.it/600.jpg/fff/ccc&text=Draft'),
+    background: @meeting.approved_minutes? ? nil : try(:open,'http://placehold.it/600.jpg/fff/ccc&text=Draft'),
     info: {
         Title: "#{@meeting.name} Minutes",
         Author: 'Unknown',

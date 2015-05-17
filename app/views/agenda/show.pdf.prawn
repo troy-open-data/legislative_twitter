@@ -5,8 +5,8 @@
 Prawn::Font::AFM.hide_m17n_warning = true
 
 # Allows for easy use of alternate measurements, such as inches, mm, cm, etc.
-require "prawn/measurement_extensions"
-require "prawn/table"
+require 'prawn/measurement_extensions'
+require 'prawn/table'
 require 'open-uri'
 
 
@@ -15,7 +15,7 @@ prawn_document(
     margin: 0.5.in,
     top_margin: 1.in,
     bottom_margin: 1.in,
-    background: @meeting.approved_agenda? ? nil : open('http://placehold.it/600.jpg/fff/ccc&text=Draft'),
+    background: @meeting.approved_agenda? ? nil : try(:open, 'http://placehold.it/600.jpg/fff/ccc&text=Draft'),
     info: {
         Title: "#{@meeting.name} Agenda",
         Author: 'Unknown',
@@ -39,14 +39,14 @@ prawn_document(
 
   # Render each bill
   if @attach[:bill]
-    @meeting.grouped_motions.each do |group, folios|
-      folios.each do |folio|
-        legislation = folio.bill
+    @meeting.grouped_motions.each do |group, motions|
+      motions.each do |motion|
+        bill = motion.bill
         pdf.start_new_page
         render 'pdf_templates/bill',
                pdf: pdf,
                font_size: font_size,
-               bill: legislation,
+               bill: bill,
                attach: @attach
       end
     end

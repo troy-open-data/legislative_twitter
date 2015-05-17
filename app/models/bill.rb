@@ -86,8 +86,6 @@ class Bill < ActiveRecord::Base
   def numbering(format = :string)
     case format
     when :string        then legislation_type + ' ' + position.to_s
-    when :array         then [legislation_type, position]
-    when :integer       then position
     when :abbreviation  then legislation_type[0..2].upcase + '. #' + position.to_s
     else
       fail StandardError, "#{format} is not supported"

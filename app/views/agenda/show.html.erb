@@ -13,14 +13,14 @@
         <ul class="admin button-group">
           <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
           <li><%= link_to('Delete', meeting_path,
-                          method: "delete", class: 'tiny alert button',
+                          method: 'delete', class: 'tiny alert button',
                           data: { confirm: 'Are you sure you want to delete this?'}) %></li>
         </ul>
     <% end %>
     <!-- Download PDF Button -->
     <ul class="button-group">
       <li>
-        <%= link_to "Download PDF", '#',
+        <%= link_to 'Download PDF', '#',
                     class: 'dropdown button',
                     :'data-dropdown' => 'agenda-pdf-options',
                     :'aria-controls' => 'agenda-pdf-options',
@@ -84,14 +84,14 @@
 
 <!--List Bills by type-->
 <dl>
-  <% @meeting.grouped_motions.each do |legislation_type, folios| %>
+  <% @meeting.grouped_motions.each do |legislation_type, motions| %>
       <h4><%= legislation_type %></h4>
-      <% folios.each do |folio| %>
-          <% legislation = folio.bill %>
-          <dt><%= legislation.numbering :abbreviation %></dt>
-          <dd><%= short_title legislation %>
-            (<%= link_to 'html', bill_path(legislation) %>)
-            (<%= link_to 'pdf', bill_path(legislation, format: 'pdf') %>)
+      <% motions.each do |motion| %>
+          <% bill = motion.bill %>
+          <dt><%= bill.numbering :abbreviation %></dt>
+          <dd><%= short_title bill %>
+            (<%= link_to 'html', bill_path(bill) %>)
+            (<%= link_to 'pdf', bill_path(bill, format: 'pdf') %>)
           </dd>
       <% end %>
   <% end %>
