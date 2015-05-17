@@ -26,6 +26,7 @@ gem 'prawn-table'
 gem 'sdoc', '~> 0.4.0', group: :doc   # bundle exec rake doc:rails generates the API under doc/api.
 
 gem 'paper_trail', '~> 4.0.0.beta'    # Keeps versions of chosen models
+gem 'acts_as_list'
 
 # Support
 gem 'passenger'                           # App server

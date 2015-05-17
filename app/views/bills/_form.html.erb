@@ -20,6 +20,11 @@
         <%= f.select :legislation_type, Bill::LEGISLATION_TYPES %>
       </div>
 
+      <div class="field">
+        <%= f.label :position %>
+        <%= f.number_field :position %>
+      </div>
+
       <!--Full Title Field-->
       <div class="field">
         <%= f.label :title, 'Full Title' %>

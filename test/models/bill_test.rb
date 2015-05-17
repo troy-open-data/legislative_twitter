@@ -79,6 +79,19 @@ class BillTest < ActiveSupport::TestCase
                  'should contain the day of creation')
   end
 
+  test 'a newly created bill should increment once in position' do
+    new_bill = create(:bill)
+    assert_equal @bill.position + 1, new_bill.position
+  end
+
+  test 'bills should be numbered separately by legislation type' do
+    create(:bill, legislation_type: Bill::LEGISLATION_TYPES[0], position: 200)
+    create(:bill, legislation_type: Bill::LEGISLATION_TYPES[1], position: 300)
+
+    new_bill = create(:bill, legislation_type: Bill::LEGISLATION_TYPES[0])
+    assert_equal 201, new_bill.position
+  end
+
   # test 'legislative_numbering'
   # test 'collection_text_method'
 

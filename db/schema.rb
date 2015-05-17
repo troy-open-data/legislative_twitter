@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501191908) do
+ActiveRecord::Schema.define(version: 20150515204444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150501191908) do
     t.string   "legislation_type", default: "Resolution", null: false
     t.string   "short_title"
     t.string   "enacting_formula"
+    t.integer  "position"
   end
 
   create_table "levels", force: :cascade do |t|

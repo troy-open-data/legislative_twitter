@@ -39,6 +39,7 @@ class Bill < ActiveRecord::Base
                                 allow_destroy: true
   has_paper_trail
   paginates_per 10
+  acts_as_list scope: [:legislation_type]
 
   validates :title,             presence: true
   validates :short_title,       presence: true
@@ -83,12 +84,11 @@ class Bill < ActiveRecord::Base
   #   @bill.numbering(:abbreviation) # => "ORD. #5"
   #   @bill.numbering(:dne)          # => "dne is not supported"
   def numbering(format = :string)
-    index = bill_index
     case format
-    when :string        then legislation_type + ' ' + index.to_s
-    when :array         then [legislation_type, index]
-    when :integer       then index
-    when :abbreviation  then legislation_type[0..2].upcase + '. #' + index.to_s
+    when :string        then legislation_type + ' ' + position.to_s
+    when :array         then [legislation_type, position]
+    when :integer       then position
+    when :abbreviation  then legislation_type[0..2].upcase + '. #' + position.to_s
     else
       fail StandardError, "#{format} is not supported"
     end

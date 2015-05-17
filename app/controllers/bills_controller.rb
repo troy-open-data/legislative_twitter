@@ -87,8 +87,8 @@ class BillsController < ApplicationController
   def bill_params
     params.require(:bill).permit(:title,
                                  :short_title,
-                                 :body,
                                  :legislation_type,
+                                 :position,
                                  :enacting_formula,
 
                                  recitals_attributes: [:prefix,
