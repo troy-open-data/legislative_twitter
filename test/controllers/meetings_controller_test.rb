@@ -37,7 +37,10 @@ class MeetingsControllerTest < ActionController::TestCase
           sign_in @admin
 
           @meeting = create(:meeting)
-          meeting_params = attributes_for(:meeting, organization_id: @meeting.organization_id)
+          meeting_params = attributes_for(
+            :meeting,
+            organization_id: @meeting.organization_id
+          )
           assert_difference('Meeting.count') do
             post :create, meeting: meeting_params
           end
@@ -114,8 +117,9 @@ class MeetingsControllerTest < ActionController::TestCase
         should 'patch update' do
           sign_in @admin
 
-          patch :update, id: @meeting, meeting: { date_and_time:    @meeting.date,
-                                                  organization_id:  @meeting.organization_id }
+          patch :update, id: @meeting,
+                meeting: { date_and_time:    @meeting.date,
+                           organization_id:  @meeting.organization_id }
           assert_redirected_to meeting_path(assigns(:meeting))
         end
 
@@ -146,7 +150,6 @@ class MeetingsControllerTest < ActionController::TestCase
             delete :destroy, id: @meeting
           end
           assert_redirected_to root_path
-
           # assert_redirected_to meetings_path
         end
       end

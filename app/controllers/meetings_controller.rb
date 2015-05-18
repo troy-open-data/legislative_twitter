@@ -84,27 +84,37 @@ class MeetingsController < ApplicationController
   # Never trust parameters from the scary internet,
   #   only allow the white list through.
   def meeting_params
-    params.require(:meeting).permit(:organization_id, :date_and_time, :location,
-                                    bill_ids: [],
-                                    person_ids: [],
-                                    meeting_items_attributes: [:title,
-                                                               :text,
-                                                               :id,
-                                                               :_destroy],
-                                    motions_attributes: [:notes,
-                                                         :bill_id,
-                                                         :meeting_id,
-                                                         :id,
-                                                         :_destroy,
-                                                         sponsor_ids:  [],
-                                                         roll_calls_attributes: [:type,
-                                                                                 :notes,
-                                                                                 :id,
-                                                                                 :passed,
-                                                                                 :_destroy,
-                                                                                 votes_attributes: [:id,
-                                                                                                    :person_id,
-                                                                                                    :vote,
-                                                                                                    :_destroy]]])
+    votes_attributes = [
+      :id,
+      :person_id,
+      :vote,
+      :_destroy
+    ]
+    roll_calls_attributes = [
+      :type,
+      :notes,
+      :id,
+      :passed,
+      :_destroy,
+      votes_attributes: votes_attributes
+    ]
+    motions_attributes = [
+      :notes,
+      :bill_id,
+      :meeting_id,
+      :id,
+      :_destroy,
+      sponsor_ids:  [],
+      roll_calls_attributes: roll_calls_attributes
+    ]
+    params.require(:meeting)
+      .permit(:organization_id, :date_and_time, :location,
+              bill_ids: [],
+              person_ids: [],
+              meeting_items_attributes: [:title,
+                                         :text,
+                                         :id,
+                                         :_destroy],
+              motions_attributes: motions_attributes)
   end
 end

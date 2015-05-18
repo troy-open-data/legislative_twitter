@@ -32,8 +32,4 @@ class LevelTest < ActiveSupport::TestCase
       assert create(:sub_paragraph)
     end
   end
-
-  context 'a valid level' do
-  end
-
 end

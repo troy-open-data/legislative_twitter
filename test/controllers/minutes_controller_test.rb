@@ -11,7 +11,7 @@ class MinutesControllerTest < ActionController::TestCase
     context 'as an admin' do
       setup { sign_in @admin }
       context 'GET #edit' do
-        setup { xhr :get, :edit, id: @meeting, format: 'js' }
+        setup { xhr :get, :edit, id: @meeting, format: :js }
         should respond_with(:success)
       end
     end
@@ -19,17 +19,17 @@ class MinutesControllerTest < ActionController::TestCase
     context 'as a guest' do
       context 'GET #show' do
         context 'in html' do
-          setup { get :show, { id: @meeting, format: :html } }
+          setup { get :show, id: @meeting, format: :html }
           should respond_with(:success)
         end
         context 'in pdf' do
-          setup { get :show, { id: @meeting, format: :pdf } }
+          setup { get :show, id: @meeting, format: :pdf }
           should respond_with(:success)
         end
       end
 
       context 'GET #edit' do
-        setup { xhr :get, :edit, id: @meeting, format: 'js' }
+        setup { xhr :get, :edit, id: @meeting, format: :js }
         should respond_with(:unauthorized)
       end
     end

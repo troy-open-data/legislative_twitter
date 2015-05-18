@@ -32,7 +32,7 @@ class BillsControllerTest < ActionController::TestCase
       end
 
       context 'GET #edit' do
-        setup { get :edit, id: @bill}
+        setup { get :edit, id: @bill }
         should redirect_to(action: 'new', controller: 'devise/sessions')
       end
       context 'PATCH #update' do

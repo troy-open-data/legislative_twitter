@@ -22,8 +22,8 @@ module ApplicationHelper
     time = DateTime.rfc3339(ENV['HEROKU_RELEASED_AT'])
            .in_time_zone('Eastern Time (US & Canada)')
            .strftime('%-l:%M%P EST %b %-d, %Y') || 'unknown'
-    count   = ENV['HEROKU_BUILD_COUNT']   || 'unknown'
-    status  = ENV['HEROKU_BUILD_STATUS']  || 'unknown'
+    count   = ENV['HEROKU_BUILD_COUNT'] || 'unknown'
+    status  = ENV['HEROKU_BUILD_STATUS'] || 'unknown'
 
     # String construction
     "Last updated at #{time} (build ##{count} #{status})"

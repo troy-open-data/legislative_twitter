@@ -79,60 +79,71 @@ class BillsController < ApplicationController
     @bill = Bill.includes(sections:
                               [sub_sections:
                                    [paragraphs: :sub_paragraphs]])
-            .find(params[:id])
+                .find(params[:id])
   end
 
   # Never trust parameters from the scary internet,
   #   only allow the white list through.
   def bill_params
-    params.require(:bill).permit(:title,
-                                 :short_title,
-                                 :type,
-                                 :position,
-                                 :enacting_formula,
+    # TODO: refactor parameters
+    # Levels attributes
+    sub_paragraphs_attributes = [
+      :heading,
+      :subheading,
+      :chapeau,
+      :continuation,
+      :text,
+      :id,
+      :_destroy
+    ]
+    paragraphs_attributes = [
+      :heading,
+      :subheading,
+      :chapeau,
+      :continuation,
+      :text,
+      :id,
+      :_destroy,
+      sub_paragraphs_attributes: sub_paragraphs_attributes
+    ]
+    sub_sections_attributes = [
+      :heading,
+      :subheading,
+      :chapeau,
+      :continuation,
+      :text,
+      :id,
+      :_destroy,
+      paragraphs_attributes: paragraphs_attributes
+    ]
+    sections_attributes = [
+      :heading,
+      :subheading,
+      :chapeau,
+      :continuation,
+      :text,
+      :id,
+      :_destroy,
+      sub_sections_attributes: sub_sections_attributes
+    ]
+    params.require(:bill)
+      .permit(:title,
+              :short_title,
+              :type,
+              :position,
+              :enacting_formula,
 
-                                 recitals_attributes: [:prefix,
-                                                       :clause,
-                                                       :id,
-                                                       :_destroy],
+              recitals_attributes: [:prefix,
+                                    :clause,
+                                    :id,
+                                    :_destroy],
 
-                                 # TODO: refactor levels
-                                 sections_attributes: [:heading,
-                                                       :subheading,
-                                                       :chapeau,
-                                                       :continuation,
-                                                       :text,
-                                                       :id,
-                                                       :_destroy,
+              sections_attributes: sections_attributes,
 
-                                                       sub_sections_attributes: [:heading,
-                                                                                 :subheading,
-                                                                                 :chapeau,
-                                                                                 :continuation,
-                                                                                 :text,
-                                                                                 :id,
-                                                                                 :_destroy,
-
-                                                                                 paragraphs_attributes: [:heading,
-                                                                                                         :subheading,
-                                                                                                         :chapeau,
-                                                                                                         :continuation,
-                                                                                                         :text,
-                                                                                                         :id,
-                                                                                                         :_destroy,
-
-                                                                                                         sub_paragraphs_attributes: [:heading,
-                                                                                                                                     :subheading,
-                                                                                                                                     :chapeau,
-                                                                                                                                     :continuation,
-                                                                                                                                     :text,
-                                                                                                                                     :id,
-                                                                                                                                     :_destroy]]]],
-
-                                 attachments_attributes: [:title,
-                                                          :description,
-                                                          :file,
-                                                          :id,
-                                                          :_destroy])
+              attachments_attributes: [:title,
+                                       :description,
+                                       :file,
+                                       :id,
+                                       :_destroy])
   end
 end
