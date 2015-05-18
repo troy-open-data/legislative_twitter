@@ -36,7 +36,7 @@ gem 'newrelic_rpm'                        # Application performance monitoring
 
 gem 'platform-api'                        # Use Heroku API to show update status
 gem 'dotenv-rails'                        # Load environment variables from .env into ENV in development.
-
+gem 'rubocop'
 
 # Auth
 gem 'devise',           '>= 2.0.0'
