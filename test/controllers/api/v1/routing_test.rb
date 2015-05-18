@@ -6,9 +6,15 @@ module API
       context 'API' do
         context 'defaults' do
           context 'v1' do
-            # TODO: should respond with json
+          #   Should respond with json?
           end
-          # TODO: should default to v1
+          should 'default to v1' do
+            assert_recognizes({action: 'index',
+                               controller: 'api/v1/data',
+                               subdomain: 'api',
+                               format: 'json' },
+              'http://api.example.com')
+          end
         end
 
         context 'v1' do
