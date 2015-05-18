@@ -26,7 +26,7 @@ class MeetingsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :new
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -56,7 +56,7 @@ class MeetingsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :create, meeting: {}
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -87,7 +87,7 @@ class MeetingsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :start_meeting, id: @meeting
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -104,7 +104,7 @@ class MeetingsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :edit, id: @meeting
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -132,7 +132,7 @@ class MeetingsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           patch :update, id: @meeting, meeting: {}
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -153,7 +153,7 @@ class MeetingsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           delete :destroy, id: @meeting
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end

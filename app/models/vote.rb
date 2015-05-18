@@ -7,26 +7,26 @@
 #  motion_id    :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  data         :integer
+#  vote         :string
 #  roll_call_id :integer
 #
 
 class Vote < ActiveRecord::Base
-  MAP = { 1   => 'yea',
-          -1  => 'nay',
-          0   => 'abstain' }
+  VALID = %w(yea nay abstain)
 
   belongs_to :person
   belongs_to :roll_call
 
-  scope :yeas,      -> { where(data: 1) }
-  scope :nays,      -> { where(data: -1) }
-  scope :abstains,  -> { where(data: 0) }
+  scope :yeas,      -> { where(vote: 'yea') }
+  scope :nays,      -> { where(vote: 'nay') }
+  scope :abstains,  -> { where(vote: 'abstain') }
 
-  validates :data, presence: :true
+  validates :vote,      presence: :true,
+                        inclusion: VALID
   validates :person_id, uniqueness: { scope: :roll_call_id }
 
-  def type
-    MAP[data]
+  # @return [Array<Array>] vote options formatted for collection form helpers
+  def self.collection_text
+    VALID.zip(VALID)
   end
 end

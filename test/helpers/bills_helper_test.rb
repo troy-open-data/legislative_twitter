@@ -8,26 +8,26 @@ class BillsHelperTest < ActionView::TestCase
   # in the format "(with 3 attachments)"
   context '#with_attachments' do
     should 'return nil if no attachments' do
-      unattached_legislation = create(:bill)
-      assert with_attachments(unattached_legislation).nil?
+      unattached_bill = create(:bill)
+      assert with_attachments(unattached_bill).nil?
     end
     should 'return string describing attachments if attachments' do
       attachments_count = 5
-      attached_legislation = create(:legislation_with_attachments,
+      attached_bill = create(:legislation_with_attachments,
                                     attachments_count: attachments_count)
       assert_match(/#{pluralize(attachments_count, 'attachment')}/i,
-                   with_attachments(attached_legislation))
+                   with_attachments(attached_bill))
     end
   end
 
   # def meta_header(bill)
   #
   # Returns a "metadata header" for bill that includes type and creation
-  # time in the format "Resolution | 3:24pm on 3/17/15"
+  # time in the format "Resolution 5 | 3:24pm on 3/17/15"
   test 'meta_header contains bill type' do
-    legislation = create(:bill)
-    assert_match(/#{legislation.legislation_type}/i,
-                 meta_header(legislation))
+    bill = create(:bill)
+    assert_match(/#{bill.numbering}/i,
+                 meta_header(bill))
   end
 
   # ====== CACHE NAMING ======
@@ -48,7 +48,7 @@ class BillsHelperTest < ActionView::TestCase
   # Returns an appropriate cache name for changelog cache, including bill
   # id, in the format "bill-52-changelog"
   test 'changelog_cache_name includes bill id' do
-    legislation = create(:bill)
-    assert_match(/#{legislation.id}/, changelog_cache_name(legislation))
+    bill = create(:bill)
+    assert_match(/#{bill.id}/, changelog_cache_name(bill))
   end
 end

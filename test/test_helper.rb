@@ -30,5 +30,5 @@ end
 
 class ActionController::TestCase
   include Devise::TestHelpers
-  setup { @admin = create(:admin) }
+  setup { @admin = create(:user) }
 end

@@ -22,7 +22,7 @@ class OrganizationsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :new
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -51,7 +51,7 @@ class OrganizationsControllerTest < ActionController::TestCase
     context 'not as admin' do
       should 'redirect to login' do
         post :create, organization: {}
-        assert_redirected_to new_admin_session_path
+        assert_redirected_to new_user_session_path
       end
     end
   end
@@ -81,7 +81,7 @@ class OrganizationsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :edit, id: @organization
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -108,7 +108,7 @@ class OrganizationsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           patch :update, id: @organization, organization: {}
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -128,7 +128,7 @@ class OrganizationsControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           delete :destroy, id: @organization
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end

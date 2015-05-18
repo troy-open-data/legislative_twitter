@@ -9,11 +9,11 @@
       <% end %>
       <li><%= link_to 'All', meetings_path, class:'tiny button' %></li>
     </ul>
-    <% if admin_signed_in? %>
+    <% if user_signed_in? %>
         <ul class="admin button-group">
           <li><%= link_to 'Edit', edit_meeting_path(@meeting), class:'tiny button' %></li>
           <li><%= link_to('Delete', meeting_path,
-                          method: "delete", class: 'tiny alert button',
+                          method: 'delete', class: 'tiny alert button',
                           data: { confirm: 'Are you sure you want to delete this?'}) %></li>
         </ul>
     <% end %>
@@ -30,7 +30,7 @@
   </h2>
 
   <!--Admin-->
-  <% if admin_signed_in? %>
+  <% if user_signed_in? %>
       <div class="admin panel">
         <h3>Meeting Admin:</h3>
         <ul>

@@ -8,9 +8,9 @@ module BillsHelper
   end
 
   # @param [Bill] bill
-  # @return [String] "Resolution | 3:24pm on 3/17/15"
+  # @return [String] "Resolution 5 | 3:24pm on 3/17/15"
   def meta_header(bill)
-    bill.legislation_type + ' | ' +
+    bill.numbering + ' | ' +
       bill.created_at.to_formatted_s(:long_ordinal)
   end
 

@@ -19,7 +19,7 @@
           <li><%= link_to '...Bills', bills_path %></li>
         </ul>
       </li>
-      <% if admin_signed_in? %>
+      <% if user_signed_in? %>
           <li class="admin has-dropdown">
             <a href="#">Create New...</a>
             <ul class="dropdown">
@@ -30,13 +30,13 @@
             </ul>
           </li>
           <li class='' id="admin-toggle"><a href="#">Toggle Public View</a></li>
-          <li class="admin"><%= link_to 'Invite Admin', new_admin_invitation_path %></li>
+          <li class="admin"><%= link_to 'Invite Admin', new_user_invitation_path %></li>
       <% end %>
       <li class=''>
-        <% if admin_signed_in? %>
-            <%= link_to 'Sign Out', destroy_admin_session_path, method: :delete %>
+        <% if user_signed_in? %>
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
         <% else %>
-            <%= link_to 'Sign In', new_admin_session_path %>
+            <%= link_to 'Sign In', new_user_session_path %>
         <% end %>
       </li>
     </ul>

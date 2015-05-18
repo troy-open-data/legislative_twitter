@@ -1,4 +1,4 @@
-<% if admin_signed_in? %>
+<% if user_signed_in? %>
     <div class="row">
       <%= link_to '+ New Organization', new_organization_path, class: 'right admin button' %>
     </div>
@@ -12,7 +12,7 @@
     <th>Level</th>
     <th>Name</th>
     <th></th>
-    <% if admin_signed_in? %>
+    <% if user_signed_in? %>
         <th colspan="2" class="admin">Admin</th>
     <% end %>
   </tr>

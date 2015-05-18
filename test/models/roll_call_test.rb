@@ -18,14 +18,22 @@ class RollCallTest < ActiveSupport::TestCase
   should have_many(:votes)
   should accept_nested_attributes_for(:votes)
 
-  context 'a valid roll call' do
-    should 'have a default type of Accept/Reject' do
-      roll_call = create(:roll_call)
-      assert_equal Pass.name, roll_call.type
+  should validate_inclusion_of(:type).in_array(RollCall::TYPES)
+  should 'have a default type of Pass' do
+    roll_call = create(:roll_call)
+    assert_equal 'Pass', roll_call.type
+  end
+
+  context 'RollCall' do
+    context '#select_method' do
+      should 'return a zipped array including roll call types' do
+        select = RollCall.select_text.flatten
+        assert_equal [], RollCall::TYPES - select
+      end
     end
   end
 
-  context 'roll call' do
+  context 'roll_call' do
     context '#result' do
       should 'return "Passed" if passed' do
         rc = create(:roll_call, passed: true)

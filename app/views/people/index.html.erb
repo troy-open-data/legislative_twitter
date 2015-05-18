@@ -1,4 +1,4 @@
-<% if admin_signed_in? %>
+<% if user_signed_in? %>
     <div class="row">
       <%= link_to '+ New Person', new_person_path, class: 'right admin button' %>
     </div>
@@ -14,7 +14,7 @@
     <th>Last</th>
     <th>Committees</th>
     <th></th>
-    <% if admin_signed_in? %>
+    <% if user_signed_in? %>
         <th colspan="2" class="admin">Admin</th>
     <% end %>
   </tr>
@@ -27,7 +27,7 @@
         <td><%= person.last %></td>
         <td><%= person.organizations.map(&:name).join(', ') %></td>
         <td><%= link_to 'Show', person %></td>
-        <% if admin_signed_in? %>
+        <% if user_signed_in? %>
             <td class="admin"><%= link_to 'Edit', edit_person_path(person) %></td>
             <td class="admin"><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>
@@ -36,11 +36,11 @@
   </tbody>
 </table>
 
-<% if admin_signed_in? %>
+<% if user_signed_in? %>
     <div class="admin">
       <h3>Admins</h3>
       <ul>
-        <% Admin.all.each do |admin| %>
+        <% User.all.each do |admin| %>
             <li><%= admin.email %></li>
         <% end %>
       </ul>

@@ -1,7 +1,7 @@
 <%= f.label :person, f.object.person.name %>
 <%=
-    f.collection_radio_buttons(:data,
-                               Vote::MAP,
+    f.collection_radio_buttons(:vote,
+                               Vote.collection_text,
                                :first,
                                :last)
 %>

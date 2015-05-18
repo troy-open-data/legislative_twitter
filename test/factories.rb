@@ -21,7 +21,7 @@ FactoryGirl.define do
     bill
   end
 
-  factory :admin do
+  factory :user do
     email     'email@email.com'
     password  'password'
   end
@@ -73,7 +73,7 @@ FactoryGirl.define do
   end
 
   factory :vote do
-    data 0
+    vote 'abstain'
     roll_call
   end
 end

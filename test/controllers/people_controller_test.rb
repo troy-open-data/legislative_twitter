@@ -22,7 +22,7 @@ class PeopleControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :new
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -51,7 +51,7 @@ class PeopleControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :create, person: {}
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -80,7 +80,7 @@ class PeopleControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :edit, id: @person
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -107,7 +107,7 @@ class PeopleControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           get :update, id: @person, person: {}
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end
@@ -128,7 +128,7 @@ class PeopleControllerTest < ActionController::TestCase
       context 'not as admin' do
         should 'redirect to login' do
           delete :destroy, id: @person
-          assert_redirected_to new_admin_session_path
+          assert_redirected_to new_user_session_path
         end
       end
     end

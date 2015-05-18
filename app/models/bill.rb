@@ -6,19 +6,25 @@
 #  title            :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  legislation_type :string           default("Resolution"), not null
+#  type             :string           default("Resolution"), not null
 #  short_title      :string
 #  enacting_formula :string
+#  position         :integer
+#  term             :integer
 #
+
 class Bill < ActiveRecord::Base
-  LEGISLATION_TYPES = %w(Resolution Ordinance)
-  NULL_ATTRS        = %w(short_title)
+  TYPES       = %w(Resolution Ordinance)
+  NULL_ATTRS  = %w(short_title)
 
   before_save :nil_if_blank
   before_validation :set_defaults
 
-  scope :resolutions, -> { where(legislation_type: 'Resolution') }
-  scope :ordinances,  -> { where(legislation_type: 'Ordinance') }
+  # no single table inheritance
+  self.inheritance_column = nil
+
+  scope :resolutions, -> { where(type: 'Resolution') }
+  scope :ordinances,  -> { where(type: 'Ordinance') }
   scope :by_recent,   -> { order('created_at DESC') }
 
   has_many :recitals, dependent: :destroy
@@ -39,34 +45,27 @@ class Bill < ActiveRecord::Base
                                 allow_destroy: true
   has_paper_trail
   paginates_per 10
-  acts_as_list scope: [:legislation_type]
+  acts_as_list scope: [:type]
 
-  validates :title,             presence: true
-  validates :short_title,       presence: true
-  validates :legislation_type,  presence: true,
-                                inclusion: LEGISLATION_TYPES
-  validates :enacting_formula,  presence: true
-
-  # @return [String] Returns a string containing the created_at time in the
-  #   format Month day, Year:
-  #   @bill.created_at_time  # => "Added March 4, 2015"
-  def created_at_time
-    created_at.strftime('Added %B %d, %Y')
-  end
+  validates :title,             presence:  true
+  validates :short_title,       presence:  true
+  validates :type,              presence:  true,
+                                inclusion: TYPES
+  validates :enacting_formula,  presence:  true
 
   # @example
-  #   @bill.list_changed_attributes   # => "title, short_title"
-  #
+  #   @bill.diff_attributes  # => 'title, short_title'
   # @param [Version] version
-  # @return [String] Returns a comma-separated list of changed attributes
-  #   between instance and version
+  # @return [String] Returns a comma-separated attributes diff
   def list_changed_attributes(version = versions.last)
     diff_attributes(version).join(', ')
   end
 
-  # Returns all changed attributes between given and current version except for
-  # specifically ignored attributes (created_at, updated_at, id)
-  # Example: @bill.diff_attributes  # => ['title', 'short_title']
+  # @example
+  #   @bill.diff_attributes  # => ['title', 'short_title']
+  # @param [Version] version
+  # @param [Array] ignored
+  # @return [Array]
   def diff_attributes(version = versions.last,
                       ignored = %w(created_at updated_at id))
     version.changeset.keys - ignored
@@ -79,28 +78,20 @@ class Bill < ActiveRecord::Base
   # @example
   #   @bill.numbering                # => "Ordinance 5"
   #   @bill.numbering(:string)       # => "Ordinance 5"
-  #   @bill.numbering(:array)        # => ["Ordinance", 5]
-  #   @bill.numbering(:integer)      # => 5
   #   @bill.numbering(:abbreviation) # => "ORD. #5"
   #   @bill.numbering(:dne)          # => "dne is not supported"
   def numbering(format = :string)
     case format
-    when :string        then legislation_type + ' ' + position.to_s
-    when :abbreviation  then legislation_type[0..2].upcase + '. #' + position.to_s
+    when :string        then type + ' ' + position.to_s
+    when :abbreviation  then type[0..2].upcase + '. #' + position.to_s
     else
       fail StandardError, "#{format} is not supported"
     end
   end
 
-  # @return [Integer] Returns the index of the resolution or ordinance
-  def bill_index
-    Bill.where(legislation_type: legislation_type).order('created_at ASC')
-      .index(self) + 1
-  end
-
   # @return [Bill] Returns the most recently updated bill
   def self.latest
-    Bill.all.order('updated_at').last
+    Bill.order('updated_at').last
   end
 
   # @return [String] Label for collection check boxes ('RES #3 Short Title')

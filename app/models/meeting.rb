@@ -57,12 +57,11 @@ class Meeting < ActiveRecord::Base
   # INSTANCE METHODS
   # Returns array of grouped bill
   def grouped_bills
-    bills.uniq.sort_by(&:created_at).group_by(&:legislation_type)
+    bills.uniq.sort_by(&:created_at).group_by(&:type)
   end
 
   def grouped_motions
-    motions.sort_by { |f| f.bill.created_at }
-      .group_by { |f| f.bill.legislation_type }
+    motions.sort_by { |f| f.bill.created_at }.group_by { |f| f.bill.type }
   end
 
   # Returns calculated name of meeting of the form:

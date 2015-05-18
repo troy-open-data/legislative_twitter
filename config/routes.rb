@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   #
   resources :bills
   resources :organizations
-  devise_for :admins
+  devise_for :users
   resources :people
   resources :meetings
   scope '/meetings/:id' do

@@ -1,5 +1,5 @@
 <!--Action Buttons-->
-<% if admin_signed_in? %>
+<% if user_signed_in? %>
     <div class="row">
       <%= link_to '+ New Meeting', new_meeting_path, class: 'right admin button' %>
     </div>
@@ -11,7 +11,7 @@
   <h2>All Meetings</h2>
 
   <!--Admin Panel-->
-  <% if admin_signed_in? %>
+  <% if user_signed_in? %>
       <div class="admin panel">
         <h4>Start Meeting (Admin):</h4>
         <ul>
@@ -33,7 +33,7 @@
           <th>Meeting Details</th>
           <th>Agendas</th>
           <th>Minutes</th>
-          <% if admin_signed_in? %>
+          <% if user_signed_in? %>
               <th colspan="2", class="admin">Admin</th>
           <% end %>
         </tr>
@@ -44,7 +44,7 @@
             <tr>
               <td><%= meeting.organization.name %></td>
               <td><%= meeting.date.to_formatted_s(:long) %></td>
-              <td><%= link_to 'Details', meeting %>  (<%= pluralize meeting.bills.count, 'item' %>)</td>
+              <td><%= link_to 'Details', meeting %>  (<%= pluralize meeting.bills.count, 'bill' %>)</td>
               <td>
                 <%= link_to 'html', agenda_path(meeting) %><br />
                 <%= link_to 'pdf', agenda_path(meeting, format: 'pdf') %>

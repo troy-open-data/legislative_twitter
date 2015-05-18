@@ -6,9 +6,11 @@
 #  title            :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
-#  legislation_type :string           default("Resolution"), not null
+#  type             :string           default("Resolution"), not null
 #  short_title      :string
 #  enacting_formula :string
+#  position         :integer
+#  term             :integer
 #
 
 require 'test_helper'
@@ -34,10 +36,10 @@ class BillTest < ActiveSupport::TestCase
   # Validations
   should validate_presence_of(:title)
   should validate_presence_of(:short_title)
-  should validate_presence_of(:legislation_type)
+  should validate_presence_of(:type)
 
-  should validate_inclusion_of(:legislation_type)
-         .in_array(Bill::LEGISLATION_TYPES)
+  should validate_inclusion_of(:type)
+         .in_array(Bill::TYPES)
 
   should 'have enacting formula default to \'Let it be hereby resolved\'' do
     bill = create(:bill, enacting_formula: nil)
@@ -68,27 +70,16 @@ class BillTest < ActiveSupport::TestCase
     @bill = create(:bill)
   end
 
-  test 'created_at_time should contain the year, month, and day of creation' do
-    created_datetime = @bill.created_at
-    created_string = @bill.created_at_time
-    assert_match(/#{created_datetime.year}/, created_string,
-                 'should contain the year of creation')
-    assert_match(/#{Date::MONTHNAMES[created_datetime.month]}/, created_string,
-                 'should contain the fulltext month of creation')
-    assert_match(/#{created_datetime.day}/, created_string,
-                 'should contain the day of creation')
-  end
-
   test 'a newly created bill should increment once in position' do
     new_bill = create(:bill)
     assert_equal @bill.position + 1, new_bill.position
   end
 
   test 'bills should be numbered separately by legislation type' do
-    create(:bill, legislation_type: Bill::LEGISLATION_TYPES[0], position: 200)
-    create(:bill, legislation_type: Bill::LEGISLATION_TYPES[1], position: 300)
+    create(:bill, type: Bill::TYPES[0], position: 200)
+    create(:bill, type: Bill::TYPES[1], position: 300)
 
-    new_bill = create(:bill, legislation_type: Bill::LEGISLATION_TYPES[0])
+    new_bill = create(:bill, type: Bill::TYPES[0])
     assert_equal 201, new_bill.position
   end
 

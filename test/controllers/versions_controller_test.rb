@@ -38,7 +38,7 @@ class VersionsControllerTest < ActionController::TestCase
     context 'not as an admin' do
       should 'return unauthorized status' do
         post :revert, id: @bill.versions.last.id
-        assert_redirected_to new_admin_session_path
+        assert_redirected_to new_user_session_path
       end
     end
   end

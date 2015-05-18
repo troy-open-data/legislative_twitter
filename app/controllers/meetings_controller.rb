@@ -20,9 +20,7 @@ class MeetingsController < ApplicationController
                                           votes: :person],
                                 organization: :people).find(params[:id])
 
-    @meeting.motions.each do |motion|
-      motion.roll_calls.build if motion.roll_calls.empty?
-    end
+    @meeting.motions.each { |m| m.roll_calls.build if m.roll_calls.empty? }
   end
 
   # GET /meetings/new
@@ -106,8 +104,7 @@ class MeetingsController < ApplicationController
                                                                                  :_destroy,
                                                                                  votes_attributes: [:id,
                                                                                                     :person_id,
-                                                                                                    :folio_id,
-                                                                                                    :data,
+                                                                                                    :vote,
                                                                                                     :_destroy]]])
   end
 end

@@ -12,23 +12,25 @@
 #
 
 class RollCall < ActiveRecord::Base
+  TYPES = %w(Pass CallTheQuestion Table)
+
   belongs_to :motion
   has_many :votes,              dependent: :destroy
   accepts_nested_attributes_for :votes,
-                                reject_if: ->(attr) { attr[:data].blank? },
+                                reject_if: ->(attr) { attr[:vote].blank? },
                                 allow_destroy: true
 
+  validates :type, inclusion: TYPES
   before_validation :set_defaults
 
-  require_dependency 'pass'
-  require_dependency 'call_the_question'
-  require_dependency 'table'
+  # no single table inheritance
+  self.inheritance_column = nil
 
-  def self.subclass_names
-    self.subclasses.map { |klass| klass.model_name.name }
-  end
-  def self.subclass_human
-    self.subclasses.map { |klass| klass.model_name.human }
+  # Provides values and names for the select form helper
+  # @return [Array<Array>]
+  #   [[Pass, Pass], [Call the question, CallTheQuestion], [Table, Table]]
+  def self.select_text
+    TYPES.map { |t| t.underscore.humanize }.zip(TYPES)
   end
 
   # @return[String] 'Passed' or 'Failed'
@@ -39,6 +41,6 @@ class RollCall < ActiveRecord::Base
   private
 
   def set_defaults
-    self.type ||= Pass
+    self.type ||= 'Pass'
   end
 end

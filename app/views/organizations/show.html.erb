@@ -5,7 +5,7 @@
     <ul class="button-group">
       <li><%= link_to 'All', organizations_path, class:'tiny button' %></li>
     </ul>
-    <% if admin_signed_in? %>
+    <% if user_signed_in? %>
         <ul class="admin button-group">
           <li><%= link_to 'Edit', edit_organization_path(@organization), class:'tiny button' %></li>
           <li><%= link_to('Delete', organization_path,

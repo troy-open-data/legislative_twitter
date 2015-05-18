@@ -25,10 +25,9 @@
 #  invitations_count      :integer          default(0)
 #
 
-class Admin < ActiveRecord::Base
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  # :registerable
-  devise :invitable, :database_authenticatable, :recoverable, :rememberable,
-         :trackable, :validatable
+require 'test_helper'
+
+class UserTest < ActiveSupport::TestCase
+  should validate_presence_of(:email)
+  should validate_uniqueness_of(:email)
 end
