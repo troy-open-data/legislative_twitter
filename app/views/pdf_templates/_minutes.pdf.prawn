@@ -32,7 +32,7 @@ pdf.move_down font_size
 @meeting.grouped_motions.each do |type, motions|
   data = [[ {content: type.pluralize(motions.count).upcase, colspan: 3} ]]
   motions.each do |motion|
-    data << [motion.bill.numbering(:integer).to_s+'.',
+    data << [motion.bill.position.to_s+'.',
              {content:motion.bill.title, colspan: 2}]
     data << ['', 'Sponsor(s)',  motion.sponsors_list]
     data << ['', 'Notes',       motion.notes]

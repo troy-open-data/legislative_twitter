@@ -25,12 +25,12 @@ pdf.move_down font_size
 
 
 
-# Legislations Table
-meeting.grouped_motions.each do |legislation_type, motions|
-  data = [[ {content: legislation_type.pluralize(motions.count).upcase, colspan: 2} ]]
-  motions.each do |folio|
-    legislation = folio.bill
-    data << [legislation.numbering(:integer).to_s+'.', legislation.title]
+# Bill Table
+meeting.grouped_motions.each do |type, motions|
+  data = [[ {content: type.pluralize(motions.count).upcase, colspan: 2} ]]
+  motions.each do |motion|
+    bill = motion.bill
+    data << [bill.position.to_s+'.', bill.title]
   end
   pdf.table(data, header:true) do
     cells.borders = []
