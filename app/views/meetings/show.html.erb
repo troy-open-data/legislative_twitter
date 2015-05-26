@@ -1,4 +1,6 @@
-<!-- Bill Options -->
+<% content_for :title, @meeting.name %>
+
+<!-- Meeting Options -->
 <div class="row">
   <div class="right button-bar">
     <!-- Action Buttons -->
@@ -93,13 +95,13 @@
   <h3>Listing Bills</h3>
 
   <ul>
-    <% @meeting.grouped_bills.each do |legislation_type, legislations| %>
-        <h4><%= pluralize legislations.count, legislation_type %></h4>
-        <% legislations.each do |legislation| %>
+    <% @meeting.grouped_bills.each do |type, bills| %>
+        <h4><%= pluralize bills.count, type %></h4>
+        <% bills.each do |bill| %>
             <li>
-              <%= short_title legislation %> |
-              <%= link_to 'html', legislation %> |
-              <%= link_to 'pdf', bill_path(legislation, format: 'pdf') %>
+              <%= bill.short_title %> |
+              <%= link_to 'html', bill %> |
+              <%= link_to 'pdf', bill_path(bill, format: 'pdf') %>
             </li>
         <% end %>
     <% end %>

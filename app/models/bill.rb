@@ -82,8 +82,8 @@ class Bill < ActiveRecord::Base
   #   @bill.numbering(:dne)          # => "dne is not supported"
   def numbering(format = :string)
     case format
-    when :string        then type + ' ' + position.to_s
-    when :abbreviation  then type[0..2].upcase + '. #' + position.to_s
+    when :string        then "#{type} #{position.to_s}"
+    when :abbreviation  then "#{type[0..2].upcase}. ##{position.to_s}"
     else
       fail StandardError, "#{format} is not supported"
     end

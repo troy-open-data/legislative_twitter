@@ -1,3 +1,5 @@
+<% content_for :title, 'Meetings' %>
+
 <!--Action Buttons-->
 <% if user_signed_in? %>
     <div class="row">
@@ -57,7 +59,7 @@
                     Upcoming...
                 <% end %>
               </td>
-              <% if admin_signed_in? %>
+              <% if user_signed_in? %>
                   <td class='admin'><%= link_to 'Edit', edit_meeting_path(meeting) %></td>
                   <td class='admin'><%= link_to 'Destroy', meeting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
               <% end %>
