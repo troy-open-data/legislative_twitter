@@ -10,7 +10,6 @@
 #  short_title      :string
 #  enacting_formula :string
 #  position         :integer
-#  term             :integer
 #
 
 class Bill < ActiveRecord::Base
@@ -37,7 +36,7 @@ class Bill < ActiveRecord::Base
                                 allow_destroy: true
 
   has_many :motions,    dependent: :destroy
-  has_many :roll_calls, through: :motions
+  has_many :questions, through: :motions
 
   has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments,

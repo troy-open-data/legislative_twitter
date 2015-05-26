@@ -10,7 +10,6 @@
 #  short_title      :string
 #  enacting_formula :string
 #  position         :integer
-#  term             :integer
 #
 
 require 'test_helper'
@@ -26,7 +25,7 @@ class BillTest < ActiveSupport::TestCase
          .allow_destroy(true)
 
   should have_many(:motions)
-  should have_many(:roll_calls)
+  should have_many(:questions)
          .through(:motions)
 
   should have_many(:attachments)

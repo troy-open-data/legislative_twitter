@@ -13,9 +13,9 @@ class Motion < ActiveRecord::Base
   belongs_to :meeting
   belongs_to :bill
 
-  has_many :roll_calls,         dependent: :destroy
-  has_many :votes,              through: :roll_calls
-  accepts_nested_attributes_for :roll_calls,
+  has_many :questions,          dependent: :destroy
+  has_many :votes,              through: :questions
+  accepts_nested_attributes_for :questions,
                                 # Reject if no votes are recorded
                                 reject_if: lambda { |attr|
                                   attr[:type].blank? ||

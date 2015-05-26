@@ -1,11 +1,11 @@
 module ApplicationHelper
   # Returns a vote tally
   #
-  # @param roll_call [RollCall]
+  # @param question [Question]
   # @result [String] '4-3-1' or 'no vote recorded'
   # TODO: Move to question model
-  def print_votes(roll_call)
-    votes = roll_call.votes
+  def print_votes(question)
+    votes = question.votes
     if votes.empty?
       'no vote recorded'
     else

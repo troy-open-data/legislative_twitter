@@ -4,17 +4,17 @@ class ApplicationHelperTest < ActionView::TestCase
   include ApplicationHelper
 
   context 'given a motion' do
-    setup { @roll_call = create(:roll_call) }
+    setup { @question = create(:question) }
     context '#print_votes' do
       context 'with no votes' do
         should 'return string of vote summary' do
-          assert_equal 'no vote recorded', print_votes(@roll_call)
+          assert_equal 'no vote recorded', print_votes(@question)
         end
       end
       context 'with votes' do
-        setup { @roll_call.votes << create(:vote, roll_call: @roll_call) }
+        setup { @question.votes << create(:vote, question: @question) }
         should 'return string of vote summary' do
-          assert_match(/\d-\d-\d/, print_votes(@roll_call))
+          assert_match(/\d-\d-\d/, print_votes(@question))
         end
       end
     end

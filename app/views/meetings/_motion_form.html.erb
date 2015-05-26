@@ -46,13 +46,13 @@
         </div>
       </div>
 
-        <%= f.fields_for :roll_calls do |builder| %>
+        <%= f.fields_for :questions do |builder| %>
             <fieldset>
               <legend>Roll Call Vote</legend>
-            <%= render 'roll_call_form', f: builder, voters: members %>
+            <%= render 'question_form', f: builder, voters: members %>
             </fieldset>
         <% end %>
-        <%= f.link_to_add '+ add a roll call vote', :roll_calls, class: 'small button expand' %>
+        <%= f.link_to_add '+ add a roll call vote', :questions, class: 'small button expand' %>
       </p>
     </div>
 

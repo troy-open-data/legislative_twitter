@@ -13,7 +13,7 @@ require 'minitest/autorun'
 require 'minitest/reporters'
 require 'paperclip/matchers'
 require 'matchers/controller/allow_requests_from_origin_matcher'
-Minitest::Reporters.use! Minitest::Reporters::RubyMineReporter.new
+Minitest::Reporters.use!
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)

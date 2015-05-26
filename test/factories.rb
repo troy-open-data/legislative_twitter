@@ -68,12 +68,12 @@ FactoryGirl.define do
     last  'Washington'
   end
 
-  factory :roll_call do
+  factory :question do
     motion
   end
 
   factory :vote do
     vote 'abstain'
-    roll_call
+    question
   end
 end

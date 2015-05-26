@@ -72,10 +72,10 @@
           <dd><%= motion.sponsors_list %></dd>
           <dt>Notes</dt>
           <dd><%= motion.notes || 'No notes recorded' %></dd>
-          <dt><%= 'Votes (yea-nay-abstain)' unless motion.roll_calls.empty? %></dt>
-          <% motion.roll_calls.each do |roll_call| %>
+          <dt><%= 'Votes (yea-nay-abstain)' unless motion.questions.empty? %></dt>
+          <% motion.questions.each do |question| %>
               <dd>
-                <%= roll_call.type %> Vote: <%= print_votes(roll_call) %> <b><%= roll_call.result.upcase %></b>
+                <%= question.type %> Vote: <%= print_votes(question) %> <b><%= question.result.upcase %></b>
               </dd>
           <% end %>
         </dl>
