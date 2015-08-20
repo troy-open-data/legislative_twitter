@@ -56,7 +56,6 @@ class OrganizationsControllerTest < ActionController::TestCase
     end
   end
 
-
   context 'an organization' do
     setup do
       @organization = create(:organization)

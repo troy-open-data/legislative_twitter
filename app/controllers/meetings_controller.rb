@@ -104,7 +104,7 @@ class MeetingsController < ApplicationController
       :meeting_id,
       :id,
       :_destroy,
-      sponsor_ids:  [],
+      sponsor_ids: [],
       questions_attributes: questions_attributes
     ]
     params.require(:meeting)

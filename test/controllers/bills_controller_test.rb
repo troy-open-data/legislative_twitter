@@ -46,7 +46,6 @@ class BillsControllerTest < ActionController::TestCase
     end
   end
 
-
   context 'as an admin' do
     setup { sign_in @admin }
 

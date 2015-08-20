@@ -57,10 +57,10 @@ module ApplicationHelper
   end
 
   def heroku_build_count
-    ENV['HEROKU_BUILD_COUNT']   || 'unknown'
+    ENV['HEROKU_BUILD_COUNT'] || 'unknown'
   end
 
   def heroku_build_status
-    ENV['HEROKU_BUILD_STATUS']  || 'unknown'
+    ENV['HEROKU_BUILD_STATUS'] || 'unknown'
   end
 end

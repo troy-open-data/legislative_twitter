@@ -8,4 +8,4 @@ require 'rubocop/rake_task'
 RuboCop::RakeTask.new(:lint)
 Rails.application.load_tasks
 
-task default: [:test, :lint]
+task default: %w(test lint)

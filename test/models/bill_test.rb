@@ -45,8 +45,6 @@ class BillTest < ActiveSupport::TestCase
     assert_equal 'Let it be hereby resolved', bill.enacting_formula
   end
 
-
-
   ## Scopes and Class Methods ##################################################
   test 'has resolutions scope' do
     assert Bill.respond_to? :resolutions

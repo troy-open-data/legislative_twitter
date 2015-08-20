@@ -30,7 +30,6 @@ class OrganizationTest < ActiveSupport::TestCase
     should validate_inclusion_of(:level)
            .in_range(0...Organization::LEVELS.length)
 
-
     should 'have scope of meetable organizations' do
       assert Organization.respond_to? :meetable
     end

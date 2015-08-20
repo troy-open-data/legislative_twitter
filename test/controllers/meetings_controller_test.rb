@@ -10,7 +10,6 @@ class MeetingsControllerTest < ActionController::TestCase
       should 'get index' do
         get :index
         assert_response :success
-        assert_not_nil assigns(:meetings)
       end
     end
 
@@ -65,7 +64,6 @@ class MeetingsControllerTest < ActionController::TestCase
     end
   end
 
-
   context 'a meeting' do
     setup do
       @meeting = create(:meeting)
@@ -117,7 +115,8 @@ class MeetingsControllerTest < ActionController::TestCase
         should 'patch update' do
           sign_in @admin
 
-          patch :update, id: @meeting,
+          patch :update,
+                id: @meeting,
                 meeting: { date_and_time:    @meeting.date,
                            organization_id:  @meeting.organization_id }
           assert_redirected_to meeting_path(assigns(:meeting))

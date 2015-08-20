@@ -27,11 +27,13 @@ class VoteTest < ActiveSupport::TestCase
   context 'a valid vote' do
     should 'have only one vote per person per roll call' do
       vote = create(:vote)
-      dup_vote =    build(:vote, person: vote.person, question: vote.question)
+      dup_vote = build(:vote, person: vote.person, question: vote.question)
       refute dup_vote.save, 'duplicate vote was saved'
-      valid_vote =  build(:vote, person: vote.person, question: create(:question))
+
+      valid_vote = build(:vote, person: vote.person, question: create(:question))
       assert valid_vote.save, 'valid vote for duplicate person was not saved'
-      valid_vote =  build(:vote, question: vote.question, person: create(:person))
+
+      valid_vote = build(:vote, question: vote.question, person: create(:person))
       assert valid_vote.save, 'valid vote for duplicate roll call was not saved'
     end
   end
