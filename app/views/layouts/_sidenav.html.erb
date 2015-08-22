@@ -1,30 +1,36 @@
 <ul class="side-nav show-for-large-up">
   <div class="large-3 columns">
-
     <br />
+
+    <!-- Troy logo -->
+
     <%= link_to image_tag('http://mediad.publicbroadcasting.net/p/wamc/files/201501/TROY.jpg', class: 'sidenav-img center'), root_url %>
     <br /><br />
 
+
+    <!-- Searchbar -->
+
     <h4>Search</h4>
 
-    <%= form_tag search_path, :method => 'get' do %>
-        <div class="row collapse">
-          <div class="small-10 columns">
-            <%= text_field_tag :search, params[:search], placeholder: 'Search for Bill' %>
-          </div>
-          <div class="small-2 columns">
-            <%= submit_tag 'Go', :name => nil, class: 'button postfix' %>
-          </div>
+    <%= form_tag search_path, method: 'get' do %>
+      <div class="row collapse">
+        <div class="small-10 columns">
+          <%= text_field_tag :search, params[:search], placeholder: 'Search for Bill' %>
         </div>
+        <div class="small-2 columns">
+          <%= submit_tag 'Go', name: nil, class: 'button postfix' %>
+        </div>
+      </div>
     <% end %>
+
+
+    <!-- Sidenav links -->
 
     <h4>Navigation</h4>
     <li><%= link_to 'Bill', bills_path %></li>
     <li><%= link_to 'Organizations', organizations_path %></li>
     <li><%= link_to 'Meetings', meetings_path %></li>
     <li><%= link_to 'People', people_path %></li>
-    <!--</ul>-->
-
 
   </div>
 </ul>

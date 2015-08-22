@@ -1,52 +1,30 @@
-<%= nested_form_for(@meeting) do |f| %>
-  <% if @meeting.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h2>
+<%= simple_nested_form_for @meeting do |f| %>
+  <% flash_errors_for @meeting %>
 
-      <ul>
-      <% @meeting.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.association :organization %>
 
-  <div class="field">
-    <%= f.label :organization_id %>
-    <%= f.collection_select :organization_id, Organization.meetable, :id, :name %>
-  </div>
   <div class="field">
     <%= f.label :date_and_time, 'Date and Time' %>
     <%= f.text_field :date_and_time, class:'datetimepicker', value: @meeting.datetimepicker_value %>
   </div>
 
-    <div class="field">
-      <%= f.label :location %>
-      <%= f.text_field :location, class: 'geocomplete',
-                       value: (@meeting.location || Meeting::DEFAULT_LOCATION) %>
-    </div>
+  <%= f.input :location, class: 'geocomplete',
+    input_html: { value: @meeting.location || Meeting::DEFAULT_LOCATION } %>
 
-    <!--Orders of Business-->
-    <fieldset>
-      <legend>Orders of Business</legend>
-      <%= f.fields_for :meeting_items do |builder| %>
-          <%= render 'meeting_item_form', f: builder %>
-      <% end %>
-      <%= f.link_to_add '+ add an order of business', :meeting_items, class: 'small button expand' %>
-    </fieldset>
+  <!--Orders of Business-->
+  <fieldset>
+    <legend>Orders of Business</legend>
+    <%= f.fields_for :meeting_items do |builder| %>
+      <%= render 'meeting_item_form', f: builder %>
+    <% end %>
+    <%= f.link_to_add '+ add an order of business', :meeting_items, class: 'small button expand' %>
+  </fieldset>
 
-    <!--Bill Docket-->
-    <fieldset>
-      <legend>Set Bill Docket</legend>
-      <%= f.collection_check_boxes(:bill_ids,
-                                   Bill.by_recent,
-                                   :id,
-                                   :collection_text) do |b|
-        b.label { b.check_box + '  ' + b.text + "\n"}
-      end %>
-    </fieldset>
+  <!--Bill Docket-->
+  <fieldset>
+    <legend>Set Bill Docket</legend>
+    <%= f.association :bills, as: :check_boxes, label: false, label_method: :collection_text_method %>
+  </fieldset>
 
-  <div class="actions">
-    <%= f.submit class:'button expand' %>
-  </div>
+  <%= f.button :submit, class: 'expand' %>
 <% end %>

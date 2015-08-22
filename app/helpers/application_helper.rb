@@ -1,4 +1,14 @@
 module ApplicationHelper
+  # Adds an error message for the subject to flash.now
+  #
+  # @param subject
+  def flash_errors_for(subject)
+    return unless subject.errors.any?
+
+    errors = pluralize subject.errors.count, 'error'
+    thing = subject.class.name.downcase
+    flash.now[:alert] = "#{errors} prohibited this #{thing} from being saved."
+  end
   # Returns a vote tally
   #
   # @param question [Question]

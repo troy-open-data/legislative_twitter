@@ -1,17 +1,12 @@
 <% content_for :title, 'Bills' %>
 
 <!--Header and New Button-->
-<% if user_signed_in? %>
-    <div class="row">
-      <%= link_to '+ New Bill', new_bill_path, class:'right admin button' %>
-    </div>
-<% end %>
+<%= render 'bills/admin_buttons' if user_signed_in? %>
 
 <div class="row">
-  <h2>Listing Legislation</h2>
+  <h2>Listing Bills</h2>
 
-  <!--Bill Listing
-          Updates cache when any bill updates -->
+  <!--Bill Listing -->
   <% cache [recent_bills_cache_name, Bill.latest] do %>
       <div class="row">
         <div class="small-12 columns">

@@ -12,3 +12,8 @@ AllCops:
     - 'script/**/*'
     - 'coverage/**/*'
     - 'bin/**/*'
+
+Style/FileName:
+  Exclude:
+    - 'Rakefile'
+    - 'Gemfile'
