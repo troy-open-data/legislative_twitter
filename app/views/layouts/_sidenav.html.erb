@@ -12,7 +12,7 @@
 
     <h4>Search</h4>
 
-    <%= form_tag search_path, method: 'get' do %>
+    <%= form_tag search_path, method: 'get', id: 'search-form' do %>
       <div class="row collapse">
         <div class="small-10 columns">
           <%= text_field_tag :search, params[:search], placeholder: 'Search for Bill' %>

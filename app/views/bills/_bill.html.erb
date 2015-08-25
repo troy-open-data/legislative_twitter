@@ -1,34 +1,36 @@
-<!--Bill Blurb:
-        cache updates whenever an update to bill (or dependents)
-        is detected-->
-<% cache ['bill', bill] do %>
+<div class="bill">
+  <!--Bill Blurb:
+    cache updates whenever an update to bill (or dependents)
+    is detected-->
+    <% cache ['bill', bill] do %>
 
-    <!--Title and Subtitle-->
-    <h4>
-      <%= link_to "#{bill.numbering}: #{bill.short_title}", bill %>
-      <small><%= meta_header bill %></small>
-    </h4>
+      <!--Title and Subtitle-->
+      <h4>
+        <%= link_to "#{bill.numbering}: #{bill.short_title}", bill %>
+        <small><%= meta_header bill %></small>
+      </h4>
 
-    <!--Body-->
-    <!--<p><%#= truncated_body bill %></p>-->
+      <!--Body-->
+      <!--<p><%#= truncated_body bill %></p>-->
 
-    <!-- Bill Options -->
-    <div class="button-bar">
-      <!-- Download PDF Button -->
-      <ul class="button-group">
-        <li><%= link_to 'PDF', bill_path(id: bill.id, format: 'pdf'),
-                        class:'tiny button' %></li>
-        <li><%= link_to 'Show', bill, class:'tiny button' %></li>
-      </ul>
-      <!-- Action Buttons -->
-      <% if admin_signed_in? %>
+      <!-- Bill Options -->
+      <div class="button-bar">
+        <!-- Download PDF Button -->
+        <ul class="button-group">
+          <li><%= link_to 'PDF', bill_path(id: bill.id, format: 'pdf'),
+            class:'tiny button' %></li>
+          <li><%= link_to 'Show', bill, class:'tiny button' %></li>
+        </ul>
+        <!-- Action Buttons -->
+        <% if user_signed_in? %>
           <ul class="admin button-group">
             <li><%= link_to 'Edit', edit_bill_path(bill), class:'tiny button' %></li>
             <li><%= link_to('Delete', bill,
                             method: 'delete', class: 'tiny alert button',
                             data: { confirm: 'Are you sure you want to delete this?'}) %></li>
           </ul>
-      <% end %>
-    </div>
+        <% end %>
+      </div>
 
-<% end %>
+    <% end %>
+</div>

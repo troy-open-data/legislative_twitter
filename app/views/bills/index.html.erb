@@ -9,7 +9,7 @@
   <!--Bill Listing -->
   <% cache [recent_bills_cache_name, Bill.latest] do %>
       <div class="row">
-        <div class="small-12 columns">
+        <div id="bills" class="small-12 columns">
           <%= render @bills %>
         </div>
       </div>

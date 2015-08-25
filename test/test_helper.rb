@@ -9,30 +9,43 @@ SimpleCov.start('rails') do
 end
 
 # Minitest and Reporters
-require 'minitest/autorun'
+# require 'minitest/autorun'
 require 'minitest/reporters'
-require 'paperclip/matchers'
-require 'matchers/controller/allow_requests_from_origin_matcher'
-Minitest::Reporters.use!
+Minitest::Reporters.use! [
+  Minitest::Reporters::SpecReporter.new
+]
 
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
+require 'capybara/rails'
+require 'minitest/around/unit'
+require 'paperclip/matchers'
+require 'matchers/controller/allow_requests_from_origin_matcher'
+require 'database_cleaner'
 
-module ActiveSupport
-  class TestCase
-    include FactoryGirl::Syntax::Methods
-    extend Paperclip::Shoulda::Matchers
+DatabaseCleaner.strategy = :truncation
 
-    def json(body)
-      JSON.parse(body, symbolize_names: true)
-    end
+# rubocop:disable Style/ClassAndModuleChildren
+class ActiveSupport::TestCase
+  include FactoryGirl::Syntax::Methods
+  extend Paperclip::Shoulda::Matchers
+
+  # def around(&tests)
+  #   DatabaseCleaner.cleaning(&tests)
+  # end
+
+  def json(body)
+    JSON.parse(body, symbolize_names: true)
   end
 end
 
-module ActionController
-  class TestCase
-    include Devise::TestHelpers
-    setup { @admin = create(:user) }
-  end
+class ActionController::TestCase
+  include Devise::TestHelpers
+  setup { @admin = create(:user) }
 end
+
+class ActionDispatch::IntegrationTest
+  include Capybara::DSL
+end
+# rubocop:enable Style/ClassAndModuleChildren

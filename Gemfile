@@ -50,12 +50,12 @@ end
 
 # Non-Production Dependencies
 
-gem 'sdoc', '~> 0.4.0',   group: :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 group :development do
-  gem 'annotate',         '~> 2.6.8', require: nil
-  gem 'rails-footnotes',  '~> 4.0'
-  gem 'mailcatcher',      require: false
+  gem 'annotate',        '~> 2.6.8', require: nil
+  gem 'rails-footnotes', '~> 4.0'
+  gem 'mailcatcher',     require: false
 
   # browser error formatting
   gem 'better_errors'
@@ -63,9 +63,9 @@ group :development do
 end
 
 group :development, :test do
-  gem 'dotenv-rails',   '~> 2.0.1'
+  gem 'dotenv-rails', '~> 2.0.1'
   gem 'quiet_assets'
-  gem 'spring',         '~> 1.3.6'
+  gem 'spring',       '~> 1.3.6'
 
   # linters/debuggers/code checkers
   gem 'rubocop',  require: false
@@ -87,9 +87,9 @@ group :development, :test do
   gem 'codeclimate-test-reporter', require: nil
 
   # develompent/test tasks
-  gem 'guard',              '~> 2.12.5'
-  gem 'guard-minitest',     '~> 2.4.4'
+  gem 'guard',          '~> 2.12.5'
+  gem 'guard-minitest', '~> 2.4.4'
   gem 'guard-rubocop'
   gem 'guard-brakeman'
-  gem 'guard-annotate',     '~> 2.2'
+  gem 'guard-annotate', '~> 2.2'
 end

@@ -26,7 +26,8 @@
 
   <% @grouped_meetings.each do |organization,meetings| %>
       <br />
-      <table role="grid" summary="Listed meetings for <%= organization.name %>.">
+      <table role="grid" class="<%= organization.name.parameterize %>-meetings"
+                         summary="Listed meetings for <%= organization.name %>.">
         <caption><%= organization.name %></caption>
         <thead>
         <tr>
@@ -43,15 +44,15 @@
 
         <tbody>
         <% meetings.each do |meeting| %>
-            <tr>
-              <td><%= meeting.organization.name %></td>
-              <td><%= meeting.date.to_formatted_s(:long) %></td>
-              <td><%= link_to 'Details', meeting %>  (<%= pluralize meeting.bills.count, 'bill' %>)</td>
-              <td>
+            <tr class="meeting">
+              <td class="name"><%= meeting.organization.name %></td>
+              <td class="date"><%= meeting.date.to_formatted_s(:long) %></td>
+              <td class="show"><%= link_to 'Details', meeting %>  (<%= pluralize meeting.bills.count, 'bill' %>)</td>
+              <td class="agenda">
                 <%= link_to 'html', agenda_path(meeting) %><br />
                 <%= link_to 'pdf', agenda_path(meeting, format: 'pdf') %>
               </td>
-              <td>
+              <td class="minutes">
                 <% if meeting.happened? %>
                     <%= link_to 'html', minutes_path(meeting) %><br />
                     <%= link_to 'pdf', minutes_path(meeting, format: 'pdf') %>
