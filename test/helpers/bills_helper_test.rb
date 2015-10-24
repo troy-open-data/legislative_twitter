@@ -14,7 +14,7 @@ class BillsHelperTest < ActionView::TestCase
     should 'return string describing attachments if attachments' do
       attachments_count = 5
       attached_bill = create(:legislation_with_attachments,
-                                    attachments_count: attachments_count)
+                             attachments_count: attachments_count)
       assert_match(/#{pluralize(attachments_count, 'attachment')}/i,
                    with_attachments(attached_bill))
     end

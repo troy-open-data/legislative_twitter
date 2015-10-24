@@ -89,7 +89,7 @@
       <% motions.each do |motion| %>
           <% bill = motion.bill %>
           <dt><%= bill.numbering :abbreviation %></dt>
-          <dd><%= short_title bill %>
+          <dd><%= bill.short_title %>
             (<%= link_to 'html', bill_path(bill) %>)
             (<%= link_to 'pdf', bill_path(bill, format: 'pdf') %>)
           </dd>

@@ -6,7 +6,7 @@
 
 <h2>Listing Organizations</h2>
 
-<table>
+<table id="organizations">
   <thead>
   <tr>
     <th>Level</th>
@@ -20,11 +20,11 @@
 
   <tbody>
   <% @organizations.each do |organization| %>
-      <tr>
+      <tr class="organization">
         <td><%= Organization::LEVELS[organization.level] + ", Lvl.#{organization.level}" %></td>
         <td><%= organization.name %></td>
         <td><%= link_to 'Show', organization %></td>
-        <% if admin_signed_in? %>
+        <% if user_signed_in? %>
             <td class="admin"><%= link_to 'Edit', edit_organization_path(organization) %></td>
             <td class="admin"><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>

@@ -10,7 +10,6 @@
 #  short_title      :string
 #  enacting_formula :string
 #  position         :integer
-#  term             :integer
 #
 
 class Bill < ActiveRecord::Base
@@ -36,8 +35,8 @@ class Bill < ActiveRecord::Base
   accepts_nested_attributes_for :sections,
                                 allow_destroy: true
 
-  has_many :motions,    dependent: :destroy
-  has_many :roll_calls, through: :motions
+  has_many :motions,   dependent: :destroy
+  has_many :questions, through: :motions
 
   has_many :attachments, dependent: :destroy
   accepts_nested_attributes_for :attachments,
@@ -82,8 +81,8 @@ class Bill < ActiveRecord::Base
   #   @bill.numbering(:dne)          # => "dne is not supported"
   def numbering(format = :string)
     case format
-    when :string        then type + ' ' + position.to_s
-    when :abbreviation  then type[0..2].upcase + '. #' + position.to_s
+    when :string        then "#{type} #{position}"
+    when :abbreviation  then "#{type[0..2].upcase}. ##{position}"
     else
       fail StandardError, "#{format} is not supported"
     end

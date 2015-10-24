@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150518152757) do
+ActiveRecord::Schema.define(version: 20150526193613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,6 @@ ActiveRecord::Schema.define(version: 20150518152757) do
     t.string   "short_title"
     t.string   "enacting_formula"
     t.integer  "position"
-    t.integer  "term"
   end
 
   create_table "levels", force: :cascade do |t|
@@ -125,6 +124,17 @@ ActiveRecord::Schema.define(version: 20150518152757) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "questions", force: :cascade do |t|
+    t.string   "type"
+    t.text     "notes"
+    t.integer  "motion_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean  "passed"
+  end
+
+  add_index "questions", ["motion_id"], name: "index_questions_on_motion_id", using: :btree
+
   create_table "recitals", force: :cascade do |t|
     t.string   "clause"
     t.string   "prefix"
@@ -134,27 +144,6 @@ ActiveRecord::Schema.define(version: 20150518152757) do
   end
 
   add_index "recitals", ["bill_id"], name: "index_recitals_on_bill_id", using: :btree
-
-  create_table "roll_call_votes", force: :cascade do |t|
-    t.string   "type"
-    t.text     "notes"
-    t.integer  "motion_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  add_index "roll_call_votes", ["motion_id"], name: "index_roll_call_votes_on_motion_id", using: :btree
-
-  create_table "roll_calls", force: :cascade do |t|
-    t.string   "type"
-    t.text     "notes"
-    t.integer  "motion_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean  "passed"
-  end
-
-  add_index "roll_calls", ["motion_id"], name: "index_roll_calls_on_motion_id", using: :btree
 
   create_table "sponsorships", force: :cascade do |t|
     t.integer  "person_id"
@@ -210,15 +199,15 @@ ActiveRecord::Schema.define(version: 20150518152757) do
   create_table "votes", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "motion_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "vote"
-    t.integer  "roll_call_id"
+    t.integer  "question_id"
   end
 
   add_index "votes", ["motion_id"], name: "index_votes_on_motion_id", using: :btree
   add_index "votes", ["person_id"], name: "index_votes_on_person_id", using: :btree
-  add_index "votes", ["roll_call_id"], name: "index_votes_on_roll_call_id", using: :btree
+  add_index "votes", ["question_id"], name: "index_votes_on_question_id", using: :btree
 
   add_foreign_key "levels", "bills"
   add_foreign_key "levels", "levels"
@@ -226,10 +215,9 @@ ActiveRecord::Schema.define(version: 20150518152757) do
   add_foreign_key "meetings", "organizations"
   add_foreign_key "motions", "bills"
   add_foreign_key "motions", "meetings"
+  add_foreign_key "questions", "motions"
   add_foreign_key "recitals", "bills"
-  add_foreign_key "roll_call_votes", "motions"
-  add_foreign_key "roll_calls", "motions"
   add_foreign_key "votes", "motions"
   add_foreign_key "votes", "people"
-  add_foreign_key "votes", "roll_calls"
+  add_foreign_key "votes", "questions"
 end

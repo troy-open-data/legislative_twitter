@@ -6,20 +6,15 @@
       <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
     </div>
   </div>
-  <div class="field">
-    <%= f.label :text, 'Paragraph Content (no subparagraphs)' %>
-    <%= f.text_area :text, placeholder: 'only shown if there are no subparagraphs; otherwise, use chapeau and continuation.' %>
-  </div>
-  <div class="field">
-    <%= f.label :chapeau, 'Chapeau (content before subparagraphs)' %>
-    <%= f.text_area :chapeau, placeholder: 'content shown before subparagraphs' %>
-  </div>
-  <div class="field">
-    <%= f.label :continuation, 'Continuation (content after subparagraphs)' %>
-    <%= f.text_area :continuation, placeholder: 'content shows after subparagraphs' %>
-  </div>
 
+  <!-- content -->
+  <%= f.input :text, label: 'Paragraph Content (no subparagraphs)',
+              placeholder: 'only shown if there are no subparagraphs; otherwise, use chapeau and continuation.' %>
 
+  <%= f.input :chapeau, label: 'Chapeau (content before subparagraphs)' %>
+  <%= f.input :continuation, label: 'Continuation (content after subparagraphs)' %>
+
+  <!-- subparagraphs -->
   <%= f.fields_for :sub_paragraphs do |builder| %>
       <%= render 'bills/levels_forms/sub_paragraphs_form', f: builder %>
   <% end %>

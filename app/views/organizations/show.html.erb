@@ -27,17 +27,17 @@
 
 <!--List Membership-->
 <h3>Membership</h3>
-<ul>
+<ul id="members">
   <% @organization.people.each do |member| %>
-      <li><%= link_to member.name, member %></li>
+      <li class="member"><%= link_to member.name, member %></li>
   <% end %>
 </ul>
 
 <!--List Meetings-->
 <h4>Meetings:</h4>
-<ul>
+<ul id="meetings">
   <% @organization.meetings.order('date_and_time DESC').each do |meeting| %>
-      <li>
+      <li class="meeting">
         <%= link_to meeting.date.to_formatted_s(:long), meeting_path(meeting)%>
         <%= link_to '| agenda pdf', agenda_path(meeting, format: 'pdf') %>
         <%= link_to('| minutes pdf', agenda_path(meeting, format: 'pdf')) if meeting.happened? %>

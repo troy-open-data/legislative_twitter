@@ -11,4 +11,9 @@ AllCops:
     - 'config/**/*'
     - 'script/**/*'
     - 'coverage/**/*'
-    - 'bin/spring'
+    - 'bin/**/*'
+
+Style/FileName:
+  Exclude:
+    - 'Rakefile'
+    - 'Gemfile'

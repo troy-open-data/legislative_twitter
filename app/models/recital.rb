@@ -14,7 +14,7 @@ class Recital < ActiveRecord::Base
 
   belongs_to :bill
 
-  validates :clause,  presence: true
+  validates :clause, presence: true
 
   private
 

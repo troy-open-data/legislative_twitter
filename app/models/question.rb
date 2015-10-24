@@ -1,6 +1,6 @@
 # == Schema Information
 #
-# Table name: roll_calls
+# Table name: questions
 #
 #  id         :integer          not null, primary key
 #  type       :string
@@ -11,7 +11,7 @@
 #  passed     :boolean
 #
 
-class RollCall < ActiveRecord::Base
+class Question < ActiveRecord::Base
   TYPES = %w(Pass CallTheQuestion Table)
 
   belongs_to :motion

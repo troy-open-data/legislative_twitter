@@ -17,13 +17,13 @@ FactoryGirl.define do
   end
 
   factory :recital do
-    clause    'cake is good'
+    clause 'cake is good'
     bill
   end
 
   factory :user do
-    email     'email@email.com'
-    password  'password'
+    email 'email@email.com'
+    password 'password'
   end
 
   factory :attachment do
@@ -31,8 +31,8 @@ FactoryGirl.define do
   end
 
   factory :bill do
-    title             'Resolution for Free Cake'
-    short_title       'Free Cake'
+    title 'Resolution for Free Cake'
+    short_title 'Free Cake'
 
     factory :legislation_with_attachments do
       transient { attachments_count 5 }
@@ -59,21 +59,21 @@ FactoryGirl.define do
   end
 
   factory :organization do
-    name  'Council'
+    name 'Council'
     level 1
   end
 
   factory :person do
     first 'George'
-    last  'Washington'
+    last 'Washington'
   end
 
-  factory :roll_call do
+  factory :question do
     motion
   end
 
   factory :vote do
     vote 'abstain'
-    roll_call
+    question
   end
 end

@@ -114,15 +114,14 @@ class PeopleControllerTest < ActionController::TestCase
 
     context '#destroy' do
       context 'as admin' do
-        should 'temporarily not be destroyed' do
+        should 'be destroyed' do
           sign_in @admin
 
-          assert_no_difference('Person.count', -1) do
+          assert_difference('Person.count', -1) do
             delete :destroy, id: @person
           end
-          assert_redirected_to root_path
 
-          # assert_redirected_to people_path
+          assert_redirected_to people_path
         end
       end
       context 'not as admin' do

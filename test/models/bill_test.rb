@@ -10,7 +10,6 @@
 #  short_title      :string
 #  enacting_formula :string
 #  position         :integer
-#  term             :integer
 #
 
 require 'test_helper'
@@ -26,7 +25,7 @@ class BillTest < ActiveSupport::TestCase
          .allow_destroy(true)
 
   should have_many(:motions)
-  should have_many(:roll_calls)
+  should have_many(:questions)
          .through(:motions)
 
   should have_many(:attachments)
@@ -45,8 +44,6 @@ class BillTest < ActiveSupport::TestCase
     bill = create(:bill, enacting_formula: nil)
     assert_equal 'Let it be hereby resolved', bill.enacting_formula
   end
-
-
 
   ## Scopes and Class Methods ##################################################
   test 'has resolutions scope' do

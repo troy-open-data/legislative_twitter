@@ -1,38 +1,14 @@
-<%= form_for(@person) do |f| %>
-  <% if @person.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@person.errors.count, "error") %> prohibited this person from being saved:</h2>
+<%= simple_form_for @person  do |f| %>
+  <% flash_errors_for @person %>
 
-      <ul>
-      <% @person.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.input :first %>
+  <%= f.input :last %>
+  <%= f.input :bio %>
 
-  <div class="field">
-    <%= f.label :first %><br>
-    <%= f.text_field :first %>
-  </div>
-  <div class="field">
-    <%= f.label :last %><br>
-    <%= f.text_field :last %>
-  </div>
-  <div class="field">
-    <%= f.label :bio %><br>
-    <%= f.text_area :bio %>
-  </div>
-    <fieldset>
-      <legend>Committee Memberships</legend>
-      <%=
-          f.collection_check_boxes(:organization_ids,
-                                   Organization.all,
-                                   :id,
-                                   :name)
-      %>
-    </fieldset>
-  <div class="actions">
-    <%= f.submit class:'button expand' %>
-  </div>
+  <fieldset>
+    <legend>Committee Memberships</legend>
+    <%= f.association :organizations, as: :check_boxes, label: false %>
+  </fieldset>
+
+  <%= f.button :submit, class: 'expand' %>
 <% end %>

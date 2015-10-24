@@ -20,7 +20,7 @@ class MeetingsController < ApplicationController
                                           votes: :person],
                                 organization: :people).find(params[:id])
 
-    @meeting.motions.each { |m| m.roll_calls.build if m.roll_calls.empty? }
+    @meeting.motions.each { |m| m.questions.build if m.questions.empty? }
   end
 
   # GET /meetings/new
@@ -90,7 +90,7 @@ class MeetingsController < ApplicationController
       :vote,
       :_destroy
     ]
-    roll_calls_attributes = [
+    questions_attributes = [
       :type,
       :notes,
       :id,
@@ -104,8 +104,8 @@ class MeetingsController < ApplicationController
       :meeting_id,
       :id,
       :_destroy,
-      sponsor_ids:  [],
-      roll_calls_attributes: roll_calls_attributes
+      sponsor_ids: [],
+      questions_attributes: questions_attributes
     ]
     params.require(:meeting)
       .permit(:organization_id, :date_and_time, :location,

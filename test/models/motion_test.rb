@@ -22,9 +22,9 @@ class MotionTest < ActiveSupport::TestCase
          .through(:sponsorships)
          .source(:person)
 
-  should have_many(:roll_calls)
+  should have_many(:questions)
   should have_many(:votes)
-         .through(:roll_calls)
+         .through(:questions)
 
   context 'motion' do
     setup { @motion = create(:motion) }

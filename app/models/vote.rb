@@ -2,20 +2,20 @@
 #
 # Table name: votes
 #
-#  id           :integer          not null, primary key
-#  person_id    :integer
-#  motion_id    :integer
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  vote         :string
-#  roll_call_id :integer
+#  id          :integer          not null, primary key
+#  person_id   :integer
+#  motion_id   :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  vote        :string
+#  question_id :integer
 #
 
 class Vote < ActiveRecord::Base
   VALID = %w(yea nay abstain)
 
   belongs_to :person
-  belongs_to :roll_call
+  belongs_to :question
 
   scope :yeas,      -> { where(vote: 'yea') }
   scope :nays,      -> { where(vote: 'nay') }
@@ -23,7 +23,7 @@ class Vote < ActiveRecord::Base
 
   validates :vote,      presence: :true,
                         inclusion: VALID
-  validates :person_id, uniqueness: { scope: :roll_call_id }
+  validates :person_id, uniqueness: { scope: :question_id }
 
   # @return [Array<Array>] vote options formatted for collection form helpers
   def self.collection_text

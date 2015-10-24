@@ -6,28 +6,19 @@
       <%= f.link_to_remove 'remove', class: 'right alert tiny button' %>
     </div>
   </div>
-  <div class="field">
-    <%= f.label :heading %>
-    <%= f.text_field :heading, placeholder: 'heading (optional)' %>
-  </div>
-  <div class="field">
-    <%= f.label :subheading %>
-    <%= f.text_field :subheading, placeholder: 'subheading (optional)' %>
-  </div>
-  <div class="field">
-    <%= f.label :text, 'Section Content (no subsections)' %>
-    <%= f.text_area :text, placeholder: 'only shown if there are no sub-sections; otherwise, use chapeau and continuation.' %>
-  </div>
-  <div class="field">
-    <%= f.label :chapeau, 'Chapeau (content before subsections)' %>
-    <%= f.text_area :chapeau, placeholder: 'content shown before subsections' %>
-  </div>
-  <div class="field">
-    <%= f.label :continuation, 'Continuation (content after subsections)' %>
-    <%= f.text_area :continuation, placeholder: 'content shows after subsections' %>
-  </div>
 
+  <!-- headings -->
+  <%= f.input :heading, placeholder: 'heading (optional)' %>
+  <%= f.input :subheading, placeholder: 'subheading (optional)' %>
 
+  <!-- content -->
+  <%= f.input :text, label: 'Section Content (no subsections)',
+              placeholder: 'only shown if there are no sub-sections; otherwise, use chapeau and continuation.'  %>
+
+  <%= f.input :chapeau, label: 'Chapeau (content before subsections)' %>
+  <%= f.input :continuation, label: 'Continuation (content after subsections)' %>
+
+  <!-- subsections -->
   <%= f.fields_for :sub_sections do |builder| %>
       <%= render 'bills/levels_forms/sub_sections_form', f: builder %>
   <% end %>

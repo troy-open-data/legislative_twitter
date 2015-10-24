@@ -33,7 +33,7 @@ json.bills @meeting.motions.each do |motion|
     json.url api_v1_person_url(sponsor, format: :json)
   end
 
-  json.roll_calls motion.roll_calls.sort_by(&:type) do |rc|
+  json.questions motion.questions.sort_by(&:type) do |rc|
     json.extract! rc, :type, :notes, :passed
     json.votes rc.votes do |vote|
       json.extract! vote.person, :id, :first, :last
