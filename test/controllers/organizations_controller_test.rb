@@ -114,14 +114,13 @@ class OrganizationsControllerTest < ActionController::TestCase
 
     context '#destroy' do
       context 'as admin' do
-        should 'temporarily be not destroyed' do
+        should 'be destroyed' do
           sign_in @admin
-          assert_no_difference('Organization.count', -1) do
+          assert_difference('Organization.count', -1) do
             delete :destroy, id: @organization
           end
-          assert_redirected_to root_url
 
-          # assert_redirected_to organizations_path
+          assert_redirected_to organizations_path
         end
       end
       context 'not as admin' do
