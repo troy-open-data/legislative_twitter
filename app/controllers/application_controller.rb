@@ -5,13 +5,4 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :authenticate_user!, except: [:index, :show]
-
-  # For demo only
-  before_action :disable_deletion, only: :destroy
-
-  private
-
-  def disable_deletion
-    redirect_to root_path, notice: 'Deletion is disabled for application demo'
-  end
 end
