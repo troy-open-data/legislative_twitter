@@ -34,6 +34,7 @@ gem 'acts_as_list',     '0.7.2'
 gem 'platform-api' # Use Heroku API to show update status
 gem 'pry-rails'
 gem 'dotenv-rails', '~> 2.0.1'
+gem 'rubocop',      require: false
 
 # auth
 gem 'devise',             '~> 3.2'
@@ -69,7 +70,6 @@ group :development, :test do
   gem 'spring', '~> 1.3.6'
 
   # linters/debuggers/code checkers
-  gem 'rubocop',  require: false
   gem 'brakeman', require: false
   gem 'bullet'
 
