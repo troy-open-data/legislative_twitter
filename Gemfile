@@ -9,6 +9,7 @@ gem 'passenger',        '~> 5.0'
 gem 'sass',             '~> 3.4'
 gem 'sass-rails',       '~> 5.0'
 gem 'foundation-rails', '~> 5.5'
+gem 'materialize-sass'
 
 gem 'uglifier',         '>= 1.3.0'
 gem 'coffee-rails',     '~> 4.1'
@@ -32,6 +33,7 @@ gem 'acts_as_list',     '0.7.2'
 # support
 gem 'platform-api' # Use Heroku API to show update status
 gem 'pry-rails'
+gem 'dotenv-rails', '~> 2.0.1'
 
 # auth
 gem 'devise',             '~> 3.2'
@@ -63,9 +65,8 @@ group :development do
 end
 
 group :development, :test do
-  gem 'dotenv-rails', '~> 2.0.1'
   gem 'quiet_assets'
-  gem 'spring',       '~> 1.3.6'
+  gem 'spring', '~> 1.3.6'
 
   # linters/debuggers/code checkers
   gem 'rubocop',  require: false
