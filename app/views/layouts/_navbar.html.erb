@@ -1,49 +1,89 @@
-<nav class="top-bar" data-topbar role="navigation">
-  <ul class="title-area">
-    <li class="name">
-      <h1><%= link_to 'Troy City Tracker', :root %></h1>
-    </li>
-    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-  </ul>
+<!-- User Navigation -->
+<nav class="user-nav white" role="navigation">
+  <div class="nav-wrapper container">
+    <!-- Logo -->
+    <%= link_to image_tag('http://mediad.publicbroadcasting.net/p/wamc/files/201501/TROY.jpg') + ' Troy City Tracker',
+      :root,
+      id: 'logo-container', class: 'brand-logo blue-grey-text text-darken-4' %>
 
-  <section class="top-bar-section">
-    <!-- Right Nav Section -->
-    <ul class="right">
-      <li class="admin has-dropdown show-for-medium-down">
-        <a href="#">Go to...</a>
-        <ul class="dropdown">
-          <li><%= link_to '...Organizations', organizations_path %></li>
-          <li><%= link_to '...Meetings', meetings_path %></li>
-          <li><%= link_to '...People', people_path %></li>
-          <li><%= link_to '...Bills', bills_path %></li>
+
+    <!-- Signed-In User Menu -->
+    <% if user_signed_in? %>
+      <ul class="right hide-on-med-and-down">
+        <li><a class="admin dropdown-button" href="#!" data-activates="dropdown-new">Create New<i class="material-icons right">arrow_drop_down</i></a></li>
+        <ul id="dropdown-new" class="dropdown-content">
+          <li><%= link_to 'New Committee', new_organization_path %></li>
+          <li><%= link_to 'New Meeting', new_meeting_path %></li>
+          <li><%= link_to 'New Person', new_person_path %></li>
+          <li><%= link_to 'New Bill', new_bill_path %></li>
         </ul>
-      </li>
-      <% if user_signed_in? %>
-          <li class="admin has-dropdown">
-            <a href="#">Create New...</a>
-            <ul class="dropdown">
-              <li><%= link_to '...Organization', new_organization_path %></li>
-              <li><%= link_to '...Meeting', new_meeting_path %></li>
-              <li><%= link_to '...Person', new_person_path %></li>
-              <li><%= link_to '...Bill', new_bill_path %></li>
-            </ul>
-          </li>
-          <li class='' id="admin-toggle"><a href="#">Toggle Public View</a></li>
-          <li class="admin"><%= link_to 'Invite Admin', new_user_invitation_path %></li>
-      <% end %>
-      <li class=''>
-        <% if user_signed_in? %>
-            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete %>
-        <% else %>
-            <%= link_to 'Sign In', new_user_session_path %>
-        <% end %>
-      </li>
-    </ul>
 
-    <!-- Left Nav Section -->
-    <!--<ul class="left">
-      <li><a href="#">Left Nav Button</a></li>
-    </ul>-->
-  </section>
+        <li class="admin"><%= link_to 'Invite Admin', new_user_invitation_path %></li>
+        <li class='' id="admin-toggle"><a class="teal-text text-lighten-1" href="#">View page as guest</a></li>
+
+        <li>
+          <%= link_to material_icon('lock_open', align: 'right') + 'Sign Out',
+            destroy_user_session_path, method: :delete,
+            class: 'blue-grey-text text-darken-4' %>
+      </li>
+      </ul>
+
+    <!-- Guest User Menu (for visitors who aren't signed in) -->
+    <% else %>
+      <ul class="right hide-on-med-and-down">
+        <li>
+          <%= link_to material_icon('lock_outline', align: 'right') + 'Login',
+            new_user_session_path,
+            class: 'teal-text text-darken-1' %>
+      </li>
+      </ul>
+    <% end %>
+
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons black-text">menu</i></a>
+  </div>
 </nav>
+
+<!--Site Navigation-->
+<nav class="site-nav hide-on-med-and-down" role="navigation">
+  <div class="nav-wrapper container">
+    <ul class="left hide-on-med-and-down">
+      <li><%= link_to 'Bills', bills_path %></li>
+      <li><%= link_to 'Councilmembers', people_path %></li>
+      <li><%= link_to 'Committees', organizations_path %></li>
+      <li><%= link_to 'Calendar', meetings_path %></li>
+    </ul>
+    <ul class="right hide-on-med-and-down">
+      <li><a id="search-popout-button" href="#"><%= material_icon 'search' %></a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Searchbar -->
+<nav id="search-popout" class="teal hidden">
+  <div class="nav-wrapper">
+    <%= form_tag search_path, method: 'get', id: 'search-form' do %>
+      <div class="input-field">
+        <%= text_field_tag :search, params[:search], id: 'search', type: 'search' %>
+        <label for="search"><%= material_icon 'search' %></label>
+        <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;">
+      </div>
+    <% end %>
+  </div>
+</nav>
+
+<!-- Mobile navigation -->
+<ul id="nav-mobile" class="side-nav">
+  <li><a href="#" class="black-text">Search<i class="material-icons">search</i></a></li>
+
+  <li><%= link_to 'Bills', bills_path, class: 'black-text' %></li>
+  <li><%= link_to 'Councilmembers', people_path, class: 'black-text' %></li>
+  <li><%= link_to 'Committees', organizations_path, class: 'black-text' %></li>
+  <li><%= link_to 'Calendar', meetings_path, class: 'black-text' %></li>
+
+  <% if user_signed_in? %>
+    <!-- TODO: Get into Rails -->
+    <li><a href=<%= destroy_user_session_path %> rel="nofollow" data-method="delete" class="teal-text text-darken-1">Sign Out<i class="material-icons">lock_open</i></a></li>
+  <% else %>
+    <li><a href=<%= new_user_session_path %> class="teal-text text-darken-1">Login<i class="material-icons">lock_outline</i></a></li>
+  <% end %>
+</ul>

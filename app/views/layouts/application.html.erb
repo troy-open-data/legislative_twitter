@@ -7,34 +7,45 @@
 
   <%= render 'layouts/touch_icons' %>
 
-  <%= stylesheet_link_tag    'application' %>
+  <%= stylesheet_link_tag    'application',
+    'https://fonts.googleapis.com/icon?family=Material+Icons',
+    'https://fonts.googleapis.com/css?family=Roboto+Slab:400,700',
+    'https://fonts.googleapis.com/css?family=Droid+Serif' %>
   <!--For GeoComplete-->
   <%= javascript_include_tag 'http://maps.googleapis.com/maps/api/js?sensor=false&libraries=places' %>
   <!--For Foundation-->
-  <%= javascript_include_tag 'vendor/modernizr' %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%#= javascript_include_tag 'vendor/modernizr' %>
+  <%= javascript_include_tag 'application' %>
+  <%#= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 
 <body>
-<div class="row">
-  <%= render 'layouts/navbar' %>
-</div>
-
-<div class="row">
-  <%= render 'layouts/sidenav' %>
-  <div class="large-9 columns">
+  <div class="row">
+    <%= render 'layouts/navbar' %>
     <%= render 'layouts/notice' %>
+  </div>
+
+  <div class="main container">
     <%= yield %>
   </div>
 
-</div>
+  <% if Rails.env.development? %>
+    <div class="admin row" id="footnotes_holder"></div>
+  <% end %>
 
-<div class="row show-for-medium-down">
-  <%= render 'layouts/search' %>
-</div>
+  <%#= render 'layouts/feedback' %>
+  <%= render 'layouts/footer' %>
 
-<%= render 'layouts/footer' %>
-
+  <!-- User Report Scripts -->
+  <script type="text/javascript">
+    var _urq = _urq || [];
+    _urq.push(['initSite', '57a48171-e007-4b58-aadd-66a885b9272d']);
+    (function() {
+      var ur = document.createElement('script'); ur.type = 'text/javascript'; ur.async = true;
+      ur.src = ('https:' == document.location.protocol ? 'https://cdn.userreport.com/userreport.js' : 'http://cdn.userreport.com/userreport.js');
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ur, s);
+    })();
+  </script>
 </body>
 </html>

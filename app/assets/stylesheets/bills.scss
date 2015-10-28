@@ -4,3 +4,15 @@
 
 /* Hacky fix for modal background not filling entire screen */
 .reveal-modal-bg { position: fixed }
+
+.bill-no {
+	font-family: $slab-fonts;
+	font-weight: bold;
+}
+
+.sponsor {
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	padding-top: 0.5em;
+}
+

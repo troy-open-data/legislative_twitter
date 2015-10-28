@@ -1,3 +1,13 @@
-<li>
-  <%= link_to_unless current_page.first?, raw(t 'views.pagination.previous'), url, :rel => 'prev', :remote => remote %>
-</li>
+<% if current_page.first? %>
+  <li class="disabled">
+    <%= content_tag :a do %>
+      <i class="material-icons">chevron_left</i>
+    <% end %>
+  </li>
+<% else %>
+  <li class="waves-effect">
+    <%= link_to url, :rel => 'next', :remote => remote do %>
+      <i class="material-icons">chevron_left</i>
+    <% end %>
+  </li>
+<% end %>

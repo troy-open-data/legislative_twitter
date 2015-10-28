@@ -1,0 +1,132 @@
+/* Application-wide styles */
+html, body {
+  overflow-x: hidden;
+}
+body {
+  background-color: color("blue-grey", "lighten-5");
+}
+
+#all_footnotes {
+  background-color: color("blue-grey", "lighten-5");
+}
+
+.admin {
+  color: $primary-color;
+  a { color: $primary-color; }
+  &.btn, &.btn-floating { color: white; background: $primary-color; }
+}
+
+.alert { background: $error-color; }
+.alert-text { color: $error-color !important; }
+
+.notice, .success { background: $success-color; }
+.notice-text, .success-text { color: $success-color !important; }
+//.notice {
+//  background: $info-color;
+//}
+
+.side-button {
+  &.feedback { bottom: 0px }
+  //right: -155px;
+  right: 0px;
+  position: absolute;
+  padding-left: 15px; padding-right: 15px;
+  -webkit-transition: all 0.4s; /* Safari */
+  -moz-transition: all 0.4s; /* Mozilla */
+  -o-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.flash-msg, .flash-msg a {
+  margin-top: 0;
+  color: white;
+}
+
+.icon-block {
+	padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+.card {
+	.card-title {
+		text-transform: uppercase;
+		font-family: $slab-fonts;
+		font-weight: 700;
+    color: $secondary-color;
+    &.light {
+      text-transform: none;
+      font-size: 1.2em;
+      font-weight: 400;
+    }
+	}
+}
+
+h1, h2, h3, h4 {
+	font-family: $slab-fonts;
+	font-weight: 400;
+	letter-spacing: -1px;
+	&.header {
+		font-family: $logo-fonts;
+		letter-spacing: -2px;
+	}
+  color: $secondary-color;
+}
+
+nav, ul.side-nav {
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	.brand-logo {
+		font-family: $logo-fonts;
+		text-transform: none;
+		letter-spacing: -1px;
+		font-size: 1.5em;
+		img {
+			max-height: 1.5em;
+			margin-bottom: -0.3em;
+		}
+	}
+}
+
+.side-nav {
+	.material-icons {
+		font-size: 30px;
+    padding-left: 20px;
+    vertical-align: middle;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.field-with-errors, .erros {
+  /* label color */
+  &.input-field label {
+    color: #000;
+  }
+  /* label focus color */
+  &.input-field input[type=text]:focus + label {
+    color: #000;
+  }
+  /* label underline focus color */
+  &.input-field input[type=text]:focus {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* valid color */
+  &.input-field input[type=text].valid {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* invalid color */
+  &.input-field input[type=text].invalid {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+  }
+  /* icon prefix focus color */
+  &.input-field .prefix.active {
+    color: #000;
+  }
+}

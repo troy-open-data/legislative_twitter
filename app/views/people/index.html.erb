@@ -1,44 +1,39 @@
 <% if user_signed_in? %>
-    <div class="row">
-      <%= link_to '+ New Person', new_person_path, class: 'right admin button' %>
-    </div>
+      <%= link_to material_icon('add', align: 'left') + 'New Person', new_person_path, class: 'right admin btn-floating' %>
 <% end %>
 
+<h4>Councilmembers</h4>
 
-<h2>Council Representatives</h2>
-
-<table>
-  <thead>
-  <tr>
-    <th>First</th>
-    <th>Last</th>
-    <th>Committees</th>
-    <th></th>
-    <% if user_signed_in? %>
-        <th colspan="2" class="admin">Admin</th>
-    <% end %>
-  </tr>
-  </thead>
-
-  <tbody>
+<div class="row">
   <% @people.each do |person| %>
-      <tr>
-        <td><%= person.first %></td>
-        <td><%= person.last %></td>
-        <td><%= person.organizations.map(&:name).join(', ') %></td>
-        <td><%= link_to 'Show', person %></td>
+    <div class="col l3 m4 s12">
+      <div class="card">
+        <div class="card-image">
+          <img src="http://www.placehold.it/200x200/546e7a/78909c/&t=TCT">
+        </div>
+        <div class="card-content">
+          <span class="light card-title"><%= person.name %></span>
+          <p>(D, I)</p>
+          <p>District #3</p>
+        </div>
+        <div class="card-action">
+          <%= link_to 'Profile', person %>
+        </div>
         <% if user_signed_in? %>
-            <td class="admin"><%= link_to 'Edit', edit_person_path(person) %></td>
-            <td class="admin"><%= link_to 'Destroy', person, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <div class="teal lighten-1 admin card-action">
+            <%= link_to 'edit', edit_person_path(person), class: 'white-text' %>
+            <%= link_to 'delete', person, class: 'white-text',
+              method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
         <% end %>
-      </tr>
+      </div>
+    </div>
   <% end %>
-  </tbody>
-</table>
+</div>
 
 <% if user_signed_in? %>
     <div class="admin">
-      <h3>Admins</h3>
+      <h4>Admins</h4>
       <ul>
         <% User.all.each do |admin| %>
             <li><%= admin.email %></li>

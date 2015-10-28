@@ -1,27 +1,41 @@
 <% content_for :title, 'Bills' %>
 
 <!--Header and New Button-->
-<%= render 'bills/admin_buttons' if user_signed_in? %>
 
 <div class="row">
-  <h2>Listing Bills</h2>
-
-  <!--Bill Listing -->
-  <% cache [recent_bills_cache_name, Bill.latest] do %>
-      <div class="row">
-        <div id="bills" class="small-12 columns">
-          <%= render @bills %>
-        </div>
+  <!-- Static Content -->
+  <div class="section" id="index-banner">
+      <br>
+      <br>
+      <h1 class="header center blue-grey-text">Bills</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">A bill must be added to a calendar before it can come up for a vote before the Senate. The floor calendar is a list of bills that have been reported out of their respective committees to the Senate floor. The active list is a list of bills drawn from the floor calendar that are expected to make it to the floor for a vote on a given session day. Supplemental calendars are a list of bills reported out of the Rules committee expected to make it to the floor for a vote on a given session day.</h5>
       </div>
-  <% end %>
+      <div class="row center">
+        <a href="#bills-section" class="header-nav btn-flat blue-grey-text text-darken-1"><%= material_icon 'expand_more', align: 'right' %>View Recent Bills</a>
+      </div>
+  </div>
 
-  <br>
-
-  <!--Pagination-->
-  <div class="row">
-    <div class="small-12 columns">
-      <%= paginate @bills %>
+  <div id="bills-section" class="section">
+    <div class="row">
+      <div class="col s12">
+        <% if user_signed_in? %>
+          <%= link_to material_icon('add', align: 'left') + 'New Bill', new_bill_path,
+            class: 'right admin btn-floating btn-large waves-effect waves-light' %>
+        <% end %>
+        <h4>Listing Bills</h4>
+      </div>
     </div>
+
+    <!--Bill Listing -->
+    <div id="bills">
+      <% cache [recent_bills_cache_name, Bill.latest] do %>
+        <%= render @bills %>
+      <% end %>
+    </div>
+
+    <!--Pagination-->
+    <%= paginate @bills %>
   </div>
 </div>
 

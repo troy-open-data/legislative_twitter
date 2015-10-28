@@ -10,7 +10,9 @@ class GuestBrowsesOrganizationsTest < ActionDispatch::IntegrationTest
       @finance_committee = create(:organization, name: 'Finance Committee', level: 2)
 
       visit '/'
-      click_link 'Organizations'
+      within 'nav.site-nav' do
+        click_link 'Committees'
+      end
     end
 
     should 'see a list of organizations on the index page' do

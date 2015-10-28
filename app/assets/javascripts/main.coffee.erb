@@ -1,0 +1,69 @@
+# Generates HTML for a material icon with a given name
+materialIcon = (name) ->
+  "<i class='material-icons'>#{name}</i>"
+
+ready = ->
+
+  # hide/reveal admin ui items
+
+  adminToggleBtn = $('#admin-toggle a')
+  $('#admin-toggle').click (e) ->
+    e.preventDefault()
+    $('.admin').toggle 600
+    viewType = if /guest/.test(adminToggleBtn.text()) then 'admin' else 'guest'
+    adminToggleBtn.text("View page as #{viewType}")
+
+  # initialize mobile sidenav
+  $('.button-collapse').sideNav()
+
+  # hide/reveal search button
+
+  searchBtn = $('#search-popout-button')
+
+  # Expands the search bar
+  # TODO: Change to be CSS animation?
+  expandSearch = ->
+    searchBtn.html materialIcon 'close'
+    $('#search-popout').slideDown(400)
+
+  # Collapses the search bar
+  collapseSearch = ->
+    searchBtn.html materialIcon 'search'
+    $('#search-popout').slideUp(400)
+
+  searchBtn.click (e) ->
+    e.preventDefault()
+
+    searchClosed = /search/.test searchBtn.html()
+    # switch icon type
+    if searchClosed then expandSearch() else collapseSearch()
+
+
+  # Hides flash messages on exit
+  hideFlash = (e) ->
+    e.preventDefault()
+    $('.flash-msg').slideUp(400)
+
+  $('.flash-msg a.close').click hideFlash
+
+  # Glue side buttons to bottom of page
+  $('.side-button').pushpin({
+    offset: $(window).height() - $('.side-button').height(),
+  });
+
+  # Scroll to section
+  $('.header-nav').click (e) ->
+    e.preventDefault()
+    target = $(this).attr('href')
+    $('html, body').animate({
+      scrollTop: $(target).offset().top
+    }, 600)
+
+# bills.js.coffee
+#
+# ready = ->
+#   $('.jqte-test').jqte()
+
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

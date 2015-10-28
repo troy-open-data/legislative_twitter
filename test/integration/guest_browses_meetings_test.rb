@@ -8,12 +8,14 @@ class GuestBrowsesMeetingsTest < ActionDispatch::IntegrationTest
     finance_committee = create(:organization, name: 'Finance Committee')
     3.times { create(:meeting, organization: finance_committee) }
     visit '/'
+
+    within 'nav.site-nav' do
+      click_link 'Calendar'
+    end
   end
 
   context 'A guest' do
     should 'see a list of meetings' do
-      click_link 'Meetings'
-
       assert page.has_css? 'table.city-council-meetings'
       within 'table.city-council-meetings' do
         assert_equal 5, all('tr.meeting').count
@@ -26,7 +28,6 @@ class GuestBrowsesMeetingsTest < ActionDispatch::IntegrationTest
     end
 
     should 'be able to navigate to a meeting' do
-      click_link 'Meetings'
       within all('tr.meeting').first do
         click_link 'Details'
       end
@@ -51,11 +52,12 @@ class GuestBrowsesMeetingsTest < ActionDispatch::IntegrationTest
         @future_meeting = create(:meeting,
                                  organization: future,
                                  date_and_time: Date.tomorrow)
+        within 'nav.site-nav' do
+          click_link 'Calendar'
+        end
       end
 
       context 'on the index page' do
-        setup { click_link 'Meetings' }
-
         should 'see html and pdf links to the meeting agenda' do
           within 'table.future-meetings td.agenda' do
             agenda_links = all('a').map { |a| a[:href] }
@@ -74,7 +76,6 @@ class GuestBrowsesMeetingsTest < ActionDispatch::IntegrationTest
 
       context 'on the show page' do
         setup do
-          click_link 'Meetings'
           within 'table.future-meetings' do
             click_link 'Details'
           end
@@ -102,10 +103,13 @@ class GuestBrowsesMeetingsTest < ActionDispatch::IntegrationTest
         @past_meeting = create(:meeting,
                                organization: past,
                                date_and_time: 1.year.ago)
+
+        within 'nav.site-nav' do
+          click_link 'Calendar'
+        end
       end
 
       context 'on the index page' do
-        setup { click_link 'Meetings' }
         should 'see html and pdf links to the meeting minutes' do
           within 'table.past-meetings td.minutes' do
             minutes_links = all('a').map { |a| a[:href] }
@@ -117,7 +121,6 @@ class GuestBrowsesMeetingsTest < ActionDispatch::IntegrationTest
 
       context 'on the show page' do
         setup do
-          click_link 'Meetings'
           within 'table.past-meetings' do
             click_link 'Details'
           end

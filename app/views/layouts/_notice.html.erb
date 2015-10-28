@@ -1,21 +1,18 @@
-<%# if flash[:notice] %>
-    <!--<div id="mainAlert1" data-alert class="notice alert-box" tabindex="0" aria-live="assertive" role="dialogalert">-->
-      <!--<%#= flash[:notice] %>-->
-      <!--<button href="#" tabindex="0" class="close" aria-label="Close Alert">&times;</button>-->
-    <!--</div>-->
-<%# end %>
-
 <% if flash %>
     <% flash.each_with_index do |(message_type, message), index| %>
         <div id="mainAlert<%= index %>"
              data-alert
-             class="<%= message_type %> alert-box"
+             class="<%= message_type %> flash-msg card-panel"
              tabindex="0"
              aria-live="assertive"
              role="dialogalert">
-          <%= message %>
-          <button href="#" tabindex="0" class="close"
-                  aria-label="Close Alert">&times;</button>
-        </div>
+             <div class="container">
+               <%= notice_icon message_type %><%= message %>
+
+              <%= link_to material_icon('close'), '', :'aria-label' => 'Close Alert', 
+                tabindex: 0,
+                class: 'close right' %>
+             </div>
+             </div>
     <% end %>
 <% end %>
