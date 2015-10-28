@@ -43,7 +43,7 @@ class Bill < ActiveRecord::Base
                                 reject_if: ->(attr) { attr[:file].blank? },
                                 allow_destroy: true
   has_paper_trail
-  paginates_per 10
+  paginates_per 5
   acts_as_list scope: [:type]
 
   validates :title,             presence:  true

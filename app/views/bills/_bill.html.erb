@@ -1,36 +1,41 @@
-<div class="bill">
-  <!--Bill Blurb:
-    cache updates whenever an update to bill (or dependents)
-    is detected-->
-    <% cache ['bill', bill] do %>
+<div class="row">
+  <div class="col s12">
+    <div class="card bill hoverable">
+      <!--Bill Blurb:
+        cache updates whenever an update to bill (or dependents)
+        is detected-->
+        <% cache ['bill', bill] do %>
 
-      <!--Title and Subtitle-->
-      <h4>
-        <%= link_to "#{bill.numbering}: #{bill.short_title}", bill %>
-        <small><%= meta_header bill %></small>
-      </h4>
+          <div class="card-content blue-grey-text text-darken-4">
+            <!--Title and Subtitle-->
+            <span class="card-title">
+              <%= bill.numbering :abbreviation %>
 
-      <!--Body-->
-      <!--<p><%#= truncated_body bill %></p>-->
+              <!-- Admin Buttons -->
+              <% if user_signed_in? %>
+                <span class="right admin">
+                  <%= link_to material_icon('mode_edit'), edit_bill_path(bill) %>
+                  <%= link_to material_icon('close'), bill,
+                              class: 'alert-text',
+                              method: 'delete',
+                              data: { confirm: 'Are you sure you want to delete this?'} %>
+                </span>
+              <% end %>
+            </span>
 
-      <!-- Bill Options -->
-      <div class="button-bar">
-        <!-- Download PDF Button -->
-        <ul class="button-group">
-          <li><%= link_to 'PDF', bill_path(id: bill.id, format: 'pdf'),
-            class:'tiny button' %></li>
-          <li><%= link_to 'Show', bill, class:'tiny button' %></li>
-        </ul>
-        <!-- Action Buttons -->
-        <% if user_signed_in? %>
-          <ul class="admin button-group">
-            <li><%= link_to 'Edit', edit_bill_path(bill), class:'tiny button' %></li>
-            <li><%= link_to('Delete', bill,
-                            method: 'delete', class: 'tiny alert button',
-                            data: { confirm: 'Are you sure you want to delete this?'}) %></li>
-          </ul>
+            <!--Body-->
+            <p class="flow-text"><%= bill.title %></p>
+            <p class="badge grey-text sponsor"><%= meta_header bill %></p>
+            <!--<p><%#= truncated_body bill %></p>-->
+
+          </div>
+
+          <div class="card-action">
+            <!-- Bill Options -->
+            <%= link_to 'PDF', bill_path(id: bill.id, format: 'pdf') %>
+            <%= link_to 'Show', bill %>
+          </div>
         <% end %>
-      </div>
-
-    <% end %>
+    </div>
+  </div>
 </div>

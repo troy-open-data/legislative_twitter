@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.includes(:organizations).all
+    @people = Person.all
   end
 
   # GET /people/1

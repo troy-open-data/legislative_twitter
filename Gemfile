@@ -8,13 +8,12 @@ gem 'passenger',        '~> 5.0'
 # assets
 gem 'sass',             '~> 3.4'
 gem 'sass-rails',       '~> 5.0'
-gem 'foundation-rails', '~> 5.5'
 gem 'materialize-sass'
 
 gem 'uglifier',         '>= 1.3.0'
 gem 'coffee-rails',     '~> 4.1'
 gem 'jquery-rails',     '~> 4.0'
-gem 'turbolinks'
+# gem 'turbolinks' # causing JS issues
 
 gem 'nested_form',      '0.3.2'
 gem 'kaminari',         '0.16.3'

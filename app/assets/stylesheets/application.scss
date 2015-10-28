@@ -13,17 +13,11 @@
  *= require_self
  */
 
+// Application-Wide Styles
+@import 'materialize_and_overrides';
+@import 'typography';
+@import 'main';
 
-
-// Site-Wide Styles
-@import 'foundation_and_overrides';
-
-// Model-Specific Style Scopes
+// View-Specific Style Scopes
 @import 'bills';
 @import 'meetings';
-
-.sidenav-img {
-  max-height: 200px;
-  margin: auto;
-  display: block;
-}

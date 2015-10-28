@@ -2,78 +2,61 @@
 
 <!-- Bill Options -->
 <div class="row">
-  <div class="right button-bar">
+  <div class="right">
     <!-- Action Buttons -->
-    <ul class="button-group">
-      <li><%= link_to 'All', bills_path, class:'tiny button' %></li>
-    </ul>
+    <%= link_to 'All', bills_path, class:'waves-effect waves-light btn' %>
     <% if user_signed_in? %>
-        <ul class="admin button-group">
-          <li><%= link_to 'Edit', edit_bill_path(@bill), class:'tiny admin button' %></li>
-          <li><%= link_to('Delete', bill_path,
-                          method: 'delete', class: 'tiny admin alert button',
-                          data: { confirm: 'Are you sure you want to delete this?'}) %></li>
-        </ul>
+        <span class="admin">
+          <%= link_to 'Edit', edit_bill_path(@bill), class:'waves-effect waves-light admin btn' %>
+          <%= link_to('Delete', bill_path,
+                          method: 'delete', class: 'admin alert waves-effect waves-light btn',
+                          data: { confirm: 'Are you sure you want to delete this?'}) %>
+      </span>
     <% end %>
-    <!-- Download PDF Button -->
-    <ul class="button-group">
-      <li><%= link_to 'Download PDF',
-                      bill_path(id: @bill.id, format: 'pdf'),
-                      class: 'dropdown button',
-                      :'data-dropdown' => 'bill-pdf-options',
-                      :'aria-controls' => 'bill-pdf-options',
-                      :'aria-expanded' => 'false' %><br />
-        <!--Agenda Download Dropdown-->
-        <ul id="bill-pdf-options" data-dropdown-content class="f-dropdown" aria-hidden="true">
-          <!--Bill with attachments-->
-          <li>
-            <%= link_to 'with attachments',
-                        bill_path(id: @bill.id, format: 'pdf',
-                                  attach: { attachments: true }) %>
-          </li>
-          <!--Bill only-->
-          <li><%= link_to 'bill only',
-                          bill_path(id: @bill.id, format: 'pdf',
-                                    attach: { false: false }) %></li>
-        </ul>
-      </li>
 
+    <!-- Download PDF Button -->
+    <%= link_to material_icon('arrow_drop_down', align: 'right') + 'Download PDF', '#', class:'dropdown-button btn', :'data-activates' => 'download-pdf-options' %>
+    <ul id='download-pdf-options' class='dropdown-content'>
+      <!--Bill with attachments-->
+      <li><%= link_to 'with attachments',
+          bill_path(id: @bill.id, format: 'pdf',
+                    attach: { attachments: true }) %></li>
+      <!--Bill only-->
+      <li><%= link_to 'bill only',
+        bill_path(id: @bill.id, format: 'pdf',
+                  attach: { false: false }) %></li>
     </ul>
   </div>
 </div>
 
 
 
-
 <div class="row">
 
   <!-- Bill Title -->
-  <h2><%= @bill.title.titleize %><br />
-    <small><%= @bill.numbering %></small>
-  </h2>
+  <h4><%= @bill.numbering %></h4>
+  <p class="flow-text"><%= @bill.title %></p><br />
 
+  <!---- BEGIN CONTENT TABS ---->
+  <div class="row">
 
-  <!----- BEGIN CONTENT TABS ----->
-
-  <!--Tab headers-->
-  <ul class="tabs" data-tab>
-    <li class="tab-title active"><a href="#fulltext_tab">Full Text</a></li>
-    <% unless @bill.attachments.empty? %>
-        <li class='tab-title'><a href='#attachments_tab'>Attachments (<%= @bill.attachments.count %>)</a></li>
-    <% end %>
-    <li class="tab-title"><a href="#history_tab">Vote History</a></li>
-    <li class="tab-title"><a href="#changelog_tab">Changelog</a></li>
-  </ul>
-
-  <div class="tabs-content">
+    <!--Tab headers-->
+    <div class="col s12">
+      <ul class="tabs blue-grey lighten-5">
+        <li class="tab col s3"><a class="active" href="#fulltext_tab">Full Text</a></li>
+        <li class="tab col s3 <%= "disabled" if @bill.attachments.empty? %>"><a href="#attachments_tab">Attachments (<%= @bill.attachments.count %>)</a></li>
+        <li class="tab col s3"><a href="#history_tab">Vote History</a></li>
+        <li class="tab col s3"><a href="#changelog_tab">Changelog</a></li>
+      </ul>
+    </div>
 
     <!--Bill Full Text-->
-    <div class="content active" id="fulltext_tab">
+    <div class="col s12" id="fulltext_tab">
       <%= render 'shared/bill_sections', bill: @bill %>
     </div>
 
     <!-- Attachment List -->
-    <div class="content" id="attachments_tab">
+    <div class="col s12" id="attachments_tab">
       <h4>Attached Material:</h4>
       <dl>
         <% @bill.attachments.each do |attachment| %>
@@ -84,7 +67,7 @@
     </div>
 
     <!-- History List -->
-    <div class="content" id="history_tab">
+    <div class="col s12" id="history_tab">
       <h4>Vote History</h4>
       <table>
         <thead>
@@ -136,7 +119,7 @@
                   <td><%= version.event %></td>
                   <td><%= @bill.list_changed_attributes version %></td>
                   <td><%= version.created_at.to_formatted_s(:long_ordinal) %></td>
-                  <td><a href="#" data-no-turbolink data-reveal-id="diffModal<%=version.id%>">View Diff</a></td>
+                  <td><a data-no-turbolink href="#diff-modal<%=version.id%>" class="btn-flat modal-trigger">View Diff</a></td>
                   <% if user_signed_in? %>
                       <td class="admin"><%= link_to 'Rollback', revert_version_path(id: version.id),
                                                     method: :post %></td>
@@ -152,6 +135,5 @@
       </p>
     </div>
   </div>
-
-  <!----- END CONTENT TABS ----->
+  <!---- END CONTENT TABS ---->
 </div>

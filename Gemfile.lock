@@ -127,9 +127,6 @@ GEM
     fastercsv (1.5.5)
     ffi (1.9.10)
     formatador (0.2.5)
-    foundation-rails (5.5.2.1)
-      railties (>= 3.1.0)
-      sass (>= 3.3.0, < 3.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     guard (2.12.9)
@@ -367,8 +364,6 @@ GEM
     thread_safe (0.3.5)
     tilt (1.4.1)
     ttfunk (1.4.0)
-    turbolinks (2.5.3)
-      coffee-rails
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
     uglifier (2.7.1)
@@ -406,7 +401,6 @@ DEPENDENCIES
   diffy (~> 3.0)
   dotenv-rails (~> 2.0.1)
   factory_girl_rails
-  foundation-rails (~> 5.5)
   guard (~> 2.12.5)
   guard-annotate (~> 2.2)
   guard-brakeman
@@ -443,7 +437,6 @@ DEPENDENCIES
   shoulda
   simple_form (~> 3.1)
   spring (~> 1.3.6)
-  turbolinks
   uglifier (>= 1.3.0)
   versionist (~> 1.4)
 

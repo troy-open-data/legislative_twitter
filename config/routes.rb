@@ -40,8 +40,8 @@ Rails.application.routes.draw do
     get '/minutes/toggle',  to: 'minutes#edit', as: 'toggle_minutes'
     get '/in_progress',     to: 'meetings#start_meeting', as: 'start_meeting'
   end
-  get 'search',             to: 'search#index', as: 'search'
+  get 'search',               to: 'search#index', as: 'search'
   post 'versions/:id/revert', to: 'versions#revert', as: 'revert_version'
 
-  root 'meetings#index'
+  root 'bills#index'
 end

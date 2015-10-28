@@ -1,4 +1,22 @@
 module ApplicationHelper
+  # Returns a materialize icon associated with a notice type
+  def notice_icon(type)
+    case type
+    when 'alert' then material_icon 'warning', align: 'left'
+    when 'error' then material_icon 'error', align: 'left'
+    when 'success' then material_icon 'stars', align: 'left'
+    when 'notice' then material_icon 'check_circle', align: 'left'
+    end
+  end
+
+  # Output html for a materialize icon
+  #
+  # @param icon_name
+  # @return [String] html
+  def material_icon(icon_name, align: '')
+    content_tag :i, icon_name, class: "#{align} material-icons"
+  end
+
   # Adds an error message for the subject to flash.now
   #
   # @param subject

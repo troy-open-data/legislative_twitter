@@ -1,0 +1,12 @@
+/**
+ * Style Overrides for the MaterializeCSS Front-End Framework
+ **/
+
+/* Color Overrides */
+$primary-color: color("teal", "lighten-1") !default;
+$secondary-color: color("blue-grey", "darken-1") !default;
+$link-color: color("amber", "darken-1") !default;
+/* Alert Colors */
+$success-color: color("green", "base") !default;
+$error-color: color("red", "base") !default;
+$info-color: $secondary-color !default;
