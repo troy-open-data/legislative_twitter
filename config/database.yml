@@ -20,6 +20,7 @@ default: &default
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
   pool: 5
+  host: <%= ENV['IP'] %>
 
 development:
   <<: *default
@@ -59,7 +60,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  username: postgres
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
   database: legislative_twitter_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
